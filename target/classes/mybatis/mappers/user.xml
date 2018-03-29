@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<!-- <resultMap type="com.bit.hi.domain.vo.UserVo" id="resultMapList">
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_email" property="userEmail" />
+		<result column="user_addr" property="userAddr" />
+		<result column="user_tel" property="userTel" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="user_nickname" property="userNickname" />
+		<result column="user_level" property="userLevel" />
+		<result column="reg_date" property="regDate" />
+	</resultMap> -->
+	
+	<insert id="insertJoin" parameterType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			insert into users
+			values (#{userId}, #{userName}, #{userEmail}, #{userAddr}, #{userTel}, #{userPwd}, #{userNickname}, 'member', sysdate) 
+		]]>
+	</insert>
+	
+	<select id="getListByIdPwd" parameterType="com.bit.hi.domain.vo.UserVo" resultType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			select user_id "userId",
+					user_name "userName",
+					user_email "userEmail",
+					user_addr "userAddr",
+					user_tel "userTel",
+					user_pwd "userPwd",
+					user_nickname "userNickname",
+					user_level "userLevel",
+					reg_date "regDate"
+			from users
+			where user_id=#{userId} and user_pwd=#{userPwd}
+		]]>
+	</select>
+</mapper>

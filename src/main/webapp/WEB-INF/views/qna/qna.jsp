@@ -19,7 +19,7 @@
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation"><a href="${pageContext.request.contextPath}/"
 			aria-controls="home" role="tab" data-toggle="tab">소개</a></li>
-		<li role="presentation"><a href="${pageContext.request.contextPath}/interview/upload"
+		<li role="presentation"><a href="${pageContext.request.contextPath}/interview/uploadmode"
 			aria-controls="home" role="tab" data-toggle="tab">면접진단</a></li>
 		<li role="presentation"><a href="${pageContext.request.contextPath}/post/notice"
 			aria-controls="home" role="" data-toggle="tab">소이팩토리</a></li>
@@ -33,7 +33,7 @@
 
 	<div id="wrapper" class="container">
 		<div id="content" class="row form-horizontal">
-			<div class="col-md-2">
+			<div class="col-md-2 pull-left">
 				<ul class="nav nav-pills nav-stacked ">
 					<li role="presentation"><a href="${pageContext.request.contextPath}/qna/notice">공지사항</a></li>
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/qna/qna">Q&A</a></li>

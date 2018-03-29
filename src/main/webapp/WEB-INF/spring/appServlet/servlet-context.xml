@@ -7,6 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- 웹 영역 -->
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -23,6 +24,19 @@
 	
 	<context:component-scan base-package="com.bit.hi.controller" />
 	
+	<!-- 멀티파트 리졸버(파일첨부 기능)-->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<beans:property name="maxUploadSize" value="52428800" />
+
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<beans:property name="maxInMemorySize" value="52428800" />
+
+		<!-- defaultEncoding -->
+		<beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
 	
+	<resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 	
 </beans:beans>

@@ -1,23 +1,26 @@
 package com.bit.hi.domain.vo;
 
-public class QnaVo {
+public class CsVo {
 	private int notiNo;
 	private String notiTitle;
 	private String notiContent;
 	private String notiDate;
 	private int notiHitCnt;
 	private String userId;
+	private String userNickname;
 	
-	public QnaVo() {
+	public CsVo() {
 	}
 
-	public QnaVo(int notiNo, String notiTitle, String notiContent, String notiDate, int notiHitCnt, String userId) {
+	public CsVo(int notiNo, String notiTitle, String notiContent, String notiDate, int notiHitCnt, String userId,
+			String userNickname) {
 		this.notiNo = notiNo;
 		this.notiTitle = notiTitle;
 		this.notiContent = notiContent;
 		this.notiDate = notiDate;
 		this.notiHitCnt = notiHitCnt;
 		this.userId = userId;
+		this.userNickname = userNickname;
 	}
 
 	public int getNotiNo() {
@@ -68,10 +71,19 @@ public class QnaVo {
 		this.userId = userId;
 	}
 
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
 	@Override
 	public String toString() {
-		return "QnaVo [notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent + ", notiDate="
-				+ notiDate + ", notiHitCnt=" + notiHitCnt + ", userId=" + userId + "]";
+		return "CsVo [notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent + ", notiDate="
+				+ notiDate + ", notiHitCnt=" + notiHitCnt + ", userId=" + userId + ", userNickname=" + userNickname
+				+ "]";
 	}
 	
 }

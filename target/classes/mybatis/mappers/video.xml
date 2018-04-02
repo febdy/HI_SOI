@@ -8,4 +8,20 @@
 			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, '교정선 받기')
 		]]>
 	</insert>
+	
+	<select id="selectMyVideo" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_correct_line videoCorrectLine
+			from video
+			where user_id=#{userId}
+		]]>
+	</select>
 </mapper>

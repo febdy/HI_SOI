@@ -36,4 +36,5 @@
 			where user_id=#{userId} and user_pwd=#{userPwd}
 		]]>
 	</select>
+
 </mapper>

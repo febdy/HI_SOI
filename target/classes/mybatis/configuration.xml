@@ -6,6 +6,6 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/video.xml" />
-		<mapper resource="mybatis/mappers/qna.xml" />
+		<mapper resource="mybatis/mappers/cs.xml" />
 	</mappers>
 </configuration>

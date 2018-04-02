@@ -1,5 +1,8 @@
 drop table users;
 drop table video;
+drop sequence seq_video_no;
+drop table notice;
+drop sequence seq_notice_no;
 
 CREATE TABLE users (
     user_id VARCHAR2(20) not null,
@@ -10,43 +13,83 @@ CREATE TABLE users (
     user_pwd    VARCHAR2(30) not null,
     user_nickname   VARCHAR2(20) not null,
     user_level  VARCHAR2(30) not null,
-    reg_date    VARCHAR2(20) not null,
+    reg_date    DATE DEFAULT SYSDATE,
     PRIMARY KEY(user_id)
 );
 
+-- 일단 video_time 메서드 찾기 전까지 video_time 삭제한 db 사용
 CREATE TABLE video (
     video_no NUMBER(30) not null,
     user_id VARCHAR2(20) not null,
     video_origin_name   VARCHAR2(200) not null,
     video_save_name VARCHAR2(200) not null,
     video_ex_name   VARCHAR2(200) not null,
-    video_path  VARCHAR2(20) not null,
+    video_path  VARCHAR2(100) not null,
     video_size  VARCHAR2(30) not null,
-    video_time  VARCHAR2(30) not null,
-    video_date  VARCHAR2(30) not null,
+    video_date  DATE DEFAULT SYSDATE,
     video_correct_line  VARCHAR2(100) not null,
     PRIMARY KEY(video_no),
-    CONSTRAINT c_video_fk FOREIGN KEY (user_id)
-    REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+CREATE SEQUENCE seq_video_no
+INCREMENT BY 1
+START WITH 1;
 
 --CREATE SEQUENCE seq_book_id
 --INCREMENT BY 1 
 --START WITH 1 ;
 
---commit;
---
+commit;
+
 select *
 from users;
---
---select *
---from users
---where user_id='real' and user_pwd='1';
---
---select *
---from video;
---
---delete from users
---where user_id='realso0';
---
---commit;
+
+select *
+from video
+where user_id='realso1';
+
+CREATE TABLE notice (
+    noti_no NUMBER(10),
+    noti_title  VARCHAR2(255),
+    noti_content    VARCHAR2(4000),
+    noti_date   DATE DEFAULT SYSDATE,
+    noti_hit_cnt    NUMBER DEFAULT 0,
+    user_id VARCHAR2(20) NOT NULL,
+    PRIMARY KEY(noti_no),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE SEQUENCE seq_notice_no
+INCREMENT BY 1 
+START WITH 1;
+
+select *
+from notice;
+
+insert into users values('realso1','소한준','realso0@nate.com','인천','010-7533-5557','1','soso','member',sysdate);
+
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목1', '게시글 내용1', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목2', '게시글 내용2', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목3', '게시글 내용3', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목4', '게시글 내용4', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목5', '게시글 내용5', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목6', '게시글 내용6', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목7', '게시글 내용7', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목7', '게시글 내용7', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목8', '게시글 내용8', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목9', '게시글 내용9', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목10', '게시글 내용10', sysdate, 0,'realso1');
+insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
+values (seq_notice_no.nextval, '게시글 제목11', '게시글 내용11', sysdate, 0,'realso1');

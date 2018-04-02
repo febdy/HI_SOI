@@ -26,13 +26,13 @@
 				href="${pageContext.request.contextPath}/interview/uploadmode"
 				aria-controls="home" role="tab" data-toggle="tab">면접진단</a></li>
 			<li role="presentation"><a
-				href="${pageContext.request.contextPath}/post/notice"
+				href="${pageContext.request.contextPath}/post/soifactorylist"
 				aria-controls="home" role="" data-toggle="tab">소이팩토리</a></li>
 			<li role="presentation"><a
 				href="${pageContext.request.contextPath}/mypage/history"
 				aria-controls="home" role="tab" data-toggle="tab">마이페이지</a></li>
 			<li role="presentation"><a
-				href="${pageContext.request.contextPath}/qna/notice"
+				href="${pageContext.request.contextPath}/cs/notice"
 				aria-controls="home" role="tab" data-toggle="tab">고객센터</a></li>
 		</ul>
 		<br />
@@ -52,10 +52,12 @@
 		</div>
 	</div>
 	<br/>
+	
 	<div id="wrap" class="container">
 		<div class="row form-horizontal">
 			<div class="col-md-2"></div>
 			<div class="col-md-10 col-md-offset-6">
+			
 			<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label>&nbsp;</label>
@@ -63,11 +65,11 @@
 				</div>
 				<div class="pull-left">
 					<button type="submit" class="btn-xs btn-default">
-					<span class="glyphicon glyphicon-ok text-primary"> 진단받기</span>
+					<span class="glyphicon glyphicon-ok text-primary"> 진단하기</span>
 					</button>
 				</div>
-
 			</form>
+			
 			</div>
 		</div>
 	</div>

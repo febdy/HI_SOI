@@ -7,14 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.hi.dao.QnaDao;
-import com.bit.hi.domain.vo.QnaVo;
+import com.bit.hi.dao.CsDao;
+import com.bit.hi.domain.vo.CsVo;
 
 @Service
-public class QnaService {
+public class CsService {
 
 	@Autowired
-	private QnaDao qnaDao;
+	private CsDao csDao;
 	
 	public Map<String, Object> noticeGetList(Integer crtPage, String kwd) {
 		// 페이지 뿌려주기 관련 작업
@@ -28,10 +28,10 @@ public class QnaService {
 		System.out.println("startRnum: " + startRnum);
 		System.out.println("endRnum: " + endRnum);
 
-		List<QnaVo> boardList = qnaDao.selectList(startRnum, endRnum, kwd);
+		List<CsVo> boardList = csDao.selectList(startRnum, endRnum, kwd);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
-		int totalCount = qnaDao.selectTotalCount(kwd);
+		int totalCount = csDao.selectTotalCount(kwd);
 		System.out.println("totalCount :" + totalCount);
 
 		// 페이지당 버튼 갯수

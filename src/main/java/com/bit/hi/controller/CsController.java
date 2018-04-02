@@ -8,14 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.bit.hi.service.QnaService;
+import com.bit.hi.service.CsService;
 
 @Controller
-@RequestMapping("/qna")
-public class QnaController {
+@RequestMapping("/cs")
+public class CsController {
 	
 	@Autowired
-	private QnaService qnaService;
+	private CsService csService;
 	
 	@RequestMapping(value="/notice")
 	public String noticelist(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
@@ -23,22 +23,22 @@ public class QnaController {
 			Model model) { //메서드 이름과 mapping 값은 동일하지 않아도 된다.
 		//위에 required와 defaultValue, Integer는 crtPage값 없을 때를 위한 조치임.
 		System.out.println("list 진입");
-		Map<String, Object> bMap=qnaService.noticeGetList(crtPage, kwd);
+		Map<String, Object> bMap=csService.noticeGetList(crtPage, kwd);
 		System.out.println(bMap.toString());
 		model.addAttribute("bMap",bMap);
-		return "qna/notice";
+		return "cs/notice";
 	}
 	
 	@RequestMapping(value="/qna")
 	public String qna() {
 		
-		return "qna/qna";
+		return "cs/qna";
 	}
 	
 	@RequestMapping(value="/help")
 	public String help() {
 		
-		return "qna/help";
+		return "cs/help";
 	}
 	
 	/*@RequestMapping(value="/view/{no}")

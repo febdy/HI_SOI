@@ -20,11 +20,11 @@
 				aria-controls="home" role="tab" data-toggle="tab">소개</a></li>
 			<li role="presentation"><a href="${pageContext.request.contextPath}/interview/uploadmode"
 				aria-controls="home" role="tab" data-toggle="tab">면접진단</a></li>
-			<li role="presentation"><a href="${pageContext.request.contextPath}/post/notice"
+			<li role="presentation"><a href="${pageContext.request.contextPath}/post/soifactorylist"
 				aria-controls="home" role="" data-toggle="tab">소이팩토리</a></li>
 			<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/history"
 				aria-controls="home" role="tab" data-toggle="tab">마이페이지</a></li>
-			<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/qna/notice"
+			<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/cs/notice"
 				aria-controls="home" role="tab" data-toggle="tab">고객센터</a></li>
 		</ul><br/>
 	</div>
@@ -33,9 +33,9 @@
 		<div id="content" class="row form-horizontal">
 			<div class="col-md-2 pull-left">
 				<ul class="nav nav-pills nav-stacked ">
-					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/qna/notice">공지사항</a></li>
-					<li role="presentation"><a href="${pageContext.request.contextPath}/qna/qna">Q&A</a></li>
-					<li role="presentation"><a href="${pageContext.request.contextPath}/qna/help">도움말</a></li>
+					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/cs/notice">공지사항</a></li>
+					<li role="presentation"><a href="${pageContext.request.contextPath}/cs/qna">Q&A</a></li>
+					<li role="presentation"><a href="${pageContext.request.contextPath}/cs/help">도움말</a></li>
 				</ul>
 			</div>
 			
@@ -64,7 +64,7 @@
 							<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
 							<td><a
 								href="${pageContext.request.contextPath}/board/view/${boardVo.notiNo}">${boardVo.notiTitle}</a></td>
-							<td>${boardVo.userId}</td>
+							<td>${boardVo.userNickname}</td>
 							<td>${boardVo.notiHitCnt}</td>
 							<td>${boardVo.notiDate}</td>
 							<td><c:if test="${authUser.userId==boardVo.userId}"> <!-- 로그인 사용자의 번호와 게시물 작성자 번호가 같다면 -->

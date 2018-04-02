@@ -21,6 +21,7 @@
 				</c:when>
 
 				<c:when test="${not empty sessionScope.authUser}">
+					${authUser.userNickname} 님이 접속하셨습니다.
 					<a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
 				</c:when>
 

@@ -37,6 +37,7 @@ public class VideoController {
 
 		videoService.upload(file,videoVo);
 		
+		System.out.println(videoVo);
 		System.out.println("저장 완료");
 		return "redirect:/interview/uploadmode";
 	}

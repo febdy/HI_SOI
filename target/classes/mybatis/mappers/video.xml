@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="video">
+
+	<insert id="insertUpload" parameterType="int">
+		<![CDATA[
+			insert into video
+			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, '교정선 받기')
+		]]>
+	</insert>
+</mapper>

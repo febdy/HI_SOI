@@ -32,7 +32,7 @@
 	</div>
 
 	<div id="wrapper" class="container">
-		<div id="content" class="row form-horizontal">
+		<div class="row form-horizontal">
 			<div class="col-md-2 pull-left">
 				<ul class="nav nav-pills nav-stacked ">
 					<li role="presentation"><a href="${pageContext.request.contextPath}/interview/uploadmode">업로드 모드</a></li>

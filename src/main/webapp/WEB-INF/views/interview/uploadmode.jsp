@@ -55,7 +55,7 @@
 	<div id="wrap" class="container">
 		<div class="row form-horizontal">
 			<div class="col-md-2"></div>
-			<div class="col-md-10 col-md-offset-4">
+			<div class="col-md-10 col-md-offset-6">
 			<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label>&nbsp;</label>
@@ -72,7 +72,5 @@
 		</div>
 	</div>
 			
-
-
 </body>
 </html>

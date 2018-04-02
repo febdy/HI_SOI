@@ -7,8 +7,7 @@ public class VideoVo {
 	private String videoSaveName;
 	private String videoExName;
 	private String videoPath;
-	private String videoSize;
-	private String videoTime;
+	private long videoSize;
 	private String videoDate;
 	private String videoCorrectLine;
 	
@@ -16,7 +15,7 @@ public class VideoVo {
 	}
 
 	public VideoVo(int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
-			String videoPath, String videoSize, String videoTime, String videoDate, String videoCorrectLine) {
+			String videoPath, long videoSize, String videoDate, String videoCorrectLine) {
 		this.videoNo = videoNo;
 		this.userId = userId;
 		this.videoOriginName = videoOriginName;
@@ -24,7 +23,6 @@ public class VideoVo {
 		this.videoExName = videoExName;
 		this.videoPath = videoPath;
 		this.videoSize = videoSize;
-		this.videoTime = videoTime;
 		this.videoDate = videoDate;
 		this.videoCorrectLine = videoCorrectLine;
 	}
@@ -77,20 +75,12 @@ public class VideoVo {
 		this.videoPath = videoPath;
 	}
 
-	public String getVideoSize() {
+	public long getVideoSize() {
 		return videoSize;
 	}
 
-	public void setVideoSize(String videoSize) {
+	public void setVideoSize(long videoSize) {
 		this.videoSize = videoSize;
-	}
-
-	public String getVideoTime() {
-		return videoTime;
-	}
-
-	public void setVideoTime(String videoTime) {
-		this.videoTime = videoTime;
 	}
 
 	public String getVideoDate() {
@@ -113,8 +103,8 @@ public class VideoVo {
 	public String toString() {
 		return "VideoVo [videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName=" + videoOriginName
 				+ ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath=" + videoPath
-				+ ", videoSize=" + videoSize + ", videoTime=" + videoTime + ", videoDate=" + videoDate
-				+ ", videoCorrectLine=" + videoCorrectLine + "]";
+				+ ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine=" + videoCorrectLine
+				+ "]";
 	}
 	
 }

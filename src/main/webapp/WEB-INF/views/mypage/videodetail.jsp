@@ -5,6 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
 </head>
 <body>
 	<h1>영상 관리 세부내용</h1>

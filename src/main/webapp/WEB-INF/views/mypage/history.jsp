@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
+
 </head>
 <body>
 	<!-- 메인해더 -->

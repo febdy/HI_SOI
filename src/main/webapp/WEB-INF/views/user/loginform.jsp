@@ -10,6 +10,7 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/hisoi.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
 </head>
 <body>
 	<!-- 메인해더 -->

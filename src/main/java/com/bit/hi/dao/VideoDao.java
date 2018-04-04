@@ -15,4 +15,5 @@ public class VideoDao {
 	public int insertUpload(VideoVo videoVo) {
 		return sqlSession.insert("video.insertUpload", videoVo);
 	}
+	
 }

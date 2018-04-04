@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	<insert id="insertWritePost" parameterType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			insert into post
+			values (seq_post_no.nextval, #{userId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 10, 9, 8, #{postHideFace}, #{postSharable}, '40점') 
+		]]>
+	</insert>
+	
+	<select id="selectAllPostList" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select post_no postNo,
+					user_id userId,
+					video_no videoNo,
+					post_title postTitle,
+					post_content postContent,
+					post_date postDate,
+					post_soi_cnt postSoiCnt,
+					post_cmt_cnt postCmtCnt,
+					post_hit_cnt postHitCnt,
+					post_hide_face postHideFace,
+					post_sharable postSharable,
+					post_anal_result postAnalResult
+			from post
+		]]>
+	</select>
+	
+	<select id="selectEachPost" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select post_no postNo,
+					po.user_id userId,
+					po.video_no videoNo,
+					post_title postTitle,
+					post_content postContent,
+					post_date postDate,
+					post_soi_cnt postSoiCnt,
+					post_cmt_cnt postCmtCnt,
+					post_hit_cnt postHitCnt,
+					post_hide_face postHideFace,
+					post_sharable postSharable,
+					post_anal_result postAnalResult,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_correct_line videoCorrectLine
+			from post po, video vi
+			where po.video_no=vi.video_no
+			and po.post_no=#{postNo}
+		]]>
+	</select>
+	
+</mapper>

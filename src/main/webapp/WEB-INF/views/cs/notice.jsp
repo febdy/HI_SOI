@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -79,15 +80,15 @@
 				<div class="pager">
 					<ul>
 						<c:if test="${bMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
-							<li><a href="${pageContext.request.contextPath}/qna/notice?crtPage=${bMap.startPageBtnNo-1}">◀</a></li>
+							<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.startPageBtnNo-1}">◀</a></li>
 						</c:if>
 						
 						<c:forEach begin="${bMap.startPageBtnNo}" end="${bMap.endPageBtnNo}" var="idx">
-							<li><a href="${pageContext.request.contextPath}/qna/notice?crtPage=${idx}">${idx}</a></li>
+							<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${idx}">${idx}</a></li>
 						</c:forEach>
 						
 						<c:if test="${bMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
-							<li><a href="${pageContext.request.contextPath}/qna/notice?crtPage=${bMap.endPageBtnNo+1}">▶</a></li>
+							<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.endPageBtnNo+1}">▶</a></li>
 						</c:if>
 					</ul>
 				</div>

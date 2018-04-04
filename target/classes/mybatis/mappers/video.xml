@@ -24,4 +24,31 @@
 			where user_id=#{userId}
 		]]>
 	</select>
+	
+	<select id="selectVideoInfo" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_correct_line videoCorrectLine
+			from video
+			where video_No=#{videoNo}
+		]]>
+	</select>
+	
+	<!-- 임시로 ioi로  videoNo를 가져옴 -->
+	<select id="selectVideoNo" parameterType="String" resultType="int">
+		<![CDATA[
+			select video_no videoNo
+			from video
+			where video_origin_name=#{videoOriginName}
+		]]>
+	</select>
+	
+	
 </mapper>

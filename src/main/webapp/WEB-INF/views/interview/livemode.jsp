@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -42,7 +43,7 @@
 			<div class="col-md-10">
 				<h1>live 모드</h1>
 				<video width="640" height="344" controls="controls" poster="http://media.w3.org/2010/05/sintel/poster.png" preload="none">
-					<source src="http://media.w3.org/2010/05/sintel/trailer.mp4" type="video/mp4">
+					<source src="${pageContext.request.contextPath}/upload/1522631005209f387b194-816d-4067-9bf6-f932a73a3b0a.mp4" type="video/mp4">
 					<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
 				</video>
 			

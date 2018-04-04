@@ -1,8 +1,10 @@
 drop table users;
-drop table video;
 drop sequence seq_video_no;
-drop table notice;
+drop table video;
 drop sequence seq_notice_no;
+drop table notice;
+drop sequence seq_post_no;
+drop table post;
 
 CREATE TABLE users (
     user_id VARCHAR2(20) not null,
@@ -24,8 +26,8 @@ CREATE TABLE video (
     video_origin_name   VARCHAR2(200) not null,
     video_save_name VARCHAR2(200) not null,
     video_ex_name   VARCHAR2(200) not null,
-    video_path  VARCHAR2(100) not null,
-    video_size  VARCHAR2(30) not null,
+    video_path  VARCHAR2(1000) not null,
+    video_size  LONG not null,
     video_date  DATE DEFAULT SYSDATE,
     video_correct_line  VARCHAR2(100) not null,
     PRIMARY KEY(video_no),
@@ -46,8 +48,11 @@ select *
 from users;
 
 select *
+from video;
+
+select *
 from video
-where user_id='realso1';
+where video_no=21;
 
 CREATE TABLE notice (
     noti_no NUMBER(10),
@@ -93,3 +98,30 @@ insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, u
 values (seq_notice_no.nextval, '게시글 제목10', '게시글 내용10', sysdate, 0,'realso1');
 insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
 values (seq_notice_no.nextval, '게시글 제목11', '게시글 내용11', sysdate, 0,'realso1');
+
+CREATE TABLE post (
+    post_no NUMBER(10),
+    user_id VARCHAR2(20) not null,
+    video_no NUMBER(30) not null,
+    post_title  VARCHAR2(255),
+    post_content    VARCHAR2(300),
+    post_date   DATE DEFAULT SYSDATE,
+    post_soi_cnt    NUMBER DEFAULT 0,
+    post_cmt_cnt    NUMBER DEFAULT 0,
+    post_hit_cnt    NUMBER DEFAULT 0,
+    post_hide_face  VARCHAR2(10) default 'N',
+    post_sharable   VARCHAR2(10) default 'N',
+    post_anal_result    VARCHAR2(100),
+    PRIMARY KEY(post_no),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (video_no) REFERENCES video(video_no)
+);
+
+CREATE SEQUENCE seq_post_no
+INCREMENT BY 1
+START WITH 1;
+
+select *
+from post;
+
+commit;

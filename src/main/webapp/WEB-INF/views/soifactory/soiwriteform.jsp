@@ -12,8 +12,6 @@
 	href="${pageContext.request.contextPath}/resources/css/hisoi.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/Style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/board.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript"
@@ -44,48 +42,54 @@
 		</ul>
 		<br />
 	</div>
-
+	
 	<div id="wrapper" class="container">
-		<div id="content" class="row form-horizontal">
-			<div class="col-md-offset-6">
-				<form class="board-form" action="${pageContext.request.contextPath}/post/soiwrite">
-					<table class="tbl-ex">
-						<tr>
-							<td class="label">제목</td>
-							<td><input type="text" name="postTitle" value=""></td>
-						</tr>
-						<tr>
-							<td class="label">내용</td>
-							<td>
-								<textarea id="content" name="postContent"rows="10" style="resize: none">></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="text" name="ioi" value="" id="selectArea">
-								<button type="button" class="btn btn-default" id="attachModal">파일 첨부</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox" name="postHideFace" value="Y"> 얼굴 가리기 사용<br /> 
-								<input type="checkbox" name="postSharable" value="Y"> 진단 결과 스크랩 허용<br /> 
-								<!-- <input type="checkbox" name="postScrap" value=""> 모의 면접 영상 스크랩 허용<br /> -->
-							</td>
-						</tr>
-					</table>
-					<br />
-					<div>
+			<div id="content" class="row">
+			<div class="col-md-2"></div>
+			
+			<div class="col-md-10">
+				<form class="form-horizontal" action="${pageContext.request.contextPath}/post/soiwrite" method="post">
+					<div class="form-group">
+						<div class="col-md-2">
+							<!-- 그리드를 1:11로 칸을 나눔 -->
+							<label>제목</label>
+						</div>
+						<div class="col-md-10">
+							<div>
+								<input class="form-control category-menu" type="text" name="postTitle" value="">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2">
+							<!-- 그리드를 1:11로 칸을 나눔 -->
+							<label>내용</label>
+						</div>
+						<div class="col-md-10">
+							<textarea class="form-control" name="postContent" rows="10" style="resize:none"></textarea>
+						</div>
+						<div>
+							<input type="text" name="videoTitle" value="" id="selectArea">
+							<input type="hidden" name="videoNo" id="selectVideoNo">
+							<button type="button" class="btn btn-default" id="attachModal">파일 첨부</button>
+						</div>
+						<div>
+							<input type="checkbox" name="postHideFace" value="Y"> 얼굴 가리기 사용<br /> 
+							<input type="checkbox" name="postSharable" value="Y"> 진단 결과 스크랩 허용<br /> 
+							<!-- <input type="checkbox" name="postScrap" value=""> 모의 면접 영상 스크랩 허용<br /> -->
+						</div>
+					</div>
+					<div class="pull-right">
 						<button type="submit" class="btn btn-default">
-							<span class="glyphicon glyphicon-ok text-primary">영상올리기 완료</span>
+							<span class="text-primary">영상올리기 완료</span>
 						</button>
 						<a href="${pageContext.request.contextPath}/post/soifactorylist">취소</a>
 					</div>
-					<br />
 				</form>
 			</div>
+			
 		</div>
-	</div>
+	</div><br/>
 
 	<!-- Modal -->
 	<div class="modal fade" id="modalPop" tabindex="-1" role="dialog"
@@ -127,7 +131,7 @@
 	function fetchList() {
 
 		$.ajax({//리스트 요청
-			url : "${pageContext.request.contextPath}/post/api/modalList",
+			url : "${pageContext.request.contextPath}/post/api/modallist",
 			type : "post",
 			data : {},//데이터를 줄 때 parameter
 
@@ -176,7 +180,7 @@
 		console.log(no);
 		
 		$.ajax({//리스트 요청
-			url : "${pageContext.request.contextPath}/post/api/modalTitle",
+			url : "${pageContext.request.contextPath}/post/api/modaltitle",
 			type : "post",
 			data : {no:no},//데이터를 줄 때 parameter
 
@@ -185,6 +189,7 @@
 				console.log(videoVo);
 				
 				$("#selectArea").val(videoVo.videoOriginName);
+				$("#selectVideoNo").val(videoVo.videoNo);
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
@@ -192,13 +197,5 @@
 		});
 	});
 
-	/* function viewVideo(videoVo) {
-		var str = "";
-		str += "<li class='fff' id='ss"+videoVo.videoNo+"'>";
-		str += videoVo.videoOriginName;
-		str += "</li>";
-		
-		$("#selectArea").append(str);
-	} */
 </script>
 </html>

@@ -34,6 +34,7 @@ public class PostController {
 	public String soiRead(Model model, @PathVariable("postNo") int postNo) {
 		PostVo postVo=postService.getEachPost(postNo);
 		model.addAttribute("postVo", postVo);
+		model.addAttribute("ctrl","\r\n");
 		return "soifactory/soiread";
 	}
 	
@@ -43,12 +44,12 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwrite")
-	public String soiWrite(@ModelAttribute PostVo postVo,@RequestParam("ioi") String ioi,HttpSession session) {
+	public String soiWrite(@ModelAttribute PostVo postVo,@RequestParam("videoTitle") String ioi, @RequestParam("videoNo") int videoNo, HttpSession session) {
 		System.out.println(postVo);
-		System.out.println(ioi);
+		System.out.println(videoNo);
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		postVo.setUserId(authUser.getUserId()); //유저 아이디
-		postService.writePost(postVo,ioi); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
+		postVo.setWriterId(authUser.getUserId()); //유저 아이디
+		postService.writePost(postVo,videoNo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
 		return "redirect:/post/soifactorylist";
 	}
 }

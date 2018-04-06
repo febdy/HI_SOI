@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_correct_line videoCorrectLine
+			from video
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<select id="selectCollectVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select post_no postNo,
+					po.writer_id writerId,
+					po.video_no videoNo,
+					post_title postTitle,
+					post_content postContent,
+					post_date postDate,
+					post_soi_cnt postSoiCnt,
+					post_cmt_cnt postCmtCnt,
+					post_hit_cnt postHitCnt,
+					post_hide_face postHideFace,
+					post_sharable postSharable,
+					post_anal_result postAnalResult,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_correct_line videoCorrectLine
+			from post po, video vi
+			where po.video_no=vi.video_no
+			and po.writer_id=#{userId}
+		]]>
+	</select>
+	
+	<select id="selectCollectCommentList" parameterType="String" resultType="com.bit.hi.domain.vo.CommentVo">
+		<![CDATA[
+			select co.post_no postNo,
+					po.post_title postTitle,
+        			po.writer_id writerId,
+        			cmt_date cmtDate
+			from comments co, post po
+			where co.post_no=po.post_no
+			and co.user_id=#{userId}
+		]]>
+	</select>
+
+</mapper>

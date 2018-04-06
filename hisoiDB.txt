@@ -5,6 +5,9 @@ drop sequence seq_notice_no;
 drop table notice;
 drop sequence seq_post_no;
 drop table post;
+drop sequence seq_cmt_no;
+drop table comments;
+drop table scrap;
 
 CREATE TABLE users (
     user_id VARCHAR2(20) not null,
@@ -27,7 +30,7 @@ CREATE TABLE video (
     video_save_name VARCHAR2(200) not null,
     video_ex_name   VARCHAR2(200) not null,
     video_path  VARCHAR2(1000) not null,
-    video_size  LONG not null,
+    video_size  NUMBER(20) not null,
     video_date  DATE DEFAULT SYSDATE,
     video_correct_line  VARCHAR2(100) not null,
     PRIMARY KEY(video_no),
@@ -69,9 +72,13 @@ CREATE SEQUENCE seq_notice_no
 INCREMENT BY 1 
 START WITH 1;
 
+delete from video
+where user_id='realso0';
+
 select *
 from notice;
 
+insert into users values('realso0','소한준','realso0@nate.com','인천','010-7533-5557','1','real','member',sysdate);
 insert into users values('realso1','소한준','realso0@nate.com','인천','010-7533-5557','1','soso','member',sysdate);
 
 insert into notice(noti_no, noti_title, noti_content, noti_date, noti_hit_cnt, user_id)
@@ -101,7 +108,7 @@ values (seq_notice_no.nextval, '게시글 제목11', '게시글 내용11', sysda
 
 CREATE TABLE post (
     post_no NUMBER(10),
-    user_id VARCHAR2(20) not null,
+    writer_id VARCHAR2(20) not null,
     video_no NUMBER(30) not null,
     post_title  VARCHAR2(255),
     post_content    VARCHAR2(300),
@@ -113,7 +120,7 @@ CREATE TABLE post (
     post_sharable   VARCHAR2(10) default 'N',
     post_anal_result    VARCHAR2(100),
     PRIMARY KEY(post_no),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (writer_id) REFERENCES users(user_id),
     FOREIGN KEY (video_no) REFERENCES video(video_no)
 );
 
@@ -123,5 +130,66 @@ START WITH 1;
 
 select *
 from post;
+
+commit;
+
+CREATE TABLE comments (
+    cmt_no NUMBER(10),
+    post_no NUMBER(10) not null,
+    user_id VARCHAR2(20) not null,
+    cmt_content VARCHAR2(4000),
+    cmt_date    DATE DEFAULT SYSDATE,
+    PRIMARY KEY(cmt_no),
+    FOREIGN KEY (post_no) REFERENCES post(post_no),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE SEQUENCE seq_cmt_no
+INCREMENT BY 1
+START WITH 1;
+
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요1', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요2', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요3', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요4', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요5', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요6', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '8', 'realso0', '잘하시네요7', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '8', 'realso0', '잘하시네요8', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요9', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요10', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요11', sysdate);
+insert into comments(cmt_no, post_no, user_id, cmt_content, cmt_date)
+values (seq_cmt_no.nextval, '10', 'realso0', '잘하시네요12', sysdate);
+
+select *
+from comments;
+
+CREATE TABLE scrap (
+    post_no NUMBER(10) not null,
+    user_id VARCHAR2(20) not null,
+    scrap_date    DATE DEFAULT SYSDATE,
+    FOREIGN KEY (post_no) REFERENCES post(post_no),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+select *
+from scrap;
+            
+select *
+from comments;
 
 commit;

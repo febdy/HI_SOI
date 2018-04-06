@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bit.hi.domain.vo.CommentVo;
+import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.service.MypageService;
@@ -39,15 +41,32 @@ public class MypageController {
 		return "mypage/videodetail";
 	}
 	
-	@RequestMapping("/collect")
-	public String collect() {
-		return "mypage/collect";
-		
-	}
-	
 	@RequestMapping("/modifyInfo")
 	public String modifyInfo() {
 		
 		return "mypage/modifyInfo";
+	}
+	
+	@RequestMapping("/collect/comment")
+	public String collectComment(HttpSession session, Model model) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		List<CommentVo> commentList= mypageService.getCollectCommentList(authUser.getUserId());
+		System.out.println(commentList);
+		model.addAttribute("commentList",commentList);
+		return "mypage/collectcomment";
+	}
+	
+	@RequestMapping("/collect/video")
+	public String collectVideo(HttpSession session, Model model) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		List<PostVo> postList= mypageService.getCollectVideoList(authUser.getUserId());
+		model.addAttribute("postList", postList);
+		return "mypage/collectvideo";
+	}
+	
+	@RequestMapping("/collect/scrap")
+	public String collectScrap() {
+		
+		return "mypage/collectscrap";
 	}
 }

@@ -9,7 +9,7 @@
 		]]>
 	</insert>
 	
-	<select id="selectMyVideo" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
+	<select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[
 			select video_no videoNo,
 					user_id userId,

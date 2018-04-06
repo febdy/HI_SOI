@@ -48,6 +48,12 @@ body {
 	font-size: 5px;
 }
 
+.box-itemlike{
+	text-align: left;
+	padding-bottom: 5px;
+	font-size: 5px;
+}
+
 .btn_submit {
 	float: right;
 	font-family: 'Nanum Gothic', sans-serif;

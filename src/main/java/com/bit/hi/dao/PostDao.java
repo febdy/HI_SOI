@@ -15,8 +15,8 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<VideoVo> selectListVideo(String userId) {
-		return sqlSession.selectList("video.selectMyVideo", userId);
+	public List<VideoVo> selectMyVideoList(String userId) {
+		return sqlSession.selectList("video.selectMyVideoList", userId);
 	}
 	
 	public VideoVo selectVideoInfo(int videoNo) {

@@ -41,7 +41,7 @@
 			</div>
 			
 			<div class="col-md-10">
-				<form id="search_form" action="${pageContext.request.contextPath}/qna/notice" method="get">
+				<form id="search_form" action="${pageContext.request.contextPath}/cs/notice" method="get">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 					<input type="hidden" name="crtPage" value="${bMap.crtPage}"> 

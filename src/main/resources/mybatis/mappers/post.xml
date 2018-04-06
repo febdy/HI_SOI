@@ -4,14 +4,14 @@
 	<insert id="insertWritePost" parameterType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			insert into post
-			values (seq_post_no.nextval, #{userId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 10, 9, 8, #{postHideFace}, #{postSharable}, '40점') 
+			values (seq_post_no.nextval, #{writerId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 10, 9, 8, #{postHideFace}, #{postSharable}, '40점') 
 		]]>
 	</insert>
 	
 	<select id="selectAllPostList" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select post_no postNo,
-					user_id userId,
+					writer_id writerId,
 					video_no videoNo,
 					post_title postTitle,
 					post_content postContent,
@@ -29,7 +29,7 @@
 	<select id="selectEachPost" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select post_no postNo,
-					po.user_id userId,
+					po.writer_id writerId,
 					po.video_no videoNo,
 					post_title postTitle,
 					post_content postContent,

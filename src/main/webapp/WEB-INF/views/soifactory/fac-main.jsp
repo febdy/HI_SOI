@@ -62,7 +62,7 @@
 
 				<div class="box-underimage">
 					<div class="box-itemname">${postVo.postTitle}</div>
-					<div class="box-itemprice">${postVo.postSoiCnt}콩 댓글 ${postVo.postCmtCnt}</div>
+					<div class="box-itemprice">${postVo.postSoiCnt}콩 댓글${postVo.postCmtCnt} 조회수${postVo.postHitCnt}</div>
 				</div>
 			</div>
 			</c:forEach>

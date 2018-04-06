@@ -39,7 +39,7 @@
 				<ul class="nav nav-pills nav-stacked ">
 					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
 					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/videoclip">영상 관리</a></li>
-					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/collect">댓글/영상/스크랩</a></li>
+					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/collect/comment">댓글/영상/스크랩</a></li>
 					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/modifyInfo">회원정보수정</a></li>
 				</ul>
 			</div>

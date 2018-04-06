@@ -22,22 +22,23 @@ public class ApiPostController {
 	private PostService postService;
 	
 	@ResponseBody
-	@RequestMapping(value="/api/modalList")
+	@RequestMapping(value="/api/modallist")
 	public List<VideoVo> apiModalList(HttpSession session) {
 		System.out.println("apiModalList 진입");
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(authUser.getUserId());
-		List<VideoVo> videoList=postService.getListVideo(authUser.getUserId());
+		List<VideoVo> videoList=postService.getMyVideoList(authUser.getUserId());
 		
 		System.out.println(videoList);
 		return videoList;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/api/modalTitle")
+	@RequestMapping(value="/api/modaltitle")
 	public VideoVo apiModalTitle(@RequestParam("no") int videoNo) {
 		System.out.println("apiModalTitle 진입");
 		VideoVo videoVo=postService.getVideoInfo(videoNo);
 		return videoVo;
 	}
+	
 }

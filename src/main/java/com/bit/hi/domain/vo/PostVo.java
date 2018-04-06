@@ -2,7 +2,7 @@ package com.bit.hi.domain.vo;
 
 public class PostVo {
 	private int postNo;
-	private String userId;
+	private String writerId;
 	private int videoNo;
 	private String postTitle;
 	private String postContent;
@@ -24,12 +24,12 @@ public class PostVo {
 	public PostVo() {
 	}
 
-	public PostVo(int postNo, String userId, int videoNo, String postTitle, String postContent, String postDate,
+	public PostVo(int postNo, String writerId, int videoNo, String postTitle, String postContent, String postDate,
 			int postSoiCnt, int postCmtCnt, int postHitCnt, String postHideFace, String postSharable,
 			String postAnalResult, String videoOriginName, String videoSaveName, String videoExName, String videoPath,
 			long videoSize, String videoDate, String videoCorrectLine) {
 		this.postNo = postNo;
-		this.userId = userId;
+		this.writerId = writerId;
 		this.videoNo = videoNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
@@ -57,12 +57,12 @@ public class PostVo {
 		this.postNo = postNo;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getWriterId() {
+		return writerId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
 	}
 
 	public int getVideoNo() {
@@ -203,7 +203,7 @@ public class PostVo {
 
 	@Override
 	public String toString() {
-		return "PostVo [postNo=" + postNo + ", userId=" + userId + ", videoNo=" + videoNo + ", postTitle=" + postTitle
+		return "PostVo [postNo=" + postNo + ", writerId=" + writerId + ", videoNo=" + videoNo + ", postTitle=" + postTitle
 				+ ", postContent=" + postContent + ", postDate=" + postDate + ", postSoiCnt=" + postSoiCnt
 				+ ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt + ", postHideFace=" + postHideFace
 				+ ", postSharable=" + postSharable + ", postAnalResult=" + postAnalResult + ", videoOriginName="

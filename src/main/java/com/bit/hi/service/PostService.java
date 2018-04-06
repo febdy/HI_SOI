@@ -15,17 +15,16 @@ public class PostService {
 	@Autowired
 	private PostDao postDao;
 	
-	public List<VideoVo> getListVideo(String userId) {
-		return postDao.selectListVideo(userId);
+	public List<VideoVo> getMyVideoList(String userId) {
+		return postDao.selectMyVideoList(userId);
 	}
 	
 	public VideoVo getVideoInfo(int videoNo) {
 		return postDao.selectVideoInfo(videoNo);
 	}
 	
-	public int writePost(PostVo postVo, String ioi) {
-		int videoNo=postDao.selectVideoNo(ioi); //임시로 videoOriginName으로 videoNo을 끌고 올것임.
-		
+	//현재 제목으로 비디오번호를 찾다보니, 동일한 제목의 파일을 2개 tbl_video에 넣을 경우, 업로드하기 안되는 경우 발생함.
+	public int writePost(PostVo postVo, int videoNo) {
 		postVo.setVideoNo(videoNo);
 		System.out.println(postVo);
 		return postDao.insertWritePost(postVo);

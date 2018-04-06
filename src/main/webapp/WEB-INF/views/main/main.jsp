@@ -29,9 +29,11 @@
 			aria-controls="home" role="tab" data-toggle="tab">마이페이지</a></li>
 		<li role="presentation"><a href="${pageContext.request.contextPath}/cs/notice"
 			aria-controls="home" role="tab" data-toggle="tab">고객센터</a></li>
-	</ul><br/>   
+	</ul><br/>
 	
 	</div>
+	
+	<img class="profile img-thumbnail" src="${pageContext.request.contextPath}/resources/images/soi-logo.jpg">
 
 </body>
 </html>

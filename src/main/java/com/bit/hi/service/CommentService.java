@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.hi.dao.CommentDao;
 import com.bit.hi.domain.vo.CommentVo;
@@ -18,7 +19,9 @@ public class CommentService {
 		return commentDao.selectCommentList(page, postNo);
 	}
 	
+	@Transactional
 	public int apiAddComment(CommentVo commentVo) {
+		commentDao.updateCmtCnt(commentVo);
 		return commentDao.apiInsertComment(commentVo);
 	}
 	

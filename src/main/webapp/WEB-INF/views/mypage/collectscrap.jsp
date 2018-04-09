@@ -48,6 +48,21 @@
   					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/collect/video">영상</a></li>
   					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩</a></li>
 				</ul>
+				<c:forEach items="${scrapList}" var="scrapVo"> 
+					<div class="box">
+						<div class="image-box">
+							<a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}"> <img
+						src="http://ppss.kr/wp-content/uploads/2016/01/4-39-360x200.jpg"
+						width="100" height="100">
+							</a>
+						</div>
+
+						<div class="box-underimage">
+							<div class="box-itemname">${scrapVo.postTitle}</div>
+							<div class="box-itemprice">${scrapVo.postSoiCnt}콩 댓글${scrapVo.postCmtCnt} 조회수${scrapVo.postHitCnt}</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

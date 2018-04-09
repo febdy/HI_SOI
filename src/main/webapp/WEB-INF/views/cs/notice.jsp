@@ -59,18 +59,18 @@
 						<th><p class="text-center">&nbsp;</p></th>
 					</tr>
 
-					<c:forEach items="${bMap.boardList}" var="boardVo">
+					<c:forEach items="${bMap.boardList}" var="csVo">
 						<tr>
-							<td>${boardVo.notiNo}</td>
+							<td>${csVo.notiNo}</td>
 							<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
 							<td><a
-								href="${pageContext.request.contextPath}/board/view/${boardVo.notiNo}">${boardVo.notiTitle}</a></td>
-							<td>${boardVo.userNickname}</td>
-							<td>${boardVo.notiHitCnt}</td>
-							<td>${boardVo.notiDate}</td>
-							<td><c:if test="${authUser.userId==boardVo.userId}"> <!-- 로그인 사용자의 번호와 게시물 작성자 번호가 같다면 -->
+								href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}">${csVo.notiTitle}</a></td>
+							<td>${csVo.userLevel}</td>
+							<td>${csVo.notiHitCnt}</td>
+							<td>${csVo.notiDate}</td>
+							<td><c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
 									<a
-										href="${pageContext.request.contextPath}/board/delete?notiNo=${boardVo.notiNo}"
+										href="${pageContext.request.contextPath}/board/delete?notiNo=${csVo.notiNo}"
 										class="del">삭제</a>
 								</c:if></td>
 						</tr>
@@ -93,10 +93,11 @@
 					</ul>
 				</div>
 				
+				<!-- userlevel이 관리자급이라면 글쓰기 버튼 보이게 -->
 				<div class="write pull-right btn btn-default">
 					<c:if test="${not empty authUser}">
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath}/board/writeform" id="new-book">글쓰기</a>
+							<a href="${pageContext.request.contextPath}/cs/notice/writeform" id="new-book">글쓰기</a>
 						</div>
 					</c:if>
 				</div>

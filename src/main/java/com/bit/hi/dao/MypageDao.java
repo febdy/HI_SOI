@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.hi.domain.vo.CommentVo;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Repository
@@ -26,5 +27,9 @@ public class MypageDao {
 	
 	public List<CommentVo> selectCollectCommentList(String userId) {
 		return sqlSession.selectList("mypage.selectCollectCommentList", userId);
+	}
+	
+	public List<ScrapVo> selectCollectScrapList(String userId) {
+		return sqlSession.selectList("mypage.selectCollectScrapList", userId);
 	}
 }

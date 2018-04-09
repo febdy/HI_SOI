@@ -44,8 +44,17 @@ public class ApiPostController {
 	@ResponseBody
 	@RequestMapping(value="/api/updateLike")
 	public int apiUpdateLike(@RequestParam("postNo") int postNo) {
-		System.out.println("apiUpdateLike");
+		System.out.println("apiUpdateLike 진입");
 		return postService.updateLike(postNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/addScrapPost")
+	public int apiAddScrapPost(@RequestParam("postNo") int postNo, HttpSession session) {
+		System.out.println("apiAddScrap 진입");
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		String userId=authUser.getUserId();
+		return postService.addScrapPost(postNo, userId);
 	}
 	
 }

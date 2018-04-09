@@ -36,10 +36,14 @@
 					<source src="${pageContext.request.contextPath}/upload/${postVo.videoSaveName}" type="video/ogg">
 				</video>
 				<div>
+				<!-- 콩(좋아요)수 올리기 -->
 				<div class="pull-right">
-					<p>
+					<button>
 					<span id="btnLike" class="glyphicon glyphicon-thumbs-up text-danger" style="font-size: 15px"></span>
-					</p>
+					</button>
+					<button>
+					<span id="btnScrap" class="glyphicon glyphicon-star-empty text-warning" style="font-size: 15px"></span>
+					</button>
 				</div>
 				<form id="conte" class="board-form">
 					<table class="tbl-ex">
@@ -82,7 +86,10 @@
 			<div class="bottom">
 				<a href="${pageContext.request.contextPath}/post/soifactorylist">글목록</a>
 				<c:if test="${authUser.userId==requestScope.postVo.writerId}">
+				<!-- 소이팩토리 글 수정 -->
 				<a href="${pageContext.request.contextPath}/board/modifyform?no=${requestScope.boardVo.no}">글수정</a>
+				<!-- 소이팩토리 글 삭제 -->
+				<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}">글삭제</a>
 				</c:if>
 			</div>
 		</div>
@@ -214,6 +221,7 @@
 		
 	};
 	
+	//콩 갯수 업데이트(증가)
 	$("#btnLike").on("click", function(){
 		var postNo = ${postVo.postNo};
 		console.log(postNo);
@@ -237,7 +245,29 @@
 		});
 	});
 	
-	
+	//스크랩 기능
+	$("#btnScrap").on("click", function(){
+		var postNo = ${postVo.postNo};
+		console.log(postNo);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/post/api/addScrapPost",
+			type : "post",
+			data : {
+				postNo : postNo
+			},
+
+			dataType : "json", 
+			success : function(soi){
+				console.log(soi);
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+			
+		});
+	});
 </script>
 
 

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.hi.dao.PostDao;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Service
@@ -43,5 +44,16 @@ public class PostService {
 	
 	public int updateLike(int postNo) {
 		return postDao.updateLike(postNo);
+	}
+	
+	public int deletePost(int postNo) {
+		return postDao.deletePost(postNo);
+	}
+	
+	public int addScrapPost(int postNo, String userId) {
+		ScrapVo scrapVo=new ScrapVo();
+		scrapVo.setPostNo(postNo);
+		scrapVo.setUserId(userId);
+		return postDao.insertScrapPost(scrapVo);
 	}
 }

@@ -52,4 +52,11 @@ public class PostController {
 		postService.writePost(postVo,videoNo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
 		return "redirect:/post/soifactorylist";
 	}
+	
+	@RequestMapping(value="/soidelete")
+	public String soiDelete(@RequestParam("postNo") int postNo) {
+		System.out.println(postNo);
+		postService.deletePost(postNo);
+		return "redirect:/post/soifactorylist";
+	}
 }

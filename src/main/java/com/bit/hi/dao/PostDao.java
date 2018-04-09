@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Repository
@@ -45,5 +46,13 @@ public class PostDao {
 	
 	public void postUpdateHit(int postNo) {
 		sqlSession.update("post.postUpdateHit", postNo);
+	}
+	
+	public int deletePost(int postNo) {
+		return sqlSession.delete("post.deletePost", postNo);
+	}
+	
+	public int insertScrapPost(ScrapVo scrapVo) {
+		return sqlSession.insert("post.insertScrapPost", scrapVo);
 	}
 }

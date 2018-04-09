@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bit.hi.domain.vo.CommentVo;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.service.MypageService;
@@ -65,8 +66,10 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/collect/scrap")
-	public String collectScrap() {
-		
+	public String collectScrap(HttpSession session, Model model) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		List<ScrapVo> scrapList= mypageService.getCollectScrapList(authUser.getUserId());
+		model.addAttribute("scrapList", scrapList);
 		return "mypage/collectscrap";
 	}
 }

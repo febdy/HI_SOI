@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bit.hi.dao.MypageDao;
 import com.bit.hi.domain.vo.CommentVo;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Service
@@ -27,5 +28,9 @@ public class MypageService {
 	
 	public List<CommentVo> getCollectCommentList(String userId) {
 		return mypageDao.selectCollectCommentList(userId);
+	}
+	
+	public List<ScrapVo> getCollectScrapList(String userId) {
+		return mypageDao.selectCollectScrapList(userId);
 	}
  }

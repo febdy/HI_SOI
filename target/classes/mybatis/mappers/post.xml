@@ -77,4 +77,18 @@
 		]]>
 	</update>
 	
+	<delete id="deletePost" parameterType="int">
+		<![CDATA[
+			delete from post
+			where post_no=#{postNo}
+		]]>
+	</delete>
+	
+	<insert id="insertScrapPost" parameterType="com.bit.hi.domain.vo.ScrapVo">
+		<![CDATA[
+			insert into scrap(post_no, user_id, scrap_date)
+			values (#{postNo}, #{userId}, sysdate)
+		]]>
+	</insert>
+	
 </mapper>

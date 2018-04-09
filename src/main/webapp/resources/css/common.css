@@ -91,10 +91,4 @@ tr.even td	{ background-color:#e8ecf6 }
     overflow-y:auto;
 }
 
-/* .view{
-    width:200px;
-    height:260px;
-    position: absolute;
-    border:1px solid red;
-    overflow: hidden;
-} */
+div#content		{ float:right; width:580px; background-color:#fff }

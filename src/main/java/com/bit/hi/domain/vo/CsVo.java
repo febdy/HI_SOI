@@ -8,12 +8,13 @@ public class CsVo {
 	private int notiHitCnt;
 	private String userId;
 	private String userNickname;
+	private String userLevel;
 	
 	public CsVo() {
 	}
 
 	public CsVo(int notiNo, String notiTitle, String notiContent, String notiDate, int notiHitCnt, String userId,
-			String userNickname) {
+			String userNickname, String userLevel) {
 		this.notiNo = notiNo;
 		this.notiTitle = notiTitle;
 		this.notiContent = notiContent;
@@ -21,6 +22,7 @@ public class CsVo {
 		this.notiHitCnt = notiHitCnt;
 		this.userId = userId;
 		this.userNickname = userNickname;
+		this.userLevel = userLevel;
 	}
 
 	public int getNotiNo() {
@@ -79,11 +81,19 @@ public class CsVo {
 		this.userNickname = userNickname;
 	}
 
+	public String getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
+	}
+
 	@Override
 	public String toString() {
 		return "CsVo [notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent + ", notiDate="
 				+ notiDate + ", notiHitCnt=" + notiHitCnt + ", userId=" + userId + ", userNickname=" + userNickname
-				+ "]";
+				+ ", userLevel=" + userLevel + "]";
 	}
 	
 }

@@ -50,4 +50,5 @@
             where cmt_no=#{cmtNo}
 		]]>
 	</select>
+
 </mapper>

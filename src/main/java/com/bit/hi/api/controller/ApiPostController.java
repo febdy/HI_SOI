@@ -41,4 +41,11 @@ public class ApiPostController {
 		return videoVo;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/api/updateLike")
+	public int apiUpdateLike(@RequestParam("postNo") int postNo) {
+		System.out.println("apiUpdateLike");
+		return postService.updateLike(postNo);
+	}
+	
 }

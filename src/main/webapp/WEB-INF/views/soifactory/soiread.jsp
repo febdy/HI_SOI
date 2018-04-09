@@ -36,6 +36,11 @@
 					<source src="${pageContext.request.contextPath}/upload/${postVo.videoSaveName}" type="video/ogg">
 				</video>
 				<div>
+				<div class="pull-right">
+					<p>
+					<span id="btnLike" class="glyphicon glyphicon-thumbs-up text-danger" style="font-size: 15px"></span>
+					</p>
+				</div>
 				<form id="conte" class="board-form">
 					<table class="tbl-ex">
 						<tr>
@@ -166,7 +171,8 @@
 			data : JSON.stringify(commentVo), 
 
 			dataType : "json", 
-			success : function(commentVo){ 
+			success : function(commentVo){
+				//로그인 여부 서버단에서 조건 걸기 
 				console.log(commentVo);
 				
 				var cmtNo=commentVo.cmtNo;
@@ -177,7 +183,9 @@
 			},
 			
 			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
+				alert("로그인이 필요합니다.");
+		        window.location.replace("/hi/user/loginform");
+				//console.error(status + " : " + error);
 			}
 			
 		});
@@ -205,6 +213,31 @@
 			});
 		
 	};
+	
+	$("#btnLike").on("click", function(){
+		var postNo = ${postVo.postNo};
+		console.log(postNo);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/post/api/updateLike",
+			type : "post",
+			data : {
+				postNo : postNo
+			},
+
+			dataType : "json", 
+			success : function(soi){
+				console.log(soi);
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+			
+		});
+	});
+	
+	
 </script>
 
 

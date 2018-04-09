@@ -38,4 +38,12 @@ public class PostDao {
 	public PostVo selectEachPost(int postNo) {
 		return sqlSession.selectOne("post.selectEachPost", postNo);
 	}
+	
+	public int updateLike(int postNo) {
+		return sqlSession.update("post.updateLike", postNo);
+	}
+	
+	public void postUpdateHit(int postNo) {
+		sqlSession.update("post.postUpdateHit", postNo);
+	}
 }

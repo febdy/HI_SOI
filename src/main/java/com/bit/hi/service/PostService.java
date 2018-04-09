@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.hi.dao.PostDao;
 import com.bit.hi.domain.vo.PostVo;
@@ -34,7 +35,13 @@ public class PostService {
 		return postDao.selectAllPostList();
 	}
 	
+	@Transactional
 	public PostVo getEachPost(int postNo) {
+		postDao.postUpdateHit(postNo);
 		return postDao.selectEachPost(postNo);
+	}
+	
+	public int updateLike(int postNo) {
+		return postDao.updateLike(postNo);
 	}
 }

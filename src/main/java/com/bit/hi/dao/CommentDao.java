@@ -31,4 +31,8 @@ public class CommentDao {
 	public CommentVo apiSelectComment(int cmtNo) {
 		return sqlSession.selectOne("comment.apiSelectComment", cmtNo);
 	}
+	
+	public void updateCmtCnt(CommentVo commentVo) {
+		sqlSession.update("post.updateCmtCnt", commentVo);
+	}
 }

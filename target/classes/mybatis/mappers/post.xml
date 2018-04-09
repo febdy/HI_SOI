@@ -4,7 +4,7 @@
 	<insert id="insertWritePost" parameterType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			insert into post
-			values (seq_post_no.nextval, #{writerId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 10, 9, 8, #{postHideFace}, #{postSharable}, '40점') 
+			values (seq_post_no.nextval, #{writerId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 0, 0, 0, #{postHideFace}, #{postSharable}, '40점') 
 		]]>
 	</insert>
 	
@@ -52,5 +52,29 @@
 			and po.post_no=#{postNo}
 		]]>
 	</select>
+	
+	<update id="updateLike" parameterType="int">
+		<![CDATA[
+			update post
+			set post_soi_cnt=post_soi_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<update id="postUpdateHit" parameterType="int">
+		<![CDATA[
+			update post
+			set post_hit_cnt=post_hit_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<update id="updateCmtCnt" parameterType="com.bit.hi.domain.vo.CommentVo">
+		<![CDATA[
+			update post
+			set post_cmt_cnt=post_cmt_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
 	
 </mapper>

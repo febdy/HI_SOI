@@ -61,7 +61,7 @@
 
 					<c:forEach items="${bMap.boardList}" var="csVo">
 						<tr>
-							<td>${csVo.notiNo}</td>
+							<td>${csVo.rn}</td>
 							<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
 							<td><a
 								href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}">${csVo.notiTitle}</a></td>
@@ -95,7 +95,7 @@
 				
 				<!-- userlevel이 관리자급이라면 글쓰기 버튼 보이게 -->
 				<div class="write pull-right btn btn-default">
-					<c:if test="${not empty authUser}">
+					<c:if test="${authUser.userLevel=='administer'}">
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath}/cs/notice/writeform" id="new-book">글쓰기</a>
 						</div>

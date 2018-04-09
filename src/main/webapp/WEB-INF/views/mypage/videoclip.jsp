@@ -50,20 +50,33 @@
 						<th><p class="text-center">작성일</p></th>
 						<th><p class="text-center">&nbsp;</p></th>
 					</tr>
-					<c:forEach items="${myVideo}" var="videoVo">
+					<c:forEach items="${myVideoMap.myVideoList}" var="videoVo">
 						<tr>
-							<td>${videoVo.videoNo}</td>
+							<td>${videoVo.rn}</td>
 							<td><a href="${pageContext.request.contextPath}/mypage/videoclip/${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
 							<td>${videoVo.videoDate}</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<div class="pager">
+					<ul>
+						<c:if test="${myVideoMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+						<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.startPageBtnNo-1}">◀</a></li>
+						</c:if>
+						
+						<c:forEach begin="${myVideoMap.startPageBtnNo}" end="${myVideoMap.endPageBtnNo}" var="idx">
+							<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${idx}">${idx}</a></li>
+						</c:forEach>
+						
+						<c:if test="${myVideoMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
+							<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.endPageBtnNo+1}">▶</a></li>
+						</c:if>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
 	<br/>
-
-	<h1>영상 관리</h1>
 
 </body>
 </html>

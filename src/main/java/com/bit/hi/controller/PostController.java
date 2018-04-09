@@ -1,6 +1,6 @@
 package com.bit.hi.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,9 +24,10 @@ public class PostController {
 	private PostService postService;
 
 	@RequestMapping(value="/soifactorylist")
-	public String soiFactoryList(Model model) {
-		List<PostVo> postList=postService.getAllPostList();
-		model.addAttribute("postList", postList);
+	public String soiFactoryList(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
+			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) {
+		Map<String, Object> bMap=postService.getAllPostList(crtPage, kwd);
+		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
 	}
 	

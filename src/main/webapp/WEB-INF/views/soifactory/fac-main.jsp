@@ -47,11 +47,18 @@
 				<a href="${pageContext.request.contextPath}/post/soiwriteform">영상 올리기</a>
 			</div>
 		</div>
+
+		<div class="pull-right">
+		<form id="search_form" action="${pageContext.request.contextPath}/post/soifactorylist" method="get">
+			<input type="text" id="kwd" name="kwd" value="">
+			<input type="submit" value="찾기">
+			<input type="hidden" name="crtPage" value="${bindMap.crtPage}"> 
+		</form>
+		</div>
 	</div>
 		
 	<div id="wrap2" class="container">
-			<h6>정렬 하기 / 검색기능</h6>
-			<c:forEach items="${postList}" var="postVo"> 
+		<c:forEach items="${bindMap.postList}" var="postVo"> 
 			<div class="box">
 				<div class="image-box">
 					<a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"> <img
@@ -65,8 +72,22 @@
 					<div class="box-itemprice">${postVo.postSoiCnt}콩 댓글${postVo.postCmtCnt} 조회수${postVo.postHitCnt}</div>
 				</div>
 			</div>
+		</c:forEach>
+	</div>
+	<div class="pager">
+		<ul>
+			<c:if test="${bindMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+				<li><a href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.startPageBtnNo-1}">◀</a></li>
+			</c:if>
+						
+			<c:forEach begin="${bindMap.startPageBtnNo}" end="${bindMap.endPageBtnNo}" var="idx">
+				<li><a href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${idx}">${idx}</a></li>
 			</c:forEach>
-
+						
+			<c:if test="${bindMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
+				<li><a href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.endPageBtnNo+1}">▶</a></li>
+			</c:if>
+		</ul>
 	</div>
 
 

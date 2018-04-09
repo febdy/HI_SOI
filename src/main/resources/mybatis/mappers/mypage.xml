@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
-	<select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
+	<!-- <select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[
 			select video_no videoNo,
 					user_id userId,
@@ -15,9 +15,9 @@
 			from video
 			where user_id=#{userId}
 		]]>
-	</select>
+	</select> -->
 	
-	<select id="selectCollectVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.PostVo">
+	<!-- <select id="selectCollectVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select post_no postNo,
 					po.writer_id writerId,
@@ -42,9 +42,9 @@
 			where po.video_no=vi.video_no
 			and po.writer_id=#{userId}
 		]]>
-	</select>
+	</select> -->
 	
-	<select id="selectCollectCommentList" parameterType="String" resultType="com.bit.hi.domain.vo.CommentVo">
+	<!-- <select id="selectCollectCommentList" parameterType="String" resultType="com.bit.hi.domain.vo.CommentVo">
 		<![CDATA[
 			select co.post_no postNo,
 					po.post_title postTitle,
@@ -54,9 +54,9 @@
 			where co.post_no=po.post_no
 			and co.user_id=#{userId}
 		]]>
-	</select>
+	</select> -->
 	
-	<select id="selectCollectScrapList" parameterType="String" resultType="com.bit.hi.domain.vo.ScrapVo">
+	<!-- <select id="selectCollectScrapList" parameterType="String" resultType="com.bit.hi.domain.vo.ScrapVo">
 		<![CDATA[
 			select sc.post_no postNo,
         			user_id userId,
@@ -69,6 +69,139 @@
 			from scrap sc, post po
 			where sc.post_no=po.post_no
 			and user_id=#{userId}
+		]]>
+	</select> -->
+	
+	<!-- 영상관리 페이징 -->
+	<select id="selectPageForMyVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select rn,
+       				video_no videoNo,
+        			video_origin_name videoOriginName,
+        			to_char(video_date, 'YYYY-MM-DD HH:MI') videoDate
+			from (select ROWNUM rn,
+                				video_no,
+                    			video_origin_name,
+                    			video_date
+        			from (select video_no,
+                    			video_origin_name,
+                    			video_date
+                			from video
+                			where user_id=#{userId}
+                			order by video_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 영상관리 페이징 -->
+	<select id="selectTotalCountForMyVideo" resultType="int">
+		<![CDATA[
+			select count(*)
+			from notice
+		]]>
+	</select>
+	
+	<!-- 내 댓글 페이징 -->
+	<select id="selectCollectCommentList" parameterType="map" resultType="com.bit.hi.domain.vo.CommentVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+        			writer_id writerId,
+        			post_title postTitle,
+        			to_char(cmt_date, 'YYYY-MM-DD HH:MI') cmtDate
+			from (select ROWNUM rn,
+                				post_no,
+                    			writer_id,
+                    			post_title,
+                    			cmt_date
+        			from (select co.post_no,
+                    			po.writer_id,
+                    			po.post_title,
+                    			cmt_date
+                			from comments co, post po
+							where co.post_no=po.post_no
+							and co.user_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 내 댓글 페이징 -->
+	<select id="selectTotalCountForComment" resultType="int">
+		<![CDATA[
+			select count(*)
+			from comments
+		]]>
+	</select>
+	
+	<!-- 내가 올린 영상 페이징 -->
+	<select id="selectCollectVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+                    post_title postTitle,
+                    post_soi_cnt postSoiCnt,
+                    post_cmt_cnt postCmtCnt,
+                    post_hit_cnt postHitCnt
+			from (select ROWNUM rn,
+                				post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt
+        			from (select post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt
+                			from post po
+							where writer_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 내가 올린 영상 페이징 -->
+	<select id="selectTotalCountForVideo" resultType="int">
+		<![CDATA[
+			select count(*)
+			from post
+		]]>
+	</select>
+	
+	<!-- 스크랩 페이징 -->
+	<select id="selectCollectScrapList" parameterType="map" resultType="com.bit.hi.domain.vo.ScrapVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+                    post_title postTitle,
+                    post_soi_cnt postSoiCnt,
+                    post_cmt_cnt postCmtCnt,
+                    post_hit_cnt postHitCnt
+			from (select ROWNUM rn,
+                				post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt
+        			from (select sc.post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt
+                			from scrap sc, post po
+							where sc.post_no=po.post_no
+							and user_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 스크랩 페이징 -->
+	<select id="selectTotalCountForScrap" resultType="int">
+		<![CDATA[
+			select count(*)
+			from scrap
 		]]>
 	</select>
 

@@ -55,7 +55,7 @@
 						<th><p class="text-center">제목</p></th>
 						<th><p class="text-center">글쓴이</p></th>
 					</tr>
-					<c:forEach items="${commentList}" var="commentVo">
+					<c:forEach items="${commentMap.commentList}" var="commentVo">
 						<tr>
 							<td>${commentVo.cmtDate}</td>
 							<td><a href="${pageContext.request.contextPath}/post/soiread/${commentVo.postNo}">${commentVo.postTitle}</a></td>
@@ -63,10 +63,24 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<div class="pager">
+					<ul>
+						<c:if test="${commentMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+						<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${commentMap.startPageBtnNo-1}">◀</a></li>
+						</c:if>
+						
+						<c:forEach begin="${commentMap.startPageBtnNo}" end="${commentMap.endPageBtnNo}" var="idx">
+							<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${idx}">${idx}</a></li>
+						</c:forEach>
+						
+						<c:if test="${commentMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
+							<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${commentMap.endPageBtnNo+1}">▶</a></li>
+						</c:if>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
 	<br/>
-	<h4>댓글</h4>
 </body>
 </html>

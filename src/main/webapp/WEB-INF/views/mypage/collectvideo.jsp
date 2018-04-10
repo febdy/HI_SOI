@@ -48,7 +48,8 @@
   					<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/mypage/collect/video">영상</a></li>
   					<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩</a></li>
 				</ul>
-				<c:forEach items="${postList}" var="postVo"> 
+				<div>
+				<c:forEach items="${videoMap.postList}" var="postVo"> 
 					<div class="box">
 						<div class="image-box">
 							<a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"> <img
@@ -63,7 +64,23 @@
 						</div>
 					</div>
 				</c:forEach>
+				</div>
 			</div>
+			<div class="pager">
+					<ul>
+						<c:if test="${videoMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+						<li><a href="${pageContext.request.contextPath}/mypage/collect/video?crtPage=${videoMap.startPageBtnNo-1}">◀</a></li>
+						</c:if>
+						
+						<c:forEach begin="${videoMap.startPageBtnNo}" end="${videoMap.endPageBtnNo}" var="idx">
+							<li><a href="${pageContext.request.contextPath}/mypage/collect/video?crtPage=${idx}">${idx}</a></li>
+						</c:forEach>
+						
+						<c:if test="${videoMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
+							<li><a href="${pageContext.request.contextPath}/mypage/collect/video?crtPage=${videoMap.endPageBtnNo+1}">▶</a></li>
+						</c:if>
+					</ul>
+				</div>
 		</div>
 	</div>
 	<br/>

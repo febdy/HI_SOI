@@ -1,6 +1,7 @@
 package com.bit.hi.domain.vo;
 
 public class VideoVo {
+	private int rn;
 	private int videoNo;
 	private String userId;
 	private String videoOriginName;
@@ -14,8 +15,9 @@ public class VideoVo {
 	public VideoVo() {
 	}
 
-	public VideoVo(int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
+	public VideoVo(int rn, int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
 			String videoPath, long videoSize, String videoDate, String videoCorrectLine) {
+		this.rn = rn;
 		this.videoNo = videoNo;
 		this.userId = userId;
 		this.videoOriginName = videoOriginName;
@@ -25,6 +27,14 @@ public class VideoVo {
 		this.videoSize = videoSize;
 		this.videoDate = videoDate;
 		this.videoCorrectLine = videoCorrectLine;
+	}
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
 	}
 
 	public int getVideoNo() {
@@ -101,10 +111,10 @@ public class VideoVo {
 
 	@Override
 	public String toString() {
-		return "VideoVo [videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName=" + videoOriginName
-				+ ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath=" + videoPath
-				+ ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine=" + videoCorrectLine
-				+ "]";
+		return "VideoVo [rn=" + rn + ", videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName="
+				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
+				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine="
+				+ videoCorrectLine + "]";
 	}
 	
 }

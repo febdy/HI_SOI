@@ -63,9 +63,8 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/view/{notiNo}")
-	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model, HttpSession session) {
+	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model) {
 		System.out.println("각 공지글 보기 진입");
-		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		CsVo viewNotice=csService.viewEachNotice(notiNo);
 		model.addAttribute("csVo", viewNotice);

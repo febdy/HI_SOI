@@ -20,6 +20,8 @@ public class PostVo {
 	private long videoSize;
 	private String videoDate;
 	private String videoCorrectLine;
+	private String userId;
+	private String userNickname;
 	
 	public PostVo() {
 	}
@@ -27,7 +29,7 @@ public class PostVo {
 	public PostVo(int postNo, String writerId, int videoNo, String postTitle, String postContent, String postDate,
 			int postSoiCnt, int postCmtCnt, int postHitCnt, String postHideFace, String postSharable,
 			String postAnalResult, String videoOriginName, String videoSaveName, String videoExName, String videoPath,
-			long videoSize, String videoDate, String videoCorrectLine) {
+			long videoSize, String videoDate, String videoCorrectLine, String userId, String userNickname) {
 		this.postNo = postNo;
 		this.writerId = writerId;
 		this.videoNo = videoNo;
@@ -47,6 +49,8 @@ public class PostVo {
 		this.videoSize = videoSize;
 		this.videoDate = videoDate;
 		this.videoCorrectLine = videoCorrectLine;
+		this.userId = userId;
+		this.userNickname = userNickname;
 	}
 
 	public int getPostNo() {
@@ -201,15 +205,31 @@ public class PostVo {
 		this.videoCorrectLine = videoCorrectLine;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
 	@Override
 	public String toString() {
-		return "PostVo [postNo=" + postNo + ", writerId=" + writerId + ", videoNo=" + videoNo + ", postTitle=" + postTitle
-				+ ", postContent=" + postContent + ", postDate=" + postDate + ", postSoiCnt=" + postSoiCnt
+		return "PostVo [postNo=" + postNo + ", writerId=" + writerId + ", videoNo=" + videoNo + ", postTitle="
+				+ postTitle + ", postContent=" + postContent + ", postDate=" + postDate + ", postSoiCnt=" + postSoiCnt
 				+ ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt + ", postHideFace=" + postHideFace
 				+ ", postSharable=" + postSharable + ", postAnalResult=" + postAnalResult + ", videoOriginName="
 				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
 				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine="
-				+ videoCorrectLine + "]";
+				+ videoCorrectLine + ", userId=" + userId + ", userNickname=" + userNickname + "]";
 	}
 	
 }

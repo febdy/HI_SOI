@@ -1,6 +1,8 @@
 package com.bit.hi.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,17 @@ public class PostDao {
 		return sqlSession.insert("post.insertWritePost", postVo);
 	}
 	
-	public List<PostVo> selectAllPostList() {
-		return sqlSession.selectList("post.selectAllPostList");
+	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) {
+		Map<String, Object> mapCri=new HashMap<String, Object>();
+		mapCri.put("startRnum", startRnum);
+		mapCri.put("endRnum", endRnum);
+		mapCri.put("kwd", kwd);
+		System.out.println("dao: "+mapCri.toString());
+		return sqlSession.selectList("post.selectPageForPost", mapCri);
+	}
+	
+	public int selectTotalCount(String kwd) {
+		return sqlSession.selectOne("post.selectTotalCountForPost", kwd);
 	}
 	
 	public PostVo selectEachPost(int postNo) {

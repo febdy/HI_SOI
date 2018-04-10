@@ -60,4 +60,32 @@ public class PostController {
 		postService.deletePost(postNo);
 		return "redirect:/post/soifactorylist";
 	}
+	
+	@RequestMapping(value="/arraysoi")
+	public String arraySoi(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
+		Map<String, Object> bMap=postService.getArraySoi(crtPage);
+		model.addAttribute("bindMap", bMap);
+		return "soifactory/fac-main";
+	}
+	
+	@RequestMapping(value="/arraylatest")
+	public String arrayLatest(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
+		Map<String, Object> bMap=postService.getArrayLatest(crtPage);
+		model.addAttribute("bindMap", bMap);
+		return "soifactory/fac-main";
+	}
+	
+	@RequestMapping(value="/arrayview")
+	public String arrayView(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
+		Map<String, Object> bMap=postService.getArrayView(crtPage);
+		model.addAttribute("bindMap", bMap);
+		return "soifactory/fac-main";
+	}
+	
+	@RequestMapping(value="/arraycomment")
+	public String arrayComment(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
+		Map<String, Object> bMap=postService.getArrayComment(crtPage);
+		model.addAttribute("bindMap", bMap);
+		return "soifactory/fac-main";
+	}
 }

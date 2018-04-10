@@ -11,6 +11,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/hisoi.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -28,7 +32,7 @@
 				aria-controls="home" role="tab" data-toggle="tab">면접진단</a></li>
 			<li role="presentation"><a
 				href="${pageContext.request.contextPath}/post/soifactorylist"
-				aria-controls="home" role="" data-toggle="tab">소이팩토리</a></li>
+				aria-controls="home" role="tab" data-toggle="tab">소이팩토리</a></li>
 			<li role="presentation"><a
 				href="${pageContext.request.contextPath}/mypage/history"
 				aria-controls="home" role="tab" data-toggle="tab">마이페이지</a></li>
@@ -48,13 +52,14 @@
 				</ul>
 			</div>
 			<div class="col-md-10">
-				<h3> 업로드 모드 입니다. </h3>
+				<div class="pull-right">
+				<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" 
+				data-content="잘 올려서 잘 돌리면 좋은 결과가 나올 겁니다.">
+    			Upload Mode 사용법
+  				</button>
+  				</div>
 			</div>
 		</div>
-	</div>
-	<br/>
-	
-	<div id="wrap" class="container">
 		<div class="row form-horizontal">
 			<div class="col-md-2"></div>
 			<div class="col-md-10 col-md-offset-6">
@@ -74,6 +79,14 @@
 			</div>
 		</div>
 	</div>
-			
+	<br/>
+
 </body>
+<script>
+	$(document).ready(function() {
+		$(function () {
+	    	$('[data-toggle="popover"]').popover();
+		});
+	});
+</script>
 </html>

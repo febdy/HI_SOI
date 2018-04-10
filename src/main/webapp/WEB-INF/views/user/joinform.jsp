@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.12.4.js"></script>
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -17,18 +19,21 @@
  	
 	<form class="join-form" method="post" action="${pageContext.request.contextPath}/user/join">
 		<label class="block-label">아이디</label>
-		<input type="text" name="userId" value=""/>
+		<input id="id" type="text" name="userId" value=""/>
 		<input id="btn-checkid" type="button" value="id 중복체크"><br/>
+		<div id="chkUserId"></div>
 		
 		<label class="block-label">이름</label>
 		<input type="text" name="userName" value=""/><br/>
 		
 		<label class="block-label">닉네임</label>
-		<input type="text" name="userNickname" value=""/>
+		<input id="nickname" type="text" name="userNickname" value=""/>
 		<input id="btn-checknick" type="button" value="닉네임 중복체크"><br/>
+		<div id="chkNickname"></div>
 		
 		<label class="block-label">비밀번호</label>
-		<input type="text" name="userPwd" value=""/><br/>
+		<input id="password" type="text" name="userPwd" value=""/><br/>
+		<div id="chkPassword"></div>
 		
 		<!-- 비밀번호 확인 작업 추가해야 함.
 		<label class="block-label">비밀번호 확인</label>
@@ -53,4 +58,56 @@
 		<a href="${pageContext.request.contextPath}/" >취소</a>
 	</form>
 </body>
+<script>
+	$("#btn-checkid").on("click", function() {
+		var id=$("#id").val();
+		console.log(id);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/user/api/idchk",
+			type : "post",
+			data : {
+				id:id
+			},
+			
+			success : function(result) {
+				if(result==true) {
+					$("#chkUserId").text("사용 가능한 아이디입니다.");
+				} else {
+					$("#chkUserId").html("<font color=\"red\">사용중인 아이디입니다.</font>");
+				}
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	$("#btn-checknick").on("click", function() {
+		var nick=$("#nickname").val();
+		console.log(nick);
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/user/api/nickchk",
+			type : "post",
+			data : {
+				nick:nick
+			},
+			
+			success : function(result) {
+				if(result==true) {
+					$("#chkNickname").text("사용 가능한 닉네임입니다.");
+				} else {
+					$("#chkNickname").html("<font color=\"red\">사용중인 닉네임입니다.</font>");
+				}
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+
+</script>
 </html>

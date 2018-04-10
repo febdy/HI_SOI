@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -41,16 +45,27 @@
 				</ul>
 			</div>
 			<div class="col-md-10">
-				<h1>live 모드</h1>
-				<video width="640" height="344" controls="controls" poster="http://media.w3.org/2010/05/sintel/poster.png" preload="none">
-					<source src="${pageContext.request.contextPath}/upload/1522631005209f387b194-816d-4067-9bf6-f932a73a3b0a.mp4" type="video/mp4">
-					<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
-				</video>
-			
+				<div class="pull-right">
+					<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" 
+					data-content="잘 올려서 잘 돌리면 좋은 결과가 나올 겁니다.">
+    				Live Mode 사용법
+  					</button>
+  				</div><br/><br/><br/><br/>
+  				<div>
+					<video width="640" height="344" controls="controls" poster="http://media.w3.org/2010/05/sintel/poster.png" preload="none">
+						<source src="${pageContext.request.contextPath}/upload/1522631005209f387b194-816d-4067-9bf6-f932a73a3b0a.mp4" type="video/mp4">
+						<source src="http://media.w3.org/2010/05/sintel/trailer.ogv" type="video/ogg">
+					</video>
+				</div>
 			</div>
 		</div>
 	</div>
 	<br/>
 
 </body>
+<script>
+	$(function () {
+		$('[data-toggle="popover"]').popover();
+	});
+</script>
 </html>

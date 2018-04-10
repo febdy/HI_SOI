@@ -36,5 +36,35 @@
 			where user_id=#{userId} and user_pwd=#{userPwd}
 		]]>
 	</select>
+	
+	<select id="selectUserForId" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			select user_id userId,
+					user_name userName,
+					user_email userEmail,
+					user_addr userAddr,
+					user_pwd userPwd,
+					user_nickname userNickname,
+					user_level userLevel,
+					reg_date regDate
+			from users
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<select id="selectUserForNick" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			select user_id userId,
+					user_name userName,
+					user_email userEmail,
+					user_addr userAddr,
+					user_pwd userPwd,
+					user_nickname userNickname,
+					user_level userLevel,
+					reg_date regDate
+			from users
+			where user_nickname=#{userNickname}
+		]]>
+	</select>
 
 </mapper>

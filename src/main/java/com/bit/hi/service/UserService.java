@@ -25,4 +25,30 @@ public class UserService {
 		
 		return userDao.selectListByIdPwd(userVo);
 	}
+	
+	public boolean apiIdChk(String userId) {
+		boolean result;
+		UserVo userVo = new UserVo();
+		userVo = userDao.selectUserForId(userId);
+		System.out.println(userVo);
+		if (userVo != null) {
+			result = false;
+		} else {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean apiNickChk(String userNickname) {
+		boolean result;
+		UserVo userVo = new UserVo();
+		userVo = userDao.selectUserForNick(userNickname);
+		System.out.println(userVo);
+		if (userVo != null) {
+			result = false;
+		} else {
+			result = true;
+		}
+		return result;
+	}
 }

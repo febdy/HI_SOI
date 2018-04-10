@@ -20,4 +20,12 @@ public class UserDao {
 		System.out.println("dao 진입");
 		return sqlSession.selectOne("user.getListByIdPwd", userVo);
 	}
+	
+	public UserVo selectUserForId(String userId) {
+		return sqlSession.selectOne("user.selectUserForId", userId);
+	}
+	
+	public UserVo selectUserForNick(String userNickname) {
+		return sqlSession.selectOne("user.selectUserForNick", userNickname);
+	}
 }

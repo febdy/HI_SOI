@@ -42,6 +42,30 @@
 	</div>
 	
 	<div id="wrap1" class="container">
+		<div class="pull-left">
+			<ol class="breadcrumb">
+ 				<li><a href="${pageContext.request.contextPath}/post/arraysoi">인기(콩)순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/arraylatest">최신순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/arrayview">조회순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/arraycomment">댓글순</a></li>
+			</ol>
+			<%-- <span id="ArrPop" class="">
+				<a href="${pageContext.request.contextPath}/post/arraysoi">인기(콩)순</a>
+			</span>
+			<span>/</span>
+			<span id="Arrlatest" class="">
+				<a href="${pageContext.request.contextPath}/post/arraylatest">최신순</a>
+			</span>
+			<span>/</span>
+			<span id="Arrview" class="">
+				<a href="${pageContext.request.contextPath}/post/arrayview">조회순</a>
+			</span>
+			<span>/</span>
+			<span id="ArrComm" class="">
+				<a href="${pageContext.request.contextPath}/post/arraycomment">댓글순</a>
+			</span> --%>
+		</div>
+				
 		<div class="write pull-right btn btn-default">
 			<div class="bottom">
 				<a href="${pageContext.request.contextPath}/post/soiwriteform">영상 올리기</a>

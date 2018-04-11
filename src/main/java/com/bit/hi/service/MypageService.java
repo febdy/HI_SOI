@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.hi.dao.MypageDao;
+import com.bit.hi.dao.UserDao;
 import com.bit.hi.domain.vo.CommentVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
+import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Service
@@ -18,6 +20,9 @@ public class MypageService {
 	
 	@Autowired
 	private MypageDao mypageDao;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	//내가 업로드 한 리스트(영상관리)
 	public Map<String, Object> clipGetList(String userId, Integer crtPage) {
@@ -215,5 +220,33 @@ public class MypageService {
 		scrapMap.put("crtPage", crtPage);
 
 		return scrapMap;
+	}
+	
+	//회원정보수정 userId로 회원 정보 가져오기
+	public UserVo getUserInfo(String userId) {
+		return userDao.selectUserForId(userId);
+	}
+	
+	//회원정보 수정 nickname 체크
+	public boolean nickChkForModify(UserVo userVo) {
+		boolean result;
+		UserVo userResult = new UserVo();
+		userResult = mypageDao.selectNickChkForModify(userVo);
+		System.out.println(userResult);
+		if (userResult != null) {
+			result = false;
+		} else {
+			result = true;
+		}
+		return result;
+	}
+	
+	public int modifyComplete(UserVo userVo) {
+		if(userDao.selectUserForNick(userVo.getUserNickname())==null) {
+			//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
+			if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
+				return mypageDao.updateInfo(userVo);
+			} else return 0;
+		} else return 0;
 	}
  }

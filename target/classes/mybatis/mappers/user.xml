@@ -37,12 +37,14 @@
 		]]>
 	</select>
 	
+	<!-- apiChk -->
 	<select id="selectUserForId" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
 		<![CDATA[
 			select user_id userId,
 					user_name userName,
 					user_email userEmail,
 					user_addr userAddr,
+					user_tel userTel,
 					user_pwd userPwd,
 					user_nickname userNickname,
 					user_level userLevel,
@@ -52,12 +54,14 @@
 		]]>
 	</select>
 	
+	<!-- apiChk -->
 	<select id="selectUserForNick" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
 		<![CDATA[
 			select user_id userId,
 					user_name userName,
 					user_email userEmail,
 					user_addr userAddr,
+					user_tel userTel,
 					user_pwd userPwd,
 					user_nickname userNickname,
 					user_level userLevel,

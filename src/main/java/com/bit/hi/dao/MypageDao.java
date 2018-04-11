@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bit.hi.domain.vo.CommentVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
+import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 @Repository
@@ -73,5 +74,15 @@ public class MypageDao {
 	//스크랩
 	public int selectTotalCountForScrap() {
 		return sqlSession.selectOne("mypage.selectTotalCountForScrap");
+	}
+	
+	//회원정보 수정 nickname 체크
+	public UserVo selectNickChkForModify(UserVo userVo) {
+		return sqlSession.selectOne("mypage.selectNickChkForModify", userVo);
+	}
+	
+	//회원정보 수정 수정완료 클릭시 확인사항
+	public int updateInfo(UserVo userVo) {
+		return sqlSession.update("mypage.updateInfo", userVo);
 	}
 }

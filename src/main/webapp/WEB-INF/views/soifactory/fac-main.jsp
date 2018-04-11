@@ -82,12 +82,12 @@
 	</div>
 		
 	<div id="wrap2" class="container">
-		<c:forEach items="${bindMap.postList}" var="postVo"> 
+		<c:forEach items="${bindMap.postList}" var="postVo">
 			<div class="box">
 				<div class="image-box">
 					<a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"> <img
-						src="http://ppss.kr/wp-content/uploads/2016/01/4-39-360x200.jpg"
-						width="150" height="150">
+						src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"
+					width="200" height="150">
 					</a>
 				</div>
 

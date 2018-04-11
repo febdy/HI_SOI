@@ -1,12 +1,15 @@
 package com.bit.hi.controller;
 
+import java.io.PrintWriter;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -68,9 +71,45 @@ public class MypageController {
 		return "mypage/collectscrap";
 	}
 	
-	@RequestMapping("/modifyInfo")
-	public String modifyInfo() {
+	@RequestMapping("/beforemodify")
+	public String beforeModify() {
 		
-		return "mypage/modifyInfo";
+		return "mypage/beforemodify";
 	}
+	
+	@RequestMapping("/modifyinfo")
+	public String modifyInfo(HttpSession session, @RequestParam("userPwd") String userPwd, Model model) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		if(authUser.getUserPwd().equals(userPwd)) {
+			UserVo userInfo=mypageService.getUserInfo(authUser.getUserId());
+			model.addAttribute("userVo", userInfo);
+			return "mypage/modifyInfo";
+		} else {
+			return "redirect:/mypage/beforemodify";
+		}
+	}
+	
+	//수정시 비밀번호 입력 받았을 때만 수정되도록 팝업 띄우기, 수정 후 세션 다시 입력시키기
+	@RequestMapping("/modifyComplete")
+	public void modifyComplete(@ModelAttribute UserVo userVo, HttpServletResponse response, HttpSession session) throws Exception {
+		System.out.println(userVo);
+        
+		//String url="";
+		response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+		if(mypageService.modifyComplete(userVo)==1) {
+			//url="redirect:/";
+			session.removeAttribute("authUser");
+			session.invalidate();
+			out.println("<script>alert('회원정보 수정에 성공하였습니다. 재로그인 해주세요.'); </script>");
+			out.println("<script> location.href='../../hi' </script>");
+		} else {
+			
+			out.println("<script>alert('회원정보 수정에 실패하였습니다.'); history.go(-1);</script>");
+            out.flush();
+		}
+		
+		//return url;
+	}
+	
 }

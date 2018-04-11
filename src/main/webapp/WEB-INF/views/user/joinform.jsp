@@ -39,14 +39,17 @@
 		<label class="block-label">비밀번호 확인</label>
 		<input type="text" name="userName" value=""/> -->
 		
+		<!-- 휴대폰 번호, 이메일 형식 정규식 확인 작업 해야함. -->
 		<label class="block-label">휴대폰 번호</label>
 		<input type="text" name="userTel" value=""/><br/>
 		
 		<label class="block-label">이메일</label>
 		<input type="text" name="userEmail" value=""/><br/>
 		
+		<!-- 모달로 주소 검색하여, input에 띄우게 하기. -->
 		<label class="block-label">주소</label>
 		<input type="text" name="userAddr" value=""/><br/>
+		<input id="btn-checkaddr" type="button" value="주소 검색"><br/>
 		
 		<fieldset>
 			<legend>약관동의</legend>
@@ -54,8 +57,8 @@
 			<label class="l-float">서비스 약관에 동의합니다.</label>
 		</fieldset><br/>
 
-		<input type="submit" value="회원 가입">
-		<a href="${pageContext.request.contextPath}/" >취소</a>
+		<input class="btn btn-default" type="submit" value="회원 가입">
+		<a href="${pageContext.request.contextPath}/" class="btn btn-default">취소</a>
 	</form>
 </body>
 <script>
@@ -107,6 +110,16 @@
 				console.error(status + " : " + error);
 			}
 		});
+	});
+	
+	$("#password").keyup(function(){
+		var pw = $("[name=userPwd]").val();
+		var check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+		if(!check.test(pw)) {
+			$("#chkPassword").html("<font color=\"red\">8~20자의 영문대소문자, 숫자 및 특수문자 사용</font>");
+		} else {
+			$("#chkPassword").text("사용 가능한 비밀번호입니다.");
+		}
 	});
 
 </script>

@@ -19,6 +19,7 @@ public class PostVo {
 	private String videoPath;
 	private long videoSize;
 	private String videoDate;
+	private String videoThumnail;
 	private String videoCorrectLine;
 	private String userId;
 	private String userNickname;
@@ -29,7 +30,8 @@ public class PostVo {
 	public PostVo(int postNo, String writerId, int videoNo, String postTitle, String postContent, String postDate,
 			int postSoiCnt, int postCmtCnt, int postHitCnt, String postHideFace, String postSharable,
 			String postAnalResult, String videoOriginName, String videoSaveName, String videoExName, String videoPath,
-			long videoSize, String videoDate, String videoCorrectLine, String userId, String userNickname) {
+			long videoSize, String videoDate, String videoThumnail, String videoCorrectLine, String userId,
+			String userNickname) {
 		this.postNo = postNo;
 		this.writerId = writerId;
 		this.videoNo = videoNo;
@@ -48,6 +50,7 @@ public class PostVo {
 		this.videoPath = videoPath;
 		this.videoSize = videoSize;
 		this.videoDate = videoDate;
+		this.videoThumnail = videoThumnail;
 		this.videoCorrectLine = videoCorrectLine;
 		this.userId = userId;
 		this.userNickname = userNickname;
@@ -197,6 +200,14 @@ public class PostVo {
 		this.videoDate = videoDate;
 	}
 
+	public String getVideoThumnail() {
+		return videoThumnail;
+	}
+
+	public void setVideoThumnail(String videoThumnail) {
+		this.videoThumnail = videoThumnail;
+	}
+
 	public String getVideoCorrectLine() {
 		return videoCorrectLine;
 	}
@@ -228,8 +239,9 @@ public class PostVo {
 				+ ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt + ", postHideFace=" + postHideFace
 				+ ", postSharable=" + postSharable + ", postAnalResult=" + postAnalResult + ", videoOriginName="
 				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
-				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine="
-				+ videoCorrectLine + ", userId=" + userId + ", userNickname=" + userNickname + "]";
+				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoThumnail="
+				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", userId=" + userId + ", userNickname="
+				+ userNickname + "]";
 	}
 	
 }

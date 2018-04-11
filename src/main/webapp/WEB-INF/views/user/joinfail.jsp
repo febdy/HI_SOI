@@ -11,8 +11,7 @@
 </head>
 <body>
 	<p class="welcome-message">
-		<span> 감사합니다.
-				 회원 가입이 되었습니다. 이용하시려면 로그인 해주세요.
+		<span> 회원가입에 실패하였습니다. 다시 시도해주세요.
 		</span>
 		<br><br>
 		<a href="${pageContext.request.contextPath}/user/loginform">로그인</a>

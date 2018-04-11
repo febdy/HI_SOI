@@ -31,7 +31,7 @@
 					</table>
 				</form>
 			<div class="col-md-6 pull-left">
-				<video width="500" height="250" controls="controls" poster="http://media.w3.org/2010/05/sintel/poster.png" preload="none">
+				<video width="500" height="250" controls="controls" poster="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}" preload="none">
 					<source src="${pageContext.request.contextPath}/upload/${postVo.videoSaveName}" type="video/mp4">
 					<source src="${pageContext.request.contextPath}/upload/${postVo.videoSaveName}" type="video/ogg">
 				</video>

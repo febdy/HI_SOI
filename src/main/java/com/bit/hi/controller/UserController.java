@@ -29,8 +29,11 @@ public class UserController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute UserVo userVo) {
 		System.out.println("join 진입");
-		userService.join(userVo);
-		return "user/joinsuccess";
+		if (userService.join(userVo)==0) {
+			return "user/joinfail";
+		} else {
+			return "user/joinsuccess";
+		}
 	}
 	
 	@RequestMapping(value="/loginform")
@@ -59,7 +62,5 @@ public class UserController {
 		session.invalidate(); //모든 세션 닫기
 		return "redirect:/";
 	}
-	
-	
 	
 }

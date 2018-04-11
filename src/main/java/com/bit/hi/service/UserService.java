@@ -13,8 +13,14 @@ public class UserService {
 	private UserDao userDao;
 	
 	public int join(UserVo userVo) {
-		userDao.insertJoin(userVo);
-		return 1;
+		if(userDao.selectUserForId(userVo.getUserId())==null) {
+			if(userDao.selectUserForNick(userVo.getUserNickname())==null) {
+				//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
+				if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
+					return userDao.insertJoin(userVo);
+				} else return 0;
+			} else return 0;
+		} else return 0;
 	}
 	
 	public UserVo login(String userId, String userPwd) {

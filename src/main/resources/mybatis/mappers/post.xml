@@ -21,8 +21,10 @@
 					post_hit_cnt postHitCnt,
 					post_hide_face postHideFace,
 					post_sharable postSharable,
-					post_anal_result postAnalResult
-			from post
+					post_anal_result postAnalResult,
+					video_thumnail videoThumnail
+			from post po, video vi
+			where po.video_no=vi.video_no
 		]]>
 	</select>
 	
@@ -46,6 +48,7 @@
 					video_path videoPath,
 					video_size videoSize,
 					video_date videoDate,
+					video_thumnail videoThumnail,
 					video_correct_line videoCorrectLine
 			from post po, video vi
 			where po.video_no=vi.video_no
@@ -102,7 +105,8 @@
         			post_hit_cnt postHitCnt,
         			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
         			user_id userId,
-        			user_nickname userNickname
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
@@ -111,7 +115,8 @@
                     			post_hit_cnt,
                     			post_date,
                     			user_id,
-                    			user_nickname
+                    			user_nickname,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
@@ -119,9 +124,11 @@
                     			post_hit_cnt,
                     			post_date,
                     			us.user_id,
-                    			us.user_nickname
-                			from post po, users us
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
                 			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no
                 			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
                 			<if test="kwd!=null and kwd!=''">
                 				and post_title like '%'||#{kwd}||'%'

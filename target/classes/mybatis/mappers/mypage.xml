@@ -205,4 +205,38 @@
 		]]>
 	</select>
 
+	<select id="selectNickChkForModify" parameterType="com.bit.hi.domain.vo.UserVo" resultType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			select user_id userId,
+        			user_name userName,
+        			user_email userEmail,
+        			user_addr userAddr,
+        			user_tel userTel,
+        			user_pwd userPwd,
+        			user_nickname userNickname,
+        			user_level userLevel,
+        			reg_date regDate
+			from users
+			where user_nickname != #{userNickname}
+			and user_nickname = #{userNicknameAfter}
+		]]>
+	</select>
+	
+	<update id="updateInfo" parameterType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			update users
+			set user_name=#{userName}, 
+				user_nickname=#{userNickname},
+				user_tel=#{userTel},
+				user_email=#{userEmail},
+				user_addr=#{userAddr}
+		]]>
+			<if test="userPwd!=null and userPwd!=''"> <!-- 공백, 값입력 하나도 없는 것도 pw 수정이 되는데, 이를 개선함. -->
+			    , user_pwd=#{userPwd}
+			</if>
+		<![CDATA[
+			where user_id=#{userId}
+		]]>
+	</update>
+	
 </mapper>

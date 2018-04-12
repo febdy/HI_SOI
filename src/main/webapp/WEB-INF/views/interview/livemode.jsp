@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hisoi.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/Style.css">
-<script type="text/javascript"
+<%-- <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.12.4.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> --%>
 </head>
 <body>
 	<!-- 메인해더 -->
@@ -64,8 +64,8 @@
 
 </body>
 <script>
-	$(function () {
+	/* $(function () {
 		$('[data-toggle="popover"]').popover();
-	});
+	}); */
 </script>
 </html>

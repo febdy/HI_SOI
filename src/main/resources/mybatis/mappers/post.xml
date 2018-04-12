@@ -8,6 +8,7 @@
 		]]>
 	</insert>
 	
+	<!-- 소이팩토리 메인 전체 영상 리스트 뿌려주기 -->
 	<select id="selectAllPostList" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select post_no postNo,
@@ -28,6 +29,7 @@
 		]]>
 	</select>
 	
+	<!-- 각 포스트 클릭시 정보 뿌리기 -->
 	<select id="selectEachPost" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select post_no postNo,
@@ -56,6 +58,7 @@
 		]]>
 	</select>
 	
+	<!-- 좋아요(콩) -->
 	<update id="updateLike" parameterType="int">
 		<![CDATA[
 			update post
@@ -64,6 +67,7 @@
 		]]>
 	</update>
 	
+	<!-- 조회수 -->
 	<update id="postUpdateHit" parameterType="int">
 		<![CDATA[
 			update post
@@ -72,6 +76,7 @@
 		]]>
 	</update>
 	
+	<!-- 댓글수 -->
 	<update id="updateCmtCnt" parameterType="com.bit.hi.domain.vo.CommentVo">
 		<![CDATA[
 			update post
@@ -80,6 +85,7 @@
 		]]>
 	</update>
 	
+	<!-- 소이팩토리 글삭제 -->
 	<delete id="deletePost" parameterType="int">
 		<![CDATA[
 			delete from post
@@ -87,6 +93,7 @@
 		]]>
 	</delete>
 	
+	<!-- 소이팩토리 스크랩(별) 클릭시 -->
 	<insert id="insertScrapPost" parameterType="com.bit.hi.domain.vo.ScrapVo">
 		<![CDATA[
 			insert into scrap(post_no, user_id, scrap_date)
@@ -165,7 +172,8 @@
         			post_hit_cnt postHitCnt,
         			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
         			user_id userId,
-        			user_nickname userNickname
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
@@ -174,7 +182,8 @@
                     			post_hit_cnt,
                     			post_date,
                     			user_id,
-                    			user_nickname
+                    			user_nickname,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
@@ -182,9 +191,11 @@
                     			post_hit_cnt,
                     			post_date,
                     			us.user_id,
-                    			us.user_nickname
-                			from post po, users us
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
                 			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no
                             order by post_soi_cnt desc, post_no desc) o) t
             where rn > #{startRnum}
 			and rn <= #{endRnum}
@@ -202,7 +213,8 @@
         			post_hit_cnt postHitCnt,
         			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
         			user_id userId,
-        			user_nickname userNickname
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
@@ -211,7 +223,8 @@
                     			post_hit_cnt,
                     			post_date,
                     			user_id,
-                    			user_nickname
+                    			user_nickname,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
@@ -219,9 +232,11 @@
                     			post_hit_cnt,
                     			post_date,
                     			us.user_id,
-                    			us.user_nickname
-                			from post po, users us
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
                 			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no
                             order by post_date desc, post_no desc) o) t
             where rn > #{startRnum}
 			and rn <= #{endRnum}
@@ -239,7 +254,8 @@
         			post_hit_cnt postHitCnt,
         			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
         			user_id userId,
-        			user_nickname userNickname
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
@@ -248,7 +264,8 @@
                     			post_hit_cnt,
                     			post_date,
                     			user_id,
-                    			user_nickname
+                    			user_nickname,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
@@ -256,9 +273,11 @@
                     			post_hit_cnt,
                     			post_date,
                     			us.user_id,
-                    			us.user_nickname
-                			from post po, users us
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
                 			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no
                             order by post_hit_cnt desc, post_no desc) o) t
             where rn > #{startRnum}
 			and rn <= #{endRnum}
@@ -276,7 +295,8 @@
         			post_hit_cnt postHitCnt,
         			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
         			user_id userId,
-        			user_nickname userNickname
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
@@ -285,7 +305,8 @@
                     			post_hit_cnt,
                     			post_date,
                     			user_id,
-                    			user_nickname
+                    			user_nickname,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
@@ -293,9 +314,11 @@
                     			post_hit_cnt,
                     			post_date,
                     			us.user_id,
-                    			us.user_nickname
-                			from post po, users us
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
                 			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no
                             order by post_cmt_cnt desc, post_no desc) o) t
             where rn > #{startRnum}
 			and rn <= #{endRnum}

@@ -44,26 +44,11 @@
 	<div id="wrap1" class="container">
 		<div class="pull-left">
 			<ol class="breadcrumb">
- 				<li><a href="${pageContext.request.contextPath}/post/arraysoi">인기(콩)순</a></li>
-  				<li><a href="${pageContext.request.contextPath}/post/arraylatest">최신순</a></li>
-  				<li><a href="${pageContext.request.contextPath}/post/arrayview">조회순</a></li>
-  				<li><a href="${pageContext.request.contextPath}/post/arraycomment">댓글순</a></li>
+ 				<li><a href="${pageContext.request.contextPath}/post/array?soi=selected">인기(콩)순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/array?latest=selected">최신순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/array?view=selected">조회순</a></li>
+  				<li><a href="${pageContext.request.contextPath}/post/array?comment=selected">댓글순</a></li>
 			</ol>
-			<%-- <span id="ArrPop" class="">
-				<a href="${pageContext.request.contextPath}/post/arraysoi">인기(콩)순</a>
-			</span>
-			<span>/</span>
-			<span id="Arrlatest" class="">
-				<a href="${pageContext.request.contextPath}/post/arraylatest">최신순</a>
-			</span>
-			<span>/</span>
-			<span id="Arrview" class="">
-				<a href="${pageContext.request.contextPath}/post/arrayview">조회순</a>
-			</span>
-			<span>/</span>
-			<span id="ArrComm" class="">
-				<a href="${pageContext.request.contextPath}/post/arraycomment">댓글순</a>
-			</span> --%>
 		</div>
 				
 		<div class="write pull-right btn btn-default">
@@ -114,6 +99,61 @@
 		</ul>
 	</div>
 
+	<div class="pager">
+		<c:if test="${where == 'list'}">            
+			<ul>
+				<c:if test="${page > 1}">
+                	<li><a href="board?a=list&page=1">◀</a></li>
+                </c:if>
+                <c:if test="${page <= 1}">
+                	<li>◀</li>
+                </c:if>
+                     
+                <c:forEach var="i" begin="1" end="${maxPageNum}" step="1">
+                    <c:if test="${page == i}">
+                    	<li class="selected"><a href="board?a=list&page=${i}">${i}</a></li>
+                    </c:if>
+                    <c:if test="${page != i}">
+                    	<li><a href="board?a=list&page=${i}">${i}</a></li>
+                    </c:if>
+                </c:forEach>
+   
+                <c:if test="${page < maxPageNum}">
+                	<li><a href="board?a=list&page=${maxPageNum}">▶</a></li>
+                </c:if>
+                <c:if test="${page >= maxPageNum}">
+                	<li>▶</li>
+                </c:if>
+                  </ul>
+               </c:if>
+               
+               <c:if test="${where == 'search'}">            
+                  <ul>
+                     <c:if test="${page > 1}">
+                        <li><a href="board?a=search&kwd=${kwd}&page=1">◀</a></li>
+                     </c:if>
+                     <c:if test="${page <= 1}">
+                        <li>◀</li>
+                     </c:if>
+                     
+                     <c:forEach var="i" begin="1" end="${maxPageNum}" step="1">
+                        <c:if test="${page == i}">
+                           <li class="selected"><a href="board?a=search&kwd=${kwd}&page=${i}">${i}</a></li>
+                        </c:if>
+                        <c:if test="${page != i}">
+                           <li><a href="board?a=search&kwd=${kwd}&page=${i}">${i}</a></li>
+                        </c:if>
+                     </c:forEach>
+   
+                     <c:if test="${page < maxPageNum}">
+                        <li><a href="board?a=search&kwd=${kwd}&page=${maxPageNum}">▶</a></li>
+                     </c:if>
+                     <c:if test="${page >= maxPageNum}">
+                        <li>▶</li>
+                     </c:if>
+                  </ul>
+               </c:if>            
+	</div>
 
 
 </body>

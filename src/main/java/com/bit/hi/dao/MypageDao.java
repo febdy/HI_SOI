@@ -30,8 +30,8 @@ public class MypageDao {
 		return sqlSession.selectList("mypage.selectPageForMyVideoList", mapCri);
 	}
 	//영상관리 페이징
-	public int selectTotalCountForMyVideo() {
-		return sqlSession.selectOne("mypage.selectTotalCountForMyVideo");
+	public int selectTotalCountForMyVideo(String userId) {
+		return sqlSession.selectOne("mypage.selectTotalCountForMyVideo", userId);
 	}
 	
 	//내 댓글
@@ -44,8 +44,8 @@ public class MypageDao {
 		return sqlSession.selectList("mypage.selectCollectCommentList", mapCri);
 	}
 	//내 댓글
-	public int selectTotalCountForComment() {
-		return sqlSession.selectOne("mypage.selectTotalCountForComment");
+	public int selectTotalCountForComment(String userId) {
+		return sqlSession.selectOne("mypage.selectTotalCountForComment", userId);
 	}
 	
 	//내가 올린 영상
@@ -58,8 +58,8 @@ public class MypageDao {
 		return sqlSession.selectList("mypage.selectCollectVideoList", mapCri);
 	}
 	//내가 올린 영상
-	public int selectTotalCountForVideo() {
-		return sqlSession.selectOne("mypage.selectTotalCountForVideo");
+	public int selectTotalCountForVideo(String userId) {
+		return sqlSession.selectOne("mypage.selectTotalCountForVideo", userId);
 	}
 		
 	//스크랩
@@ -72,8 +72,8 @@ public class MypageDao {
 		return sqlSession.selectList("mypage.selectCollectScrapList", mapCri);
 	}
 	//스크랩
-	public int selectTotalCountForScrap() {
-		return sqlSession.selectOne("mypage.selectTotalCountForScrap");
+	public int selectTotalCountForScrap(String userId) {
+		return sqlSession.selectOne("mypage.selectTotalCountForScrap", userId);
 	}
 	
 	//회원정보 수정 nickname 체크

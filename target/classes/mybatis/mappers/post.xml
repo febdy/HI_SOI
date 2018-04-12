@@ -161,8 +161,8 @@
 		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
 	</select>
 	
-	<!-- 인기(콩)순 정렬 -->
-	<select id="selectListForArraySoi" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+	<!-- 소이팩토리 정렬 -->
+	<select id="selectListForArray" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -196,130 +196,22 @@
                 			from post po, users us, video vi
                 			where po.writer_id=us.user_id
                 			and po.video_no=vi.video_no
-                            order by post_soi_cnt desc, post_no desc) o) t
-            where rn > #{startRnum}
-			and rn <= #{endRnum}
-		]]>
-	</select>
-	
-	<!-- 최신순 정렬 -->
-	<select id="selectListForArrayLatest" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
-		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                            order by post_date desc, post_no desc) o) t
-            where rn > #{startRnum}
-			and rn <= #{endRnum}
-		]]>
-	</select>
-	
-	<!-- 조회수순 정렬 -->
-	<select id="selectListForArrayView" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
-		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                            order by post_hit_cnt desc, post_no desc) o) t
-            where rn > #{startRnum}
-			and rn <= #{endRnum}
-		]]>
-	</select>
-	
-	<!-- 댓글수순 정렬 -->
-	<select id="selectListForArrayComment" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
-		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                            order by post_cmt_cnt desc, post_no desc) o) t
+                            order by 
+                            ]]>
+                            	<if test="soi != null">
+                            		post_soi_cnt
+                            	</if>
+                            	<if test="view != null">
+                            		post_hit_cnt
+                            	</if>
+                            	<if test="comment != null">
+                            		post_cmt_cnt
+                            	</if>
+                            	<if test="latest != null">
+                            		post_date
+                            	</if>
+                            <![CDATA[
+                            desc, post_no desc) o) t
             where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]>

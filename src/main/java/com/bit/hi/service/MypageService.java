@@ -40,7 +40,7 @@ public class MypageService {
 		List<VideoVo> myVideoList = mypageDao.selectMyVideoList(userId, startRnum, endRnum);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
-		int totalCount = mypageDao.selectTotalCountForMyVideo();
+		int totalCount = mypageDao.selectTotalCountForMyVideo(userId);
 		System.out.println("totalCount :" + totalCount);
 
 		// 페이지당 버튼 갯수
@@ -90,7 +90,7 @@ public class MypageService {
 		List<CommentVo> commentList = mypageDao.selectCollectCommentList(userId, startRnum, endRnum);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
-		int totalCount = mypageDao.selectTotalCountForComment();
+		int totalCount = mypageDao.selectTotalCountForComment(userId);
 		System.out.println("totalCount :" + totalCount);
 
 		// 페이지당 버튼 갯수
@@ -123,6 +123,7 @@ public class MypageService {
 
 		return commentMap;
 	}
+	
 	//마이페이지(영상)
 	public Map<String, Object> getCollectVideoList(String userId, Integer crtPage) {
 		// 페이지 뿌려주기 관련 작업
@@ -139,7 +140,7 @@ public class MypageService {
 		List<PostVo> postList = mypageDao.selectCollectVideoList(userId, startRnum, endRnum);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
-		int totalCount = mypageDao.selectTotalCountForVideo();
+		int totalCount = mypageDao.selectTotalCountForVideo(userId);
 		System.out.println("totalCount :" + totalCount);
 
 		// 페이지당 버튼 갯수
@@ -188,7 +189,7 @@ public class MypageService {
 		List<ScrapVo> scrapList = mypageDao.selectCollectScrapList(userId, startRnum, endRnum);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
-		int totalCount = mypageDao.selectTotalCountForScrap();
+		int totalCount = mypageDao.selectTotalCountForScrap(userId);
 		System.out.println("totalCount :" + totalCount);
 
 		// 페이지당 버튼 갯수

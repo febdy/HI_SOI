@@ -94,10 +94,11 @@
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
 	<!-- 영상관리 페이징 -->
-	<select id="selectTotalCountForMyVideo" resultType="int">
+	<select id="selectTotalCountForMyVideo" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*)
-			from notice
+			from video
+			where user_id=#{userId}
 		]]>
 	</select>
 	
@@ -127,10 +128,11 @@
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
 	<!-- 내 댓글 페이징 -->
-	<select id="selectTotalCountForComment" resultType="int">
+	<select id="selectTotalCountForComment" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*)
 			from comments
+			where user_id=#{userId}
 		]]>
 	</select>
 	
@@ -142,30 +144,35 @@
                     post_title postTitle,
                     post_soi_cnt postSoiCnt,
                     post_cmt_cnt postCmtCnt,
-                    post_hit_cnt postHitCnt
+                    post_hit_cnt postHitCnt,
+                    video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
-                    			post_hit_cnt
+                    			post_hit_cnt,
+                    			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
-                    			post_hit_cnt
-                			from post po
-							where writer_id=#{userId}
+                    			post_hit_cnt,
+                    			vi.video_thumnail
+                			from post po, video vi
+							where po.video_no=vi.video_no
+							and writer_id=#{userId}
                 			order by post_no desc) o) t
 			where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
 	<!-- 내가 올린 영상 페이징 -->
-	<select id="selectTotalCountForVideo" resultType="int">
+	<select id="selectTotalCountForVideo" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*)
 			from post
+			where writer_id=#{userId}
 		]]>
 	</select>
 	
@@ -177,31 +184,36 @@
                     post_title postTitle,
                     post_soi_cnt postSoiCnt,
                     post_cmt_cnt postCmtCnt,
-                    post_hit_cnt postHitCnt
+                    post_hit_cnt postHitCnt,
+                    video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
-                    			post_hit_cnt
+                    			post_hit_cnt,
+                    			video_thumnail
         			from (select sc.post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
-                    			post_hit_cnt
-                			from scrap sc, post po
+                    			post_hit_cnt,
+                    			vi.video_thumnail
+                			from scrap sc, post po, video vi
 							where sc.post_no=po.post_no
-							and user_id=#{userId}
+							and po.video_no=vi.video_no
+							and sc.user_id=#{userId}
                 			order by post_no desc) o) t
 			where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
 	<!-- 스크랩 페이징 -->
-	<select id="selectTotalCountForScrap" resultType="int">
+	<select id="selectTotalCountForScrap" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(*)
 			from scrap
+			where user_id=#{userId}
 		]]>
 	</select>
 

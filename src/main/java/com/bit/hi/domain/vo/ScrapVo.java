@@ -9,12 +9,13 @@ public class ScrapVo {
 	private int postCmtCnt;
 	private int postHitCnt;
 	private String writerId;
+	private String videoThumnail;
 	
 	public ScrapVo() {
 	}
 
 	public ScrapVo(int postNo, String userId, String scrapDate, String postTitle, int postSoiCnt, int postCmtCnt,
-			int postHitCnt, String writerId) {
+			int postHitCnt, String writerId, String videoThumnail) {
 		this.postNo = postNo;
 		this.userId = userId;
 		this.scrapDate = scrapDate;
@@ -23,6 +24,7 @@ public class ScrapVo {
 		this.postCmtCnt = postCmtCnt;
 		this.postHitCnt = postHitCnt;
 		this.writerId = writerId;
+		this.videoThumnail = videoThumnail;
 	}
 
 	public int getPostNo() {
@@ -89,11 +91,19 @@ public class ScrapVo {
 		this.writerId = writerId;
 	}
 
+	public String getVideoThumnail() {
+		return videoThumnail;
+	}
+
+	public void setVideoThumnail(String videoThumnail) {
+		this.videoThumnail = videoThumnail;
+	}
+
 	@Override
 	public String toString() {
 		return "ScrapVo [postNo=" + postNo + ", userId=" + userId + ", scrapDate=" + scrapDate + ", postTitle="
 				+ postTitle + ", postSoiCnt=" + postSoiCnt + ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt
-				+ ", writerId=" + writerId + "]";
+				+ ", writerId=" + writerId + ", videoThumnail=" + videoThumnail + "]";
 	}
 	
 }

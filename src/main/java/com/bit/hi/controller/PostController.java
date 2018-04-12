@@ -61,31 +61,15 @@ public class PostController {
 		return "redirect:/post/soifactorylist";
 	}
 	
-	@RequestMapping(value="/arraysoi")
-	public String arraySoi(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
-		Map<String, Object> bMap=postService.getArraySoi(crtPage);
+	@RequestMapping(value="/array")
+	public String array(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model,
+			@RequestParam(value="soi", required=false) String soi,
+			@RequestParam(value="view", required=false) String view,
+			@RequestParam(value="comment", required=false) String comment,
+			@RequestParam(value="latest", required=false) String latest) {
+		Map<String, Object> bMap=postService.getArray(crtPage,soi,view,comment,latest);
 		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
 	}
-	
-	@RequestMapping(value="/arraylatest")
-	public String arrayLatest(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
-		Map<String, Object> bMap=postService.getArrayLatest(crtPage);
-		model.addAttribute("bindMap", bMap);
-		return "soifactory/fac-main";
-	}
-	
-	@RequestMapping(value="/arrayview")
-	public String arrayView(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
-		Map<String, Object> bMap=postService.getArrayView(crtPage);
-		model.addAttribute("bindMap", bMap);
-		return "soifactory/fac-main";
-	}
-	
-	@RequestMapping(value="/arraycomment")
-	public String arrayComment(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model) {
-		Map<String, Object> bMap=postService.getArrayComment(crtPage);
-		model.addAttribute("bindMap", bMap);
-		return "soifactory/fac-main";
-	}
+
 }

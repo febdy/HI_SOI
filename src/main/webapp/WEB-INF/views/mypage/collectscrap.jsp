@@ -52,7 +52,7 @@
 					<div class="box">
 						<div class="image-box">
 							<a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}"> <img
-						src="http://ppss.kr/wp-content/uploads/2016/01/4-39-360x200.jpg"
+						src="${pageContext.request.contextPath}/upload/${scrapVo.videoThumnail}"
 						width="100" height="100">
 							</a>
 						</div>

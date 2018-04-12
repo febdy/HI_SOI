@@ -14,7 +14,7 @@ public class ExtractImage {
 	    System.out.println("이름딴거 : "+ name[0]);
 
 	    //썸네일 파일명
-	    String imageFilePath = directory + File.separator + name[0] + "_썸네일.jpg";
+	    String imageFilePath = directory + File.separator + name[0] + "_썸네일.png";
 	    System.out.println("imageFilePath : " + imageFilePath);
 
 	    Runtime run = Runtime.getRuntime();
@@ -29,6 +29,6 @@ public class ExtractImage {
 //	       throw new RuntimeException(e);
 	       e.printStackTrace();
 	    } 
-	    return name[0] + "_썸네일.jpg";
+	    return name[0] + "_썸네일.png";
 	}
 }

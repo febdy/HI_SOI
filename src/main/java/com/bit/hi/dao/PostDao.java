@@ -68,44 +68,22 @@ public class PostDao {
 		return sqlSession.insert("post.insertScrapPost", scrapVo);
 	}
 	
-	//인기순 정렬
-	public List<PostVo> selectListForArraySoi(int startRnum, int endRnum) {
+	//소이팩토리 정렬
+	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest) {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
+		mapCri.put("soi", soi);
+		mapCri.put("view", view);
+		mapCri.put("comment", comment);
+		mapCri.put("latest", latest);
 		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList("post.selectListForArraySoi", mapCri);
+		return sqlSession.selectList("post.selectListForArray", mapCri);
 	}
 	
-	//최신순 정렬
-	public List<PostVo> selectListForArrayLatest(int startRnum, int endRnum) {
-		Map<String, Object> mapCri=new HashMap<String, Object>();
-		mapCri.put("startRnum", startRnum);
-		mapCri.put("endRnum", endRnum);
-		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList("post.selectListForArrayLatest", mapCri);
-	}
-	
-	//조회수순 정렬
-	public List<PostVo> selectListForArrayView(int startRnum, int endRnum) {
-		Map<String, Object> mapCri=new HashMap<String, Object>();
-		mapCri.put("startRnum", startRnum);
-		mapCri.put("endRnum", endRnum);
-		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList("post.selectListForArrayView", mapCri);
-	}
-	
-	//조회수순 정렬
-	public List<PostVo> selectListForArrayComment(int startRnum, int endRnum) {
-		Map<String, Object> mapCri=new HashMap<String, Object>();
-		mapCri.put("startRnum", startRnum);
-		mapCri.put("endRnum", endRnum);
-		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList("post.selectListForArrayComment", mapCri);
-	}
-		
 	//정렬에 사용될 총 포스트 수
 	public int selectTotalCountForArray() {
 		return sqlSession.selectOne("post.selectTotalCountForArray");
 	}
+	
 }

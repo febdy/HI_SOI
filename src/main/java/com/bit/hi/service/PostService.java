@@ -27,7 +27,6 @@ public class PostService {
 		return postDao.selectVideoInfo(videoNo);
 	}
 	
-	//현재 제목으로 비디오번호를 찾다보니, 동일한 제목의 파일을 2개 tbl_video에 넣을 경우, 업로드하기 안되는 경우 발생함.
 	public int writePost(PostVo postVo, int videoNo) {
 		postVo.setVideoNo(videoNo);
 		System.out.println(postVo);
@@ -39,6 +38,7 @@ public class PostService {
 	}
 	
 	public Map<String, Object> getAllPostList(Integer crtPage, String kwd) {
+		// TODO Auto-generated method stub
 		// 페이지 뿌려주기 관련 작업
 		int listCnt = 15; // 1페이지 당 표시할 게시글 수
 		// int crtPage=1; //현재 페이지(1보다 큰 값이여야 함), 기준이 1페이지
@@ -49,7 +49,7 @@ public class PostService {
 
 		System.out.println("startRnum: " + startRnum);
 		System.out.println("endRnum: " + endRnum);
-
+				
 		List<PostVo> postList = postDao.selectAllPostList(startRnum, endRnum, kwd);
 		// 페이지 하단 숫자버튼 관련 작업
 		// 전체 글 갯수
@@ -59,7 +59,7 @@ public class PostService {
 		// 페이지당 버튼 갯수
 		int pageBtnCount = 5;
 		int endPageBtnNo = (int) (Math.ceil(crtPage / (double) pageBtnCount) * pageBtnCount); // endPageBtnNo부터 구하는게 더
-																										// 편함.
+																												// 편함.
 		// ceil은 올림 메소드
 		int startPageBtnNo = endPageBtnNo - (pageBtnCount - 1);
 

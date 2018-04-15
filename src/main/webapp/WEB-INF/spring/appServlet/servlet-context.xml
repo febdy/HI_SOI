@@ -40,4 +40,19 @@
 	<!-- 서버에 저장할 공간(저장 위치) upload로 들어오는 값은 location 위치에 저장 -->
 	<resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 	
+	<!-- 이게 없어도 돌아가는데 해주는 이유 알아보기 -->
+	<beans:bean class="com.bit.hi.interceptor.UserLoginInterceptor" id="loginInterceptor"></beans:bean>
+	<beans:bean class="com.bit.hi.interceptor.UserAuthInterceptor" id="authInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/login"/>
+			<beans:bean class="com.bit.hi.interceptor.UserLoginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/mypage/**"/>
+			<beans:bean class="com.bit.hi.interceptor.UserAuthInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>

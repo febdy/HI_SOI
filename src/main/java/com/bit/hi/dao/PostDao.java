@@ -81,7 +81,7 @@ public class PostDao {
 		return sqlSession.selectList("post.selectListForArray", mapCri);
 	}
 	
-	//정렬에 사용될 총 포스트 수
+	//소이팩토리 정렬에 사용될 총 포스트 수
 	public int selectTotalCountForArray() {
 		return sqlSession.selectOne("post.selectTotalCountForArray");
 	}

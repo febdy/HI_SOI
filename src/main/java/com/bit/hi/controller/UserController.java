@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,15 +45,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login")
-	public String login(@RequestParam("id") String userId, @RequestParam("password") String userPwd, HttpSession session) {
+	public String login(@RequestParam("id") String userId, @RequestParam("password") String userPwd, Model model) {
 		System.out.println("login 진입");
 		System.out.println(userId + "/" + userPwd);
 		
 		UserVo authUser=userService.login(userId, userPwd);
 		
-		System.out.println(authUser);
-		
-		session.setAttribute("authUser", authUser);
+		model.addAttribute("authUser", authUser);
 		return "redirect:/";
 	}
 	

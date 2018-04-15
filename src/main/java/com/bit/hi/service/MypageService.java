@@ -173,6 +173,7 @@ public class MypageService {
 
 		return videoMap;
 	}
+	
 	//마이페이지(스크랩)
 	public Map<String, Object> getCollectScrapList(String userId, Integer crtPage) {
 		// 페이지 뿌려주기 관련 작업

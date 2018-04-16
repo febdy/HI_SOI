@@ -96,38 +96,61 @@
 		<!-- /Header -->
 
 		<!-- Main Section -->
-		<section id="main">
+            <section id="main">
+                <!-- Title, Breadcrumb -->
+                <div class="breadcrumb-wrapper">
+                    <div class="pattern-overlay">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                                    <h2 class="title">소이팩토리</h2>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                                    <div class="breadcrumbs pull-right">
+                                        <ul>
+                                            <li>You are Now on:</li>
+                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="#">SoiFactory</a></li>
+                                            <li>Products Single Page</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Title, Breadcrumb -->
 			<!-- Latest Posts -->
 			<div id="latest-posts" class=" margin-top100">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 text-center">
 							<h2 class="wow fadeIn">SoiFactory</h2>
-							<h4 class="wow fadeInRight">소이 팩토리는 서로의 면접 실력을 다듬고 면접 자세 및
-								음성 교정 이외에 <br/> 다양한 면접 기술을 익히기 위한 컨텐츠 서비스 입니다.</h4>
+							<h4 class="wow fadeInRight">
+								소이 팩토리는 서로의 면접 실력을 다듬고 면접 자세 및 음성 교정 이외에 <br /> 다양한 면접 기술을 익히기
+								위한 컨텐츠 서비스 입니다.
+							</h4>
 						</div>
 					</div>
-					<br />
-					<br />
-					<br />
+					<br /> <br /> <br />
 					<div class="row">
 						<!-- Post Order -->
 						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 							<div class="display">
-								<span><b>Display:</b></span> 
-								<a class=" btn-pad" 
-								href="${pageContext.request.contextPath}/post/array?latest=selected">
-								<b>최신순</b></a> 
-								<a class=" btn-pad"  
-								href="${pageContext.request.contextPath}/post/array?soi=selected">
-								<b>인기(콩)순</b></a>
-								<a class=" btn-pad"  
-								href="${pageContext.request.contextPath}/post/array?view=selected">
-								<b>조회순</b></a>
-								<a class=" btn-pad" 
-								href="${pageContext.request.contextPath}/post/array?comment=selected">
-								<b>댓글순</b></a>
-								
+								<span><b>Display:</b></span> <a class=" btn-pad"
+									href="${pageContext.request.contextPath}/post/array?latest=selected">
+									<b>최신순</b>
+								</a> <a class=" btn-pad"
+									href="${pageContext.request.contextPath}/post/array?soi=selected">
+									<b>인기(콩)순</b>
+								</a> <a class=" btn-pad"
+									href="${pageContext.request.contextPath}/post/array?view=selected">
+									<b>조회순</b>
+								</a> <a class=" btn-pad"
+									href="${pageContext.request.contextPath}/post/array?comment=selected">
+									<b>댓글순</b>
+								</a>
+
 							</div>
 						</div>
 						<!-- /Post Order -->
@@ -224,18 +247,35 @@
 					</div>
 				</div>
 				<div class="row">
-                    <div class="pagination-centered padding-bottom30">
-                        <ul class="pagination">
-                            <li class="disabled"><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                    </div>
-                </div>
+					<div class="pagination-centered padding-bottom30">
+						<ul class="pagination">
+							<c:if test="${bindMap.prev}">
+								<!-- 이 값이 false라면 prev 실행 x -->
+								<li><a
+									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.startPageBtnNo-1}">«</a></li>
+							</c:if>
+
+							<c:forEach begin="${bindMap.startPageBtnNo}"
+								end="${bindMap.endPageBtnNo}" var="idx">
+								<li><a
+									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${idx}">${idx}</a></li>
+							</c:forEach>
+
+							<c:if test="${bindMap.next}">
+								<!-- 이 값이 false라면 next 실행 x -->
+								<li><a
+									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.endPageBtnNo+1}">»</a></li>
+							</c:if>
+
+						</ul>
+					</div>
+					<!-- Post Write -->
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
+						<a class="btn btn-color btn-normal btn-pad"
+							href="${pageContext.request.contextPath}/post/soiwriteform">영상올리기</a>
+					</div>
+					<!-- /Post Write -->
+				</div>
 			</div>
 			<!-- /Latest Posts -->
 		</section>

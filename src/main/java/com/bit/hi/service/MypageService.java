@@ -127,7 +127,7 @@ public class MypageService {
 	//마이페이지(영상)
 	public Map<String, Object> getCollectVideoList(String userId, Integer crtPage) {
 		// 페이지 뿌려주기 관련 작업
-		int listCnt = 12; // 1페이지 당 표시할 게시글 수
+		int listCnt = 9; // 1페이지 당 표시할 게시글 수
 		// int crtPage=1; //현재 페이지(1보다 큰 값이여야 함), 기준이 1페이지
 		int startRnum = (crtPage - 1) * listCnt; // 0, 10, 20 순으로 올라갈 것임, 이 식은 구해야함.
 		int endRnum = startRnum + listCnt; // 10, 20, 30 순으로 올라감

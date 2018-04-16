@@ -78,14 +78,17 @@
 			select rn,
        				video_no videoNo,
         			video_origin_name videoOriginName,
-        			to_char(video_date, 'YYYY-MM-DD HH:MI') videoDate
+        			to_char(video_date, 'YYYY-MM-DD HH:MI') videoDate,
+        			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				video_no,
                     			video_origin_name,
-                    			video_date
+                    			video_date,
+                    			video_thumnail
         			from (select video_no,
                     			video_origin_name,
-                    			video_date
+                    			video_date,
+                    			video_thumnail
                 			from video
                 			where user_id=#{userId}
                 			order by video_no desc) o) t
@@ -145,6 +148,7 @@
                     post_soi_cnt postSoiCnt,
                     post_cmt_cnt postCmtCnt,
                     post_hit_cnt postHitCnt,
+                    to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
                     video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
@@ -152,12 +156,14 @@
                     			post_soi_cnt,
                     			post_cmt_cnt,
                     			post_hit_cnt,
+                    			post_date,
                     			video_thumnail
         			from (select post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
                     			post_hit_cnt,
+                    			post_date,
                     			vi.video_thumnail
                 			from post po, video vi
 							where po.video_no=vi.video_no
@@ -185,6 +191,7 @@
                     post_soi_cnt postSoiCnt,
                     post_cmt_cnt postCmtCnt,
                     post_hit_cnt postHitCnt,
+                    to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
                     video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				post_no,
@@ -192,12 +199,14 @@
                     			post_soi_cnt,
                     			post_cmt_cnt,
                     			post_hit_cnt,
+                    			post_date,
                     			video_thumnail
         			from (select sc.post_no,
                     			post_title,
                     			post_soi_cnt,
                     			post_cmt_cnt,
                     			post_hit_cnt,
+                    			post_date,
                     			vi.video_thumnail
                 			from scrap sc, post po, video vi
 							where sc.post_no=po.post_no

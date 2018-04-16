@@ -82,8 +82,8 @@
                                 		<a href="${pageContext.request.contextPath}/user/joinform"><i class="fa fa-edit"></i> 회원가입</a>
                                 	</c:when>
                                 	<c:when test="${not empty sessionScope.authUser}">
-                                		<a href="#"><b>${authUser.userNickname}</b> 님이 접속하셨습니다. </a>
-                                		<a href="#"><i class="fa fa-list-alt"></i> 스크랩</a>
+                                		<a href="${pageContext.request.contextPath}/mypage/history"><b>${authUser.userNickname}</b> 님이 접속하셨습니다. </a>
+                                		<a href="${pageContext.request.contextPath}/mypage/collect/scrap"><i class="fa fa-list-alt"></i> 스크랩</a>
                                 		<a href="${pageContext.request.contextPath}/user/logout"><i class="fa fa-sign-in"></i> 로그아웃</a>
                                 	</c:when>
                                 </c:choose>
@@ -122,11 +122,11 @@
                         <nav class="collapse navbar-collapse menu">
                             <ul class="nav navbar-nav sf-menu">
                                 <li>
-                                    <a id="current" href="${pageContext.request.contextPath}/">소개</a>
+                                    <a id="current" href="${pageContext.request.contextPath}/"><b>소개</b></a>
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">
-                                   	면접진단 
+                                   	<b>면접진단</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>
                                     </span>
@@ -138,12 +138,12 @@
                                 </li>
                                 <li>
                                     <a href="${pageContext.request.contextPath}/post/soifactorylist" class="sf-with-ul">
-                                   	 소이팩토리 
+                                   	 <b>소이팩토리 </b>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">
-                                	마이페이지
+                                	<b>마이페이지</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>
                                     </span>
@@ -187,7 +187,7 @@
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">
-                                  	고객센터
+                                  	<b>고객센터</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>
                                     </span>

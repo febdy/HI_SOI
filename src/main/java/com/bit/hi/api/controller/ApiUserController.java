@@ -15,6 +15,23 @@ public class ApiUserController {
 	@Autowired
 	private UserService userService;
 	
+	/*@ResponseBody
+	@RequestMapping(value="/api/login")
+	public UserVo apiLogin(@RequestBody UserVo userVo) {
+		System.out.println("login 진입");
+		System.out.println(userVo);
+		return userVo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/loginSelectList")
+	public UserVo apiLoginSelectList(@RequestBody UserVo userVo) {
+		System.out.println("loginSelectList 진입");
+		System.out.println(userVo);
+		userService.login(userVo);
+		return userVo;
+	}*/
+	
 	@ResponseBody
 	@RequestMapping(value="/api/idchk")
 	public boolean apiIdChk(@RequestParam("id") String userId) {

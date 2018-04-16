@@ -19,7 +19,7 @@ public class ExtractImage {
 
 	    Runtime run = Runtime.getRuntime();
 	    String command = "C:\\Program Files\\ffmpeg-3.4.2-win64-static\\bin\\ffmpeg.exe -i "
-	            + "\"" + videoFilePath + "\" -ss 00:00:10 -vcodec png -vframes 1 " 
+	            + "\"" + videoFilePath + "\" -ss 00:00:10 -vcodec png -vframes 1 -s hd720 " 
 	            +"\""+ imageFilePath + "\"";
 
 	    try{

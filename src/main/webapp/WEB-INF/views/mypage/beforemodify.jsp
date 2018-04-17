@@ -149,7 +149,7 @@
                                 <div class="col-md-offset-2">
 									<form class="join-form" method="post" action="${pageContext.request.contextPath}/mypage/modifyinfo">
 										<label class="block-label">비밀번호</label>
-										<input id="password" type="text" name="userPwd" value=""/>
+										<input id="password" type="password" name="userPwd" value=""/>
 										<input class="btn btn-default" type="submit" value="확인">
 									</form>
 								</div>   

@@ -145,41 +145,59 @@
                             
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            	  <form class="join-form" method="post" action="${pageContext.request.contextPath}/mypage/modifyComplete">
-									<label class="block-label">아이디</label>
-									<strong>${requestScope.userVo.userId}</strong>
-									<input type="hidden" name="userId" value="${requestScope.userVo.userId}"/><br/>
-		
-									<label class="block-label">이름</label>
-									<input type="text" name="userName" value="${requestScope.userVo.userName}"/><br/>
-		
-									<label class="block-label">닉네임</label>
-									<input id="nickname" type="text" name="userNickname" value="${requestScope.userVo.userNickname}"/>
-									<input id="btn-checknick" type="button" value="닉네임 중복체크"><br/>
-									<div id="chkNickname"></div>
-		
-									<label class="block-label">비밀번호</label>
-									<input id="password" type="text" name="userPwd" value=""/><br/>
-									<div id="chkPassword"></div>
-		
-									<!-- 비밀번호 확인 작업 추가해야 함.
-									<label class="block-label">비밀번호 확인</label>
-									<input type="text" name="userName" value=""/> -->
-
-									<label class="block-label">휴대폰 번호</label>
-									<input type="text" name="userTel" value="${requestScope.userVo.userTel}"/><br/>
-		
-									<label class="block-label">이메일</label>
-									<input type="text" name="userEmail" value="${requestScope.userVo.userEmail}"/><br/>
-		
-									<label class="block-label">주소</label>
-									<input type="text" name="userAddr" value="${requestScope.userVo.userAddr}"/><br/>
-									<input id="btn-checkaddr" type="button" value="주소 검색"><br/>
-					
-									<!-- 비밀 번호가 동일해야 수정 되도록, id,비밀번호 -->
-									<input class="btn btn-default" type="submit" value="수정 완료">
-									<a href="${pageContext.request.contextPath}/" class="btn btn-default">취소</a>
-								</form>
+                            	  <div class="my-account margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="title-box">
+                                                <h3>회원 정보 수정</h3>
+                                            </div>
+                                            <form action="${pageContext.request.contextPath}/mypage/modifyComplete" class="modify-form" method="post">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label for="fname">이름 <span class="required">*</span></label>
+                                                        <input type="text" name="userName" class="form-control" value="${requestScope.userVo.userName}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="lname">아이디 </label><br/>
+                                                        <h3>${requestScope.userVo.userId}</h3>
+                                                        <input type="hidden" name="userId" class="form-control" value="${requestScope.userVo.userId}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                    	<label for="fname">닉네임 <span class="required">*</span></label>
+                                                    	<div id="chkNickname"></div>
+                                                        <input id="nickname" type="text" name="userNickname" class="form-control" value="${requestScope.userVo.userNickname}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fname">변경할 비밀번호 <span class="required">*</span></label>
+                                                        <div id="chkPassword"></div>
+                                                        <input id="password" type="password" name="userPwd" class="form-control" value="${requestScope.userVo.userPwd}">
+                                                    </div>
+                                                    <!-- <div class="form-group">
+                                                        <label for="fname">비밀번호 확인 <span class="required">*</span></label>
+                                                        <input id="password" type="text" name="userPwd" value="" placeholder="Mr.">
+                                                    </div> -->
+                                                    <div class="form-group">
+                                                        <label for="fname">이메일 <span class="required">*</span></label>
+                                                        <input type="text" name="userEmail" class="form-control" value="${requestScope.userVo.userEmail}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fname">휴대전화번호 <span class="required">*</span></label>
+                                                        <input type="text" name="userTel" class="form-control" value="${requestScope.userVo.userTel}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="fname">주소 <span class="required">*</span></label>
+                                                        <input type="text" name="userAddr" class="form-control" value="${requestScope.userVo.userAddr}">
+                                                    </div>
+                                                    <div class="row">
+                                                    <div class="col-md-3 pull-right">
+                                                        <input type="submit" value="수정완료" class="btn btn-color push-bottom" data-loading-text="Loading...">
+                                                    </div>
+                                                	</div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             
@@ -362,7 +380,7 @@
 </body>
 
 <script>
-$("#btn-checknick").on("click", function() {
+$("#nickname").keyup(function() {
 	var nick=$("#nickname").val();
 	console.log(nick);
 	

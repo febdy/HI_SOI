@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -243,8 +245,9 @@ public class MypageService {
 		return result;
 	}
 	
-	public int modifyComplete(UserVo userVo) {
-		if(userDao.selectUserForNick(userVo.getUserNickname())==null) {
+	public int modifyComplete(UserVo userVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		if(userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) {
 			//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
 			if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
 				return mypageDao.updateInfo(userVo);

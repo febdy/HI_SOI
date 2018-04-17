@@ -158,8 +158,8 @@
 						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
 							<div class="input-group">
 								<input type="text" value="Search Posts"
-									onfocus="if(this.value=='Search Products')this.value='';"
-									onblur="if(this.value=='')this.value='Search Products';"
+									onfocus="if(this.value=='Search Posts')this.value='';"
+									onblur="if(this.value=='')this.value='Search Posts';"
 									class="search-input form-control product-search-height">
 								<span class="input-group-btn">
 									<button type="submit"

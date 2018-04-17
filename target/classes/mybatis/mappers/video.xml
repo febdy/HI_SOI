@@ -8,7 +8,7 @@
 			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기')
 		]]>
 	</insert>
-	
+	<!-- 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
 	<select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[
 			select video_no videoNo,
@@ -18,12 +18,12 @@
 					video_ex_name videoExName,
 					video_path videoPath,
 					video_size videoSize,
-					video_date videoDate,
+					to_char(video_date, 'YYYY-MM-DD') videoDate,
 					video_correct_line videoCorrectLine
 			from video
 			where user_id=#{userId}
 		]]>
-	</select>
+	</select> -->
 	
 	<select id="selectVideoInfo" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[

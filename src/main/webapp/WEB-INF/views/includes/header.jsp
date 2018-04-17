@@ -122,7 +122,7 @@
                         <nav class="collapse navbar-collapse menu">
                             <ul class="nav navbar-nav sf-menu">
                                 <li>
-                                    <a id="current" href="${pageContext.request.contextPath}/"><b>소개</b></a>
+                                    <a href="${pageContext.request.contextPath}/"><b>소개</b></a>
                                 </li>
                                 <li>
                                     <a href="#" class="sf-with-ul">

@@ -145,8 +145,9 @@
                     <!-- 내용 부분 -->
                     <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <h2>스크랩 영상</h2>
-                    <div class="container">
-                        <div class="row">
+                    <div class="product-grid">
+                                    <div class="products-block">
+                                        <div class="row product-items">
                             <div>
                                 <!-- post item -->
 								<c:forEach items="${scrapMap.scrapList}" var="scrapVo"> 
@@ -195,6 +196,7 @@
 							</div>
       					</div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

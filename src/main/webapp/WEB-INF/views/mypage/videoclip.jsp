@@ -177,16 +177,16 @@
 								<ul class="pagination">
 									<c:if test="${myVideoMap.prev}">
 										<!-- 이 값이 false라면 prev 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${myVideoMap.startPageBtnNo-1}">«</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.startPageBtnNo-1}">«</a></li>
 									</c:if>
 
 									<c:forEach begin="${myVideoMap.startPageBtnNo}" end="${myVideoMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${idx}">${idx}</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${idx}">${idx}</a></li>
 									</c:forEach>
 
 									<c:if test="${myVideoMap.next}">
 										<!-- 이 값이 false라면 next 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${myVideoMap.endPageBtnNo+1}">»</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.endPageBtnNo+1}">»</a></li>
 									</c:if>
 								</ul>
 								</div>

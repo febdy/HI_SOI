@@ -97,7 +97,7 @@ public class MypageController {
 		//String url="";
 		response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-		if(mypageService.modifyComplete(userVo)==1) {
+		if(mypageService.modifyComplete(userVo,session)==1) {
 			//url="redirect:/";
 			session.removeAttribute("authUser");
 			session.invalidate();

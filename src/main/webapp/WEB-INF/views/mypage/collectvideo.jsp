@@ -145,13 +145,15 @@
                     <!-- 내용 부분 -->
                     <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                     <h2>내가 올린 영상</h2>
-                    <div class="container">
-                        <div class="row">
+                     <div class="product-grid">
+                                    <div class="products-block">
+                                        <div class="row product-items">
+                                            
                             <div>
                                 <!-- post item -->
 								<c:forEach items="${videoMap.postList}" var="postVo"> 
                                 
-                                <div class="col-lg-3 col-md-3 col-sm-6 product-cols first post-item wow fadeInUp">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 product-cols first post-item wow fadeInUp">
                                     <div class="post-img">
                                         <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"><img alt="" src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"></a>
                                     </div>
@@ -194,6 +196,7 @@
 								</ul>
 							</div>
       					</div>
+                    </div>
                     </div>
                 </div>
             </div>

@@ -18,9 +18,10 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	/* 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
 	public List<VideoVo> selectMyVideoList(String userId) {
 		return sqlSession.selectList("video.selectMyVideoList", userId);
-	}
+	} */
 	
 	public VideoVo selectVideoInfo(int videoNo) {
 		return sqlSession.selectOne("video.selectVideoInfo", videoNo);

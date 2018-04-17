@@ -78,7 +78,7 @@
 			select rn,
        				video_no videoNo,
         			video_origin_name videoOriginName,
-        			to_char(video_date, 'YYYY-MM-DD HH:MI') videoDate,
+        			to_char(video_date, 'YYYY-MM-DD') videoDate,
         			video_thumnail videoThumnail
 			from (select ROWNUM rn,
                 				video_no,

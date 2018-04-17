@@ -48,13 +48,14 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/write")
-	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session) {
+	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session, Model model) {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("등록 클릭");
 			csVo.setUserId(authUser.getUserId());
 			csService.addNoticeWrite(csVo);
+			model.addAttribute("ctrl","\r\n");
 			return "/cs/notiview";
 		} else {
 			System.out.println("Not administer");

@@ -37,7 +37,7 @@
 					po.video_no videoNo,
 					post_title postTitle,
 					post_content postContent,
-					post_date postDate,
+					to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
 					post_soi_cnt postSoiCnt,
 					post_cmt_cnt postCmtCnt,
 					post_hit_cnt postHitCnt,

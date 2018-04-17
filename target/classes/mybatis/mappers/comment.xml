@@ -8,20 +8,24 @@
         		r.post_no postNo,
             	r.user_id userId,
                 cmt_content cmtContent,
-                cmt_date cmtDate
+                cmt_date cmtDate,
+                user_nickname userNickname
 			from (select rownum rn,
                                 cmt_no,
                     			post_no,
                     			user_id,
                     			cmt_content,
-                    			cmt_date
+                    			cmt_date,
+                    			user_nickname
         			from (select cmt_no,
                     			post_no,
-                    			user_id,
+                    			co.user_id,
                     			cmt_content,
-                    			cmt_date 
-                			from comments
+                    			cmt_date,
+                    			user_nickname
+                			from comments co, users us
                             where post_no=#{postNo}
+                            and co.user_id=us.user_id
                 			order by cmt_date desc) o) r, post po
 			where po.post_no=r.post_no
 			and rn>=((#{page}-1)*5)+1
@@ -42,12 +46,17 @@
 	<select id="apiSelectComment" parameterType="int" resultType="com.bit.hi.domain.vo.CommentVo">
 		<![CDATA[
 			select cmt_no cmtNo,
-        			post_no postNo,
-            		user_id userId,
+        			co.post_no postNo,
+            		co.user_id userId,
                 	cmt_content cmtContent,
-                	cmt_date cmtDate
-            from comments
+                	cmt_date cmtDate,
+                	po.post_cmt_cnt postCmtCnt,
+                    po.post_soi_cnt postSoiCnt,
+                    user_nickname userNickname
+            from comments co, post po, users us
             where cmt_no=#{cmtNo}
+            and co.post_no=po.post_no
+            and co.user_id=us.user_id
 		]]>
 	</select>
 

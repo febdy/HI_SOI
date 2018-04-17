@@ -29,6 +29,7 @@ public class ApiCommentController {
 		System.out.println("apiCommentList 진입");
 		System.out.println(page + "/" + postNo);
 		List<CommentVo> commentList=commentService.getCommentList(page, postNo);
+		System.out.println(commentList);
 		return commentList;
 	}
 	
@@ -39,7 +40,7 @@ public class ApiCommentController {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		commentVo.setUserId(authUser.getUserId());
 		commentService.apiAddComment(commentVo);
-		
+		System.out.println(commentService.apiAddComment(commentVo));
 		return commentVo;
 	}
 	
@@ -49,6 +50,7 @@ public class ApiCommentController {
 		System.out.println("apiGetComment 진입");
 		System.out.println(cmtNo);
 		CommentVo cmtVo=commentService.apiGetComment(cmtNo);
+		System.out.println(cmtVo);
 		return cmtVo;
 	}
 }

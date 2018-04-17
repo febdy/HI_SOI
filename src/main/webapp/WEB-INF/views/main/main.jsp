@@ -71,7 +71,7 @@
                             <!-- THE FIRST SLIDE -->
                             <li data-transition="fade" data-slotamount="7" data-masterspeed="2000" data-thumb="homeslider_thumb2.jpg" data-delay="10000"  data-saveperformance="on">
                                 <!-- MAIN IMAGE -->
-                                <img src="${pageContext.request.contextPath}/resources/img/dummy.png"  alt="laptopmockup_sliderdy" data-lazyload="${pageContext.request.contextPath}/resources/img/slider/sss.png" data-bgposition="right top" data-kenburns="on" data-duration="12000" data-ease="Power0.easeInOut" data-bgfit="115" data-bgfitend="100" data-bgpositionend="center bottom">
+                                <img src="${pageContext.request.contextPath}/resources/img/dummy.png"  alt="laptopmockup_sliderdy" data-lazyload="${pageContext.request.contextPath}/resources/img/slider/nivo_slider1.jpg" data-bgposition="right top" data-kenburns="on" data-duration="12000" data-ease="Power0.easeInOut" data-bgfit="115" data-bgfitend="100" data-bgpositionend="center bottom">
                                 <!-- LAYERS -->
                                 <!-- LAYER NR. 1 -->
                                 <div class="tp-caption customin fadeout rs-parallaxlevel-10"

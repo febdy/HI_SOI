@@ -125,7 +125,7 @@
                 <div class="content margin-top60 margin-bottom60">
                     <div class="container">
                         <div class="row">
-                            <div class="sidebar col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <div class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <!-- Left nav Widget Start -->
                                 <div class="widget category">
                                     <h3 class="title">Cutomer Service</h3>
@@ -141,10 +141,10 @@
                             
                             
                             <!-- 내용 부분 -->
-                            <div class="posts-block col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <div id="content" class="row form-horizontal">
                             <div class="col-md-2">
-                                <h4>고객센터</h4>
+                                <h4>공지사항</h4>
                                 </div>
                                 <!-- Post Search -->
                                 <div class="col-md-10 widget">
@@ -209,7 +209,7 @@
                                 <div class="pagination-centered padding-bottom30">
 									<ul class="pagination">
 									<c:if test="${bMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.startPageBtnNo-1}">◀</a></li>
+										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.startPageBtnNo-1}">«</a></li>
 									</c:if>
 						
 									<c:forEach begin="${bMap.startPageBtnNo}" end="${bMap.endPageBtnNo}" var="idx">
@@ -217,7 +217,7 @@
 									</c:forEach>
 						
 									<c:if test="${bMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.endPageBtnNo+1}">▶</a></li>
+										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.endPageBtnNo+1}">»</a></li>
 									</c:if>
 									</ul>
 								</div>

@@ -167,7 +167,7 @@
                                                 </td>
 											<td><a href="${pageContext.request.contextPath}/mypage/videoclip/${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
 											<td>${videoVo.videoDate}</td>
-											<td><a id="deleteBtn"><i class="fa fa-minus-square-o fa-2x text-danger"></i></a></td>
+											<td><span id="deleteBtn" data-no="${videoVo.videoNo}"><i class="fa fa-minus-square-o fa-2x text-danger"></i></span></td>
 										</tr>
 										</c:forEach>
                                     </tbody>
@@ -365,4 +365,14 @@
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </body>
+
+<script>
+$("#deleteBtn").on("click", function() {
+	var no=$("#deleteBtn").data("no");
+	
+	console.log(no);
+	
+});
+
+</script>
 </html>

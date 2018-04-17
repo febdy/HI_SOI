@@ -9,12 +9,16 @@ public class CommentVo {
 	private String cmtDate;
 	private String postTitle;
 	private String writerId;
+	private String postCmtCnt;
+	private String postHitCnt;
+	private String postSoiCnt;
+	private String userNickname;
 	
 	public CommentVo() {
 	}
 
 	public CommentVo(int rn, int cmtNo, int postNo, String userId, String cmtContent, String cmtDate, String postTitle,
-			String writerId) {
+			String writerId, String postCmtCnt, String postHitCnt, String postSoiCnt, String userNickname) {
 		this.rn = rn;
 		this.cmtNo = cmtNo;
 		this.postNo = postNo;
@@ -23,6 +27,10 @@ public class CommentVo {
 		this.cmtDate = cmtDate;
 		this.postTitle = postTitle;
 		this.writerId = writerId;
+		this.postCmtCnt = postCmtCnt;
+		this.postHitCnt = postHitCnt;
+		this.postSoiCnt = postSoiCnt;
+		this.userNickname = userNickname;
 	}
 
 	public int getRn() {
@@ -89,11 +97,44 @@ public class CommentVo {
 		this.writerId = writerId;
 	}
 
+	public String getPostCmtCnt() {
+		return postCmtCnt;
+	}
+
+	public void setPostCmtCnt(String postCmtCnt) {
+		this.postCmtCnt = postCmtCnt;
+	}
+
+	public String getPostHitCnt() {
+		return postHitCnt;
+	}
+
+	public void setPostHitCnt(String postHitCnt) {
+		this.postHitCnt = postHitCnt;
+	}
+
+	public String getPostSoiCnt() {
+		return postSoiCnt;
+	}
+
+	public void setPostSoiCnt(String postSoiCnt) {
+		this.postSoiCnt = postSoiCnt;
+	}
+
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
 	@Override
 	public String toString() {
 		return "CommentVo [rn=" + rn + ", cmtNo=" + cmtNo + ", postNo=" + postNo + ", userId=" + userId
 				+ ", cmtContent=" + cmtContent + ", cmtDate=" + cmtDate + ", postTitle=" + postTitle + ", writerId="
-				+ writerId + "]";
+				+ writerId + ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt + ", postSoiCnt=" + postSoiCnt
+				+ ", userNickname=" + userNickname + "]";
 	}
 	
 }

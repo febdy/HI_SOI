@@ -438,7 +438,7 @@ function render(videoVo, updown) {
 };
 
 
-$("ul").on("click", ".upto", function(){
+$("tbody").on("click", ".upto", function(){
 	var no=this.id;
 	console.log(no);
 	

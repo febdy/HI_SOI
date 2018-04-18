@@ -157,16 +157,24 @@
 						<!-- Post Search -->
 						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
 							<div class="input-group">
-								<input type="text" value="Search Posts"
-									onfocus="if(this.value=='Search Posts')this.value='';"
-									onblur="if(this.value=='')this.value='Search Posts';"
-									class="search-input form-control product-search-height">
-								<span class="input-group-btn">
+								<form id="search_form" action="${pageContext.request.contextPath}/post/soifactorylist" method="get">
+									<div class="col-md-9">
+									<input type="hidden" name="crtPage" value="${bindMap.crtPage}"> 
+									<input type="text" value="Search Posts" id="kwd" name="kwd" 
+										onfocus="if(this.value=='Search Posts')this.value='';"
+										onblur="if(this.value=='')this.value='Search Posts';"
+										class="search-input form-control product-search-height">
+									</div>
+									<div class="col-md-1">
+									<span class="input-group-btn">
 									<button type="submit"
 										class="subscribe-btn btn product-search-height">
 										<i class="fa fa-search"></i>
 									</button>
-								</span>
+									</span>
+									</div>
+									<div class="col-md-2"></div>
+								</form>
 							</div>
 						</div>
 						<!-- /Post Search -->

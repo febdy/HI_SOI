@@ -168,7 +168,7 @@
 									<div class="col-md-1">
 									<span class="input-group-btn">
 									<button type="submit"
-										class="subscribe-btn btn product-search-height">
+										class="btn product-search-height">
 										<i class="fa fa-search"></i>
 									</button>
 									</span>

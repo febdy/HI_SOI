@@ -63,6 +63,7 @@ CREATE TABLE video (
     video_date  DATE DEFAULT SYSDATE,
     video_thumnail VARCHAR2(200) not null,
     video_correct_line  VARCHAR2(100) not null,
+    video_delete VARCHAR2(10) not null,
     PRIMARY KEY(video_no),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

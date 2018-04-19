@@ -133,7 +133,7 @@
                        					<input type="text" class="form-control" name="postTitle" placeholder="제목"><br>
                                 		<textarea class="form-control" rows="4" name="postContent" placeholder="남기는 말"></textarea>
 										<div>
-											<input type="text" name="videoTitle" value="" id="selectArea">
+											<input type="text" name="videoTitle" value="" id="selectArea" readonly="readonly">
 											<input type="hidden" name="videoNo" id="selectVideoNo">
 											<button type="button" class="btn btn-default" id="attachModal">파일 첨부</button>
 										</div><br/>
@@ -451,14 +451,17 @@ $("tbody").on("click", ".upto", function(){
 		success : function(videoVo) {
 			console.log(videoVo);
 			
-			$("#selectArea").val(videoVo.videoOriginName);
-			$("#selectVideoNo").val(videoVo.videoNo);
+			$("#btn_add").on("click", function() {
+				$("#selectArea").val(videoVo.videoOriginName);
+				$("#selectVideoNo").val(videoVo.videoNo);
+			});
 		},
 		error : function(XHR, status, error) {
 			console.error(status + " : " + error);
 		}
 	});
 });
+
 
 </script>
 </html>

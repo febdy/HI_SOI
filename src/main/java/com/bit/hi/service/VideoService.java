@@ -24,7 +24,7 @@ public class VideoService {
 		System.out.println("service 진입");
 
 		if (!file.isEmpty()) {
-			String saveDir = "C:\\javaStudy\\upload"; // 서버에 저장할 공간 만들기(저장 위치)
+			String saveDir = "D:\\javaStudy\\upload"; // 서버에 저장할 공간 만들기(저장 위치)
 			
 			// 1-파일정보 수집
 			// 원래 파일이름

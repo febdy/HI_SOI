@@ -150,7 +150,7 @@
                                     <thead>
                                         <tr>
                                             <th><p class="text-center">번호</p></th>
-                                            <th><p class="text-center"></p></th>
+                                            <th><p class="text-center">영상</p></th>
 											<th><p class="text-center">제목</p></th>
 											<th><p class="text-center">작성일</p></th>
 											<th><p class="text-center">삭제</p></th>
@@ -167,7 +167,7 @@
                                                 </td>
 											<td><a href="${pageContext.request.contextPath}/mypage/videoclip/${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
 											<td>${videoVo.videoDate}</td>
-											<td><span id="deleteBtn" data-no="${videoVo.videoNo}"><i class="fa fa-minus-square-o fa-2x text-danger"></i></span></td>
+											<td><span id="deleteBtn" data-no="${videoVo.videoNo}" data-no="${videoVo.videoNo}"><i class="fa fa-minus-square-o fa-2x text-danger"></i></span></td>
 										</tr>
 										</c:forEach>
                                     </tbody>
@@ -367,10 +367,29 @@
 </body>
 
 <script>
-$("#deleteBtn").on("click", function() {
-	var no=$("#deleteBtn").data("no");
+$("tr").on("click", "#deleteBtn", function() {
+	var no=$(this).data("no");
 	
 	console.log(no);
+	
+	if (confirm("영상을 정말로 삭제하시겠습니까?")==true) {
+	
+		$.ajax({
+				url : "${pageContext.request.contextPath}/mypage/api/updatevideo",
+				type : "post",
+				data : {no:no},
+
+				dataType : "json",
+				success : function(videoVo) {
+					console.log(videoVo);
+					window.location.replace("../../hi/mypage/videoclip");
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}		
+		});
+	
+	};
 	
 });
 

@@ -147,12 +147,12 @@
                                                 <a class="blog-entry-meta-author">${postVo.writerId}</a>
                                             </div>
                                             <div class="blog-entry-meta-tags">
-                                                <i class="fa fa-heart text-danger"></i>
-                                                <a class="blog-entry-meta-sois">${postVo.postSoiCnt} soybeans</a>
+                                                <i id="SoiArea" class="fa fa-heart text-danger"></i>
+                                                <a id="postSoiCnt" class="blog-entry-meta-sois">${postVo.postSoiCnt} soybeans</a>
                                             </div>
                                             <div class="blog-entry-meta-comments">
                                                 <i class="fa fa-comments"></i>
-                                                <a class="blog-entry-meta-comments">${postVo.postHitCnt} comments</a>
+                                                <a id="postCmtCnt" class="blog-entry-meta-comments">${postVo.postHitCnt} comments</a>
                                             </div>
                                         </div>
                                     </header>
@@ -566,7 +566,8 @@
 			
 		});
 	});
-
+	
+	//댓글 쓰기 및 댓글 수 증가
 	function getComment(cmtNo) {
 		$.ajax({
 			//보내기
@@ -580,6 +581,11 @@
 			success : function(writeCmt){
 				console.log(writeCmt);
 				render(writeCmt,"up")
+				var stat=$("#postCmtCnt").text();
+				stat=stat.split(" ");
+				var num=parseInt(stat);
+				num++;
+				$("#postCmtCnt").text(num+" comments");
 			},
 			
 			error : function(XHR, status, error) {
@@ -590,7 +596,8 @@
 		
 	};
 	
-	//콩 갯수 업데이트(증가)
+	
+	//콩 수 증가
 	$("#btnLike").on("click", function(){
 		var postNo = ${postVo.postNo};
 		console.log(postNo);
@@ -605,6 +612,11 @@
 			dataType : "json", 
 			success : function(soi){
 				console.log(soi);
+				var stat=$("#postSoiCnt").text();
+				stat=stat.split(" ");
+				var num=parseInt(stat);
+				num++;
+				$("#postSoiCnt").text(num+" soybeans");
 			},
 			
 			error : function(XHR, status, error) {

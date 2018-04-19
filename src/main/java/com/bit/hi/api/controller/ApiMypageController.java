@@ -27,4 +27,12 @@ public class ApiMypageController {
 		userVo.setUserNicknameAfter(userNickname);
 		return mypageService.nickChkForModify(userVo);
 	}
+	
+	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
+	@ResponseBody
+	@RequestMapping("/api/updatevideo")
+	public int apiUpdateVideo(@RequestParam("no") int videoNo) {
+
+		return mypageService.updateVideo(videoNo);
+	}
 }

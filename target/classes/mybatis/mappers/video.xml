@@ -5,7 +5,7 @@
 	<insert id="insertUpload" parameterType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[
 			insert into video
-			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기')
+			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기', 0)
 		]]>
 	</insert>
 	<!-- 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
@@ -35,13 +35,13 @@
 					video_path videoPath,
 					video_size videoSize,
 					video_date videoDate,
-					video_correct_line videoCorrectLine
+					video_correct_line videoCorrectLine,
+					video_delete videoDelete
 			from video
 			where video_No=#{videoNo}
 		]]>
 	</select>
 	
-	<!-- 임시로 ioi로  videoNo를 가져옴 -->
 	<select id="selectVideoNo" parameterType="String" resultType="int">
 		<![CDATA[
 			select video_no videoNo

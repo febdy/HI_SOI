@@ -254,4 +254,8 @@ public class MypageService {
 			} else return 0;
 		} else return 0;
 	}
+	
+	public int updateVideo(int videoNo) {
+		return mypageDao.updateVideo(videoNo);
+	}
  }

@@ -144,6 +144,7 @@
                              <a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
                                 
                                 <div>
+                                	<!-- 진단하기 -->
 									<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										
 										<div class="form-group">
@@ -338,4 +339,9 @@
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </body>
+
+<script>
+
+
+</script>
 </html>

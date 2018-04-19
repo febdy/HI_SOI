@@ -85,4 +85,8 @@ public class MypageDao {
 	public int updateInfo(UserVo userVo) {
 		return sqlSession.update("mypage.updateInfo", userVo);
 	}
+	
+	public int updateVideo(int videoNo) {
+		return sqlSession.update("mypage.updateVideo", videoNo);
+	}
 }

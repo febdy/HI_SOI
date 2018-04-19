@@ -45,7 +45,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwrite")
-	public String soiWrite(@ModelAttribute PostVo postVo,@RequestParam("videoTitle") String ioi, @RequestParam("videoNo") int videoNo, HttpSession session) {
+	public String soiWrite(@ModelAttribute PostVo postVo, @RequestParam("videoTitle") String ioi, @RequestParam("videoNo") int videoNo, HttpSession session) {
 		System.out.println(postVo);
 		System.out.println(videoNo);
 		UserVo authUser=(UserVo)session.getAttribute("authUser");

@@ -160,4 +160,12 @@ public class PostService {
 
 		return bMap;
 	}
+	
+	public PostVo getEachPostForModify(int postNo) {
+		return postDao.selectEachPostForModify(postNo);
+	}
+	
+	public int updateEachPostForModify(PostVo postVo) {
+		return postDao.updateEachPostForModify(postVo);
+	}
 }

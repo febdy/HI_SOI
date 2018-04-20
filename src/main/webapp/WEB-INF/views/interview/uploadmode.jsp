@@ -145,7 +145,7 @@
                                 
                                 <div>
                                 	<!-- 진단하기 -->
-									<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
+                                	<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										
 										<div class="form-group">
 										<label>&nbsp;</label>
@@ -159,6 +159,20 @@
 										</div>
 										
 									</form>
+                                	
+									<%-- <form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
+										
+										<div class="form-group">
+										<label>&nbsp;</label>
+										<input type="file" name="file" id="file">
+										</div>
+										
+										<div class="pull-left">
+										<input type="button" class="btn-xs btn-default" id="uploadBtn">
+										<span class="glyphicon glyphicon-ok text-primary"> 진단하기</span>
+										</div>
+										
+									</form> --%>
 								</div> 
                             </div>
                             
@@ -340,8 +354,40 @@
 
 </body>
 
+<script src="http://malsup.github.com/jquery.form.js"></script> 
 <script>
-
+$("#uploadBtn").on("click", function() {
+	var formData=new FormData(document.getElementByID("fileUpload"));
+	
+	formData.append("file", file);
+	
+	alert(formData);
+	
+	/* var form=$("#fileUpload")[0];
+	var formData=new FormData(form);
+	
+	event.preventDefault();
+	var files=event.originalEvent.dataTransfer.files;
+	var file=files[0];
+	
+	formData.append("file", $("#file")[0].files[0]);
+	console.log(formData);
+	
+	var xhr=new XMLHttpRequest();
+	xhr.open("post", "sample", "true");
+	xhr.send(formData); */
+	/* $.ajax({
+		url : "${pageContext.request.contextPath}/interview/api/addinterview",
+		processData: false,
+        contentType: false,
+        data: formData,
+        type: 'POST',
+             
+        success: function(result){
+            alert("업로드 성공!!");
+        }
+	}) */
+});
 
 </script>
 </html>

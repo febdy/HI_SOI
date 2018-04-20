@@ -31,8 +31,8 @@ public class PostController {
 		return "soifactory/fac-main";
 	}
 	
-	@RequestMapping(value="soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo) {
+	@RequestMapping(value="/soiread/{postNo}")
+	public String soiRead(Model model, @PathVariable int postNo) {
 		PostVo postVo=postService.getEachPost(postNo);
 		model.addAttribute("postVo", postVo);
 		model.addAttribute("ctrl","\r\n");
@@ -70,6 +70,37 @@ public class PostController {
 		Map<String, Object> bMap=postService.getArray(crtPage,soi,view,comment,latest);
 		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
+	}
+	
+	@RequestMapping(value="/soimodifyform")
+	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, Model model, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		String url;
+		if (authUser.getUserId().equals(writerId)) {
+			PostVo postVo=postService.getEachPostForModify(postNo);
+			model.addAttribute("postVo", postVo);
+			model.addAttribute("ctrl","\r\n");
+			url="soifactory/soimodifyform";
+		} else {
+			url="redirect:/post/soifactorylist";
+		}
+		return url;
+	}
+	
+	@RequestMapping(value="/soimodify")
+	public String soiModify(@ModelAttribute PostVo postVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		String url;
+		if (authUser.getUserId().equals(postVo.getWriterId())) {
+			postService.updateEachPostForModify(postVo);
+			int postNo=postVo.getPostNo();
+			url="redirect:/post/soiread/"+postNo;
+		} else {
+			url="redirect:/post/soifactorylist";
+		}
+		return url;
 	}
 
 }

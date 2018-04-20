@@ -110,7 +110,7 @@
                                         <ul>
                                             <li>You are Now on:</li>
                                             <li><a href="index.html">고객센터</a></li>
-                                            <li><a href="#">공지사항</a></li>
+                                            <li><a href="#">Q&A</a></li>
                                             <li>Products Single Page</li>
                                         </ul>
                                     </div>
@@ -144,7 +144,7 @@
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <div id="content" class="row form-horizontal">
                             <div class="col-md-2">
-                                <h4>공지사항</h4>
+                                <h4>Q&A</h4>
                                 </div>
                                </div>
 								

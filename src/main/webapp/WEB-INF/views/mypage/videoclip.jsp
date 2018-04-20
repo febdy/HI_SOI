@@ -161,11 +161,11 @@
 										<tr>
 											<td>${videoVo.rn}</td>
 											<td>
-                                                    <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/${videoVo.videoNo}">
+                                                    <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail">
                                                     <img width="70" height="70" title="" alt="" src="${pageContext.request.contextPath}/upload/${videoVo.videoThumnail}">
                                                     </a>
                                                 </td>
-											<td><a href="${pageContext.request.contextPath}/mypage/videoclip/${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
+											<td><a href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
 											<td>${videoVo.videoDate}</td>
 											<td><span id="deleteBtn" data-no="${videoVo.videoNo}" data-no="${videoVo.videoNo}"><i class="fa fa-minus-square-o fa-2x text-danger"></i></span></td>
 										</tr>

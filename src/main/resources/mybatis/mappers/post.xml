@@ -224,4 +224,46 @@
 			from post
 		]]>
 	</select>
+	
+	<!-- 글수정창을 위한 값 뿌려주기 -->
+	<select id="selectEachPostForModify" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select post_no postNo,
+					po.writer_id writerId,
+					po.video_no videoNo,
+					post_title postTitle,
+					post_content postContent,
+					to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
+					post_soi_cnt postSoiCnt,
+					post_cmt_cnt postCmtCnt,
+					post_hit_cnt postHitCnt,
+					post_hide_face postHideFace,
+					post_sharable postSharable,
+					post_anal_result postAnalResult,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_thumnail videoThumnail,
+					video_correct_line videoCorrectLine
+			from post po, video vi
+			where po.video_no=vi.video_no
+			and post_no=#{postNo}
+		]]>
+	</select>
+	
+	<update id="updateEachPostForModify" parameterType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			update post
+			set post_title=#{postTitle},
+				post_content=#{postContent},
+				video_no=#{videoNo},
+				post_hide_face=#{postHideFace},
+				post_sharable=#{postSharable}
+			where post_no=#{postNo}
+			and writer_id=#{writerId}
+		]]>
+	</update>
 </mapper>

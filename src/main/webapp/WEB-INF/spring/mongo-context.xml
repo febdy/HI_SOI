@@ -5,5 +5,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.10.2.xsd">
 
-
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<mongo:mongo-client host="localhost" port="27017">
+		<mongo:client-options
+			connections-per-host="8"
+			threads-allowed-to-block-for-connection-multiplier="4"
+			connect-timeout="1000"
+			max-wait-time="1500"
+			socket-keep-alive="true"
+			socket-timeout="1500"
+		/>
+	</mongo:mongo-client>
+	<mongo:db-factory dbname="season" mongo-ref="mongo" />
+	
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> <!-- sqlSession과 같은 역할 -->
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+	
 </beans>

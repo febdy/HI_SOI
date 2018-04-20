@@ -244,11 +244,11 @@
                                 </div>
                                 <!-- Project Description End -->  
                                 <div class="widget">
-                                    <div class="favourite">
-                                        <a id="btnLike" class="btn-special btn-grey"><strong><i class="fa fa-heart text-danger"></i> Add to Soybean</strong></a>
+                                    <div class="">
+                                        <a id="btnLike" class="btn-special btn-grey"><strong><i class="fa fa-heart text-danger"></i>add to Soybean</strong></a>
                                     </div><br/>
                                     <div>
-                                    	<a id="btnScrap" class="btn-special btn-grey"><strong><i class="fa fa-star text-warning"></i> Add to Scrap</strong></a>
+                                    	<a id="btnScrap" class="btn-special btn-grey"><strong><i class="fa fa-star text-warning"></i>add to Scrap</strong></a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -278,7 +278,7 @@
                                 <div class="widget">
                                 	<a href="${pageContext.request.contextPath}/post/soifactorylist" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
 									<c:if test="${authUser.userId==requestScope.postVo.writerId}">
-                                    	<a href="${pageContext.request.contextPath}/board/modifyform?no=${requestScope.boardVo.no}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
                                     	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
                                     </c:if>
                                 </div>

@@ -87,4 +87,11 @@ public class PostDao {
 		return sqlSession.selectOne("post.selectTotalCountForArray");
 	}
 	
+	public PostVo selectEachPostForModify(int postNo) {
+		return sqlSession.selectOne("post.selectEachPostForModify", postNo);
+	}
+	
+	public int updateEachPostForModify(PostVo postVo) {
+		return sqlSession.update("post.updateEachPostForModify", postVo);
+	}
 }

@@ -197,7 +197,7 @@
 		]]>
 	</update>
 	
-	<!-- 영상관리 삭제 -->
+	<!-- 영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임) -->
 	<delete id="updateVideo" parameterType="int">
 		<![CDATA[
 			update video
@@ -205,5 +205,22 @@
 			where video_no=#{videoNo}
 		]]>
 	</delete>
+	
+	<select id="selectEachVideoAnalyze" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					to_char(video_date, 'YYYY-MM-DD') videoDate,
+					video_thumnail videoThumnail,
+					video_correct_line videoCorrectLine
+			from video
+			where video_no=#{videoNo}
+		]]>
+	</select>
 	
 </mapper>

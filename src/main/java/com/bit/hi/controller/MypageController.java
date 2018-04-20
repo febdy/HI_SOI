@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.hi.domain.vo.UserVo;
+import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.service.MypageService;
 
 @Controller
@@ -38,8 +39,12 @@ public class MypageController {
 		return "mypage/videoclip";
 	}
 	
+	//영상관리 세부내용
 	@RequestMapping("/videoclip/detail")
-	public String videoClipDetail() {
+	public String videoClipDetail(@RequestParam("videoNo") int videoNo, Model model) {
+		
+		VideoVo videoVo=mypageService.getEachVideoAnalyze(videoNo);
+		model.addAttribute("videoVo", videoVo);
 		return "mypage/videodetail";
 	}
 	

@@ -75,11 +75,16 @@ public class VideoService {
 			}
 			System.out.println(videoVo.toString());
 			
+			//영상 저장
 			videoDao.insertUpload(videoVo);
 			
+			//썸네일 생성
 			String videoThumnail=ExtractImage.extractImage(saveDir, saveName);
 			System.out.println(videoThumnail);
+			//변수에 썸네일 추가
 			videoDao.updateThumnail(saveName, videoThumnail);
+			
+			//썸네일 이름 몽고db에 넣기
 		}
 
 	}

@@ -16,4 +16,11 @@ public class VideoDao {
 		return sqlSession.insert("video.insertUpload", videoVo);
 	}
 	
+	public int updateThumnail(String saveName, String videoThumnail) {
+		VideoVo videoVo=new VideoVo();
+		videoVo.setVideoSaveName(saveName);
+		videoVo.setVideoThumnail(videoThumnail);
+		return sqlSession.update("video.updateThumnail", videoVo);
+	}
+	
 }

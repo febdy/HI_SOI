@@ -28,10 +28,10 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
 		<!-- 최대업로드 가능한 바이트크기 -->
-		<beans:property name="maxUploadSize" value="52428800" />
+		<beans:property name="maxUploadSize" value="99999999" />
 
 		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
-		<beans:property name="maxInMemorySize" value="52428800" />
+		<beans:property name="maxInMemorySize" value="99999999" />
 
 		<!-- defaultEncoding -->
 		<beans:property name="defaultEncoding" value="utf-8" />
@@ -39,5 +39,20 @@
 	
 	<!-- 서버에 저장할 공간(저장 위치) upload로 들어오는 값은 location 위치에 저장 -->
 	<resources mapping="/upload/**" location="file:D:/javaStudy/upload/" />
+	
+	<!-- 이게 없어도 돌아가는데 해주는 이유 알아보기 -->
+	<beans:bean class="com.bit.hi.interceptor.UserLoginInterceptor" id="loginInterceptor"></beans:bean>
+	<beans:bean class="com.bit.hi.interceptor.UserAuthInterceptor" id="authInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/login"/>
+			<beans:bean class="com.bit.hi.interceptor.UserLoginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/mypage/**"/>
+			<beans:bean class="com.bit.hi.interceptor.UserAuthInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

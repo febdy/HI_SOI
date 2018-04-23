@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.hi.dao.VideoDao;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.util.ExtractImage;
 
 @Service
 public class VideoService {
@@ -48,7 +48,9 @@ public class VideoService {
 			System.out.println(videoSize);
 			
 			//파일 재생시간
-
+			
+					
+			//썸네일 값 추출되면 videoVo에 담아서, insertupload로 서버에 저장
 			videoVo.setVideoOriginName(orgName);
 			videoVo.setVideoSaveName(saveName);
 			videoVo.setVideoExName(exName);
@@ -71,9 +73,20 @@ public class VideoService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			System.out.println(videoVo.toString());
+			
+			//영상 저장
+			videoDao.insertUpload(videoVo);
+			
+			//썸네일 생성
+			String videoThumnail=ExtractImage.extractImage(saveDir, saveName);
+			System.out.println(videoThumnail);
+			//변수에 썸네일 추가
+			videoDao.updateThumnail(saveName, videoThumnail);
+			
+			//썸네일 이름 몽고db에 넣기
 		}
-		System.out.println(videoVo.toString());
-		videoDao.insertUpload(videoVo);
+
 	}
 	
 }

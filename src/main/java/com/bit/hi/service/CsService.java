@@ -64,4 +64,22 @@ public class CsService {
 
 		return bMap;
 	}
+	
+	public int addNoticeWrite(CsVo csVo) {
+		System.out.println(csVo);
+		return csDao.insertNoticeWrite(csVo);
+	}
+	
+	public CsVo viewEachNotice(int notiNo) {
+		csDao.updateHitEachNotice(notiNo);
+		return csDao.selectEachNotice(notiNo);
+	}
+	
+	public CsVo viewNoticeForModify(int notiNo) {
+		return csDao.selectNoticeForModify(notiNo);
+	}
+	
+	public int modifyEachNotice(CsVo csVo) {
+		return csDao.updateEachNotice(csVo);
+	}
 }

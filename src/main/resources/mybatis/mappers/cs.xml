@@ -11,7 +11,7 @@
         			to_char(noti_date, 'YYYY-MM-DD HH:MI') notiDate,
         			noti_hit_cnt notiHitCnt,
         			user_id userId,
-        			user_nickname userNickname
+        			user_level userLevel
 			from (select ROWNUM rn,
                 				noti_no,
                     			noti_title,
@@ -19,14 +19,14 @@
                     			noti_date,
                     			noti_hit_cnt,
                     			user_id,
-                    			user_nickname
+                    			user_level
         			from (select noti_no,
                     			noti_title,
                     			noti_content,
                     			noti_date,
                     			noti_hit_cnt,
                     			us.user_id,
-                    			us.user_nickname
+                    			us.user_level
                 			from notice noti, users us
                 			where noti.user_id=us.user_id
                 			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
@@ -52,4 +52,54 @@
        <![CDATA[
 		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
 	</select>
+	
+	<!-- 공지 글쓰기 -->
+	<insert id="insertNoticeWrite" parameterType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			insert into notice
+			values (seq_notice_no.nextval, #{notiTitle}, #{notiContent}, sysdate, 0, #{userId})
+		]]>
+	</insert>
+	
+	<select id="selectEachNotice" parameterType="int" resultType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			select noti_no notiNo,
+					noti_title notiTitle,
+					noti_content notiContent,
+					noti_date notiDate,
+					noti_hit_cnt notiHitCnt,
+					user_id userId
+			from notice
+			where noti_no=#{notiNo}
+		]]>
+	</select>
+
+	<select id="selectNoticeForModify" parameterType="int" resultType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			select noti_no notiNo,
+					noti_title notiTitle,
+					noti_content notiContent,
+					noti_date notiDate,
+					noti_hit_cnt notiHitCnt,
+					user_id userId
+			from notice
+			where noti_no=#{notiNo}
+		]]>
+	</select>
+	
+	<update id="updateEachNotice" parameterType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			update notice
+			set noti_title=#{notiTitle}, noti_content=#{notiContent}
+			where noti_no=#{notiNo}
+		]]>
+	</update>
+	
+	<update id="updateHitEachNotice" parameterType="int">
+		<![CDATA[
+			update notice
+			set noti_hit_cnt=noti_hit_cnt+1
+			where noti_no=#{notiNo}
+		]]>
+	</update>
 </mapper>

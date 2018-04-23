@@ -29,11 +29,27 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+		<dependency>
+    		<groupId>org.mongodb</groupId>
+    		<artifactId>mongo-java-driver</artifactId>
+    		<version>3.4.2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+		<dependency>
+    		<groupId>org.springframework.data</groupId>
+    		<artifactId>spring-data-mongodb</artifactId>
+    		<version>1.10.7.RELEASE</version>
+		</dependency>
+
 
 		<!-- AspectJ -->
 		<dependency>
@@ -150,7 +166,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

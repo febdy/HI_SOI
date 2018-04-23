@@ -2,7 +2,7 @@ package com.bit.hi.domain.vo;
 
 public class PostVo {
 	private int postNo;
-	private String userId;
+	private String writerId;
 	private int videoNo;
 	private String postTitle;
 	private String postContent;
@@ -19,17 +19,21 @@ public class PostVo {
 	private String videoPath;
 	private long videoSize;
 	private String videoDate;
+	private String videoThumnail;
 	private String videoCorrectLine;
+	private String userId;
+	private String userNickname;
 	
 	public PostVo() {
 	}
 
-	public PostVo(int postNo, String userId, int videoNo, String postTitle, String postContent, String postDate,
+	public PostVo(int postNo, String writerId, int videoNo, String postTitle, String postContent, String postDate,
 			int postSoiCnt, int postCmtCnt, int postHitCnt, String postHideFace, String postSharable,
 			String postAnalResult, String videoOriginName, String videoSaveName, String videoExName, String videoPath,
-			long videoSize, String videoDate, String videoCorrectLine) {
+			long videoSize, String videoDate, String videoThumnail, String videoCorrectLine, String userId,
+			String userNickname) {
 		this.postNo = postNo;
-		this.userId = userId;
+		this.writerId = writerId;
 		this.videoNo = videoNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
@@ -46,7 +50,10 @@ public class PostVo {
 		this.videoPath = videoPath;
 		this.videoSize = videoSize;
 		this.videoDate = videoDate;
+		this.videoThumnail = videoThumnail;
 		this.videoCorrectLine = videoCorrectLine;
+		this.userId = userId;
+		this.userNickname = userNickname;
 	}
 
 	public int getPostNo() {
@@ -57,12 +64,12 @@ public class PostVo {
 		this.postNo = postNo;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getWriterId() {
+		return writerId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
 	}
 
 	public int getVideoNo() {
@@ -193,6 +200,14 @@ public class PostVo {
 		this.videoDate = videoDate;
 	}
 
+	public String getVideoThumnail() {
+		return videoThumnail;
+	}
+
+	public void setVideoThumnail(String videoThumnail) {
+		this.videoThumnail = videoThumnail;
+	}
+
 	public String getVideoCorrectLine() {
 		return videoCorrectLine;
 	}
@@ -201,15 +216,32 @@ public class PostVo {
 		this.videoCorrectLine = videoCorrectLine;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
 	@Override
 	public String toString() {
-		return "PostVo [postNo=" + postNo + ", userId=" + userId + ", videoNo=" + videoNo + ", postTitle=" + postTitle
-				+ ", postContent=" + postContent + ", postDate=" + postDate + ", postSoiCnt=" + postSoiCnt
+		return "PostVo [postNo=" + postNo + ", writerId=" + writerId + ", videoNo=" + videoNo + ", postTitle="
+				+ postTitle + ", postContent=" + postContent + ", postDate=" + postDate + ", postSoiCnt=" + postSoiCnt
 				+ ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt + ", postHideFace=" + postHideFace
 				+ ", postSharable=" + postSharable + ", postAnalResult=" + postAnalResult + ", videoOriginName="
 				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
-				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine="
-				+ videoCorrectLine + "]";
+				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoThumnail="
+				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", userId=" + userId + ", userNickname="
+				+ userNickname + "]";
 	}
 	
 }

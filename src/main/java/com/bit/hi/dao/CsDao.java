@@ -28,4 +28,24 @@ public class CsDao {
 	public int selectTotalCount(String kwd) {
 		return sqlSession.selectOne("cs.totalCount", kwd);
 	}
+	
+	public int insertNoticeWrite(CsVo csVo) {
+		return sqlSession.insert("cs.insertNoticeWrite", csVo);
+	}
+	
+	public CsVo selectEachNotice(int notiNo) {
+		return sqlSession.selectOne("cs.selectEachNotice", notiNo);
+	}
+	
+	public int updateHitEachNotice(int notiNo) {
+		return sqlSession.update("cs.updateHitEachNotice", notiNo);
+	}
+	
+	public CsVo selectNoticeForModify(int notiNo) {
+		return sqlSession.selectOne("cs.selectNoticeForModify", notiNo);
+	}
+	
+	public int updateEachNotice(CsVo csVo) {
+		return sqlSession.update("cs.updateEachNotice", csVo);
+	}
 }

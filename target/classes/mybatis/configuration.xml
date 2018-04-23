@@ -8,5 +8,7 @@
 		<mapper resource="mybatis/mappers/video.xml" />
 		<mapper resource="mybatis/mappers/cs.xml" />
 		<mapper resource="mybatis/mappers/post.xml" />
+		<mapper resource="mybatis/mappers/mypage.xml" />
+		<mapper resource="mybatis/mappers/comment.xml" />
 	</mappers>
 </configuration>

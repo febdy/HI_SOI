@@ -245,10 +245,8 @@
                                 <!-- Project Description End -->  
                                 <div class="widget">
                                     <div class="">
-                                        <a id="btnLike" class="btn-special btn-grey"><strong><i class="fa fa-heart text-danger"></i>add to Soybean</strong></a>
-                                    </div><br/>
-                                    <div>
-                                    	<a id="btnScrap" class="btn-special btn-grey"><strong><i class="fa fa-star text-warning"></i>add to Scrap</strong></a>
+                                        <a id="btnLike" class="blog-entry-meta-tags"><strong><i class="fa fa-heart text-danger">좋아요</i></strong></a>
+                                    	<a id="btnScrap" class="btn-grey twitter"><strong><i class="fa fa-star text-warning">스크랩</i></strong></a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

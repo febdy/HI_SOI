@@ -176,7 +176,7 @@
 						<div class="modal-header">
 							<h4 class="form-signin-heading modal-title">내 영상 보관함</h4>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body scrollBlind">
 							<table class="table">
 								<thead>
                                     <tr>
@@ -191,7 +191,7 @@
 								</tbody>
 							</table>
 							
-							<div class="pagination-centered padding-bottom30">
+							<%-- <div class="pagination-centered padding-bottom30">
 								<ul class="pagination">
 									<c:if test="${myVideoMap.prev}">
 										<!-- 이 값이 false라면 prev 실행 x -->
@@ -207,7 +207,7 @@
 										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.endPageBtnNo+1}">»</a></li>
 									</c:if>
 								</ul>
-							</div>
+							</div> --%>
 							
 						</div>
 						<div class="modal-footer">
@@ -397,7 +397,7 @@ function fetchList() {
 	$.ajax({//리스트 요청
 		url : "${pageContext.request.contextPath}/post/api/modallist",
 		type : "post",
-		data : {},//데이터를 줄 때 parameter
+		data : { },//데이터를 줄 때 parameter
 
 		dataType : "json", //데이터를 받을때 리턴타입 , json은 문자열임(객체, 맵처럼 쌍으로 묶어 받음.)
 		success : function(myVideoMap) {
@@ -408,7 +408,6 @@ function fetchList() {
 			};
 			
 			return myVideoMap;
-			//paging(myVideoMap);
 	
 		},
 		error : function(XHR, status, error) {

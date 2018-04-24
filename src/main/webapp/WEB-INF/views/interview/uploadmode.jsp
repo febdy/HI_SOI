@@ -143,22 +143,23 @@
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                              <a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
                                 
-                                <div>
                                 	<!-- 진단하기 -->
-                                	<form action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
+                                	<form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										
 										<div class="form-group">
 										<label>&nbsp;</label>
-										<input type="file" name="file">
+										<input type="file" name="file" id="file">
 										</div>
 										
 										<div class="pull-left">
-										<button type="submit" class="btn-xs btn-default">
-										<span class="glyphicon glyphicon-ok text-primary"> 진단하기</span>
-										</button>
+										<input type="button" class="btn-xs btn-default glyphicon glyphicon-ok text-primary" id="uploadBtn" value="진단하기">
 										</div>
-										
 									</form>
+									<br/><br/><br/><br/>
+									
+									<div id="listArea">
+										
+									</div>
                                 	
 									<%-- <form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										
@@ -173,8 +174,8 @@
 										</div>
 										
 									</form> --%>
-								</div> 
-                            </div>
+							</div> 
+
                             
                         </div>
                     </div>
@@ -357,37 +358,72 @@
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script>
 $("#uploadBtn").on("click", function() {
-	var formData=new FormData(document.getElementByID("fileUpload"));
+	if ($("#file").val()=="") {
+		alert("파일 업로드에 실패하였습니다.");
+		
+	} else {	
+		var formData=new FormData($("#fileUpload")[0]);
 	
-	formData.append("file", file);
+		$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/interview/api/upload",
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(videoNo) {
+				if (videoNo!=0) {
+					alert("파일을 업로드 하였습니다.");
+
+					selectCorrectVideo(videoNo);
+					
+					$("#file").val("");
+				} else {
+					alert("파일 업로드에 실패하였습니다.");
+				}
+			},
+			error : function(error) {
+				alert("파일 업로드에 실패하였습니다.");
+				$("#file").val("");
+				console.log(error);
+				console.log(error.status);
+			}
+		
+		});
+	}
 	
-	alert(formData);
-	
-	/* var form=$("#fileUpload")[0];
-	var formData=new FormData(form);
-	
-	event.preventDefault();
-	var files=event.originalEvent.dataTransfer.files;
-	var file=files[0];
-	
-	formData.append("file", $("#file")[0].files[0]);
-	console.log(formData);
-	
-	var xhr=new XMLHttpRequest();
-	xhr.open("post", "sample", "true");
-	xhr.send(formData); */
-	/* $.ajax({
-		url : "${pageContext.request.contextPath}/interview/api/addinterview",
-		processData: false,
-        contentType: false,
-        data: formData,
-        type: 'POST',
-             
-        success: function(result){
-            alert("업로드 성공!!");
-        }
-	}) */
 });
+
+function readylist(videoVo) {
+	var str = "";
+	str += "<div class='post-image'>";
+	str +=  	"<video width='750' height='400' controls='controls' poster='${pageContext.request.contextPath}/upload/"+videoVo.videoThumnail+"' preload='none'>";
+	str += 			"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/mp4'>";
+	str +=  		"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/ogg'>";
+	str +=  	"</video>";
+	str += "</div>";
+	
+	$("#listArea").append(str);
+};
+
+function selectCorrectVideo(videoNo) {
+	$.ajax({
+		url : "${pageContext.request.contextPath}/interview/api/selectcorrectedvideo",
+		type : "post",
+		data : {
+			videoNo : videoNo
+		},
+
+		dataType : "json",
+		success : function(videoVo) {
+			readylist(videoVo);
+		},
+
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+
+	});
+};
 
 </script>
 </html>

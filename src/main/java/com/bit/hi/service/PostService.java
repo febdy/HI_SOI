@@ -28,8 +28,7 @@ public class PostService {
 		return postDao.selectVideoInfo(videoNo);
 	}
 	
-	public int writePost(PostVo postVo, int videoNo) {
-		postVo.setVideoNo(videoNo);
+	public int writePost(PostVo postVo) {
 		System.out.println(postVo);
 		/*for(int i=1;i<100;i++) {
 			postVo.setPostTitle(i+" 번째 영상입니다.");

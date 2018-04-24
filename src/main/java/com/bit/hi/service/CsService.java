@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.hi.dao.CsDao;
 import com.bit.hi.domain.vo.CsVo;
+import com.bit.hi.domain.vo.QnaVo;
 
 @Service
 public class CsService {
@@ -81,5 +82,63 @@ public class CsService {
 	
 	public int modifyEachNotice(CsVo csVo) {
 		return csDao.updateEachNotice(csVo);
+	}
+	
+	public void qnaWrite(QnaVo qnaVo) {
+		csDao.qnaWrite(qnaVo);
+		System.out.println("write");
+	}
+
+	public Map<String, Object> qnaGetList(String searchValue, Integer crtPage) {
+		int qnaListCnt = 10;
+		crtPage = (crtPage <= 0) ? crtPage=1 : crtPage;
+		
+		int startRnum = (crtPage -1) * qnaListCnt;		//0,10,20
+		int endRnum = startRnum + qnaListCnt;		//10,20,30
+		
+		System.out.println("startRnum: " + startRnum);
+		System.out.println("endRnum: " + endRnum);
+		
+		List<QnaVo> qnaList = csDao.selectQnaList(startRnum, endRnum, searchValue);
+		
+		//전체 글 개수
+		int totalCount = csDao.qnaTotalCount(searchValue);
+		System.out.println("totalCount: " + totalCount);
+		
+		int pageBtnCount = 5;
+		
+		int endPageBtnNo = (int)(Math.ceil(crtPage/(double)pageBtnCount) * pageBtnCount);
+		int startPageBtnNo = endPageBtnNo - (pageBtnCount - 1);
+		
+		boolean next = false;
+		if(endPageBtnNo * qnaListCnt < totalCount) {
+			next = true;
+		}else {
+			endPageBtnNo = (int)(Math.ceil(totalCount/(double)qnaListCnt));
+		}
+		
+		boolean prev = false;
+		if(startPageBtnNo != 1) {
+			prev = true;
+		}
+		
+		Map<String, Object> qamap = new HashMap<String, Object>();
+		qamap.put("qnaList",qnaList);
+		qamap.put("prev", prev);
+		qamap.put("startPageBtnNo", startPageBtnNo);
+		qamap.put("endPageBtnNo", endPageBtnNo);
+		qamap.put("next", next);
+		qamap.put("crtPage", crtPage);
+		
+		return qamap;
+	}
+
+	public QnaVo viewEachQna(int qna_no) {
+		csDao.updateHitEachQna(qna_no);
+		return csDao.selectEachQna(qna_no);
+	}
+
+	public QnaVo viewQnaForModify(int qna_no) {
+		return csDao.selectQnaForModify(qna_no);
 	}
 }

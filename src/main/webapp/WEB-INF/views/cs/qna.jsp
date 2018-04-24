@@ -146,7 +146,71 @@
                             <div class="col-md-2">
                                 <h4>Q&A</h4>
                                 </div>
-                               </div>
+                                 <div class="col-md-10 widget">
+									<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-right">
+										<form id="search_form" action="${pageContext.request.contextPath}/cs/notice" method="get" class="input-group">
+											<input type="text" value="Search Q&A" id="kwd" name="kwd" 
+												onfocus="if(this.value=='Search Q&A')this.value='';"
+												onblur="if(this.value=='')this.value='Search Q&A';"
+												class="search-input form-control product-search-height">
+											<span class="input-group-btn">
+												<button type="submit"
+													class="subscribe-btn btn product-search-height">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+											<input type="hidden" name="crtPage" value="${qamap.crtPage}">
+										</form>
+									</div>
+								</div>
+							</div>
+								<div><div><div>
+									<table class="table table-striped table-bordered text-center">
+					                    <colgroup>
+											<col width="7%">
+											<col width="40%">
+											<col width="10%">
+											<col width="10%">
+											<col width="20%">
+											<col width="">
+										</colgroup>
+	                                    <thead>
+	                                        <tr>
+	                                            <th><p class="text-center">번호</p></th>
+												<th><p class="text-center">제목</p></th>
+												<th><p class="text-center">글쓴이</p></th>
+												<th><p class="text-center">조회수</p></th>
+												<th><p class="text-center">작성일</p></th>
+													<c:if test="${authUser.userLevel=='administer'}">
+														<th><p class="text-center">&nbsp;</p></th>
+													</c:if>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                     <c:forEach items="${qamap.qnaList}" var="qaVo">
+											<tr>
+												<td>${qaVo.qna_no}</td>
+												<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
+												<td><a href="${pageContext.request.contextPath}/cs/qna/view/${qaVo.qna_no}">${qaVo.qna_title}</a></td>
+												<td>${qaVo.user_id}</td>
+												<td>${qaVo.qna_hit_cnt}</td>
+												<td>${qaVo.qna_date}</td>
+													<c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
+														<td>
+															<a href="${pageContext.request.contextPath}/cs/qna/delete?qnaNo=${qaVo.qna_no}" class="del">삭제</a>
+														</td>
+													</c:if>
+											</tr>
+										</c:forEach> 
+	                                    </tbody>
+	                                </table>
+									</div>
+									<div class="bottom">
+										<%-- <c:if test="${not empty authUser}"> --%>
+											<a href="${pageContext.request.contextPath }/cs/qna/writeform" id="new-book">글쓰기</a>
+										<%-- </c:if> --%>
+									</div>
+								</div>
 								
 								
 							</div>

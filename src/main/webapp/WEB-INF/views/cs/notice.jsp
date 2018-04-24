@@ -167,14 +167,14 @@
 						</div>
 						<!-- /Post Search -->
                                 <table class="table table-striped table-bordered text-center">
-                                <colgroup>
-						<col width="7%">
-						<col width="40%">
-						<col width="10%">
-						<col width="10%">
-						<col width="20%">
-						<col width="">
-					</colgroup>
+				                    <colgroup>
+										<col width="7%">
+										<col width="40%">
+										<col width="10%">
+										<col width="10%">
+										<col width="20%">
+										<col width="">
+									</colgroup>
                                     <thead>
                                         <tr>
                                             <th><p class="text-center">번호</p></th>

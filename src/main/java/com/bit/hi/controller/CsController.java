@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.hi.domain.vo.CsVo;
+import com.bit.hi.domain.vo.QnaVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.CsService;
 
@@ -102,9 +103,47 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna")
-	public String qna() {
-		
+	public String qnaList(Model model,
+						  @RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage,
+						  @RequestParam(value="searchValue", required=false, defaultValue="") String searchValue) {
+		Map<String, Object> qamap = csService.qnaGetList(searchValue, crtPage);
+		model.addAttribute("qamap", qamap);
 		return "cs/qna";
+	}
+	
+	@RequestMapping(value="/qna/writeform")
+	public String qnaWriteForm(Model mondel) {
+		return "cs/qnawrite";
+	}
+	
+	@RequestMapping(value="/qna/write")
+	public String qnaWrite(@ModelAttribute QnaVo qnaVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		qnaVo.setUser_id(authUser.getUserId());
+			
+		csService.qnaWrite(qnaVo);
+		return "redirect:/cs/qna";
+	}
+	
+	@RequestMapping(value="/qna/view/{qna_no}")
+	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) {
+		QnaVo viewQna = csService.viewEachQna(qna_no);
+		model.addAttribute("qnaVo", viewQna);
+		return "/cs/qnaview";
+		
+	}
+	
+	@RequestMapping(value="/qna/modifyform")
+	public String modifyQna(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser.getUserLevel().equals("administer")) {
+			QnaVo viewQna = csService.viewQnaForModify(qna_no);
+			return "redirect:/cs/qna";
+		}else {
+			System.out.println("Not administer");
+			return "redirect:/cs/qna";
+		}
 	}
 	
 	@RequestMapping(value="/help")

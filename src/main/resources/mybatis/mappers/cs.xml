@@ -102,4 +102,98 @@
 			where noti_no=#{notiNo}
 		]]>
 	</update>
+	
+	<insert id="writeByTitleContent" parameterType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			INSERT INTO qna
+			VALUES (seq_qna_no.nextval
+					, #{qna_title, jdbcType=VARCHAR}
+					, #{qna_content, jdbcType=VARCHAR}
+					, sysdate
+					, #{user_id, jdbcType=VARCHAR}
+					, 0)
+		]]>
+	</insert>
+	
+	<select id="qnaTotalCount" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM qna
+		]]>
+			<if test="_parameter != null and _parameter != ''" >
+			where qna_title like '%'||#{_parameter}||'%'
+			</if>
+			
+		<![CDATA[
+		]]>
+	</select>
+
+	<select id="qnaGetList" resultType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			SELECT qna_no
+				 , qna_title
+				 , qna_content
+				 , qna_date
+				 , user_id
+				 , qna_hit_cnt
+			FROM qna 
+			ORDER BY qna_no desc
+		]]>
+	</select>
+
+	<select id="qnaselectList" parameterType="map" resultType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			SELECT rn,
+       			   qna_no,
+       			   qna_title,
+       			   qna_hit_cnt,
+       			   to_char(qna_date, 'YYYY-MM-DD HH:MI'),
+       			   user_id
+			FROM(SELECT ROWNUM rn,
+            			qna_no,
+            			qna_title,
+            			qna_hit_cnt,
+            			qna_date,
+            			user_id
+     			 FROM(SELECT qna_no,
+                 			 qna_title,
+                 			 qna_hit_cnt,
+                 			 qna_date,
+                 			 user_id
+          			  FROM qna
+      
+     	]]>     		  
+            		  <if test="searchValue != null and searchValue != ''">
+            		  and title like '%'||#{searchValue}|| '%'
+            		  </if>
+        <![CDATA[
+          		 	  ORDER BY qna_no desc)q_o
+          			  )q_ro
+			WHERE rn > #{startRnum, jdbcType=INTEGER}
+			AND rn <= #{endRnum, jdbcType=INTEGER}
+		]]>
+	</select>	
+	
+	<update id="updateHitEachQna" parameterType="int">
+		<![CDATA[
+			UPDATE QNA
+			SET qna_hit_cnt = qna_hit_cnt + 1
+			WHERE qna_no = #{qna_no}
+		]]>
+	</update>
+	
+	<select id="selectEachQna" parameterType="int" resultType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			SELECT qna_no
+				 , qna_title
+				 , qna_content
+				 , qna_date
+				 , user_id
+				 , qna_hit_cnt
+			FROM qna
+			WHERE qna_no = #{qna_no}
+		]]>
+	</select>
+	
+	
 </mapper>

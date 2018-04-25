@@ -102,4 +102,11 @@
 			where noti_no=#{notiNo}
 		]]>
 	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+			delete from notice
+			where noti_no=#{notiNo}
+		]]>
+	</delete>
 </mapper>

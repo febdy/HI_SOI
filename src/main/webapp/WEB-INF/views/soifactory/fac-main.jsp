@@ -63,16 +63,7 @@
 	href="${pageContext.request.contextPath}/resources/css/spectrum.css"
 	rel="stylesheet">
 <!-- Favicons -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/img/ico/favicon.ico">
-<link rel="apple-touch-icon"
-	href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72"
-	href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-72.png">
-<link rel="apple-touch-icon" sizes="114x114"
-	href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-114.png">
-<link rel="apple-touch-icon" sizes="144x144"
-	href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-144.png">
+<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/ico/soi.ico">
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -293,104 +284,12 @@
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		<!-- /Footer -->
 
-		<!-- Modal -->
-		<section id="modals">
-			<!-- Login Modal -->
-			<div class="modal login fade" id="loginModal" tabindex="-1"
-				role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h2 class="form-signin-heading modal-title" id="myModalLabel">Login</h2>
-						</div>
-						<form method="post" id="login">
-							<div class="modal-body">
-								<fieldset>
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<input class="form-control" id="username" name="username"
-												type="text" placeholder="Username" value="" required>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<input class="form-control" type="email" id="email"
-												name="email" placeholder="Email" value="" required>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-							<div class="modal-footer">
-								<a href="password-recovery.html" class="pull-left">(Lost
-									Password?)</a>
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-color">Login</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- /Login Modal -->
-			<!-- Registration Modal -->
-			<div class="modal register fade" id="registrationModal" tabindex="-1"
-				role="dialog" aria-labelledby="registrationModal" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h2 class="form-signin-heading modal-title"
-								id="registrationModalLabel">Create a new account</h2>
-						</div>
-						<form method="post" id="registration">
-							<div class="modal-body">
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-6">
-											<input type="text" value="" class="form-control"
-												placeholder="First Name">
-										</div>
-										<div class="col-md-6">
-											<input type="text" value="" class="form-control"
-												placeholder="Last Name">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12">
-											<input type="text" value="" class="form-control"
-												placeholder="E-mail Address">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-6">
-											<input type="password" value="" class="form-control"
-												placeholder="Password">
-										</div>
-										<div class="col-md-6">
-											<input type="password" value="" class="form-control"
-												placeholder="Re-enter Password">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-color">Register</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- /Registration Modal -->
-		</section>
+		
 		<!-- Scroll To Top -->
 		<a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
 	</div>
 	<!-- /Wrap -->
+	
 	<!-- The Scripts -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

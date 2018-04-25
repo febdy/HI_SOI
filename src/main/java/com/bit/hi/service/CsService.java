@@ -82,4 +82,8 @@ public class CsService {
 	public int modifyEachNotice(CsVo csVo) {
 		return csDao.updateEachNotice(csVo);
 	}
+	
+	public int deleteNotice(int notiNo) {
+		return csDao.deleteNotice(notiNo);
+	}
 }

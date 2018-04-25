@@ -48,4 +48,8 @@ public class CsDao {
 	public int updateEachNotice(CsVo csVo) {
 		return sqlSession.update("cs.updateEachNotice", csVo);
 	}
+	
+	public int deleteNotice(int notiNo) {
+		return sqlSession.delete("cs.deleteNotice", notiNo);
+	}
 }

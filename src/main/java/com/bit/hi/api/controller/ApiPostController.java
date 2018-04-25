@@ -1,6 +1,6 @@
 package com.bit.hi.api.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
-import com.bit.hi.service.MypageService;
 import com.bit.hi.service.PostService;
 
 @Controller
@@ -23,16 +22,13 @@ public class ApiPostController {
 	@Autowired
 	private PostService postService;
 	
-	@Autowired
-	private MypageService mypageService;
-	
 	@ResponseBody
 	@RequestMapping(value="/api/modallist")
-	public Map<String, Object> apiModalList(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) {
+	public List<VideoVo> apiModalList(HttpSession session, Model model) {
 		System.out.println("apiModalList 진입");
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(authUser.getUserId());
-		Map<String, Object> myVideoMap=mypageService.clipGetList(authUser.getUserId(), crtPage);
+		List<VideoVo> myVideoMap=postService.getMyVideoList(authUser.getUserId());
 		System.out.println(myVideoMap);
 		model.addAttribute("myVideoMap", myVideoMap);
 		return myVideoMap;

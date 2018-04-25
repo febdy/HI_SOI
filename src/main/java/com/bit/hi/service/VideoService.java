@@ -31,6 +31,7 @@ public class VideoService {
 		Iterator<String> files=file.getFileNames();
 		
 		String uploadFile=files.next();
+		
 		MultipartFile mFile=file.getFile(uploadFile);
 
 		if (!mFile.isEmpty()) {

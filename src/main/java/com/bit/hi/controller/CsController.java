@@ -101,6 +101,13 @@ public class CsController {
 		}
 	}
 	
+	@RequestMapping("/notice/delete")
+	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo) {
+		csService.deleteNotice(notiNo);
+		
+		return "redirect:/cs/notice";
+	}
+	
 	@RequestMapping(value="/qna")
 	public String qna() {
 		

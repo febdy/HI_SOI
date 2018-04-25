@@ -141,4 +141,12 @@ public class CsService {
 	public QnaVo viewQnaForModify(int qna_no) {
 		return csDao.selectQnaForModify(qna_no);
 	}
+	
+	public int modifyEachQna(QnaVo qnaVo) {
+		return csDao.updateEachQna(qnaVo);
+	}
+
+	public void deleteQna(int qna_no) {
+		csDao.deleteQna(qna_no);	
+	}
 }

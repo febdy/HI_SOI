@@ -86,7 +86,14 @@ public class CsDao {
 	}
 
 	public QnaVo selectQnaForModify(int qna_no) {
-		
-		return null;
+		return sqlSession.selectOne("cs.selectQnaForModify", qna_no);
+	}
+
+	public int updateEachQna(QnaVo qnaVo) {
+		return sqlSession.update("cs.updateEachQna", qnaVo);
+	}
+
+	public void deleteQna(int qna_no) {
+		sqlSession.delete("cs.deleteEachQna", qna_no);		
 	}
 }

@@ -197,7 +197,7 @@
 												<td>${qaVo.qna_date}</td>
 													<c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
 														<td>
-															<a href="${pageContext.request.contextPath}/cs/qna/delete?qnaNo=${qaVo.qna_no}" class="del">삭제</a>
+															<a href="${pageContext.request.contextPath}/cs/qna/delete?qna_no=${qaVo.qna_no}" class="del">삭제</a>
 														</td>
 													</c:if>
 											</tr>

@@ -133,7 +133,7 @@
 			SELECT qna_no
 				 , qna_title
 				 , qna_content
-				 , qna_date
+				 , to_char(qna_date, 'YYYY-MM-DD HH:MI') qna_date
 				 , user_id
 				 , qna_hit_cnt
 			FROM qna 
@@ -147,7 +147,7 @@
        			   qna_no,
        			   qna_title,
        			   qna_hit_cnt,
-       			   to_char(qna_date, 'YYYY-MM-DD HH:MI'),
+       			   to_char(qna_date, 'YYYY-MM-DD HH:MI') qna_date,
        			   user_id
 			FROM(SELECT ROWNUM rn,
             			qna_no,
@@ -195,5 +195,32 @@
 		]]>
 	</select>
 	
+	<select id="selectQnaForModify" parameterType="int" resultType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			SELECT qna_no
+				 , qna_title
+				 , qna_content
+				 , qna_date
+				 , user_id
+				 , qna_hit_cnt
+			FROM qna
+			WHERE qna_no = #{qna_no}
+		]]>
+	</select>
+	
+	<update id="updateEachQna" parameterType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			UPDATE qna
+			SET qna_title=#{qna_title}, qna_content=#{qna_content}
+			WHERE qna_no=#{qna_no}
+		]]>
+	</update>
+	
+	<delete id="deleteEachQna" parameterType="int">
+		<![CDATA[
+			DELETE FROM qna
+			WHERE qna_no=#{qna_no}
+		]]>
+	</delete>
 	
 </mapper>

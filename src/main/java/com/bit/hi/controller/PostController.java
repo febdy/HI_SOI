@@ -45,12 +45,15 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwrite")
-	public String soiWrite(@ModelAttribute PostVo postVo, @RequestParam("videoTitle") String ioi, @RequestParam("videoNo") int videoNo, HttpSession session) {
+	public String soiWrite(@ModelAttribute PostVo postVo, HttpSession session, @RequestParam(value="postHideFace", required=false, defaultValue="N") String postHideFace,
+			@RequestParam(value="postSharable", required=false, defaultValue="N") String postSharable
+	) {
 		System.out.println(postVo);
-		System.out.println(videoNo);
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		postVo.setWriterId(authUser.getUserId()); //유저 아이디
-		postService.writePost(postVo,videoNo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
+		postVo.setPostHideFace(postHideFace);
+		postVo.setPostSharable(postSharable);
+		postService.writePost(postVo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
 		return "redirect:/post/soifactorylist";
 	}
 	

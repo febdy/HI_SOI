@@ -161,7 +161,7 @@
 										<tr>
 											<td>${videoVo.rn}</td>
 											<td>
-                                                    <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail">
+                                                    <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">
                                                     <img width="70" height="70" title="" alt="" src="${pageContext.request.contextPath}/upload/${videoVo.videoThumnail}">
                                                     </a>
                                                 </td>

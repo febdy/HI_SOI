@@ -3,9 +3,12 @@
 <mapper namespace="video">
 
 	<insert id="insertUpload" parameterType="com.bit.hi.domain.vo.VideoVo">
+		<selectKey keyProperty="videoNo" resultType="int" order="BEFORE">
+				select seq_video_no.nextval from dual
+		</selectKey>
 		<![CDATA[
 			insert into video
-			values (seq_video_no.nextval, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기', 0)
+			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기', 0)
 		]]>
 	</insert>
 	<!-- 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
@@ -35,6 +38,7 @@
 					video_path videoPath,
 					video_size videoSize,
 					video_date videoDate,
+					video_thumnail videoThumnail,
 					video_correct_line videoCorrectLine,
 					video_delete videoDelete
 			from video
@@ -57,5 +61,23 @@
 			where video_save_name=#{videoSaveName}
 		]]>
 	</update>
+	
+	<select id="selectCorrectedVideo" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_thumnail videoThumnail,
+					video_correct_line videoCorrectLine,
+					video_delete videoDelete
+			from video
+			where video_No=#{videoNo}
+		]]>
+	</select>
 	
 </mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+
+	<insert id="wirteByTitleContent" parameterType="com.bit.hi.domain.vo.CsVo">
+		<![CDATA[
+			INSERT INTO qna
+			VALUES (seq_qna_no.nextval, #{qna_title, jdbcType=VARCHAR}, #{qna_content, jdbcType=VARCHAR}, sysdate, #{user_id, jdbcType=VARCHAR})
+		]]>
+	</insert>
+</mapper>

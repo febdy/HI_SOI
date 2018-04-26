@@ -137,7 +137,9 @@ public class CsController {
 	@RequestMapping(value="/qna/view/{qna_no}")
 	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) {
 		QnaVo viewQna = csService.viewEachQna(qna_no);
+		
 		model.addAttribute("qnaVo", viewQna);
+		model.addAttribute("ctrl","\r\n");
 		return "cs/qnaview";
 		
 	}

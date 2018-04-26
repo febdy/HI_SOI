@@ -65,7 +65,8 @@ CREATE TABLE video (
     video_correct_line  VARCHAR2(100) not null,
     video_delete VARCHAR2(10) not null,
     PRIMARY KEY(video_no),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT c_video_fk FOREIGN KEY (user_id) 
+    REFERENCES users(user_id)
 );
 
 CREATE SEQUENCE seq_video_no
@@ -75,21 +76,6 @@ START WITH 1;
 --CREATE SEQUENCE seq_book_id
 --INCREMENT BY 1 
 --START WITH 1 ;
-
-CREATE TABLE qna (
-    qna_no NUMBER(30) not null,
-    qna_title VARCHAR2(100) not null,
-    qna_content   VARCHAR2(2000) not null,
-    qna_date DATE not null,
-    user_id   VARCHAR2(200) not null,
-    PRIMARY KEY(qna_no),
-    CONSTRAINT c_qna_fk FOREIGN KEY (user_id)
-    REFERENCES users(user_id)
-);
-
-CREATE SEQUENCE seq_qna_no
-INCREMENT BY 1
-START WITH 1;
 
 commit;
 
@@ -114,7 +100,8 @@ CREATE TABLE notice (
     noti_hit_cnt    NUMBER DEFAULT 0,
     user_id VARCHAR2(20) NOT NULL,
     PRIMARY KEY(noti_no),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT c_notice_fk FOREIGN KEY (user_id) 
+    REFERENCES users(user_id)
 );
 
 CREATE SEQUENCE seq_notice_no
@@ -177,8 +164,10 @@ CREATE TABLE post (
     post_sharable   VARCHAR2(10) default 'N',
     post_anal_result    VARCHAR2(100),
     PRIMARY KEY(post_no),
-    FOREIGN KEY (writer_id) REFERENCES users(user_id),
-    FOREIGN KEY (video_no) REFERENCES video(video_no)
+    CONSTRAINT c_post_writerid_fk FOREIGN KEY (writer_id) 
+    REFERENCES users(user_id),
+    CONSTRAINT c_post_videono_fk FOREIGN KEY (video_no) 
+    REFERENCES video(video_no)
 );
 
 CREATE SEQUENCE seq_post_no
@@ -224,8 +213,10 @@ CREATE TABLE comments (
     cmt_content VARCHAR2(4000),
     cmt_date    DATE DEFAULT SYSDATE,
     PRIMARY KEY(cmt_no),
-    FOREIGN KEY (post_no) REFERENCES post(post_no),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT c_comments_postno_fk FOREIGN KEY (post_no) 
+    REFERENCES post(post_no),
+    CONSTRAINT c_comments_userid_fk FOREIGN KEY (user_id) 
+    REFERENCES users(user_id)
 );
 
 CREATE SEQUENCE seq_cmt_no
@@ -269,8 +260,10 @@ CREATE TABLE scrap (
     post_no NUMBER(10) not null,
     user_id VARCHAR2(20) not null,
     scrap_date    DATE DEFAULT SYSDATE,
-    FOREIGN KEY (post_no) REFERENCES post(post_no),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT c_scrap_postno_fk FOREIGN KEY (post_no) 
+    REFERENCES post(post_no),
+    CONSTRAINT c_scrap_userid_fk FOREIGN KEY (user_id) 
+    REFERENCES users(user_id)
 );
 
 select sc.post_no,
@@ -327,3 +320,18 @@ INCREMENT BY 1
 START WITH 1;
 
 commit;
+
+CREATE TABLE qna (
+    qna_no NUMBER(30) not null,
+    qna_title VARCHAR2(100) not null,
+    qna_content   VARCHAR2(2000) not null,
+    qna_date DATE not null,
+    user_id   VARCHAR2(200) not null,
+    PRIMARY KEY(qna_no),
+    CONSTRAINT c_qna_fk FOREIGN KEY (user_id)
+    REFERENCES users(user_id)
+);
+
+CREATE SEQUENCE seq_qna_no
+INCREMENT BY 1
+START WITH 1;

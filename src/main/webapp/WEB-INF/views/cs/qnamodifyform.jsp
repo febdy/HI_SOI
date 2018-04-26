@@ -112,7 +112,7 @@
                                             <li>You are Now on:</li>
                                             <li><a href="index.html">고객센터</a></li>
                                             <li><a href="#">Q&A</a></li>
-                                            <li>Q&A 글쓰기</li>
+                                            <li>글쓰기</li>
                                         </ul>
                                     </div>
                                 </div>

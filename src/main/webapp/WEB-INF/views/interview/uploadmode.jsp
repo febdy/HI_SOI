@@ -219,7 +219,12 @@
 
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script>
+
 $("#uploadBtn").on("click", function() {
+	//var video=document.getElementByID("listArea");
+	//while (video.val()!=null) {
+	//	$("#listArea").remove();
+	//}
 	if ($("#file").val()=="") {
 		alert("파일 업로드에 실패하였습니다.");
 		
@@ -235,7 +240,7 @@ $("#uploadBtn").on("click", function() {
 			success : function(videoNo) {
 				if (videoNo!=0) {
 					alert("파일을 업로드 하였습니다.");
-
+					
 					selectCorrectVideo(videoNo);
 					
 					$("#file").val("");
@@ -253,17 +258,21 @@ $("#uploadBtn").on("click", function() {
 		});
 	}
 	
+	
 });
 
 function readylist(videoVo) {
+	$("#listArea").text("");
+	
 	var str = "";
-	str += "<div class='post-image'>";
+	str += "<div id='videoCh' class='post-image'>";
 	str +=  	"<video id='myVideo' width='750' height='400' controls='controls' poster='${pageContext.request.contextPath}/upload/"+videoVo.videoThumnail+"' preload='none'>";
 	str += 			"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/mp4'>";
 	str +=  		"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/ogg'>";
 	str +=  	"</video>";
 	str += "</div>";
 	
+
 	$("#listArea").append(str);
 };
 

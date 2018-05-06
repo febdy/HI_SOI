@@ -375,7 +375,6 @@
 		str += "    </div>";
 		str += "</div>";
 		str += "</li>";
-		str += "<br/>";
 
 		if (updown == "up") {
 			$("#listArea").prepend(str);

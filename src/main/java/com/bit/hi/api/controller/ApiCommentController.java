@@ -40,7 +40,6 @@ public class ApiCommentController {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		commentVo.setUserId(authUser.getUserId());
 		commentService.apiAddComment(commentVo);
-		System.out.println(commentService.apiAddComment(commentVo));
 		return commentVo;
 	}
 	

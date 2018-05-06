@@ -67,6 +67,10 @@ public class CsService {
 	}
 	
 	public int addNoticeWrite(CsVo csVo) {
+		/*for(int i=1;i<100;i++) {
+			csVo.setNotiTitle(i+" 번째 공지입니다.");
+			csDao.insertNoticeWrite(csVo);
+		}*/
 		System.out.println(csVo);
 		return csDao.insertNoticeWrite(csVo);
 	}

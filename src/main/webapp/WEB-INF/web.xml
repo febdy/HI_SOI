@@ -4,17 +4,21 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- 설정을 우선적으로 -context.xml 파일에서 찾고, 없으면  ContextLoaderListener의 root-context.xml에서 찾는다 -->
+	<!-- 이 프로젝트에선 2개의 DispatcherServlet이 각 각 별도의 webApplicationContext를 생성, 두 context 간에는 기본적으로 자원공유(빈 설정 등) 불가 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
 	</context-param>
 	
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- Creates the Spring Container shared by all Servlets and Filters --> 
+	<!-- ContextLoaderListener에서 root-context(applicationContext)를 생성(객체 생성과 관리하는 역할), 공통 빈 설정 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<!-- Processes application requests -->
+	<!-- DispatChServlet Mapping : Front Controller 등록 -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

@@ -8,6 +8,7 @@ public class UserVo {
 	private String userTel;
 	private String userPwd;
 	private String userNickname;
+	private String userNicknameAfter;
 	private String userLevel;
 	private String regDate;
 	
@@ -15,7 +16,7 @@ public class UserVo {
 	}
 
 	public UserVo(String userId, String userName, String userEmail, String userAddr, String userTel, String userPwd,
-			String userNickname, String userLevel, String regDate) {
+			String userNickname, String userNicknameAfter, String userLevel, String regDate) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userEmail = userEmail;
@@ -23,6 +24,7 @@ public class UserVo {
 		this.userTel = userTel;
 		this.userPwd = userPwd;
 		this.userNickname = userNickname;
+		this.userNicknameAfter = userNicknameAfter;
 		this.userLevel = userLevel;
 		this.regDate = regDate;
 	}
@@ -83,6 +85,14 @@ public class UserVo {
 		this.userNickname = userNickname;
 	}
 
+	public String getUserNicknameAfter() {
+		return userNicknameAfter;
+	}
+
+	public void setUserNicknameAfter(String userNicknameAfter) {
+		this.userNicknameAfter = userNicknameAfter;
+	}
+
 	public String getUserLevel() {
 		return userLevel;
 	}
@@ -103,7 +113,8 @@ public class UserVo {
 	public String toString() {
 		return "UserVo [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userAddr="
 				+ userAddr + ", userTel=" + userTel + ", userPwd=" + userPwd + ", userNickname=" + userNickname
-				+ ", userLevel=" + userLevel + ", regDate=" + regDate + "]";
+				+ ", userNicknameAfter=" + userNicknameAfter + ", userLevel=" + userLevel + ", regDate=" + regDate
+				+ "]";
 	}
 	
 }

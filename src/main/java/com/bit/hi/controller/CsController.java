@@ -2,12 +2,19 @@ package com.bit.hi.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bit.hi.domain.vo.CsVo;
+import com.bit.hi.domain.vo.QnaVo;
+import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.CsService;
 
 @Controller
@@ -29,70 +36,144 @@ public class CsController {
 		return "cs/notice";
 	}
 	
-	@RequestMapping(value="/qna")
-	public String qna() {
+	@RequestMapping(value="/notice/writeform")
+	public String noticeWriteForm(HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		if (authUser.getUserLevel().equals("administer")) {
+			System.out.println("administer 글쓰기 입장");
+			return "cs/notiwriteform";
+		} else {
+			System.out.println("Not administer");
+			return "redirect:/cs/notice";
+		}
+	}
+	
+	@RequestMapping(value="/notice/write")
+	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session, Model model) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
+		if (authUser.getUserLevel().equals("administer")) {
+			System.out.println("등록 클릭");
+			csVo.setUserId(authUser.getUserId());
+			csService.addNoticeWrite(csVo);
+			model.addAttribute("ctrl","\r\n");
+			return "/cs/notiview";
+		} else {
+			System.out.println("Not administer");
+			return "redirect:/cs/notice";
+		}
+	}
+	
+	@RequestMapping(value="/notice/view/{notiNo}")
+	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model) {
+		System.out.println("각 공지글 보기 진입");
+		
+		CsVo viewNotice=csService.viewEachNotice(notiNo);
+		model.addAttribute("csVo", viewNotice);
+		model.addAttribute("ctrl","\r\n"); //input에 안 들어있으면 띄어쓰기가 사라지게 되므로, 이 문법을 통해, 띄어쓰기 작동하게 함.
+		return "/cs/notiview";
+	}
+	
+	@RequestMapping(value="/notice/modifyform")
+	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model,HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		if (authUser.getUserLevel().equals("administer")) {
+			System.out.println("modifyform 진입");
+			CsVo viewNotice=csService.viewNoticeForModify(notiNo);
+			model.addAttribute("csVo",viewNotice);
+			return "cs/notimodifyform";
+		} else {
+			System.out.println("Not administer");
+			return "redirect:/cs/notice";
+		}
+	}
+	
+	@RequestMapping(value="/notice/modify")
+	public String modifyNotice(@ModelAttribute CsVo csVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		System.out.println(csVo);
+		if (authUser.getUserLevel().equals("administer")) {
+			System.out.println("modify 진입");
+			csService.modifyEachNotice(csVo);
+			return "redirect:/cs/notice";
+		} else {
+			System.out.println("Not administer");
+			return "redirect:/cs/notice";
+		}
+	}
+	
+	@RequestMapping(value="/qna")
+	public String qnaList(Model model,
+						  @RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage,
+						  @RequestParam(value="searchValue", required=false, defaultValue="") String searchValue) {
+		Map<String, Object> qamap = csService.qnaGetList(searchValue, crtPage);
+		System.out.println("gogogogogogogogo"+qamap.toString());
+		model.addAttribute("qamap", qamap);
 		return "cs/qna";
 	}
+	
+	@RequestMapping(value="/qna/writeform")
+	public String qnaWriteForm(Model mondel) {
+		return "cs/qnawrite";
+	}
+	
+	@RequestMapping(value="/qna/write")
+	public String qnaWrite(@ModelAttribute QnaVo qnaVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		qnaVo.setUser_id(authUser.getUserId());
+			
+		csService.qnaWrite(qnaVo);
+		return "redirect:/cs/qna";
+	}
+	
+	@RequestMapping(value="/qna/view/{qna_no}")
+	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) {
+		QnaVo viewQna = csService.viewEachQna(qna_no);
+		model.addAttribute("qnaVo", viewQna);
+		return "cs/qnaview";
+		
+	}
+	
+	@RequestMapping(value="/qna/modifyform")
+	public String modifyFormQna(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser.getUserLevel().equals("administer")) {
+			System.out.println("modifyform 진입");
+			QnaVo viewQna = csService.viewQnaForModify(qna_no);
+			model.addAttribute("qnaVo",viewQna);
+			return "cs/qnamodifyform";
+		}else {
+			System.out.println("Not administer");
+			return "redirect:/cs/qna";
+		}
+	}
+	
+	@RequestMapping(value="/qna/modify")
+	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		System.out.println(qnaVo);
+		if (authUser.getUserLevel().equals("administer")) {
+			System.out.println("modify 진입");
+			csService.modifyEachQna(qnaVo);
+			return "redirect:/cs/qna";
+		} else {
+			System.out.println("Not administer");
+			return "redirect:/cs/qna";
+		}
+	}
+	
+	@RequestMapping(value="/qna/delete")
+	public String deleteQna(Model model, @RequestParam("qna_no") int qna_no) {
+		csService.deleteQna(qna_no);
+		return "redirect:/cs/qna";
+	}
+	
 	
 	@RequestMapping(value="/help")
 	public String help() {
 		
 		return "cs/help";
 	}
-	
-	/*@RequestMapping(value="/view/{no}")
-	public String view(@PathVariable("no") int no, Model model) { //list.jsp에서 넘길때 어떻게 넘기는지 확인할 것.
-		System.out.println("view 진입");
-		BoardVo boardVo=boardService.getListforView(no); //no를 입력받아서, board 변수 전부 출력.
-		model.addAttribute(boardVo);
-		model.addAttribute("ctrl","\r\n"); //줄바꿈 치환용
-		return "board/view"; //뷰 리졸버에 의해 경로를 이렇게 쓴다.
-	}
-	
-	@RequestMapping(value="/delete") //boardVo에는 기본적으로 jsp로부터 넘어온 글번호 no값이 있음.
-	public String delete(@ModelAttribute BoardVo boardVo, HttpSession session) { //@modelAttribute는 여러 값을 묶어주는 역할, service로 보낼때 이용
-		System.out.println("delete 진입");
-		UserVo authUser=(UserVo)session.getAttribute("authUser"); // 세션은 email,password를 매개값으로 받아, no, name 출력함.
-		boardVo.setUserNo(authUser.getNo()); //userVo의 userNo에 user의 고유번호 no를 넣어줌.
-		boardService.delete(boardVo);//userVo에는 board의 글번호 no와 유저고유번호 userNo가 들어 있고, 담아서 service로 보냄.
-		return "redirect:/board/list";
-	} //휴지통이 안보이는 것은 board.css에서 a.del 경로 수정해주면 보임.
-	
-	@RequestMapping(value="/writeform")
-	public String writeform(HttpSession session) {
-		System.out.println("writeform 진입");
-		if(session.getAttribute("authUser") != null) { //로그인상태일때
-			return "board/write";
-		} else {                                       //로그인 상태가 아닐때
-			return "redirect:/user/loginform";
-		}
-	}
-	
-	@RequestMapping(value="/write")
-	public String write(@ModelAttribute BoardVo boardVo, HttpSession session) {
-		System.out.println("write 진입");
-		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		boardVo.setUserNo(authUser.getNo()); //title,content가 있는 boardVo에 users의 고유 번호 no를 userNo에 넣어줌.
-		boardService.write(boardVo);
-		return "redirect:/board/list";
-	}
-	
-	@RequestMapping(value="/modifyform")
-	public String modifyform(@RequestParam("no") int no, Model model) { //jsp파일로 부터, 값 하나 받아올 때는 requestparam
-		System.out.println("modifyform 진입");
-		BoardVo boardVo=boardService.getListforModify(no); //no를 입력받아, board변수 전부 출력
-		model.addAttribute(boardVo);
-		return "board/modify";
-	}
-	
-	@RequestMapping(value="/modify")
-	public String modify(@ModelAttribute BoardVo boardVo, HttpSession session, Model model) { //jsp파일로 부터,여러개 값 한번에 받아올 때는
-		System.out.println("modify 진입");
-		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		int userNo=authUser.getNo();
-		boardVo.setUserNo(userNo); //글번호, 제목, 내용을 jsp파일로부터 받고, userNo를 세션에서 받음.
-		boardService.modify(boardVo);
-		return "redirect:/board/list";
-	}*/
+
 }

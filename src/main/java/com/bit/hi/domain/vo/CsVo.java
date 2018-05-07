@@ -1,6 +1,7 @@
 package com.bit.hi.domain.vo;
 
 public class CsVo {
+	private int rn;
 	private int notiNo;
 	private String notiTitle;
 	private String notiContent;
@@ -8,12 +9,15 @@ public class CsVo {
 	private int notiHitCnt;
 	private String userId;
 	private String userNickname;
+	private String userLevel;
 	
 	public CsVo() {
 	}
 
-	public CsVo(int notiNo, String notiTitle, String notiContent, String notiDate, int notiHitCnt, String userId,
-			String userNickname) {
+	public CsVo(int rn, int notiNo, String notiTitle, String notiContent, String notiDate, int notiHitCnt,
+			String userId, String userNickname, String userLevel) {
+		super();
+		this.rn = rn;
 		this.notiNo = notiNo;
 		this.notiTitle = notiTitle;
 		this.notiContent = notiContent;
@@ -21,6 +25,15 @@ public class CsVo {
 		this.notiHitCnt = notiHitCnt;
 		this.userId = userId;
 		this.userNickname = userNickname;
+		this.userLevel = userLevel;
+	}
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
 	}
 
 	public int getNotiNo() {
@@ -79,11 +92,19 @@ public class CsVo {
 		this.userNickname = userNickname;
 	}
 
+	public String getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(String userLevel) {
+		this.userLevel = userLevel;
+	}
+
 	@Override
 	public String toString() {
-		return "CsVo [notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent + ", notiDate="
-				+ notiDate + ", notiHitCnt=" + notiHitCnt + ", userId=" + userId + ", userNickname=" + userNickname
-				+ "]";
+		return "CsVo [rn=" + rn + ", notiNo=" + notiNo + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent
+				+ ", notiDate=" + notiDate + ", notiHitCnt=" + notiHitCnt + ", userId=" + userId + ", userNickname="
+				+ userNickname + ", userLevel=" + userLevel + "]";
 	}
 	
 }

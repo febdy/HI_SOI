@@ -1,6 +1,6 @@
 package com.bit.hi.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,16 +24,18 @@ public class PostController {
 	private PostService postService;
 
 	@RequestMapping(value="/soifactorylist")
-	public String soiFactoryList(Model model) {
-		List<PostVo> postList=postService.getAllPostList();
-		model.addAttribute("postList", postList);
+	public String soiFactoryList(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
+			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) {
+		Map<String, Object> bMap=postService.getAllPostList(crtPage, kwd);
+		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
 	}
 	
-	@RequestMapping(value="soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo) {
+	@RequestMapping(value="/soiread/{postNo}")
+	public String soiRead(Model model, @PathVariable int postNo) {
 		PostVo postVo=postService.getEachPost(postNo);
 		model.addAttribute("postVo", postVo);
+		model.addAttribute("ctrl","\r\n");
 		return "soifactory/soiread";
 	}
 	
@@ -43,12 +45,65 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwrite")
-	public String soiWrite(@ModelAttribute PostVo postVo,@RequestParam("ioi") String ioi,HttpSession session) {
+	public String soiWrite(@ModelAttribute PostVo postVo, HttpSession session, @RequestParam(value="postHideFace", required=false, defaultValue="N") String postHideFace,
+			@RequestParam(value="postSharable", required=false, defaultValue="N") String postSharable
+	) {
 		System.out.println(postVo);
-		System.out.println(ioi);
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		postVo.setUserId(authUser.getUserId()); //유저 아이디
-		postService.writePost(postVo,ioi); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
+		postVo.setWriterId(authUser.getUserId()); //유저 아이디
+		postVo.setPostHideFace(postHideFace);
+		postVo.setPostSharable(postSharable);
+		postService.writePost(postVo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
 		return "redirect:/post/soifactorylist";
 	}
+	
+	@RequestMapping(value="/soidelete")
+	public String soiDelete(@RequestParam("postNo") int postNo) {
+		System.out.println(postNo);
+		postService.deletePost(postNo);
+		return "redirect:/post/soifactorylist";
+	}
+	
+	@RequestMapping(value="/array")
+	public String array(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, Model model,
+			@RequestParam(value="soi", required=false) String soi,
+			@RequestParam(value="view", required=false) String view,
+			@RequestParam(value="comment", required=false) String comment,
+			@RequestParam(value="latest", required=false) String latest) {
+		Map<String, Object> bMap=postService.getArray(crtPage,soi,view,comment,latest);
+		model.addAttribute("bindMap", bMap);
+		return "soifactory/fac-main";
+	}
+	
+	@RequestMapping(value="/soimodifyform")
+	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, Model model, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		String url;
+		if (authUser.getUserId().equals(writerId)) {
+			PostVo postVo=postService.getEachPostForModify(postNo);
+			model.addAttribute("postVo", postVo);
+			model.addAttribute("ctrl","\r\n");
+			url="soifactory/soimodifyform";
+		} else {
+			url="redirect:/post/soifactorylist";
+		}
+		return url;
+	}
+	
+	@RequestMapping(value="/soimodify")
+	public String soiModify(@ModelAttribute PostVo postVo, HttpSession session) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		String url;
+		if (authUser.getUserId().equals(postVo.getWriterId())) {
+			postService.updateEachPostForModify(postVo);
+			int postNo=postVo.getPostNo();
+			url="redirect:/post/soiread/"+postNo;
+		} else {
+			url="redirect:/post/soifactorylist";
+		}
+		return url;
+	}
+
 }

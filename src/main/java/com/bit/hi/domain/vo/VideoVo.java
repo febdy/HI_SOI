@@ -1,6 +1,7 @@
 package com.bit.hi.domain.vo;
 
 public class VideoVo {
+	private int rn;
 	private int videoNo;
 	private String userId;
 	private String videoOriginName;
@@ -9,13 +10,17 @@ public class VideoVo {
 	private String videoPath;
 	private long videoSize;
 	private String videoDate;
+	private String videoThumnail;
 	private String videoCorrectLine;
+	private String videoDelete;
 	
 	public VideoVo() {
 	}
 
-	public VideoVo(int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
-			String videoPath, long videoSize, String videoDate, String videoCorrectLine) {
+	public VideoVo(int rn, int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
+			String videoPath, long videoSize, String videoDate, String videoThumnail, String videoCorrectLine,
+			String videoDelete) {
+		this.rn = rn;
 		this.videoNo = videoNo;
 		this.userId = userId;
 		this.videoOriginName = videoOriginName;
@@ -24,7 +29,17 @@ public class VideoVo {
 		this.videoPath = videoPath;
 		this.videoSize = videoSize;
 		this.videoDate = videoDate;
+		this.videoThumnail = videoThumnail;
 		this.videoCorrectLine = videoCorrectLine;
+		this.videoDelete = videoDelete;
+	}
+
+	public int getRn() {
+		return rn;
+	}
+
+	public void setRn(int rn) {
+		this.rn = rn;
 	}
 
 	public int getVideoNo() {
@@ -91,6 +106,14 @@ public class VideoVo {
 		this.videoDate = videoDate;
 	}
 
+	public String getVideoThumnail() {
+		return videoThumnail;
+	}
+
+	public void setVideoThumnail(String videoThumnail) {
+		this.videoThumnail = videoThumnail;
+	}
+
 	public String getVideoCorrectLine() {
 		return videoCorrectLine;
 	}
@@ -99,12 +122,20 @@ public class VideoVo {
 		this.videoCorrectLine = videoCorrectLine;
 	}
 
+	public String getVideoDelete() {
+		return videoDelete;
+	}
+
+	public void setVideoDelete(String videoDelete) {
+		this.videoDelete = videoDelete;
+	}
+
 	@Override
 	public String toString() {
-		return "VideoVo [videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName=" + videoOriginName
-				+ ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath=" + videoPath
-				+ ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoCorrectLine=" + videoCorrectLine
-				+ "]";
+		return "VideoVo [rn=" + rn + ", videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName="
+				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
+				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoThumnail="
+				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", videoDelete=" + videoDelete + "]";
 	}
 	
 }

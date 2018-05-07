@@ -14,6 +14,4 @@ public class MainController {
 		return "main/main";
 	}
 	
-	//@RequestMapping("login")
-	//public String 
 }

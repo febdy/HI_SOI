@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+
+	<!-- 영상관리 페이징 -->
+	<select id="selectPageForMyVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select rn,
+       				video_no videoNo,
+        			video_origin_name videoOriginName,
+        			to_char(video_date, 'YYYY-MM-DD') videoDate,
+        			video_thumnail videoThumnail
+			from (select ROWNUM rn,
+                				video_no,
+                    			video_origin_name,
+                    			video_date,
+                    			video_thumnail
+        			from (select video_no,
+                    			video_origin_name,
+                    			video_date,
+                    			video_thumnail
+                			from video
+                			where user_id=#{userId}
+                			and video_delete=0
+                			order by video_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 영상관리 페이징 -->
+	<select id="selectTotalCountForMyVideo" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from video
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<!-- 내 댓글 페이징 -->
+	<select id="selectCollectCommentList" parameterType="map" resultType="com.bit.hi.domain.vo.CommentVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+        			writer_id writerId,
+        			post_title postTitle,
+        			to_char(cmt_date, 'YYYY-MM-DD HH:MI') cmtDate
+			from (select ROWNUM rn,
+                				post_no,
+                    			writer_id,
+                    			post_title,
+                    			cmt_date
+        			from (select co.post_no,
+                    			po.writer_id,
+                    			po.post_title,
+                    			cmt_date
+                			from comments co, post po
+							where co.post_no=po.post_no
+							and co.user_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 내 댓글 페이징 -->
+	<select id="selectTotalCountForComment" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from comments
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<!-- 내가 올린 영상 페이징 -->
+	<select id="selectCollectVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+                    post_title postTitle,
+                    post_soi_cnt postSoiCnt,
+                    post_cmt_cnt postCmtCnt,
+                    post_hit_cnt postHitCnt,
+                    to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
+                    video_thumnail videoThumnail
+			from (select ROWNUM rn,
+                				post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			video_thumnail
+        			from (select post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			vi.video_thumnail
+                			from post po, video vi
+							where po.video_no=vi.video_no
+							and writer_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 내가 올린 영상 페이징 -->
+	<select id="selectTotalCountForVideo" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from post
+			where writer_id=#{userId}
+		]]>
+	</select>
+	
+	<!-- 스크랩 페이징 -->
+	<select id="selectCollectScrapList" parameterType="map" resultType="com.bit.hi.domain.vo.ScrapVo">
+		<![CDATA[
+			select rn,
+       				post_no postNo,
+                    post_title postTitle,
+                    post_soi_cnt postSoiCnt,
+                    post_cmt_cnt postCmtCnt,
+                    post_hit_cnt postHitCnt,
+                    to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
+                    video_thumnail videoThumnail
+			from (select ROWNUM rn,
+                				post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			video_thumnail
+        			from (select sc.post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			vi.video_thumnail
+                			from scrap sc, post po, video vi
+							where sc.post_no=po.post_no
+							and po.video_no=vi.video_no
+							and sc.user_id=#{userId}
+                			order by post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- 스크랩 페이징 -->
+	<select id="selectTotalCountForScrap" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from scrap
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<!-- 회원정보 수정 닉네임 변경체크 -->
+	<select id="selectNickChkForModify" parameterType="com.bit.hi.domain.vo.UserVo" resultType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			select user_id userId,
+        			user_name userName,
+        			user_email userEmail,
+        			user_addr userAddr,
+        			user_tel userTel,
+        			user_pwd userPwd,
+        			user_nickname userNickname,
+        			user_level userLevel,
+        			reg_date regDate
+			from users
+			where user_nickname != #{userNickname}
+			and user_nickname = #{userNicknameAfter}
+		]]>
+	</select>
+	
+	<!-- 회원정보수정 -->
+	<update id="updateInfo" parameterType="com.bit.hi.domain.vo.UserVo">
+		<![CDATA[
+			update users
+			set user_name=#{userName},
+		]]>
+			<if test="userNickname!=null and userNickname!=''">
+				user_nickname=#{userNickname},
+			</if>
+		<![CDATA[
+				user_tel=#{userTel},
+				user_email=#{userEmail},
+				user_addr=#{userAddr}
+		]]>
+			<if test="userPwd!=null and userPwd!=''"> <!-- 공백, 값입력 하나도 없는 것도 pw 수정이 되는데, 이를 개선함. -->
+			    , user_pwd=#{userPwd}
+			</if>
+		<![CDATA[
+			where user_id=#{userId}
+		]]>
+	</update>
+	
+	<!-- 영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임) -->
+	<delete id="updateVideo" parameterType="int">
+		<![CDATA[
+			update video
+			set video_delete=1
+			where video_no=#{videoNo}
+		]]>
+	</delete>
+	
+	<select id="selectEachVideoAnalyze" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
+		<![CDATA[
+			select video_no videoNo,
+					user_id userId,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					to_char(video_date, 'YYYY-MM-DD') videoDate,
+					video_thumnail videoThumnail,
+					video_correct_line videoCorrectLine
+			from video
+			where video_no=#{videoNo}
+		]]>
+	</select>
+	
+</mapper>

@@ -20,7 +20,22 @@ local.properties
 
 .recommenders
 
+.classpath
 
+.project
+
+
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
 
 # External tool builders
 

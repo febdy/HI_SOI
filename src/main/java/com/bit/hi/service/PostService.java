@@ -19,10 +19,9 @@ public class PostService {
 	@Autowired
 	private PostDao postDao;
 	
-	/* 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
 	public List<VideoVo> getMyVideoList(String userId) {
 		return postDao.selectMyVideoList(userId);
-	}*/
+	}
 	
 	public VideoVo getVideoInfo(int videoNo) {
 		return postDao.selectVideoInfo(videoNo);

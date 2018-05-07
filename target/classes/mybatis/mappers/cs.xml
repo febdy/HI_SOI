@@ -103,45 +103,14 @@
 		]]>
 	</update>
 	
-	<insert id="writeByTitleContent" parameterType="com.bit.hi.domain.vo.QnaVo">
+	<delete id="deleteNotice" parameterType="int">
 		<![CDATA[
-			INSERT INTO qna
-			VALUES (seq_qna_no.nextval
-					, #{qna_title, jdbcType=VARCHAR}
-					, #{qna_content, jdbcType=VARCHAR}
-					, sysdate
-					, #{user_id, jdbcType=VARCHAR}
-					, 0)
+			delete from notice
+			where noti_no=#{notiNo}
 		]]>
-	</insert>
+	</delete>
 	
-	<select id="qnaTotalCount" parameterType="String" resultType="int">
-		<![CDATA[
-			SELECT count(*)
-			FROM qna
-		]]>
-			<if test="_parameter != null and _parameter != ''" >
-			where qna_title like '%'||#{_parameter}||'%'
-			</if>
-			
-		<![CDATA[
-		]]>
-	</select>
-
-	<select id="qnaGetList" resultType="com.bit.hi.domain.vo.QnaVo">
-		<![CDATA[
-			SELECT qna_no
-				 , qna_title
-				 , qna_content
-				 , to_char(qna_date, 'YYYY-MM-DD HH:MI') qna_date
-				 , user_id
-				 , qna_hit_cnt
-			FROM qna 
-			ORDER BY qna_no desc
-		]]>
-	</select>
-
-	<select id="qnaselectList" parameterType="map" resultType="com.bit.hi.domain.vo.QnaVo">
+	<select id="qnaSelectList" parameterType="map" resultType="com.bit.hi.domain.vo.QnaVo">
 		<![CDATA[
 			SELECT rn,
        			   qna_no,
@@ -161,7 +130,6 @@
                  			 qna_date,
                  			 user_id
           			  FROM qna
-      
      	]]>     		  
             		  <if test="searchValue != null and searchValue != ''">
             		  and title like '%'||#{searchValue}|| '%'
@@ -172,7 +140,32 @@
 			WHERE rn > #{startRnum, jdbcType=INTEGER}
 			AND rn <= #{endRnum, jdbcType=INTEGER}
 		]]>
-	</select>	
+	</select>
+	
+	<select id="qnaTotalCount" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM qna
+		]]>
+			<if test="_parameter != null and _parameter != ''" >
+			where qna_title like '%'||#{_parameter}||'%'
+			</if>
+			
+		<![CDATA[
+		]]>
+	</select>
+	
+	<insert id="writeByTitleContent" parameterType="com.bit.hi.domain.vo.QnaVo">
+		<![CDATA[
+			INSERT INTO qna
+			VALUES (seq_qna_no.nextval
+					, #{qna_title, jdbcType=VARCHAR}
+					, #{qna_content, jdbcType=VARCHAR}
+					, sysdate
+					, #{user_id, jdbcType=VARCHAR}
+					, 0)
+		]]>
+	</insert>
 	
 	<update id="updateHitEachQna" parameterType="int">
 		<![CDATA[

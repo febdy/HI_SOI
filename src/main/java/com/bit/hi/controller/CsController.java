@@ -102,6 +102,13 @@ public class CsController {
 		}
 	}
 	
+	@RequestMapping("/notice/delete")
+	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo) {
+		csService.deleteNotice(notiNo);
+		
+		return "redirect:/cs/notice";
+	}
+	
 	@RequestMapping(value="/qna")
 	public String qnaList(Model model,
 						  @RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage,
@@ -130,7 +137,9 @@ public class CsController {
 	@RequestMapping(value="/qna/view/{qna_no}")
 	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) {
 		QnaVo viewQna = csService.viewEachQna(qna_no);
+		
 		model.addAttribute("qnaVo", viewQna);
+		model.addAttribute("ctrl","\r\n");
 		return "cs/qnaview";
 		
 	}

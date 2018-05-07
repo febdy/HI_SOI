@@ -31,10 +31,11 @@ public class VideoService {
 		Iterator<String> files=file.getFileNames();
 		
 		String uploadFile=files.next();
+		
 		MultipartFile mFile=file.getFile(uploadFile);
 
 		if (!mFile.isEmpty()) {
-			String saveDir = "D:\\javaStudy\\upload"; // 서버에 저장할 공간 만들기(저장 위치)
+			String saveDir = "C:\\javaStudy\\upload"; // 서버에 저장할 공간 만들기(저장 위치)
 			
 			// 1-파일정보 수집
 			// 원래 파일이름

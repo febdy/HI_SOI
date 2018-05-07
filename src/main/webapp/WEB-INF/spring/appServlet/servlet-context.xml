@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 웹 영역 -->
+	<!-- 웹 자원 영역 -->
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -38,7 +38,7 @@
 	</beans:bean>
 	
 	<!-- 서버에 저장할 공간(저장 위치) upload로 들어오는 값은 location 위치에 저장 -->
-	<resources mapping="/upload/**" location="file:D:/javaStudy/upload/" />
+	<resources mapping="/upload/**" location="file:C:/javaStudy/upload/" />
 	
 	<!-- 이게 없어도 돌아가는데 해주는 이유 알아보기 -->
 	<beans:bean class="com.bit.hi.interceptor.UserLoginInterceptor" id="loginInterceptor"></beans:bean>

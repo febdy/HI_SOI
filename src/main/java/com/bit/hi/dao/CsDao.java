@@ -49,7 +49,11 @@ public class CsDao {
 	public int updateEachNotice(CsVo csVo) {
 		return sqlSession.update("cs.updateEachNotice", csVo);
 	}
-
+	
+	public int deleteNotice(int notiNo) {
+		return sqlSession.delete("cs.deleteNotice", notiNo);
+	}
+	
 	public void qnaWrite(QnaVo qnaVo) {
 		int result = sqlSession.insert("cs.writeByTitleContent", qnaVo);
 		System.out.println(result + "########### 글쓰기 성공");
@@ -60,18 +64,13 @@ public class CsDao {
 		return count;
 	}
 	
-	public List<QnaVo> qnaGetList(){
-		List<QnaVo> qnaList = sqlSession.selectList("cs.qnaGetList");
-		return qnaList;
-	}
-	
 	public List<QnaVo> selectQnaList(int startRnum, int endRnum, String searchValue) {
 		Map<String, Object> qamap = new HashMap<String, Object>();
 		qamap.put("startRnum", startRnum);
 		qamap.put("endRnum", endRnum);
 		qamap.put("searchValue", searchValue);
 		System.out.println("daoQNA" + qamap.toString());
-		List<QnaVo> qnaList =  sqlSession.selectList("cs.qnaselectList", qamap);
+		List<QnaVo> qnaList =  sqlSession.selectList("cs.qnaSelectList", qamap);
 		
 		return qnaList;
 	}
@@ -95,5 +94,6 @@ public class CsDao {
 
 	public void deleteQna(int qna_no) {
 		sqlSession.delete("cs.deleteEachQna", qna_no);		
+
 	}
 }

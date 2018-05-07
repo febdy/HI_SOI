@@ -67,6 +67,10 @@ public class CsService {
 	}
 	
 	public int addNoticeWrite(CsVo csVo) {
+		/*for(int i=1;i<100;i++) {
+			csVo.setNotiTitle(i+" 번째 공지입니다.");
+			csDao.insertNoticeWrite(csVo);
+		}*/
 		System.out.println(csVo);
 		return csDao.insertNoticeWrite(csVo);
 	}
@@ -84,6 +88,10 @@ public class CsService {
 		return csDao.updateEachNotice(csVo);
 	}
 	
+	public int deleteNotice(int notiNo) {
+		return csDao.deleteNotice(notiNo);
+	}
+
 	public void qnaWrite(QnaVo qnaVo) {
 		csDao.qnaWrite(qnaVo);
 		System.out.println("write");
@@ -148,5 +156,6 @@ public class CsService {
 
 	public void deleteQna(int qna_no) {
 		csDao.deleteQna(qna_no);	
+
 	}
 }

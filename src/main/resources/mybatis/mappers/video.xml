@@ -11,22 +11,44 @@
 			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기', 0)
 		]]>
 	</insert>
-	<!-- 모달 페이징하기 위해, mypageService.clipGetList() 로 바꿈으로써 필요없게 됨.
+
 	<select id="selectMyVideoList" parameterType="String" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[
-			select video_no videoNo,
-					user_id userId,
-					video_origin_name videoOriginName,
-					video_save_name videoSaveName,
-					video_ex_name videoExName,
-					video_path videoPath,
-					video_size videoSize,
-					to_char(video_date, 'YYYY-MM-DD') videoDate,
-					video_correct_line videoCorrectLine
-			from video
-			where user_id=#{userId}
+			select  rn,
+        			video_no videoNo,
+        			user_id userId,
+        			video_origin_name videoOriginName,
+        			video_save_name videoSaveName,
+        			video_ex_name videoExName,
+        			video_path videoPath,
+        			video_size videoSize,
+        			to_char(video_date, 'YYYY-MM-DD') videoDate,
+        			video_correct_line videoCorrectLine
+			from (select ROWNUM rn,
+            				video_no,
+            				user_id,
+            				video_origin_name,
+            				video_save_name,
+            				video_ex_name,
+            				video_path,
+            				video_size,
+            				video_date,
+            				video_correct_line
+        			from (select video_no,
+                    			user_id,
+                    			video_origin_name,
+                    			video_save_name,
+                    			video_ex_name,
+                    			video_path,
+                    			video_size,
+                    			video_date,
+                    			video_correct_line
+            			from video
+						where user_id=#{userId}
+						and video_delete=0
+            			order by video_no desc))
 		]]>
-	</select> -->
+	</select>
 	
 	<select id="selectVideoInfo" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
 		<![CDATA[

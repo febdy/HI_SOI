@@ -40,8 +40,16 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwriteform")
-	public String soiWriteForm() {
-		return "soifactory/soiwriteform";
+	public String soiWriteForm(HttpSession session) {
+		UserVo authUser= (UserVo)session.getAttribute("authUser");
+		
+		String url;
+		if (authUser==null) {
+			url="redirect:/post/soifactorylist";
+		} else {
+			url="soifactory/soiwriteform";
+		}
+		return url;
 	}
 	
 	@RequestMapping(value="/soiwrite")

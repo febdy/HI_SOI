@@ -11,6 +11,8 @@ import com.bit.hi.mongo.vo.MongoVo;
 @Repository
 public class VideoDao {
 
+	private static final String namespace="com.bit.hi.VideoMapper";
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -18,14 +20,14 @@ public class VideoDao {
 	private MongoTemplate mongoTemplate;
 	
 	public int insertUpload(VideoVo videoVo) {
-		return sqlSession.insert("video.insertUpload", videoVo);
+		return sqlSession.insert(namespace+".insertUpload", videoVo);
 	}
 	
 	public int updateThumnail(String saveName, String videoThumnail) {
 		VideoVo videoVo=new VideoVo();
 		videoVo.setVideoSaveName(saveName);
 		videoVo.setVideoThumnail(videoThumnail);
-		return sqlSession.update("video.updateThumnail", videoVo);
+		return sqlSession.update(namespace+".updateThumnail", videoVo);
 	}
 	
 	public void mongoSave(MongoVo mongoVo) {
@@ -33,6 +35,6 @@ public class VideoDao {
 	}
 	
 	public VideoVo selectCorrectedVideo(int videoNo) {
-		return sqlSession.selectOne("video.selectCorrectedVideo", videoNo);
+		return sqlSession.selectOne(namespace+".selectCorrectedVideo", videoNo);
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="video">
+
+<mapper namespace="com.bit.hi.VideoMapper">
 
 	<insert id="insertUpload" parameterType="com.bit.hi.domain.vo.VideoVo">
 		<selectKey keyProperty="videoNo" resultType="int" order="BEFORE">
@@ -8,7 +9,7 @@
 		</selectKey>
 		<![CDATA[
 			insert into video
-			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, 0, '교정선 받기', 0)
+			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, '0', '교정선 받기', '0')
 		]]>
 	</insert>
 

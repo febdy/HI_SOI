@@ -13,6 +13,10 @@ import com.bit.hi.domain.vo.CommentVo;
 @Repository
 public class CommentDao {
 
+	private static final String namespace="com.bit.hi.CommentMapper";
+	
+	private static final String namespace2="com.bit.hi.PostMapper";
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -21,18 +25,18 @@ public class CommentDao {
 		mapComment.put("page", page);
 		mapComment.put("postNo", postNo);
 		System.out.println(mapComment);
-		return sqlSession.selectList("comment.selectCommentList", mapComment);
+		return sqlSession.selectList(namespace+".selectCommentList", mapComment);
 	}
 	
 	public int apiInsertComment(CommentVo commentVo) {
-		return sqlSession.insert("comment.apiInsertComment", commentVo);
+		return sqlSession.insert(namespace+".apiInsertComment", commentVo);
 	}
 	
 	public CommentVo apiSelectComment(int cmtNo) {
-		return sqlSession.selectOne("comment.apiSelectComment", cmtNo);
+		return sqlSession.selectOne(namespace+".apiSelectComment", cmtNo);
 	}
 	
 	public void updateCmtCnt(CommentVo commentVo) {
-		sqlSession.update("post.updateCmtCnt", commentVo);
+		sqlSession.update(namespace2+".updateCmtCnt", commentVo);
 	}
 }

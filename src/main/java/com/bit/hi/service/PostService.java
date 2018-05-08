@@ -28,7 +28,6 @@ public class PostService {
 	}
 	
 	public int writePost(PostVo postVo) {
-		System.out.println(postVo);
 		/*for(int i=1;i<100;i++) {
 			postVo.setPostTitle(i+" 번째 영상입니다.");
 			postDao.insertWritePost(postVo);
@@ -37,7 +36,6 @@ public class PostService {
 	}
 	
 	public Map<String, Object> getAllPostList(Integer crtPage, String kwd) {
-		// TODO Auto-generated method stub
 		// 페이지 뿌려주기 관련 작업
 		int listCnt = 12; // 1페이지 당 표시할 게시글 수
 		// int crtPage=1; //현재 페이지(1보다 큰 값이여야 함), 기준이 1페이지

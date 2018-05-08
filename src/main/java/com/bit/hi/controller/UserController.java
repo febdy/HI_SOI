@@ -2,6 +2,8 @@ package com.bit.hi.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import com.bit.hi.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	private UserService userService;
 
@@ -29,6 +33,7 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute UserVo userVo) {
+
 		System.out.println("join 진입");
 		if (userService.join(userVo)==0) {
 			return "user/joinfail";
@@ -47,7 +52,12 @@ public class UserController {
 	@RequestMapping(value="/login")
 	public String login(@RequestParam("id") String userId, @RequestParam("password") String userPwd, Model model) {
 		System.out.println("login 진입");
-		System.out.println(userId + "/" + userPwd);
+		UserVo userVo=new UserVo();
+		
+		userVo.setUserId(userId);
+		userVo.setUserPwd(userPwd);
+		
+		logger.info(userVo.toString());
 		
 		UserVo authUser=userService.login(userId, userPwd);
 		

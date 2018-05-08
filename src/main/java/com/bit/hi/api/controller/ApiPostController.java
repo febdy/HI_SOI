@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ import com.bit.hi.service.PostService;
 @RequestMapping("/post")
 public class ApiPostController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ApiPostController.class);
+	
 	@Autowired
 	private PostService postService;
 	
@@ -29,7 +33,7 @@ public class ApiPostController {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(authUser.getUserId());
 		List<VideoVo> myVideoMap=postService.getMyVideoList(authUser.getUserId());
-		System.out.println(myVideoMap);
+		logger.info(myVideoMap.toString());
 		model.addAttribute("myVideoMap", myVideoMap);
 		return myVideoMap;
 	}
@@ -39,6 +43,7 @@ public class ApiPostController {
 	public VideoVo apiModalTitle(@RequestParam("no") int videoNo) {
 		System.out.println("apiModalTitle 진입");
 		VideoVo videoVo=postService.getVideoInfo(videoNo);
+		logger.info("선택 영상: "+videoVo.toString());
 		return videoVo;
 	}
 	

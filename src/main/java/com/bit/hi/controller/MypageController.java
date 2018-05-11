@@ -25,13 +25,13 @@ public class MypageController {
 	private MypageService mypageService;
 	
 	@RequestMapping("/history")
-	public String history() {
+	public String history() throws Exception{
 		return "mypage/history";
 	}
 	
 	//내가 진단받은 영상관리
 	@RequestMapping("/videoclip")
-	public String videoClip(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) {
+	public String videoClip(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		Map<String, Object> myVideoMap=mypageService.clipGetList(authUser.getUserId(), crtPage);
 		System.out.println(myVideoMap);
@@ -41,7 +41,7 @@ public class MypageController {
 	
 	//영상관리 세부내용
 	@RequestMapping("/videoclip/detail")
-	public String videoClipDetail(@RequestParam("videoNo") int videoNo, Model model) {
+	public String videoClipDetail(@RequestParam("videoNo") int videoNo, Model model) throws Exception{
 		
 		VideoVo videoVo=mypageService.getEachVideoAnalyze(videoNo);
 		model.addAttribute("videoVo", videoVo);
@@ -50,7 +50,7 @@ public class MypageController {
 	
 	//내 댓글
 	@RequestMapping("/collect/comment")
-	public String collectComment(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) {
+	public String collectComment(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		Map<String, Object> commentMap= mypageService.getCollectCommentList(authUser.getUserId(), crtPage);
 		System.out.println(commentMap);
@@ -60,7 +60,7 @@ public class MypageController {
 	
 	//내가 올린 영상
 	@RequestMapping("/collect/video")
-	public String collectVideo(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) {
+	public String collectVideo(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		Map<String, Object> videoMap= mypageService.getCollectVideoList(authUser.getUserId(), crtPage);
 		model.addAttribute("videoMap", videoMap);
@@ -69,7 +69,7 @@ public class MypageController {
 	
 	//스크랩
 	@RequestMapping("/collect/scrap")
-	public String collectScrap(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) {
+	public String collectScrap(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		Map<String, Object> scrapMap= mypageService.getCollectScrapList(authUser.getUserId(), crtPage);
 		model.addAttribute("scrapMap", scrapMap);
@@ -77,13 +77,13 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/beforemodify")
-	public String beforeModify() {
+	public String beforeModify() throws Exception{
 		
 		return "mypage/beforemodify";
 	}
 	
 	@RequestMapping("/modifyinfo")
-	public String modifyInfo(HttpSession session, @RequestParam("userPwd") String userPwd, Model model) {
+	public String modifyInfo(HttpSession session, @RequestParam("userPwd") String userPwd, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if(authUser.getUserPwd().equals(userPwd)) {
 			UserVo userInfo=mypageService.getUserInfo(authUser.getUserId());

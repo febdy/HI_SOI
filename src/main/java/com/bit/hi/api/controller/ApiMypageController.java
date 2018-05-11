@@ -20,7 +20,7 @@ public class ApiMypageController {
 	
 	@ResponseBody
 	@RequestMapping("/api/nickchkformodify")
-	public boolean apiNickChkForModify(HttpSession session, @RequestParam("nick") String userNickname) {
+	public boolean apiNickChkForModify(HttpSession session, @RequestParam("nick") String userNickname) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		UserVo userVo=new UserVo();
 		userVo.setUserNickname(authUser.getUserNickname());
@@ -31,7 +31,7 @@ public class ApiMypageController {
 	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
 	@ResponseBody
 	@RequestMapping("/api/updatevideo")
-	public int apiUpdateVideo(@RequestParam("no") int videoNo) {
+	public int apiUpdateVideo(@RequestParam("no") int videoNo) throws Exception{
 
 		return mypageService.updateVideo(videoNo);
 	}

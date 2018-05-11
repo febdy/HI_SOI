@@ -14,7 +14,7 @@
         <!-- 검색엔진에게 문서의 내용을 요약해 주는 역할 -->
         <meta name="description" content="interview 면접">
         <meta name="author" content="interview">
-        <!-- Mobile Metas -->
+        <!-- Mobile Metas(모바일에서 웹과 동일한 디자인, 해상도의 css 적용을 위해 필수) -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Google Fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -580,22 +580,3 @@
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
     </body>
 </html>
-
-<<<<<<< HEAD
-=======
-	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/"
-			aria-controls="home" role="tab" data-toggle="tab">소개</a></li>
-		<li role="presentation"><a href="${pageContext.request.contextPath}/interview/uploadmode"
-			aria-controls="home" role="tab" data-toggle="tab">면접진단</a></li>
-		<li role="presentation"><a href="${pageContext.request.contextPath}/post/notice"
-			aria-controls="home" role="" data-toggle="tab">소이팩토리</a></li>
-		<li role="presentation"><a href="${pageContext.request.contextPath}/mypage/history"
-			aria-controls="home" role="tab" data-toggle="tab">마이페이지</a></li>
-		<li role="presentation"><a href="${pageContext.request.contextPath}/cs/notice"
-			aria-controls="home" role="tab" data-toggle="tab">고객센터</a></li>
-	</ul><br/>   
-	
-	</div>
->>>>>>> c281ba9a3715c2851d3a1329505b7eda93e55e85
-

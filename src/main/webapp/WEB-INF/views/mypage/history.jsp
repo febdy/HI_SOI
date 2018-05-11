@@ -137,6 +137,70 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h2>진단 히스토리</h2>
+                                <!--main content start-->
+							      <section id="main-content">
+							          <section class="wrapper">
+							          <h3><i class="fa fa-angle-right"></i> Chartjs Charts</h3>
+							              <!-- page start-->
+							              <div class="tab-pane" id="chartjs">
+							                  <div class="row mt">
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Doughnut</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="doughnut" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Line</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="line" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                  </div>
+							                  <div class="row mt">
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Radar</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="radar" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Polar Area</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="polarArea" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                  </div>
+							                  <div class="row mt">
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Bar</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="bar" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                      <div class="col-lg-6">
+							                          <div class="content-panel">
+														  <h4><i class="fa fa-angle-right"></i> Pie</h4>
+							                              <div class="panel-body text-center">
+							                                  <canvas id="pie" height="300" width="400"></canvas>
+							                              </div>
+							                          </div>
+							                      </div>
+							                  </div>
+							              </div>
+							              <!-- page end-->
+							          </section>          
+							      </section><!-- /MAIN CONTENT -->
                                 
                             </div>
                         </div>
@@ -185,6 +249,9 @@
         <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script>
+        
 
 </body>
 </html>

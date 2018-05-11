@@ -14,9 +14,6 @@
 	
 	<!-- oracle datasource -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> 
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" /> -->
-		<!-- 1. MyBatis 로그를 위해, driverClassName, url 변경 -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="hisoi" />
@@ -27,11 +24,11 @@
 	<!-- MyBatis SqlSessionFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/mappers/**/*.xml"/>
 	</bean>
 
 	<!-- MyBatis SqlSessionTemplate (생성자 주입방식) -->
-	<!-- dao에 따로 sql문을 써줄 필요가 없어짐. -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>

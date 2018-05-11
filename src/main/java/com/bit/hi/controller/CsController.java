@@ -27,7 +27,7 @@ public class CsController {
 	@RequestMapping(value="/notice")
 	public String noticelist(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
-			Model model) { //메서드 이름과 mapping 값은 동일하지 않아도 된다.
+			Model model) throws Exception{ //메서드 이름과 mapping 값은 동일하지 않아도 된다.
 		//위에 required와 defaultValue, Integer는 crtPage값 없을 때를 위한 조치임.
 		System.out.println("list 진입");
 		Map<String, Object> bMap=csService.noticeGetList(crtPage, kwd);
@@ -37,7 +37,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/writeform")
-	public String noticeWriteForm(HttpSession session) {
+	public String noticeWriteForm(HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("administer 글쓰기 입장");
@@ -49,7 +49,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/write")
-	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session, Model model) {
+	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		if (authUser.getUserLevel().equals("administer")) {
@@ -65,7 +65,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/view/{notiNo}")
-	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model) {
+	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model) throws Exception{
 		System.out.println("각 공지글 보기 진입");
 		
 		CsVo viewNotice=csService.viewEachNotice(notiNo);
@@ -75,7 +75,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/modifyform")
-	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model,HttpSession session) {
+	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model,HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("modifyform 진입");
@@ -89,7 +89,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/modify")
-	public String modifyNotice(@ModelAttribute CsVo csVo, HttpSession session) {
+	public String modifyNotice(@ModelAttribute CsVo csVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(csVo);
 		if (authUser.getUserLevel().equals("administer")) {
@@ -103,7 +103,7 @@ public class CsController {
 	}
 	
 	@RequestMapping("/notice/delete")
-	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo) {
+	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo) throws Exception{
 		csService.deleteNotice(notiNo);
 		
 		return "redirect:/cs/notice";
@@ -112,7 +112,7 @@ public class CsController {
 	@RequestMapping(value="/qna")
 	public String qnaList(Model model,
 						  @RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage,
-						  @RequestParam(value="searchValue", required=false, defaultValue="") String searchValue) {
+						  @RequestParam(value="searchValue", required=false, defaultValue="") String searchValue) throws Exception{
 		Map<String, Object> qamap = csService.qnaGetList(searchValue, crtPage);
 		System.out.println("gogogogogogogogo"+qamap.toString());
 		model.addAttribute("qamap", qamap);
@@ -120,12 +120,12 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/writeform")
-	public String qnaWriteForm(Model mondel) {
+	public String qnaWriteForm(Model mondel) throws Exception{
 		return "cs/qnawrite";
 	}
 	
 	@RequestMapping(value="/qna/write")
-	public String qnaWrite(@ModelAttribute QnaVo qnaVo, HttpSession session) {
+	public String qnaWrite(@ModelAttribute QnaVo qnaVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		qnaVo.setUser_id(authUser.getUserId());
@@ -135,7 +135,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/view/{qna_no}")
-	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) {
+	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) throws Exception{
 		QnaVo viewQna = csService.viewEachQna(qna_no);
 		
 		model.addAttribute("qnaVo", viewQna);
@@ -145,7 +145,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/modifyform")
-	public String modifyFormQna(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) {
+	public String modifyFormQna(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) throws Exception{
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser.getUserLevel().equals("administer")) {
 			System.out.println("modifyform 진입");
@@ -159,7 +159,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/modify")
-	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session) {
+	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(qnaVo);
 		if (authUser.getUserLevel().equals("administer")) {
@@ -173,14 +173,14 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/delete")
-	public String deleteQna(Model model, @RequestParam("qna_no") int qna_no) {
+	public String deleteQna(Model model, @RequestParam("qna_no") int qna_no) throws Exception{
 		csService.deleteQna(qna_no);
 		return "redirect:/cs/qna";
 	}
 	
 	
 	@RequestMapping(value="/help")
-	public String help() {
+	public String help() throws Exception{
 		
 		return "cs/help";
 	}

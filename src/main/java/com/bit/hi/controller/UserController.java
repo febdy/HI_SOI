@@ -25,14 +25,14 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value="/joinform", method=RequestMethod.GET)
-	public String join() {
+	public String join() throws Exception{
 		System.out.println("joinform 진입");
 		
 		return "user/joinform";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute UserVo userVo) {
+	public String join(@ModelAttribute UserVo userVo) throws Exception{
 
 		System.out.println("join 진입");
 		if (userService.join(userVo)==0) {
@@ -43,14 +43,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/loginform")
-	public String login() {
+	public String login() throws Exception{
 		System.out.println("loginform 진입");
 
 		return "user/loginform";
 	}
 	
 	@RequestMapping(value="/login")
-	public String login(@RequestParam("id") String userId, @RequestParam("password") String userPwd, Model model) {
+	public String login(@RequestParam("id") String userId, @RequestParam("password") String userPwd, Model model) throws Exception{
 		System.out.println("login 진입");
 		UserVo userVo=new UserVo();
 		
@@ -66,7 +66,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session) throws Exception{
 		session.removeAttribute("authUser");
 		session.invalidate(); //모든 세션 닫기
 		return "redirect:/";

@@ -153,18 +153,18 @@
 								<input type="hidden" name="crtPage" value="${bMap.crtPage}">
 							</form>
 						</div>
-						</div>
-						</div>
+					</div>
+				</div>
 						<!-- /Post Search -->
                                 <table class="table table-striped table-bordered text-center">
-                                <colgroup>
-						<col width="7%">
-						<col width="40%">
-						<col width="10%">
-						<col width="10%">
-						<col width="20%">
-						<col width="">
-					</colgroup>
+                                	<colgroup>
+										<col width="7%">
+										<col width="40%">
+										<col width="10%">
+										<col width="10%">
+										<col width="20%">
+										<col width="">
+									</colgroup>
                                     <thead>
                                         <tr>
                                             <th><p class="text-center">번호</p></th>
@@ -203,7 +203,7 @@
 									</c:if>
 						
 									<c:forEach begin="${bMap.startPageBtnNo}" end="${bMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${idx}">${idx}</a></li>
+										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${idx}" style="<c:out value="${bMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 									</c:forEach>
 						
 									<c:if test="${bMap.next}"> <!-- 이 값이 false라면 next 실행 x -->

@@ -62,6 +62,7 @@ public class UserController {
 		UserVo authUser=userService.login(userId, userPwd);
 		
 		model.addAttribute("authUser", authUser);
+		
 		return "redirect:/";
 	}
 	

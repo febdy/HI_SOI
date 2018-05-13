@@ -22,7 +22,7 @@ public class CommentDaoImpl implements CommentDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<CommentVo> selectCommentList(int page, int postNo) {
+	public List<CommentVo> selectCommentList(int page, int postNo) throws Exception {
 		Map<String, Object> mapComment=new HashMap<String, Object>();
 		mapComment.put("page", page);
 		mapComment.put("postNo", postNo);
@@ -31,17 +31,17 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	@Override
-	public int apiInsertComment(CommentVo commentVo) {
+	public int apiInsertComment(CommentVo commentVo) throws Exception {
 		return sqlSession.insert(namespace+"apiInsertComment", commentVo);
 	}
 	
 	@Override
-	public CommentVo apiSelectComment(int cmtNo) {
+	public CommentVo apiSelectComment(int cmtNo) throws Exception {
 		return sqlSession.selectOne(namespace+"apiSelectComment", cmtNo);
 	}
 	
 	@Override
-	public void updateCmtCnt(CommentVo commentVo) {
+	public void updateCmtCnt(CommentVo commentVo) throws Exception {
 		sqlSession.update(namespace2+"updateCmtCnt", commentVo);
 	}
 }

@@ -20,7 +20,7 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
 		if (loginVO != null) {
 			request.getSession().setAttribute("authUser", loginVO);
 		} else {
-			modelMap.put("loginmsg", "Login Failed");
+			modelMap.put("loginmsg", "Failed");
 		}
 	}
 }

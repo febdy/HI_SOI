@@ -25,7 +25,7 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//영상관리 페이징
 	@Override
-	public List<VideoVo> selectMyVideoList(String userId, int startRnum, int endRnum) {
+	public List<VideoVo> selectMyVideoList(String userId, int startRnum, int endRnum) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("userId", userId);
 		mapCri.put("startRnum", startRnum);
@@ -36,13 +36,13 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//영상관리 페이징
 	@Override
-	public int selectTotalCountForMyVideo(String userId) {
+	public int selectTotalCountForMyVideo(String userId) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForMyVideo", userId);
 	}
 	
 	//내 댓글
 	@Override
-	public List<CommentVo> selectCollectCommentList(String userId, int startRnum, int endRnum) {
+	public List<CommentVo> selectCollectCommentList(String userId, int startRnum, int endRnum) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("userId", userId);
 		mapCri.put("startRnum", startRnum);
@@ -53,13 +53,13 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//내 댓글
 	@Override
-	public int selectTotalCountForComment(String userId) {
+	public int selectTotalCountForComment(String userId) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForComment", userId);
 	}
 	
 	//내가 올린 영상
 	@Override
-	public List<PostVo> selectCollectVideoList(String userId, int startRnum, int endRnum) {
+	public List<PostVo> selectCollectVideoList(String userId, int startRnum, int endRnum) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("userId", userId);
 		mapCri.put("startRnum", startRnum);
@@ -70,13 +70,13 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//내가 올린 영상
 	@Override
-	public int selectTotalCountForVideo(String userId) {
+	public int selectTotalCountForVideo(String userId) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForVideo", userId);
 	}
 		
 	//스크랩
 	@Override
-	public List<ScrapVo> selectCollectScrapList(String userId, int startRnum, int endRnum) {
+	public List<ScrapVo> selectCollectScrapList(String userId, int startRnum, int endRnum) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("userId", userId);
 		mapCri.put("startRnum", startRnum);
@@ -87,31 +87,31 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//스크랩
 	@Override
-	public int selectTotalCountForScrap(String userId) {
+	public int selectTotalCountForScrap(String userId) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForScrap", userId);
 	}
 	
 	//회원정보 수정 nickname 체크
 	@Override
-	public UserVo selectNickChkForModify(UserVo userVo) {
+	public UserVo selectNickChkForModify(UserVo userVo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectNickChkForModify", userVo);
 	}
 	
 	//회원정보 수정 수정완료 클릭시 확인사항
 	@Override
-	public int updateInfo(UserVo userVo) {
+	public int updateInfo(UserVo userVo) throws Exception {
 		return sqlSession.update(namespace+"updateInfo", userVo);
 	}
 	
 	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
 	@Override
-	public int updateVideo(int videoNo) {
+	public int updateVideo(int videoNo) throws Exception {
 		return sqlSession.update(namespace+"updateVideo", videoNo);
 	}
 	
 	//영상관리 세부내용
 	@Override
-	public VideoVo selectEachVideoAnalyze(int videoNo) {
+	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachVideoAnalyze", videoNo);
 	}
 }

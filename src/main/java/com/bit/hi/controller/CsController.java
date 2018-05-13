@@ -4,22 +4,31 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.CsService;
+import com.bit.hi.util.PageCriteria;
+import com.bit.hi.util.PagingMaker;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 @RequestMapping("/cs")
 public class CsController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CsController.class);
 	
 	@Autowired
 	private CsService csService;
@@ -57,7 +66,7 @@ public class CsController {
 			csVo.setUserId(authUser.getUserId());
 			csService.addNoticeWrite(csVo);
 			model.addAttribute("ctrl","\r\n");
-			return "/cs/notiview";
+			return "cs/notiview";
 		} else {
 			System.out.println("Not administer");
 			return "redirect:/cs/notice";
@@ -71,7 +80,7 @@ public class CsController {
 		CsVo viewNotice=csService.viewEachNotice(notiNo);
 		model.addAttribute("csVo", viewNotice);
 		model.addAttribute("ctrl","\r\n"); //input에 안 들어있으면 띄어쓰기가 사라지게 되므로, 이 문법을 통해, 띄어쓰기 작동하게 함.
-		return "/cs/notiview";
+		return "cs/notiview";
 	}
 	
 	@RequestMapping(value="/notice/modifyform")
@@ -111,32 +120,39 @@ public class CsController {
 	
 	@RequestMapping(value="/qna")
 	public String qnaList(Model model,
-						  @RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage,
-						  @RequestParam(value="searchValue", required=false, defaultValue="") String searchValue) throws Exception{
-		Map<String, Object> qamap = csService.qnaGetList(searchValue, crtPage);
-		System.out.println("gogogogogogogogo"+qamap.toString());
-		model.addAttribute("qamap", qamap);
+						  PageCriteria pCri,
+						  @RequestParam(value="kwd", required=false, defaultValue="") String kwd) throws Exception{
+		logger.info(pCri.toString());
+		
+		model.addAttribute("bMap", csService.qnaGetList(pCri, kwd));
+		
+		PagingMaker pagingMaker=new PagingMaker();
+		pagingMaker.setCri(pCri);
+		pagingMaker.setTotalData(csService.qnaTotalCount(pCri, kwd));
+		
+		model.addAttribute("pagingMaker", pagingMaker);
 		return "cs/qna";
 	}
 	
-	@RequestMapping(value="/qna/writeform")
+	@RequestMapping(value="/qna/write", method=RequestMethod.GET)
 	public String qnaWriteForm(Model mondel) throws Exception{
 		return "cs/qnawrite";
 	}
 	
-	@RequestMapping(value="/qna/write")
-	public String qnaWrite(@ModelAttribute QnaVo qnaVo, HttpSession session) throws Exception{
+	@RequestMapping(value="/qna/write", method=RequestMethod.POST)
+	public String qnaWrite(@ModelAttribute QnaVo qnaVo,
+			HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
-		qnaVo.setUser_id(authUser.getUserId());
-			
+		qnaVo.setUserId(authUser.getUserId());
+		
 		csService.qnaWrite(qnaVo);
 		return "redirect:/cs/qna";
 	}
 	
-	@RequestMapping(value="/qna/view/{qna_no}")
-	public String qnaEachView(@PathVariable("qna_no") int qna_no, Model model) throws Exception{
-		QnaVo viewQna = csService.viewEachQna(qna_no);
+	@RequestMapping(value="/qna/view/{qnaNo}")
+	public String qnaEachView(@PathVariable("qnaNo") int qnaNo, Model model) throws Exception{
+		QnaVo viewQna = csService.viewEachQna(qnaNo);
 		
 		model.addAttribute("qnaVo", viewQna);
 		model.addAttribute("ctrl","\r\n");
@@ -145,15 +161,14 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/modifyform")
-	public String modifyFormQna(@RequestParam("qna_no") int qna_no, Model model, HttpSession session) throws Exception{
+	public String modifyFormQna(@RequestParam("qnaNo") int qnaNo, Model model, HttpSession session) throws Exception{
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser.getUserLevel().equals("administer")) {
+		if(authUser.getUserId().equals(csService.viewQnaForModify(qnaNo).getUserId())) {
 			System.out.println("modifyform 진입");
-			QnaVo viewQna = csService.viewQnaForModify(qna_no);
+			QnaVo viewQna = csService.viewQnaForModify(qnaNo);
 			model.addAttribute("qnaVo",viewQna);
 			return "cs/qnamodifyform";
 		}else {
-			System.out.println("Not administer");
 			return "redirect:/cs/qna";
 		}
 	}
@@ -162,7 +177,7 @@ public class CsController {
 	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(qnaVo);
-		if (authUser.getUserLevel().equals("administer")) {
+		if (authUser.getUserId().equals(csService.viewQnaForModify(qnaVo.getQnaNo()).getUserId())) {
 			System.out.println("modify 진입");
 			csService.modifyEachQna(qnaVo);
 			return "redirect:/cs/qna";
@@ -173,8 +188,8 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/delete")
-	public String deleteQna(Model model, @RequestParam("qna_no") int qna_no) throws Exception{
-		csService.deleteQna(qna_no);
+	public String deleteQna(Model model, @RequestParam("qnaNo") int qnaNo) throws Exception{
+		csService.deleteQna(qnaNo);
 		return "redirect:/cs/qna";
 	}
 	

@@ -11,6 +11,7 @@ import com.bit.hi.dao.CsDao;
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
 import com.bit.hi.service.CsService;
+import com.bit.hi.util.PageCriteria;
 
 @Service
 public class CsServiceImpl implements CsService {
@@ -100,65 +101,34 @@ public class CsServiceImpl implements CsService {
 	}
 
 	@Override
+	public List<QnaVo> qnaGetList(PageCriteria pCri, String kwd) throws Exception{
+		
+		
+		System.out.println("startRnum: " + pCri.getStartPage());
+		System.out.println("endRnum: " + pCri.getEndPage());
+		
+		return csDao.selectQnaList(pCri.getStartPage(), pCri.getEndPage(), kwd);
+	}
+	
+	@Override
+	public int qnaTotalCount(PageCriteria pCri, String kwd) throws Exception{
+		return csDao.qnaTotalCount(pCri, kwd);
+	}
+	
+	@Override
 	public void qnaWrite(QnaVo qnaVo) throws Exception{
 		csDao.qnaWrite(qnaVo);
-		System.out.println("write");
 	}
 
 	@Override
-	public Map<String, Object> qnaGetList(String searchValue, Integer crtPage) throws Exception{
-		int qnaListCnt = 10;
-		crtPage = (crtPage <= 0) ? crtPage=1 : crtPage;
-		
-		int startRnum = (crtPage -1) * qnaListCnt;		//0,10,20
-		int endRnum = startRnum + qnaListCnt;		//10,20,30
-		
-		System.out.println("startRnum: " + startRnum);
-		System.out.println("endRnum: " + endRnum);
-		
-		List<QnaVo> qnaList = csDao.selectQnaList(startRnum, endRnum, searchValue);
-		
-		//전체 글 개수
-		int totalCount = csDao.qnaTotalCount(searchValue);
-		System.out.println("totalCount: " + totalCount);
-		
-		int pageBtnCount = 5;
-		
-		int endPageBtnNo = (int)(Math.ceil(crtPage/(double)pageBtnCount) * pageBtnCount);
-		int startPageBtnNo = endPageBtnNo - (pageBtnCount - 1);
-		
-		boolean next = false;
-		if(endPageBtnNo * qnaListCnt < totalCount) {
-			next = true;
-		}else {
-			endPageBtnNo = (int)(Math.ceil(totalCount/(double)qnaListCnt));
-		}
-		
-		boolean prev = false;
-		if(startPageBtnNo != 1) {
-			prev = true;
-		}
-		
-		Map<String, Object> qamap = new HashMap<String, Object>();
-		qamap.put("qnaList",qnaList);
-		qamap.put("prev", prev);
-		qamap.put("startPageBtnNo", startPageBtnNo);
-		qamap.put("endPageBtnNo", endPageBtnNo);
-		qamap.put("next", next);
-		qamap.put("crtPage", crtPage);
-		
-		return qamap;
+	public QnaVo viewEachQna(int qnaNo) throws Exception{
+		csDao.updateHitEachQna(qnaNo);
+		return csDao.selectEachQna(qnaNo);
 	}
 
 	@Override
-	public QnaVo viewEachQna(int qna_no) throws Exception{
-		csDao.updateHitEachQna(qna_no);
-		return csDao.selectEachQna(qna_no);
-	}
-
-	@Override
-	public QnaVo viewQnaForModify(int qna_no) throws Exception{
-		return csDao.selectQnaForModify(qna_no);
+	public QnaVo viewQnaForModify(int qnaNo) throws Exception{
+		return csDao.selectQnaForModify(qnaNo);
 	}
 	
 	@Override
@@ -167,8 +137,8 @@ public class CsServiceImpl implements CsService {
 	}
 
 	@Override
-	public void deleteQna(int qna_no) throws Exception{
-		csDao.deleteQna(qna_no);	
+	public void deleteQna(int qnaNo) throws Exception{
+		csDao.deleteQna(qnaNo);	
 
 	}
 }

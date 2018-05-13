@@ -1,9 +1,11 @@
 package com.bit.hi.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
+import com.bit.hi.util.PageCriteria;
 
 public interface CsService {
 
@@ -19,15 +21,17 @@ public interface CsService {
 	
 	public int deleteNotice(int notiNo) throws Exception;
 
+	public List<QnaVo> qnaGetList(PageCriteria pCri, String kwd) throws Exception;
+	
+	public int qnaTotalCount(PageCriteria pCri, String kwd) throws Exception;
+	
 	public void qnaWrite(QnaVo qnaVo) throws Exception;
 
-	public Map<String, Object> qnaGetList(String searchValue, Integer crtPage) throws Exception;
+	public QnaVo viewEachQna(int qnaNo) throws Exception;
 
-	public QnaVo viewEachQna(int qna_no) throws Exception;
-
-	public QnaVo viewQnaForModify(int qna_no) throws Exception;
+	public QnaVo viewQnaForModify(int qnaNo) throws Exception;
 	
 	public int modifyEachQna(QnaVo qnaVo) throws Exception;
 
-	public void deleteQna(int qna_no) throws Exception;
+	public void deleteQna(int qnaNo) throws Exception;
 }

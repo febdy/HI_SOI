@@ -18,7 +18,7 @@ public class MainDaoImpl implements MainDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<PostVo> selectPopularVideoForMain() {
+	public List<PostVo> selectPopularVideoForMain() throws Exception {
 		return sqlSession.selectList(namespace+"selectPopularVideoForMain");
 	}
 }

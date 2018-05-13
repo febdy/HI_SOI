@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bit.hi.dao.CsDao;
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
+import com.bit.hi.util.PageCriteria;
 
 @Repository
 public class CsDaoImpl implements CsDao {
@@ -21,97 +22,94 @@ public class CsDaoImpl implements CsDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<CsVo> selectList(int startRnum, int endRnum, String kwd) {
+	public List<CsVo> selectList(int startRnum, int endRnum, String kwd) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
 		mapCri.put("kwd", kwd);
 		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList(namespace+"selectPage", mapCri); //입력값 없이 출력만 하는 select
+		return sqlSession.selectList(namespace+"selectList", mapCri); //입력값 없이 출력만 하는 select
 	}
 	
 	@Override
-	public int selectTotalCount(String kwd) {
+	public int selectTotalCount(String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"totalCount", kwd);
 	}
 	
 	@Override
-	public int insertNoticeWrite(CsVo csVo) {
+	public int insertNoticeWrite(CsVo csVo) throws Exception {
 		return sqlSession.insert(namespace+"insertNoticeWrite", csVo);
 	}
 	
 	@Override
-	public CsVo selectEachNotice(int notiNo) {
+	public CsVo selectEachNotice(int notiNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachNotice", notiNo);
 	}
 	
 	@Override
-	public int updateHitEachNotice(int notiNo) {
+	public int updateHitEachNotice(int notiNo) throws Exception {
 		return sqlSession.update(namespace+"updateHitEachNotice", notiNo);
 	}
 	
 	@Override
-	public CsVo selectNoticeForModify(int notiNo) {
+	public CsVo selectNoticeForModify(int notiNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectNoticeForModify", notiNo);
 	}
 	
 	@Override
-	public int updateEachNotice(CsVo csVo) {
+	public int updateEachNotice(CsVo csVo) throws Exception {
 		return sqlSession.update(namespace+"updateEachNotice", csVo);
 	}
 	
 	@Override
-	public int deleteNotice(int notiNo) {
+	public int deleteNotice(int notiNo) throws Exception {
 		return sqlSession.delete(namespace+"deleteNotice", notiNo);
 	}
 	
 	@Override
-	public void qnaWrite(QnaVo qnaVo) {
-		int result = sqlSession.insert(namespace+"writeByTitleContent", qnaVo);
-		System.out.println(result + "########### 글쓰기 성공");
-	}
-
-	@Override
-	public int qnaTotalCount(String searchValue) {
-		int count = sqlSession.selectOne(namespace+"qnaTotalCount",searchValue);
-		return count;
+	public List<QnaVo> selectQnaList(int startRnum, int endRnum, String kwd) throws Exception {
+		Map<String, Object> mapCri = new HashMap<String, Object>();
+		mapCri.put("startRnum", startRnum);
+		mapCri.put("endRnum", endRnum);
+		mapCri.put("kwd", kwd);
+		System.out.println("daoQNA" + mapCri.toString());
+		return sqlSession.selectList(namespace+"qnaSelectList", mapCri);
 	}
 	
 	@Override
-	public List<QnaVo> selectQnaList(int startRnum, int endRnum, String searchValue) {
-		Map<String, Object> qamap = new HashMap<String, Object>();
-		qamap.put("startRnum", startRnum);
-		qamap.put("endRnum", endRnum);
-		qamap.put("searchValue", searchValue);
-		System.out.println("daoQNA" + qamap.toString());
-		List<QnaVo> qnaList =  sqlSession.selectList(namespace+"qnaSelectList", qamap);
-		
-		return qnaList;
+	public void qnaWrite(QnaVo qnaVo) throws Exception {
+		sqlSession.insert(namespace+"writeByTitleContent", qnaVo);
 	}
 
 	@Override
-	public int updateHitEachQna(int qna_no) {
-		return sqlSession.update(namespace+"updateHitEachQna", qna_no);		
+	public int qnaTotalCount(PageCriteria pCri, String kwd) throws Exception {
+		int count = sqlSession.selectOne(namespace+"qnaTotalCount", kwd);
+		return count;
 	}
 
 	@Override
-	public QnaVo selectEachQna(int qna_no) {
-		System.out.println(qna_no);
-		return sqlSession.selectOne(namespace+"selectEachQna", qna_no);
+	public int updateHitEachQna(int qnaNo) throws Exception {
+		return sqlSession.update(namespace+"updateHitEachQna", qnaNo);		
 	}
 
 	@Override
-	public QnaVo selectQnaForModify(int qna_no) {
-		return sqlSession.selectOne(namespace+"selectQnaForModify", qna_no);
+	public QnaVo selectEachQna(int qnaNo) throws Exception{
+		System.out.println(qnaNo);
+		return sqlSession.selectOne(namespace+"selectEachQna", qnaNo);
 	}
 
 	@Override
-	public int updateEachQna(QnaVo qnaVo) {
+	public QnaVo selectQnaForModify(int qnaNo) throws Exception {
+		return sqlSession.selectOne(namespace+"selectQnaForModify", qnaNo);
+	}
+
+	@Override
+	public int updateEachQna(QnaVo qnaVo) throws Exception {
 		return sqlSession.update(namespace+"updateEachQna", qnaVo);
 	}
 
 	@Override
-	public void deleteQna(int qna_no) {
+	public void deleteQna(int qna_no) throws Exception {
 		sqlSession.delete(namespace+"deleteEachQna", qna_no);		
 
 	}

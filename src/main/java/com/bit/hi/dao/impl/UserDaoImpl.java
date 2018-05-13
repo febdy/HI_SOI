@@ -16,23 +16,23 @@ public class UserDaoImpl implements UserDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int insertJoin(UserVo userVo) {
+	public int insertJoin(UserVo userVo) throws Exception {
 		return sqlSession.insert(namespace+"insertJoin", userVo);
 	}
 	
 	@Override
-	public UserVo selectListByIdPwd(UserVo userVo) {
+	public UserVo selectListByIdPwd(UserVo userVo) throws Exception {
 		System.out.println("dao 진입");
 		return sqlSession.selectOne(namespace+"getListByIdPwd", userVo);
 	}
 	
 	@Override
-	public UserVo selectUserForId(String userId) {
+	public UserVo selectUserForId(String userId) throws Exception {
 		return sqlSession.selectOne(namespace+"selectUserForId", userId);
 	}
 	
 	@Override
-	public UserVo selectUserForNick(String userNickname) {
+	public UserVo selectUserForNick(String userNickname) throws Exception {
 		return sqlSession.selectOne(namespace+"selectUserForNick", userNickname);
 	}
 }

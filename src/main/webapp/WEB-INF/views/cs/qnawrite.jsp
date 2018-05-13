@@ -145,8 +145,8 @@
                                 <h4 class="widget"> Q&A > 글쓰기</h4>
                                 <form id="asd" method="post" action="${pageContext.request.contextPath}/cs/qna/write">
                        			<div class="well">
-                       			<input type="text" class="form-control" name="qna_title" placeholder="제목"><br>
-                                <textarea class="form-control" rows="4" name="qna_content" placeholder="내용"></textarea>
+                       			<input type="text" class="form-control" name="qnaTitle" placeholder="제목"><br>
+                                <textarea class="form-control" rows="4" name="qnaContent" placeholder="내용"></textarea>
 
                                 </div>
 								
@@ -168,141 +168,11 @@
             <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
             <!-- /Footer -->
             
-            <!-- Modal -->
-            <section id="modals">
-                <!-- Login Modal -->
-                <div class="modal login fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h2 class="form-signin-heading modal-title" id="myModalLabel">Login</h2>
-                            </div>
-                            <form method="post" id="login">
-                                <div class="modal-body">
-                                    <fieldset>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <input class="form-control" id="username" name="username" type="text" placeholder="Username" value="" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <input class="form-control" type="email" id="email" name="email" placeholder="Email" value="" required>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="password-recovery.html" class="pull-left">(Lost Password?)</a>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-color">Login</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Login Modal -->
-                <!-- Registration Modal -->
-                <div class="modal register fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModal" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h2 class="form-signin-heading modal-title" id="registrationModalLabel">Create a new account</h2>
-                        </div>
-                        <form method="post" id="registration">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-md-6">
-                                                <input type="text" value="" class="form-control" placeholder="First Name">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" value="" class="form-control" placeholder="Last Name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <input type="text" value="" class="form-control" placeholder="E-mail Address">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-md-6">
-                                                <input type="password" value="" class="form-control" placeholder="Password">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="password" value="" class="form-control" placeholder="Re-enter Password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-color">Register</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Registration Modal -->
-            </section>
             <!-- Scroll To Top --> 
             <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
         </div>
         <!-- /Wrap -->
-        <section id="style-switcher">
-            <h2>Style Switcher <a href="#"><i class="fa fa-cogs"></i></a></h2>
-            <div>
-                <h3>Predefined Colors</h3>
-                <ul class="colors">
-                    <li><a title="Green" class="green" href="#"></a></li>
-                    <li><a title="Blue" class="blue" href="#"></a></li>
-                    <li><a title="Orange" class="orange" href="#"></a></li>
-                    <li><a title="Purple" class="purple" href="#"></a></li>
-                    <li><a title="Red" class="red" href="#"></a></li>
-                    <li><a title="Magenta" class="magenta" href="#"></a></li>
-                    <li><a title="Brown" class="brown" href="#"></a></li>
-                    <li><a title="Gray" class="gray" href="#"></a></li>
-                    <li><a title="Golden" class="golden" href="#"></a></li>
-                    <li><a title="Teal" class="teal" href="#"></a></li>
-                </ul>
-                <h3>Layout Style</h3>
-                <div class="layout-style">
-                    <select id="layout-style">
-                        <option value="1">Wide</option>
-                        <option value="2">Boxed</option>
-                    </select>
-                </div>
-                <h3>Header Color</h3>
-                <div class="header-color">
-                    <input type='text' class="header-bg" />
-                </div>
-                <h3>Footer Top Color</h3>
-                <div class="header-color">
-                    <input type='text' class="footer-bg" />
-                </div>
-                <h3>Footer Bottom Color</h3>
-                <div class="header-color">
-                    <input type='text' class="footer-bottom" />
-                </div>
-                <h3>Background Image</h3>
-                <ul id="bg" class="colors bg">
-                    <li><a class="bg1" href="#"></a></li>
-                    <li><a class="bg2" href="#"></a></li>
-                    <li><a class="bg3" href="#"></a></li>
-                    <li><a class="bg4" href="#"></a></li>
-                    <li><a class="bg5" href="#"></a></li>
-                    <li><a class="bg6" href="#"></a></li>
-                    <li><a class="bg7" href="#"></a></li>
-                    <li><a class="bg8" href="#"></a></li>
-                    <li><a class="bg9" href="#"></a></li>
-                    <li><a class="bg10" href="#"></a></li>
-                </ul>
-            </div>
-        </section>
+        
         <!-- The Scripts -->
         <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-1.0.0.js"></script>

@@ -21,12 +21,12 @@ public class VideoDaoImpl implements VideoDao {
 	private MongoTemplate mongoTemplate;
 	
 	@Override
-	public int insertUpload(VideoVo videoVo) {
+	public int insertUpload(VideoVo videoVo) throws Exception {
 		return sqlSession.insert(namespace+"insertUpload", videoVo);
 	}
 	
 	@Override
-	public int updateThumnail(String saveName, String videoThumnail) {
+	public int updateThumnail(String saveName, String videoThumnail) throws Exception {
 		VideoVo videoVo=new VideoVo();
 		videoVo.setVideoSaveName(saveName);
 		videoVo.setVideoThumnail(videoThumnail);
@@ -34,12 +34,12 @@ public class VideoDaoImpl implements VideoDao {
 	}
 	
 	@Override
-	public void mongoSave(MongoVo mongoVo) {
+	public void mongoSave(MongoVo mongoVo) throws Exception {
 		mongoTemplate.save(mongoVo, "video_info");
 	}
 	
 	@Override
-	public VideoVo selectCorrectedVideo(int videoNo) {
+	public VideoVo selectCorrectedVideo(int videoNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectCorrectedVideo", videoNo);
 	}
 }

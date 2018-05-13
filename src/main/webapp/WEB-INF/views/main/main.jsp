@@ -296,7 +296,7 @@
                                                             <div class="testimonials-arrow"></div>
                                                             <div class="author">
                                                                 <div class="testimonial-image ">
-                                                                    <img alt="" src="img/testimonial/team-member-1.jpg">
+                                                                    <img alt="" src="${pageContext.request.contextPath}/resources/img/testimonial/team-member-1.jpg">
                                                                 </div>
                                                                 <div class="testimonial-author-info">
                                                                     <a href="#"><span class="color">HISOI LAB</span></a>
@@ -579,4 +579,12 @@
         <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
     </body>
+<script>
+	var result = '${loginmsg}';
+	
+	if(result == 'Failed'){
+		console.log("로그인에 실패");
+		alert("로그인에 실패하였습니다.");
+	}
+</script>
 </html>

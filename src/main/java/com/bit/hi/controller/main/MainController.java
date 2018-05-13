@@ -18,10 +18,11 @@ public class MainController {
 	private MainService mainService;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String main(Model model) throws Exception{
+	public String main(Model model) throws Exception {
 		System.out.println("main 진입");
 		List<PostVo> mainList=mainService.getPopularVideoForMain();
 		model.addAttribute("mainList", mainList);
+		
 		return "main/main";
 	}
 	

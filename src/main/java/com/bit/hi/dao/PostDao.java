@@ -7,37 +7,37 @@ import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 
 public interface PostDao {
-	public List<VideoVo> selectMyVideoList(String userId);
+	public List<VideoVo> selectMyVideoList(String userId) throws Exception;
 	
-	public VideoVo selectVideoInfo(int videoNo);
+	public VideoVo selectVideoInfo(int videoNo) throws Exception;
 	
-	public int selectVideoNo(String ioi);
+	public int selectVideoNo(String ioi) throws Exception;
 	
-	public int insertWritePost(PostVo postVo);
-	
-	//소이팩토리 리스트 뿌려주기
-	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd);
+	public int insertWritePost(PostVo postVo) throws Exception;
 	
 	//소이팩토리 리스트 뿌려주기
-	public int selectTotalCount(String kwd);
+	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) throws Exception;
 	
-	public PostVo selectEachPost(int postNo);
+	//소이팩토리 리스트 뿌려주기
+	public int selectTotalCount(String kwd) throws Exception;
 	
-	public int updateLike(int postNo);
+	public PostVo selectEachPost(int postNo) throws Exception;
 	
-	public void postUpdateHit(int postNo);
+	public int updateLike(int postNo) throws Exception;
 	
-	public int deletePost(int postNo);
+	public void postUpdateHit(int postNo) throws Exception;
 	
-	public int insertScrapPost(ScrapVo scrapVo);
+	public int deletePost(int postNo) throws Exception;
+	
+	public int insertScrapPost(ScrapVo scrapVo) throws Exception;
 	
 	//소이팩토리 정렬
-	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest);
+	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest) throws Exception;
 	
 	//소이팩토리 정렬에 사용될 총 포스트 수
-	public int selectTotalCountForArray();
+	public int selectTotalCountForArray() throws Exception;
 	
-	public PostVo selectEachPostForModify(int postNo);
+	public PostVo selectEachPostForModify(int postNo) throws Exception;
 	
-	public int updateEachPostForModify(PostVo postVo);
+	public int updateEachPostForModify(PostVo postVo) throws Exception;
 }

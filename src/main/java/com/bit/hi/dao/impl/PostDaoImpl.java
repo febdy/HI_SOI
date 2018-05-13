@@ -24,28 +24,28 @@ public class PostDaoImpl implements PostDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<VideoVo> selectMyVideoList(String userId) {
+	public List<VideoVo> selectMyVideoList(String userId) throws Exception {
 		return sqlSession.selectList(namespace2+"selectMyVideoList", userId);
 	}
 	
 	@Override
-	public VideoVo selectVideoInfo(int videoNo) {
+	public VideoVo selectVideoInfo(int videoNo) throws Exception {
 		return sqlSession.selectOne(namespace2+"selectVideoInfo", videoNo);
 	}
 	
 	@Override
-	public int selectVideoNo(String ioi) {
+	public int selectVideoNo(String ioi) throws Exception {
 		return sqlSession.selectOne(namespace2+"selectVideoNo", ioi);
 	}
 	
 	@Override
-	public int insertWritePost(PostVo postVo) {
+	public int insertWritePost(PostVo postVo) throws Exception {
 		return sqlSession.insert(namespace+"insertWritePost", postVo);
 	}
 	
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) {
+	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
@@ -55,38 +55,38 @@ public class PostDaoImpl implements PostDao {
 	}
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public int selectTotalCount(String kwd) {
+	public int selectTotalCount(String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForPost", kwd);
 	}
 	
 	@Override
-	public PostVo selectEachPost(int postNo) {
+	public PostVo selectEachPost(int postNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachPost", postNo);
 	}
 	
 	@Override
-	public int updateLike(int postNo) {
+	public int updateLike(int postNo) throws Exception {
 		return sqlSession.update(namespace+"updateLike", postNo);
 	}
 	
 	@Override
-	public void postUpdateHit(int postNo) {
+	public void postUpdateHit(int postNo) throws Exception {
 		sqlSession.update(namespace+"postUpdateHit", postNo);
 	}
 	
 	@Override
-	public int deletePost(int postNo) {
+	public int deletePost(int postNo) throws Exception {
 		return sqlSession.delete(namespace+"deletePost", postNo);
 	}
 	
 	@Override
-	public int insertScrapPost(ScrapVo scrapVo) {
+	public int insertScrapPost(ScrapVo scrapVo) throws Exception {
 		return sqlSession.insert(namespace+"insertScrapPost", scrapVo);
 	}
 	
 	//소이팩토리 정렬
 	@Override
-	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest) {
+	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
@@ -100,17 +100,17 @@ public class PostDaoImpl implements PostDao {
 	
 	//소이팩토리 정렬에 사용될 총 포스트 수
 	@Override
-	public int selectTotalCountForArray() {
+	public int selectTotalCountForArray() throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForArray");
 	}
 	
 	@Override
-	public PostVo selectEachPostForModify(int postNo) {
+	public PostVo selectEachPostForModify(int postNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachPostForModify", postNo);
 	}
 	
 	@Override
-	public int updateEachPostForModify(PostVo postVo) {
+	public int updateEachPostForModify(PostVo postVo) throws Exception {
 		return sqlSession.update(namespace+"updateEachPostForModify", postVo);
 	}
 }

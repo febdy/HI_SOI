@@ -3,7 +3,7 @@
 
 <mapper namespace="com.bit.hi.CsMapper">
 
-	<select id="selectPage" parameterType="map" resultType="CsVo">
+	<select id="selectList" parameterType="map" resultType="CsVo">
 		<![CDATA[
 			select rn,
        				noti_no notiNo,
@@ -113,33 +113,36 @@
 	
 	<select id="qnaSelectList" parameterType="map" resultType="QnaVo">
 		<![CDATA[
-			SELECT rn,
-       			   qna_no,
-       			   qna_title,
-       			   qna_hit_cnt,
-       			   to_char(qna_date, 'YYYY-MM-DD HH:MI') qna_date,
-       			   user_id
-			FROM(SELECT ROWNUM rn,
-            			qna_no,
-            			qna_title,
-            			qna_hit_cnt,
-            			qna_date,
-            			user_id
-     			 FROM(SELECT qna_no,
-                 			 qna_title,
-                 			 qna_hit_cnt,
-                 			 qna_date,
-                 			 user_id
-          			  FROM qna
-     	]]>     		  
-            		  <if test="searchValue != null and searchValue != ''">
-            		  and title like '%'||#{searchValue}|| '%'
+			SELECT rn, 
+					qna_no qnaNo, 
+					qna_title qnaTitle, 
+					qna_hit_cnt qnaHitCnt, 
+					to_char(reg_date, 'YYYY-MM-DD HH:MI') regDate, 
+					user_id userId,
+					user_nickname userNickname
+			FROM(SELECT ROWNUM rn, 
+						qna_no, 
+						qna_title, 
+						qna_hit_cnt, 
+						reg_date, 
+						user_id,
+						user_nickname
+     			 FROM(SELECT qna_no, 
+     			 			qna_title, 
+     			 			qna_hit_cnt, 
+     			 			qn.reg_date, 
+     			 			qn.user_id,
+     			 			us.user_nickname
+          			  FROM qna qn, users us
+          			  WHERE qn.user_id=us.user_id
+     					]]>     		  
+            		  <if test="kwd != null and kwd != ''">
+            		  	and qna_title like '%'||#{kwd}|| '%'
             		  </if>
-        <![CDATA[
-          		 	  ORDER BY qna_no desc)q_o
-          			  )q_ro
-			WHERE rn > #{startRnum, jdbcType=INTEGER}
-			AND rn <= #{endRnum, jdbcType=INTEGER}
+        				<![CDATA[
+          		 	  ORDER BY qna_no desc) o) t
+			WHERE rn > #{startRnum}
+			AND rn <= #{endRnum}
 		]]>
 	</select>
 	
@@ -158,62 +161,57 @@
 	
 	<insert id="writeByTitleContent" parameterType="QnaVo">
 		<![CDATA[
-			INSERT INTO qna
-			VALUES (seq_qna_no.nextval
-					, #{qna_title, jdbcType=VARCHAR}
-					, #{qna_content, jdbcType=VARCHAR}
-					, sysdate
-					, #{user_id, jdbcType=VARCHAR}
-					, 0)
+			insert into qna (qna_no, qna_title, qna_content, reg_date, user_id, qna_hit_cnt) 
+			values (seq_qna_no.nextval, #{qnaTitle}, #{qnaContent}, sysdate, #{userId}, 0)
 		]]>
 	</insert>
 	
 	<update id="updateHitEachQna" parameterType="int">
 		<![CDATA[
-			UPDATE QNA
+			UPDATE qna
 			SET qna_hit_cnt = qna_hit_cnt + 1
-			WHERE qna_no = #{qna_no}
+			WHERE qna_no = #{qnaNo}
 		]]>
 	</update>
 	
 	<select id="selectEachQna" parameterType="int" resultType="QnaVo">
 		<![CDATA[
-			SELECT qna_no
-				 , qna_title
-				 , qna_content
-				 , qna_date
-				 , user_id
-				 , qna_hit_cnt
+			SELECT qna_no qnaNo,
+					qna_title qnaTitle,
+					qna_content qnaContent,
+					reg_date regDate,
+					user_id userId,
+					qna_hit_cnt qnaHitCnt
 			FROM qna
-			WHERE qna_no = #{qna_no}
+			WHERE qna_no = #{qnaNo}
 		]]>
 	</select>
 	
 	<select id="selectQnaForModify" parameterType="int" resultType="QnaVo">
 		<![CDATA[
-			SELECT qna_no
-				 , qna_title
-				 , qna_content
-				 , qna_date
-				 , user_id
-				 , qna_hit_cnt
+			SELECT qna_no qnaNo,
+					qna_title qnaTitle,
+					qna_content qnaContent,
+					reg_date regDate,
+					user_id userId,
+					qna_hit_cnt qnaHitCnt
 			FROM qna
-			WHERE qna_no = #{qna_no}
+			WHERE qna_no = #{qnaNo}
 		]]>
 	</select>
 	
-	<update id="updateEachQna" parameterType="CsVo">
+	<update id="updateEachQna" parameterType="QnaVo">
 		<![CDATA[
 			UPDATE qna
-			SET qna_title=#{qna_title}, qna_content=#{qna_content}
-			WHERE qna_no=#{qna_no}
+			SET qna_title=#{qnaTitle}, qna_content=#{qnaContent}
+			WHERE qna_no=#{qnaNo}
 		]]>
 	</update>
 	
 	<delete id="deleteEachQna" parameterType="int">
 		<![CDATA[
 			DELETE FROM qna
-			WHERE qna_no=#{qna_no}
+			WHERE qna_no=#{qnaNo}
 		]]>
 	</delete>
 	

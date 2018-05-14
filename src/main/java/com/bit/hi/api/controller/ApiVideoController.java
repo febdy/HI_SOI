@@ -28,7 +28,7 @@ public class ApiVideoController {
 	
 	@ResponseBody
 	@RequestMapping("/api/upload")
-	public int interviewApiUpload(MultipartHttpServletRequest file, HttpSession session) {
+	public int interviewApiUpload(MultipartHttpServletRequest file, HttpSession session) throws Exception{
 		System.out.println("하하");
 		logger.info("파일 업로드.....");
 		logger.info("uploadmode uploading file:" +file.toString());
@@ -45,7 +45,7 @@ public class ApiVideoController {
 	
 	@ResponseBody
 	@RequestMapping("/api/selectcorrectedvideo")
-	public VideoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) {
+	public VideoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) throws Exception{
 		VideoVo aa=videoService.getCorrectedVideo(videoNo);
 		System.out.println(aa);
 		return aa;

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.bit.hi.MainMapper">
 
-	<select id="selectPopularVideoForMain" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectPopularVideoForMain" resultType="PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,

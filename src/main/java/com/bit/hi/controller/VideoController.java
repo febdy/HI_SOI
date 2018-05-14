@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VideoController {
 	
 	@RequestMapping(value="/uploadmode")
-	public String uploadmode() {
+	public String uploadmode() throws Exception{
 		
 		return "interview/uploadmode";
 	}
 	
 	@RequestMapping(value="/livemode")
-	public String livemode() {
+	public String livemode() throws Exception{
 		
 		return "interview/livemode";
 	}

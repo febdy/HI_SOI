@@ -1,64 +1,119 @@
 package com.bit.hi.domain.vo;
 
 public class QnaVo {
-	private int qna_no;
-	private String qna_title;
-	private String qna_content;
-	private String qna_date;
-	private String user_id;
-	private int qna_hit_cnt;
-	public int getQna_no() {
-		return qna_no;
+	private int rn;
+	private int qnaNo;
+	private String qnaTitle;
+	private String qnaContent;
+	private String regDate;
+	private String userId;
+	private int qnaHitCnt;
+	private String userNickname;
+	
+	
+	public QnaVo() {
 	}
-	public void setQna_no(int qna_no) {
-		this.qna_no = qna_no;
+
+
+	public QnaVo(int rn, int qnaNo, String qnaTitle, String qnaContent, String regDate, String userId, int qnaHitCnt,
+			String userNickname) {
+		this.rn = rn;
+		this.qnaNo = qnaNo;
+		this.qnaTitle = qnaTitle;
+		this.qnaContent = qnaContent;
+		this.regDate = regDate;
+		this.userId = userId;
+		this.qnaHitCnt = qnaHitCnt;
+		this.userNickname = userNickname;
 	}
-	public String getQna_title() {
-		return qna_title;
+
+
+	public int getRn() {
+		return rn;
 	}
-	public void setQna_title(String qna_title) {
-		this.qna_title = qna_title;
+
+
+	public void setRn(int rn) {
+		this.rn = rn;
 	}
-	public String getQna_content() {
-		return qna_content;
+
+
+	public int getQnaNo() {
+		return qnaNo;
 	}
-	public void setQna_content(String qna_content) {
-		this.qna_content = qna_content;
+
+
+	public void setQnaNo(int qnaNo) {
+		this.qnaNo = qnaNo;
 	}
-	public String getQna_date() {
-		return qna_date;
+
+
+	public String getQnaTitle() {
+		return qnaTitle;
 	}
-	public void setQna_date(String qna_date) {
-		this.qna_date = qna_date;
+
+
+	public void setQnaTitle(String qnaTitle) {
+		this.qnaTitle = qnaTitle;
 	}
-	public String getUser_id() {
-		return user_id;
+
+
+	public String getQnaContent() {
+		return qnaContent;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+
+
+	public void setQnaContent(String qnaContent) {
+		this.qnaContent = qnaContent;
 	}
-	public int getQna_hit_cnt() {
-		return qna_hit_cnt;
+
+
+	public String getRegDate() {
+		return regDate;
 	}
-	public void setQna_hit_cnt(int qna_hit_cnt) {
-		this.qna_hit_cnt = qna_hit_cnt;
+
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+	public int getQnaHitCnt() {
+		return qnaHitCnt;
+	}
+
+
+	public void setQnaHitCnt(int qnaHitCnt) {
+		this.qnaHitCnt = qnaHitCnt;
+	}
+
+
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
+
 	@Override
 	public String toString() {
-		return "QnaVo [qna_no=" + qna_no + ", qna_title=" + qna_title + ", qna_content=" + qna_content + ", qna_date="
-				+ qna_date + ", user_id=" + user_id + ", qna_hit_cnt=" + qna_hit_cnt + "]";
+		return "QnaVo [rn=" + rn + ", qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle + ", qnaContent=" + qnaContent
+				+ ", regDate=" + regDate + ", userId=" + userId + ", qnaHitCnt=" + qnaHitCnt + ", userNickname="
+				+ userNickname + "]";
 	}
-	public QnaVo(int qna_no, String qna_title, String qna_content, String qna_date, String user_id, int qna_hit_cnt) {
-		super();
-		this.qna_no = qna_no;
-		this.qna_title = qna_title;
-		this.qna_content = qna_content;
-		this.qna_date = qna_date;
-		this.user_id = user_id;
-		this.qna_hit_cnt = qna_hit_cnt;
-	}
-	public QnaVo() {
-		super();
-	}
+	
 	
 }

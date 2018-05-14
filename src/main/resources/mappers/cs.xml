@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bit.hi.CsMapper">
+
+	<select id="selectList" parameterType="map" resultType="CsVo">
+		<![CDATA[
+			select rn,
+       				noti_no notiNo,
+        			noti_title notiTitle,
+        			noti_content notiContent,
+        			to_char(noti_date, 'YYYY-MM-DD HH:MI') notiDate,
+        			noti_hit_cnt notiHitCnt,
+        			user_id userId,
+        			user_level userLevel
+			from (select ROWNUM rn,
+                				noti_no,
+                    			noti_title,
+                    			noti_content,
+                    			noti_date,
+                    			noti_hit_cnt,
+                    			user_id,
+                    			user_level
+        			from (select noti_no,
+                    			noti_title,
+                    			noti_content,
+                    			noti_date,
+                    			noti_hit_cnt,
+                    			us.user_id,
+                    			us.user_level
+                			from notice noti, users us
+                			where noti.user_id=us.user_id
+                			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
+                			<if test="kwd!=null and kwd!=''">
+                				and noti_title like '%'||#{kwd}||'%'
+                			</if>
+                			<![CDATA[
+                			order by noti_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- if문을 써주어, kwd와 동일한지 -->
+	
+	<select id="totalCount" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from notice
+		]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
+        	<if test="_parameter!=null and _parameter!=''">
+                where noti_title like '%'||#{_parameter}||'%'
+            </if> <!-- int면 like다음에  '%'||${kwd}||'%' 와도 되지만, String 하나이므로, kwd를 _parameter로 바꿔준다. -->
+       <![CDATA[
+		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
+	</select>
+	
+	<!-- 공지 글쓰기 -->
+	<insert id="insertNoticeWrite" parameterType="CsVo">
+		<![CDATA[
+			insert into notice
+			values (seq_notice_no.nextval, #{notiTitle}, #{notiContent}, sysdate, 0, #{userId})
+		]]>
+	</insert>
+	
+	<select id="selectEachNotice" parameterType="int" resultType="CsVo">
+		<![CDATA[
+			select noti_no notiNo,
+					noti_title notiTitle,
+					noti_content notiContent,
+					noti_date notiDate,
+					noti_hit_cnt notiHitCnt,
+					user_id userId
+			from notice
+			where noti_no=#{notiNo}
+		]]>
+	</select>
+
+	<select id="selectNoticeForModify" parameterType="int" resultType="CsVo">
+		<![CDATA[
+			select noti_no notiNo,
+					noti_title notiTitle,
+					noti_content notiContent,
+					noti_date notiDate,
+					noti_hit_cnt notiHitCnt,
+					user_id userId
+			from notice
+			where noti_no=#{notiNo}
+		]]>
+	</select>
+	
+	<update id="updateEachNotice" parameterType="CsVo">
+		<![CDATA[
+			update notice
+			set noti_title=#{notiTitle}, noti_content=#{notiContent}
+			where noti_no=#{notiNo}
+		]]>
+	</update>
+	
+	<update id="updateHitEachNotice" parameterType="int">
+		<![CDATA[
+			update notice
+			set noti_hit_cnt=noti_hit_cnt+1
+			where noti_no=#{notiNo}
+		]]>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+			delete from notice
+			where noti_no=#{notiNo}
+		]]>
+	</delete>
+	
+	<select id="qnaSelectList" parameterType="map" resultType="QnaVo">
+		<![CDATA[
+			SELECT rn, 
+					qna_no qnaNo, 
+					qna_title qnaTitle, 
+					qna_hit_cnt qnaHitCnt, 
+					to_char(reg_date, 'YYYY-MM-DD HH:MI') regDate, 
+					user_id userId,
+					user_nickname userNickname
+			FROM(SELECT ROWNUM rn, 
+						qna_no, 
+						qna_title, 
+						qna_hit_cnt, 
+						reg_date, 
+						user_id,
+						user_nickname
+     			 FROM(SELECT qna_no, 
+     			 			qna_title, 
+     			 			qna_hit_cnt, 
+     			 			qn.reg_date, 
+     			 			qn.user_id,
+     			 			us.user_nickname
+          			  FROM qna qn, users us
+          			  WHERE qn.user_id=us.user_id
+     					]]>     		  
+            		  <if test="kwd != null and kwd != ''">
+            		  	and qna_title like '%'||#{kwd}|| '%'
+            		  </if>
+        				<![CDATA[
+          		 	  ORDER BY qna_no desc) o) t
+			WHERE rn > #{startRnum}
+			AND rn <= #{endRnum}
+		]]>
+	</select>
+	
+	<select id="qnaTotalCount" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM qna
+		]]>
+			<if test="_parameter != null and _parameter != ''" >
+			where qna_title like '%'||#{_parameter}||'%'
+			</if>
+			
+		<![CDATA[
+		]]>
+	</select>
+	
+	<insert id="writeByTitleContent" parameterType="QnaVo">
+		<![CDATA[
+			insert into qna (qna_no, qna_title, qna_content, reg_date, user_id, qna_hit_cnt) 
+			values (seq_qna_no.nextval, #{qnaTitle}, #{qnaContent}, sysdate, #{userId}, 0)
+		]]>
+	</insert>
+	
+	<update id="updateHitEachQna" parameterType="int">
+		<![CDATA[
+			UPDATE qna
+			SET qna_hit_cnt = qna_hit_cnt + 1
+			WHERE qna_no = #{qnaNo}
+		]]>
+	</update>
+	
+	<select id="selectEachQna" parameterType="int" resultType="QnaVo">
+		<![CDATA[
+			SELECT qna_no qnaNo,
+					qna_title qnaTitle,
+					qna_content qnaContent,
+					reg_date regDate,
+					user_id userId,
+					qna_hit_cnt qnaHitCnt
+			FROM qna
+			WHERE qna_no = #{qnaNo}
+		]]>
+	</select>
+	
+	<select id="selectQnaForModify" parameterType="int" resultType="QnaVo">
+		<![CDATA[
+			SELECT qna_no qnaNo,
+					qna_title qnaTitle,
+					qna_content qnaContent,
+					reg_date regDate,
+					user_id userId,
+					qna_hit_cnt qnaHitCnt
+			FROM qna
+			WHERE qna_no = #{qnaNo}
+		]]>
+	</select>
+	
+	<update id="updateEachQna" parameterType="QnaVo">
+		<![CDATA[
+			UPDATE qna
+			SET qna_title=#{qnaTitle}, qna_content=#{qnaContent}
+			WHERE qna_no=#{qnaNo}
+		]]>
+	</update>
+	
+	<delete id="deleteEachQna" parameterType="int">
+		<![CDATA[
+			DELETE FROM qna
+			WHERE qna_no=#{qnaNo}
+		]]>
+	</delete>
+	
+</mapper>

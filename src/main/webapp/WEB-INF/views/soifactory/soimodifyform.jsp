@@ -126,7 +126,7 @@
                                 		<textarea class="form-control" rows="4" name="postContent">${postVo.postContent}</textarea>
 										<div>
 											<input type="text" name="videoTitle" value="${postVo.videoOriginName}" id="selectArea" readonly="readonly">
-											<input type="hidden" name="videoNo" id="selectVideoNo">
+											<input type="hidden" name="videoNo" id="selectVideoNo" value="${postVo.videoNo}">
 											<button type="button" class="btn btn-default" id="attachModal">파일 첨부</button>
 										</div><br/>
 										<div class="row form-horizontal">

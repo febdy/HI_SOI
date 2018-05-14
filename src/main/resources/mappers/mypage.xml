@@ -4,7 +4,7 @@
 <mapper namespace="com.bit.hi.MypageMapper">
 
 	<!-- 영상관리 페이징 -->
-	<select id="selectPageForMyVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.VideoVo">
+	<select id="selectPageForMyVideoList" parameterType="map" resultType="VideoVo">
 		<![CDATA[
 			select rn,
        				video_no videoNo,
@@ -38,7 +38,7 @@
 	</select>
 	
 	<!-- 내 댓글 페이징 -->
-	<select id="selectCollectCommentList" parameterType="map" resultType="com.bit.hi.domain.vo.CommentVo">
+	<select id="selectCollectCommentList" parameterType="map" resultType="CommentVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -72,7 +72,7 @@
 	</select>
 	
 	<!-- 내가 올린 영상 페이징 -->
-	<select id="selectCollectVideoList" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectCollectVideoList" parameterType="map" resultType="PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -115,7 +115,7 @@
 	</select>
 	
 	<!-- 스크랩 페이징 -->
-	<select id="selectCollectScrapList" parameterType="map" resultType="com.bit.hi.domain.vo.ScrapVo">
+	<select id="selectCollectScrapList" parameterType="map" resultType="ScrapVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -159,7 +159,7 @@
 	</select>
 	
 	<!-- 회원정보 수정 닉네임 변경체크 -->
-	<select id="selectNickChkForModify" parameterType="com.bit.hi.domain.vo.UserVo" resultType="com.bit.hi.domain.vo.UserVo">
+	<select id="selectNickChkForModify" parameterType="UserVo" resultType="UserVo">
 		<![CDATA[
 			select user_id userId,
         			user_name userName,
@@ -177,7 +177,7 @@
 	</select>
 	
 	<!-- 회원정보수정 -->
-	<update id="updateInfo" parameterType="com.bit.hi.domain.vo.UserVo">
+	<update id="updateInfo" parameterType="UserVo">
 		<![CDATA[
 			update users
 			set user_name=#{userName},
@@ -207,7 +207,7 @@
 		]]>
 	</delete>
 	
-	<select id="selectEachVideoAnalyze" parameterType="int" resultType="com.bit.hi.domain.vo.VideoVo">
+	<select id="selectEachVideoAnalyze" parameterType="int" resultType="VideoVo">
 		<![CDATA[
 			select video_no videoNo,
 					user_id userId,

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.bit.hi.PostMapper">
 
-	<insert id="insertWritePost" parameterType="com.bit.hi.domain.vo.PostVo">
+	<insert id="insertWritePost" parameterType="PostVo">
 		<![CDATA[
 			insert into post
 			values (seq_post_no.nextval, #{writerId}, #{videoNo}, #{postTitle}, #{postContent}, sysdate, 0, 0, 0, #{postHideFace}, #{postSharable}, '40점') 
@@ -11,7 +11,7 @@
 	</insert>
 	
 	<!-- 소이팩토리 메인 전체 영상 리스트 뿌려주기 -->
-	<select id="selectAllPostList" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectAllPostList" resultType="PostVo">
 		<![CDATA[
 			select post_no postNo,
 					writer_id writerId,
@@ -32,7 +32,7 @@
 	</select>
 	
 	<!-- 각 포스트 클릭시 정보 뿌리기 -->
-	<select id="selectEachPost" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectEachPost" parameterType="int" resultType="PostVo">
 		<![CDATA[
 			select post_no postNo,
 					po.writer_id writerId,
@@ -79,7 +79,7 @@
 	</update>
 	
 	<!-- 댓글수 -->
-	<update id="updateCmtCnt" parameterType="com.bit.hi.domain.vo.CommentVo">
+	<update id="updateCmtCnt" parameterType="CommentVo">
 		<![CDATA[
 			update post
 			set post_cmt_cnt=post_cmt_cnt+1
@@ -96,7 +96,7 @@
 	</delete>
 	
 	<!-- 소이팩토리 스크랩(별) 클릭시 -->
-	<insert id="insertScrapPost" parameterType="com.bit.hi.domain.vo.ScrapVo">
+	<insert id="insertScrapPost" parameterType="ScrapVo">
 		<![CDATA[
 			insert into scrap(post_no, user_id, scrap_date)
 			values (#{postNo}, #{userId}, sysdate)
@@ -104,7 +104,7 @@
 	</insert>
 	
 	<!-- 소이팩토리 페이징 -->
-	<select id="selectPageForPost" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectPageForPost" parameterType="map" resultType="PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -164,7 +164,7 @@
 	</select>
 	
 	<!-- 소이팩토리 정렬 -->
-	<select id="selectListForArray" parameterType="map" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectListForArray" parameterType="map" resultType="PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -228,7 +228,7 @@
 	</select>
 	
 	<!-- 글수정창을 위한 값 뿌려주기 -->
-	<select id="selectEachPostForModify" parameterType="int" resultType="com.bit.hi.domain.vo.PostVo">
+	<select id="selectEachPostForModify" parameterType="int" resultType="PostVo">
 		<![CDATA[
 			select post_no postNo,
 					po.writer_id writerId,
@@ -256,7 +256,7 @@
 		]]>
 	</select>
 	
-	<update id="updateEachPostForModify" parameterType="com.bit.hi.domain.vo.PostVo">
+	<update id="updateEachPostForModify" parameterType="PostVo">
 		<![CDATA[
 			update post
 			set post_title=#{postTitle},

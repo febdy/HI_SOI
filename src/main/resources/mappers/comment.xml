@@ -3,7 +3,7 @@
 
 <mapper namespace="com.bit.hi.CommentMapper">
 
-	<select id="selectCommentList" parameterType="map" resultType="com.bit.hi.domain.vo.CommentVo">
+	<select id="selectCommentList" parameterType="map" resultType="CommentVo">
 		<![CDATA[
 			select r.rn rn,
         		cmt_no cmtNo,
@@ -35,7 +35,7 @@
 		]]>
 	</select>
 	
-	<insert id="apiInsertComment" parameterType="com.bit.hi.domain.vo.CommentVo">
+	<insert id="apiInsertComment" parameterType="CommentVo">
 		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
 				select seq_cmt_no.nextval from dual
 		</selectKey>
@@ -45,7 +45,7 @@
 		]]>
 	</insert>
 	
-	<select id="apiSelectComment" parameterType="int" resultType="com.bit.hi.domain.vo.CommentVo">
+	<select id="apiSelectComment" parameterType="int" resultType="CommentVo">
 		<![CDATA[
 			select cmt_no cmtNo,
         			co.post_no postNo,

@@ -34,7 +34,7 @@ public class ApiUserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/idchk")
-	public boolean apiIdChk(@RequestParam("id") String userId) {
+	public boolean apiIdChk(@RequestParam("id") String userId) throws Exception{
 		System.out.println("idChk 진입");
 		System.out.println(userId);
 		return userService.apiIdChk(userId);
@@ -42,7 +42,7 @@ public class ApiUserController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/nickchk")
-	public boolean apiNickChk(@RequestParam("nick") String userNickname) {
+	public boolean apiNickChk(@RequestParam("nick") String userNickname) throws Exception{
 		System.out.println("idChk 진입");
 		System.out.println(userNickname);
 		return userService.apiNickChk(userNickname);

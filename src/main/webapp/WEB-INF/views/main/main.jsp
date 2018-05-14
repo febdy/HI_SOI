@@ -586,5 +586,15 @@
 		console.log("로그인에 실패");
 		alert("로그인에 실패하였습니다.");
 	}
+	
+	var modifyresult = '${modifyResult}';
+	
+	if(modifyresult == 'Success') {
+		alert("회원정보 수정에 성공하였습니다. 재로그인 해주세요.");
+		location.href='${pageContext.request.contextPath}/';
+	} else if (modifyresult == 'Failed') {
+		alert('회원정보 수정에 실패하였습니다.');
+		history.go(-1);
+	}
 </script>
 </html>

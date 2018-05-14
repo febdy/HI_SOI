@@ -84,7 +84,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/modifyform")
-	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model,HttpSession session) throws Exception{
+	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("modifyform 진입");

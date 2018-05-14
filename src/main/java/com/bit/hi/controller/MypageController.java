@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
@@ -83,7 +84,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/modifyinfo")
-	public String modifyInfo(HttpSession session, @RequestParam("userPwd") String userPwd, Model model) throws Exception{
+	public String modifyInfo(HttpSession session, @RequestParam(value="userPwd", required=false) String userPwd, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if(authUser.getUserPwd().equals(userPwd)) {
 			UserVo userInfo=mypageService.getUserInfo(authUser.getUserId());
@@ -96,25 +97,21 @@ public class MypageController {
 	
 	//수정시 비밀번호 입력 받았을 때만 수정되도록 팝업 띄우기, 수정 후 세션 다시 입력시키기
 	@RequestMapping("/modifyComplete")
-	public void modifyComplete(@ModelAttribute UserVo userVo, HttpServletResponse response, HttpSession session) throws Exception {
+	public String modifyComplete(@ModelAttribute UserVo userVo, HttpSession session, RedirectAttributes reAttr) throws Exception {
 		System.out.println(userVo);
         
-		//String url="";
-		response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-		if(mypageService.modifyComplete(userVo,session)==1) {
+		if(mypageService.modifyComplete(userVo, session)==1) {
 			//url="redirect:/";
 			session.removeAttribute("authUser");
 			session.invalidate();
-			out.println("<script>alert('회원정보 수정에 성공하였습니다. 재로그인 해주세요.'); </script>");
-			out.println("<script> location.href='../../hi' </script>");
-		} else {
 			
-			out.println("<script>alert('회원정보 수정에 실패하였습니다.'); history.go(-1);</script>");
-            out.flush();
+			reAttr.addFlashAttribute("modifyResult", "Success");
+			return "redirect:/";
+		} else {
+			reAttr.addFlashAttribute("modifyResult", "Failed");
+			return "redirect:/";
 		}
-		
-		//return url;
+
 	}
 	
 }

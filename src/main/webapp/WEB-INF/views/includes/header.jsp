@@ -174,7 +174,7 @@
                                     </fieldset>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="password-recovery.html" class="pull-left">(Lost Password?)</a>
+                                    <a href="${pageContext.request.contextPath}/" class="pull-left">(Lost Password?)</a>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" id="btnLogin" class="btn btn-color">Login</button>
                                 </div>

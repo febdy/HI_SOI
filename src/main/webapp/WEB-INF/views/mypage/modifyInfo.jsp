@@ -169,11 +169,13 @@
                                                     </div> -->
                                                     <div class="form-group">
                                                         <label for="fname">이메일 <span class="required">*</span></label>
-                                                        <input type="text" name="userEmail" class="form-control" value="${requestScope.userVo.userEmail}">
+                                                        <div id="chkEmail"></div>
+                                                        <input id="email" type="text" name="userEmail" class="form-control" value="${requestScope.userVo.userEmail}" placeholder="nobody@email.com">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="fname">휴대전화번호 <span class="required">*</span></label>
-                                                        <input type="text" name="userTel" class="form-control" value="${requestScope.userVo.userTel}">
+                                                        <div id="chkTel"></div>
+                                                        <input id="tel" type="text" name="userTel" class="form-control" value="${requestScope.userVo.userTel}" placeholder="000-0000-0000">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="fname">주소 <span class="required">*</span></label>
@@ -246,25 +248,32 @@ $("#nickname").keyup(function() {
 	var nick=$("#nickname").val();
 	console.log(nick);
 	
-	$.ajax({
-		url : "${pageContext.request.contextPath}/mypage/api/nickchkformodify",
-		type : "post",
-		data : {
-			nick:nick
-		},
-		
-		success : function(result) {
-			if(result==true) {
-				$("#chkNickname").text("사용 가능한 닉네임입니다.");
-			} else {
-				$("#chkNickname").html("<font color=\"red\">사용중인 닉네임입니다.</font>");
+	var check = /^.*.{8,15}$/;
+	/* var check = /[^a-zA-Z0-9가-힣].{8,15}$/; */
+	
+	if(check.test(nick)) {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/mypage/api/nickchkformodify",
+			type : "post",
+			data : {
+				nick:nick
+			},
+			
+			success : function(result) {
+				if(result==true) {
+					$("#chkNickname").text("사용 가능한 닉네임입니다.");
+				} else {
+					$("#chkNickname").html("<font color=\"red\">사용중인 닉네임입니다.</font>");
+				}
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
 			}
-		},
-		
-		error : function(XHR, status, error) {
-			console.error(status + " : " + error);
-		}
-	});
+		});
+	} else {
+		$("#chkNickname").html("<font color=\"red\">8~15자 사용 </font>");
+	}
 });
 
 $("#password").keyup(function(){
@@ -274,6 +283,30 @@ $("#password").keyup(function(){
 		$("#chkPassword").html("<font color=\"red\">8~20자의 영문대소문자, 숫자 및 특수문자 사용</font>");
 	} else {
 		$("#chkPassword").text("사용 가능한 비밀번호입니다.");
+	}
+});
+
+//기존에 존재하는 이메일에 대한 처리 해주어야 함.
+$("#email").keyup(function(){
+	var email=$("[name=userEmail]").val();
+	var check = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+	
+	if(!check.test(email)) {
+		$("#chkEmail").html("<font color=\"red\">이메일 양식으로 작성해주세요.</font>");
+	} else {
+		$("#chkEmail").text("사용 가능한 이메일입니다.");
+	}
+});
+
+//기존에 존재하는 휴대폰 번호에 대한 처리 해주어야 함.
+$("#tel").keyup(function(){
+	var tel=$("[name=userTel]").val();
+	var check = /^\d{3}-\d{3,4}-\d{4}$/;
+	
+	if(!check.test(tel)) {
+		$("#chkTel").html("<font color=\"red\">휴대폰 번호 양식이 아닙니다.</font>");
+	} else {
+		$("#chkTel").text("사용 가능한 휴대폰 번호입니다.");
 	}
 });
 </script>

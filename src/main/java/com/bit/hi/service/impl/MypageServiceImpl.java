@@ -3,6 +3,7 @@ package com.bit.hi.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -256,9 +257,12 @@ public class MypageServiceImpl implements MypageService {
 	public int modifyComplete(UserVo userVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if(userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) {
-			//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
-			if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
-				return mypageDao.updateInfo(userVo);
+			if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", userVo.getUserEmail())) {
+				if (Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$", userVo.getUserEmail())) {
+					if (Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", userVo.getUserTel())) { //참이면 수행
+						return mypageDao.updateInfo(userVo);
+					} else return 0;
+				} else return 0;
 			} else return 0;
 		} else return 0;
 	}

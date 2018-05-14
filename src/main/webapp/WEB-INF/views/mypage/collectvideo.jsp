@@ -149,7 +149,7 @@
                                         <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"><img alt="" src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"></a>
                                     </div>
                                     <div class="post-content blog-post-content">
-                                        <h4><a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}">${postVo.postTitle}</a></h4>
+                                        <h4><a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}" style="<c:out value="${bMap.crtPage == idx?'color :#000000':' '}"/>">${postVo.postTitle}</a></h4>
                                     </div>
                                     <div class="meta post-meta">
                                         <div class="post-date post-meta-content">
@@ -178,7 +178,7 @@
 									</c:if>
 						
 									<c:forEach begin="${videoMap.startPageBtnNo}" end="${videoMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/mypage/collect/video?crtPage=${idx}">${idx}</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/collect/video?crtPage=${idx}" style="<c:out value="${videoMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 									</c:forEach>
 						
 									<c:if test="${videoMap.next}"> <!-- 이 값이 false라면 next 실행 x -->

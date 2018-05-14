@@ -148,7 +148,7 @@
                                         <a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}"><img alt="" src="${pageContext.request.contextPath}/upload/${scrapVo.videoThumnail}"></a>
                                     </div>
                                     <div class="post-content blog-post-content">
-                                        <h4><a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}">${scrapVo.postTitle}</a></h4>
+                                        <h4><a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}" style="<c:out value="${bMap.crtPage == idx?'color :#000000':' '}"/>">${scrapVo.postTitle}</a></h4>
                                     </div>
                                     <div class="meta post-meta">
                                         <div class="post-date post-meta-content">
@@ -177,7 +177,7 @@
 						</c:if>
 						
 						<c:forEach begin="${scrapMap.startPageBtnNo}" end="${scrapMap.endPageBtnNo}" var="idx">
-							<li><a href="${pageContext.request.contextPath}/mypage/collect/scrap?crtPage=${idx}">${idx}</a></li>
+							<li><a href="${pageContext.request.contextPath}/mypage/collect/scrap?crtPage=${idx}" style="<c:out value="${scrapMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 						</c:forEach>
 						
 						<c:if test="${scrapMap.next}"> <!-- 이 값이 false라면 next 실행 x -->

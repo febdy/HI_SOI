@@ -303,21 +303,66 @@ where user_nickname='administer';
 select *
 from users;
 
+
 CREATE TABLE qna (
     qna_no NUMBER(30) not null,
     qna_title VARCHAR2(100) not null,
-    qna_content   VARCHAR2(2000) not null,
-    qna_date DATE not null,
-    user_id   VARCHAR2(200) not null,
+    qna_content VARCHAR2(2000) not null,
+    reg_date DATE default sysdate,
+    user_id VARCHAR2(20) not null,
     qna_hit_cnt NUMBER DEFAULT 0,
     PRIMARY KEY(qna_no),
     CONSTRAINT c_qna_fk FOREIGN KEY (user_id)
     REFERENCES users(user_id)
 );
 
+
 CREATE SEQUENCE seq_qna_no
 INCREMENT BY 1
 START WITH 1;
+
+select *
+from qna;
+
+commit;
+
+SELECT rn, 
+					qna_no qnaNo, 
+					qna_title qnaTitle, 
+					qna_hit_cnt qnaHitCnt, 
+					to_char(reg_date, 'YYYY-MM-DD HH:MI') regDate, 
+					user_id userId,
+					user_nickname userNickname
+			FROM(SELECT ROWNUM rn, 
+						qna_no, 
+						qna_title, 
+						qna_hit_cnt, 
+						reg_date, 
+						user_id,
+						user_nickname
+     			 FROM(SELECT qna_no, 
+     			 			qna_title, 
+     			 			qna_hit_cnt, 
+     			 			qn.reg_date, 
+     			 			qn.user_id,
+     			 			us.user_nickname
+          			  FROM qna qn, users us
+          			  WHERE qn.user_id=us.user_id
+          		 	  ORDER BY qna_no desc) o) t
+			WHERE rn > 1
+			AND rn <= 10;
+            
+INSERT INTO qna
+VALUES (seq_qna_no.nextval, 'sd23434f', '12', sysdate, 'realso2', 0);
+INSERT INTO qna
+VALUES (seq_qna_no.nextval, 'sd12323f', '67890', sysdate, 'realso2', 0);
+INSERT INTO qna
+VALUES (seq_qna_no.nextval, 'sdfasfafdf', '67890', sysdate, 'realso2', 0);
+INSERT INTO qna
+VALUES (seq_qna_no.nextval, 'sdfsafsfsfasfsdf', '67890', sysdate, 'realso2', 0);
+
+insert into qna (qna_no, qna_title, qna_content, reg_date, user_id, qna_hit_cnt)
+(select seq_qna_no.nextval, qna_title, qna_content, reg_date, user_id, qna_hit_cnt from qna);
 
 commit;
 

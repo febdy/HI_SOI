@@ -131,9 +131,12 @@
                             
                             
                             <!-- 내용 부분 -->
+                            <div class="container">
+                        		<h2 class="section-title">업로드 면접 진행</h2>
+                        		<p>Bootstrap includes a responsive, mobile first fluid grid system that appropriately scales up to 12 columns as the device or viewport size increases. Grid systems are used for creating page layouts through a series of rows and columns that house your content. To learn more see <a target="_blank" href="http://getbootstrap.com/css/#grid">http://getbootstrap.com/css/#grid</a></p>
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                             <a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
-                                
+                            	<a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
+                                <br/><br/><br/>
                                 	<!-- 진단하기 -->
                                 	<form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										

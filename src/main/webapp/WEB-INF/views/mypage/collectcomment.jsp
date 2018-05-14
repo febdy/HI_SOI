@@ -164,7 +164,7 @@
 									</c:if>
 
 									<c:forEach begin="${commentMap.startPageBtnNo}" end="${commentMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${idx}">${idx}</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/collect/comment?crtPage=${idx}" style="<c:out value="${commentMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 									</c:forEach>
 
 									<c:if test="${commentMap.next}">

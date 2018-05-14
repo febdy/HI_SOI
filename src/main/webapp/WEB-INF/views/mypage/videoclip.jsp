@@ -172,7 +172,7 @@
 									</c:if>
 
 									<c:forEach begin="${myVideoMap.startPageBtnNo}" end="${myVideoMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${idx}">${idx}</a></li>
+										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${idx}" style="<c:out value="${myVideoMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 									</c:forEach>
 
 									<c:if test="${myVideoMap.next}">

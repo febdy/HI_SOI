@@ -87,75 +87,74 @@
                                         <h2 class="form-signin-heading">일반 회원 가입</h2>
                                         <div class="box-content">
                                             <form action="${pageContext.request.contextPath}/user/join" id="signup" method="post">
+                                                <label for="fname"> <span class="required">* 표시는 반드시 작성해주세요.</span></label>
+                                                <br/><br/>
                                                 <div class="row">
+                                                    <div class="form-group">
+                                                        <label for="fname">이름 <span class="required">*</span></label>
+                                                        <input type="text" value="" name="userName" class="form-control" placeholder="이름" style="margin-bottom :5px;">
+                                                       
+                                                    </div>
+                                                
+
+                                                    <div class="form-group">
+                                                        <label for="lname">아이디 <span class="required">*</span></label>
+                                                            <input type="text" id="id" value="" name="userId" class="form-control" placeholder="아이디" style="margin-bottom :5px;">             	
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12" id="chkUserId"></div>
+
+                                                
+                                                    <div class="form-group">
+                                                        <label for="fname">닉네임 <span class="required">*</span></label>
+                                                            <input type="text" id="nickname" value="" name="userNickname" class="form-control" placeholder="닉네임" style="margin-bottom :5px;">
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12" id="chkNickname"></div>
+                                                
+                                                    <div class="form-group">
+                                                        <label for="fname">비밀번호 <span class="required">*</span></label>
+                                                            <input type="password" id="password" name="userPwd" value="" class="form-control" placeholder="비밀번호" style="margin-bottom :5px;">
+                                                    
+                                                    </div>
+                                                    <div class="col-md-12" id="chkPassword"></div>
+                                                
+                                                
+                                                <!-- 비밀번호 재확인  -->
+                                                <!-- <div class="row">
                                                     <div class="form-group">
                                                         <div class="col-md-12">
-                                                            <input type="text" value="" name="userName" class="form-control" placeholder="이름">
+                                                            <input type="password" id="rePassword" name="userPwd" value="" class="form-control" placeholder="비밀번호">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
+                                                    <div class="col-md-12" id="chkRePassword"></div>
+                                                </div> -->
+                                                
+                                                
                                                     <div class="form-group">
-                                                        <div class="col-md-9">
-                                                            <input type="text" id="id" value="" name="userId" class="form-control" placeholder="아이디">             	
-                                                        </div>
-                                                        <div id="chkUserId"></div>
-                                                        <div class="col-md-3 pull-right">
-                                                        	<span class="input-group-btn">
-                                                        		<input type="button" id="btn-checkid" value="중복체크" class="btn btn-color btn-subscribe">
-                                                        	</span>
+                                                        <label for="fname">이메일 <span class="required">*</span></label>
+                                                            <input type="text" name="userEmail" id="email" value="" class="form-control" placeholder="이메일" style="margin-bottom :5px;">
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12" id="chkEmail"></div>
+                                                
+                                                    <div class="form-group">
+                                                        <label for="fname">휴대전화번호 <span class="required">*</span></label>
+                                                            <input type="text" name="userTel" id="tel" value="" class="form-control" placeholder="휴대전화번호" style="margin-bottom :5px;">
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12" id="chkTel"></div>
+                                                
+                                                    <div class="form-group">
+                                                        <label for="fname">주소 <span class="required">*</span></label>
+                                                            <input type="text" value="" name="userAddr" class="form-control" placeholder="주소" style="margin-bottom :5px;">
+                                                        
+                                                    </div>
+                                                	<div class="row">
+                                                    	<div class="col-md-3 pull-right">
+                                                        	<input type="submit" value="가입하기" class="btn btn-color push-bottom" data-loading-text="Loading...">
                                                     	</div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-md-9">
-                                                            <input type="text" id="nickname" value="" name="userNickname" class="form-control" placeholder="닉네임">
-                                                        </div>
-                                                        <div id="chkNickname"></div>
-                                                        <div class="col-md-3 pull-right">
-                                                        	<span class="input-group-btn">
-                                                        		<input type="button" id="btn-checknick" value="중복체크" class="btn btn-color btn-subscribe">
-                                                        	</span>
-                                                    	</div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-md-6">
-                                                            <input type="password" id="password" name="userPwd" value="" class="form-control" placeholder="비밀번호">
-                                                        </div>
-                                                        <div id="chkPassword"></div>
-                                                        <!-- <div class="col-md-6">
-                                                            <input type="password" value="" class="form-control" placeholder="비밀번호 재확인">
-                                                        </div> -->
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" name="userEmail"value="" class="form-control" placeholder="이메일">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" value="" name="userTel" class="form-control" placeholder="휴대전화번호">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input type="text" value="" name="userAddr" class="form-control" placeholder="주소">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3 pull-right">
-                                                        <input type="submit" value="가입하기" class="btn btn-color push-bottom" data-loading-text="Loading...">
-                                                    </div>
+                                                	</div>
                                                 </div>
                                             </form>
                                         </div>
@@ -208,55 +207,69 @@
         <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+</body>    
+   
 <script>
-	$("#btn-checkid").on("click", function() {
+	$("#id").keyup(function() {
 		var id=$("#id").val();
 		console.log(id);
 		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/user/api/idchk",
-			type : "post",
-			data : {
-				id:id
-			},
-			
-			success : function(result) {
-				if(result==true) {
-					$("#chkUserId").text("사용 가능한 아이디입니다.");
-				} else {
-					$("#chkUserId").html("<font color=\"red\">사용중인 아이디입니다.</font>");
+		var check = /^.*.{4,15}$/;
+		
+		if(check.test(id)) {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/user/api/idchk",
+				type : "post",
+				data : {
+					id:id
+				},
+				
+				success : function(result) {
+					if(result==true) {
+						$("#chkUserId").text("사용 가능한 아이디입니다.");
+					} else {
+						$("#chkUserId").html("<font color=\"red\">사용중인 아이디입니다.</font>");
+					}
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
 				}
-			},
-			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
+			});
+		} else {
+			$("#chkUserId").html("<font color=\"red\">4~15자 사용 가능</font>");
+		}
 	});
 	
-	$("#btn-checknick").on("click", function() {
+	$("#nickname").keyup(function() {
 		var nick=$("#nickname").val();
 		console.log(nick);
 		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/user/api/nickchk",
-			type : "post",
-			data : {
-				nick:nick
-			},
-			
-			success : function(result) {
-				if(result==true) {
-					$("#chkNickname").text("사용 가능한 닉네임입니다.");
-				} else {
-					$("#chkNickname").html("<font color=\"red\">사용중인 닉네임입니다.</font>");
+		var check = /^.*.{8,15}$/;
+		
+		if(check.test(nick)) {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/user/api/nickchk",
+				type : "post",
+				data : {
+					nick:nick
+				},
+				
+				success : function(result) {
+					if(result==true) {
+						$("#chkNickname").text("사용 가능한 닉네임입니다.");
+					} else {
+						$("#chkNickname").html("<font color=\"red\">사용중인 닉네임입니다.</font>");
+					}
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
 				}
-			},
-			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		});
+			});
+		} else {
+			$("#chkNickname").html("<font color=\"red\">8~15자 사용 가능</font>");
+		}
 	});
 	
 	$("#password").keyup(function(){
@@ -268,7 +281,31 @@
 			$("#chkPassword").text("사용 가능한 비밀번호입니다.");
 		}
 	});
+	
+	//기존에 존재하는 이메일에 대한 처리 해주어야 함.
+	$("#email").keyup(function(){
+		var email=$("[name=userEmail]").val();
+		var check = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		
+		if(!check.test(email)) {
+			$("#chkEmail").html("<font color=\"red\">이메일 양식으로 작성해주세요.</font>");
+		} else {
+			$("#chkEmail").text("사용 가능한 이메일입니다.");
+		}
+	});
+
+	//기존에 존재하는 휴대폰 번호에 대한 처리 해주어야 함.
+	$("#tel").keyup(function(){
+		var tel=$("[name=userTel]").val();
+		var check = /^\d{3}-\d{3,4}-\d{4}$/;
+		
+		if(!check.test(tel)) {
+			$("#chkTel").html("<font color=\"red\">휴대폰 번호 양식이 아닙니다.</font>");
+		} else {
+			$("#chkTel").text("사용 가능한 휴대폰 번호입니다.");
+		}
+	});
 
 </script>
-</body>
+
 </html>

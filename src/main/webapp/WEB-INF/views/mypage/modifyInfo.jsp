@@ -143,6 +143,8 @@
                                                 <h3>회원 정보 수정</h3>
                                             </div>
                                             <form action="${pageContext.request.contextPath}/mypage/modifyComplete" class="modify-form" method="post">
+                                                <label for="fname"> <span class="required">* 표시는 반드시 작성해주세요.</span></label>
+                                                <br/><br/>
                                                 <div class="row">
                                                     <div class="form-group">
                                                         <label for="fname">이름 <span class="required">*</span></label>
@@ -289,7 +291,7 @@ $("#password").keyup(function(){
 //기존에 존재하는 이메일에 대한 처리 해주어야 함.
 $("#email").keyup(function(){
 	var email=$("[name=userEmail]").val();
-	var check = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
+	var check = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 	
 	if(!check.test(email)) {
 		$("#chkEmail").html("<font color=\"red\">이메일 양식으로 작성해주세요.</font>");

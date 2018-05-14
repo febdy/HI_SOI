@@ -1,5 +1,7 @@
 package com.bit.hi.service.impl;
 
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int join(UserVo userVo) throws Exception{
-		if(userDao.selectUserForId(userVo.getUserId())==null) {
-			if(userDao.selectUserForNick(userVo.getUserNickname())==null) {
-				//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
-				if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
-					return userDao.insertJoin(userVo);
+		if(userDao.selectUserForId(userVo.getUserId())==null) { //기존에 등록된 id인지 체크
+			if(userDao.selectUserForNick(userVo.getUserNickname())==null) { //기존에 등록된 nick인지 체크
+				if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", userVo.getUserPwd())) {
+					if (Pattern.matches("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", userVo.getUserEmail())) {
+						if (Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", userVo.getUserTel())) { //참이면 수행
+							if (userVo.getUserAddr() != "") {
+								return userDao.insertJoin(userVo);
+							} else return 0;
+						} else return 0;
+					} else return 0;
 				} else return 0;
 			} else return 0;
 		} else return 0;

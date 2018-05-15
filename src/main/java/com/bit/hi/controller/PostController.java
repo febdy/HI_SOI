@@ -46,7 +46,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("")) throws Exception{
+	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri) throws Exception{
 		if (postService.getEachPost(postNo)!=null) {
 			PostVo postVo=postService.getEachPost(postNo);
 			model.addAttribute("postVo", postVo);

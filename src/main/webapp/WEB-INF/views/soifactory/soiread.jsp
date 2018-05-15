@@ -267,10 +267,10 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="widget">
-                                	<a href="${pageContext.request.contextPath}/post/soifactorylist" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
+                                	<a href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
 									<c:if test="${authUser.userId==requestScope.postVo.writerId}">
-                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
-                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}&page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -324,6 +324,7 @@
 </body>
 
 <script>
+	var authUser='${sessionScope.authUser}';
 	var page=1;
 	
 	$(document).ready(function() { //페이지의 내용이 로딩되기 이전에 데이터 요청, 화면 켜지자 마자 뿌려주기
@@ -458,55 +459,65 @@
 	
 	//콩 수 증가
 	$("#btnLike").on("click", function(){
-		var postNo = ${postVo.postNo};
-		console.log(postNo);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/post/api/updateLike",
-			type : "post",
-			data : {
-				postNo : postNo
-			},
-
-			dataType : "json", 
-			success : function(soi){
-				console.log(soi);
-				var stat=$("#postSoiCnt").text();
-				stat=stat.split(" ");
-				var num=parseInt(stat);
-				num++;
-				$("#postSoiCnt").text(num+" soybeans");
-			},
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+			location.href='${pageContext.request.contextPath}/';
+		} else {
+			var postNo = ${postVo.postNo};
+			console.log(postNo);
 			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-			
-		});
+			$.ajax({
+				url : "${pageContext.request.contextPath}/post/api/updateLike",
+				type : "post",
+				data : {
+					postNo : postNo
+				},
+	
+				dataType : "json", 
+				success : function(soi){
+					console.log(soi);
+					var stat=$("#postSoiCnt").text();
+					stat=stat.split(" ");
+					var num=parseInt(stat);
+					num++;
+					$("#postSoiCnt").text(num+" soybeans");
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
 	});
 	
 	//스크랩 기능
 	$("#btnScrap").on("click", function(){
-		var postNo = ${postVo.postNo};
-		console.log(postNo);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/post/api/addScrapPost",
-			type : "post",
-			data : {
-				postNo : postNo
-			},
-
-			dataType : "json", 
-			success : function(soi){
-				console.log(soi);
-			},
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+			location.href='${pageContext.request.contextPath}/';
+		} else {
+			var postNo = ${postVo.postNo};
+			console.log(postNo);
 			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-			
-		});
+			$.ajax({
+				url : "${pageContext.request.contextPath}/post/api/addScrapPost",
+				type : "post",
+				data : {
+					postNo : postNo
+				},
+	
+				dataType : "json", 
+				success : function(soi){
+					console.log(soi);
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
 	});
 </script>
 

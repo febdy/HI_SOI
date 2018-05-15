@@ -256,7 +256,7 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int modifyComplete(UserVo userVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		if(userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) { //기존에 등록된 nick인지 체크, 내가 사용하고 있던 nick은 가능
+		if((userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) & Pattern.matches("^[가-힣a-zA-Z0-9]{6,15}$", userVo.getUserNickname())) { //기존에 등록된 nick인지 체크, 내가 사용하고 있던 nick은 가능
 			if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", userVo.getUserPwd())) {
 				if (Pattern.matches("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", userVo.getUserEmail())) {
 					if (Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", userVo.getUserTel())) { //참이면 수행

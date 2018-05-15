@@ -32,11 +32,11 @@ public class PageCriteria {
 		return page;
 	}
 	
-	public int getStartPage() { 
+	public int getStartPage() { //dao에서 사용
 		return (this.page-1)*numPerPage;
 	}
 	
-	public int getEndPage() {
+	public int getEndPage() { //dao에서 사용
 		return (this.page-1)*numPerPage+numPerPage;
 	}
 	

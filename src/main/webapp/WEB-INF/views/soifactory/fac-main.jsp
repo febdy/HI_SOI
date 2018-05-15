@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+9<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -128,20 +128,14 @@
 						<!-- Post Order -->
 						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 							<div class="display">
-								<span><b>Display:</b></span> <a class=" btn-pad"
-									href="${pageContext.request.contextPath}/post/array?latest=selected">
-									<b>최신순</b>
-								</a> <a class=" btn-pad"
-									href="${pageContext.request.contextPath}/post/array?soi=selected">
-									<b>인기(콩)순</b>
-								</a> <a class=" btn-pad"
-									href="${pageContext.request.contextPath}/post/array?view=selected">
-									<b>조회순</b>
-								</a> <a class=" btn-pad"
-									href="${pageContext.request.contextPath}/post/array?comment=selected">
-									<b>댓글순</b>
-								</a>
-
+								<span><b>Display:</b></span>
+	  							<select id="ex_select" onchange="location.href=this.value">
+	  								<option selected>게시글 보기</option>
+	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest">최신순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi">인기(콩)순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view">조회순</option>
+	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment">댓글순</option> 
+	  							</select>
 							</div>
 						</div>
 						<!-- /Post Order -->
@@ -150,7 +144,7 @@
 							<div class="input-group">
 								<form id="search_form" action="${pageContext.request.contextPath}/post/soifactorylist" method="get">
 									<div class="col-md-9">
-									<input type="hidden" name="crtPage" value="${bindMap.crtPage}"> 
+									<input type="hidden" name="page" value="${pagingMaker.cri.page}"> 
 									<input type="text" value="Search Posts" id="kwd" name="kwd" 
 										onfocus="if(this.value=='Search Posts')this.value='';"
 										onblur="if(this.value=='')this.value='Search Posts';"
@@ -176,7 +170,7 @@
 								<div class="products-block">
 									<div class="row product-items">
 										<!-- Product Items -->
-										<c:forEach items="${bindMap.postList}" var="postVo">
+										<c:forEach items="${bindMap}" var="postVo">
 											<div
 												class="col-lg-3 col-md-3 col-sm-3 col-xs-12 product-cols first post-item wow fadeInUp">
 												<div class="product-block">
@@ -187,7 +181,7 @@
 														<!-- Swap image -->
 														<div class="flip">
 															<a
-																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"
+																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}"
 																class="swap-image"> <img
 																src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"
 																title="iPhone 5s 64 GB" alt="iPhone 5s 64 GB"
@@ -196,7 +190,7 @@
 														</div>
 														<!-- /Swap image -->
 														<a
-															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}"
+															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}"
 															class="pav-colorbox btn btn-theme-default cboxElement"><em
 															class="fa fa-plus"></em><span>View Post</span></a>
 													</div>
@@ -204,7 +198,7 @@
 														<div class="left">
 															<h3 class="name">
 																<a
-																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}">${postVo.postTitle}</a>
+																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}">${postVo.postTitle}</a>
 															</h3>
 															<div class="rating">
 																<img
@@ -248,22 +242,22 @@
 				<div class="row">
 					<div class="pagination-centered padding-bottom30">
 						<ul class="pagination">
-							<c:if test="${bindMap.prev}">
+							<c:if test="${pagingMaker.prev}">
 								<!-- 이 값이 false라면 prev 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.startPageBtnNo-1}">«</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}">«</a></li>
 							</c:if>
 
-							<c:forEach begin="${bindMap.startPageBtnNo}"
-								end="${bindMap.endPageBtnNo}" var="idx">
+							<c:forEach begin="${pagingMaker.startPage}"
+								end="${pagingMaker.endPage}" var="idx">
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${idx}" style="<c:out value="${bindMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 							</c:forEach>
 
-							<c:if test="${bindMap.next}">
+							<c:if test="${pagingMaker.next}">
 								<!-- 이 값이 false라면 next 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${bindMap.endPageBtnNo+1}">»</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}">»</a></li>
 							</c:if>
 
 						</ul>

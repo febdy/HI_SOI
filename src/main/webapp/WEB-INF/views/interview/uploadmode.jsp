@@ -222,6 +222,7 @@
 
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script>
+var authUser='${sessionScope.authUser}';
 
 $("#uploadBtn").on("click", function() {
 	//var video=document.getElementByID("listArea");
@@ -229,38 +230,45 @@ $("#uploadBtn").on("click", function() {
 	//	$("#listArea").remove();
 	//}
 	if ($("#file").val()=="") {
-		alert("파일 업로드에 실패하였습니다.");
-		
-	} else {	
-		var formData=new FormData($("#fileUpload")[0]);
-		
-		$.ajax({
-			type : "post",
-			url : "${pageContext.request.contextPath}/interview/api/upload",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(videoNo) {
-				if (videoNo!=0) {
-					alert("파일을 업로드 하였습니다.");
-					
-					selectCorrectVideo(videoNo);
-					
-					$("#file").val("");
-				} else {
-					alert("파일 업로드에 실패하였습니다.");
-				}
-			},
-			error : function(error) {
-				alert("파일 업로드에 실패하였습니다.");
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스입니다.");
+		} else{
+			alert("파일 업로드에 실패하였습니다.");
+		}
+	} else if ($("#file").val()!="") {
+		if (authUser=="") {
+				alert("로그인이 필요한 서비스 입니다.");
 				$("#file").val("");
-				console.log(error);
-				console.log(error.status);
-			}
-		
-		});
+		} else {
+			var formData=new FormData($("#fileUpload")[0]);
+			
+			$.ajax({
+				type : "post",
+				url : "${pageContext.request.contextPath}/interview/api/upload",
+				data : formData,
+				processData : false,
+				contentType : false,
+				success : function(videoNo) {
+					if (videoNo!=0) {
+						alert("파일을 업로드 하였습니다.");
+						
+						selectCorrectVideo(videoNo);
+						
+						$("#file").val("");
+					} else {
+						alert("파일 업로드에 실패하였습니다.");
+					}
+				},
+				error : function(error) {
+					alert("파일 업로드에 실패하였습니다.");
+					$("#file").val("");
+					console.log(error);
+					console.log(error.status);
+				}
+			
+			});
+		}
 	}
-	
 	
 });
 

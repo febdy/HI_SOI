@@ -151,7 +151,7 @@
 								<div class="bottom pull-right">
 									<c:if test="${authUser.userLevel=='administer'}">
 										<input type="submit" class="btn btn-color btn-normal btn-pad" value="수정">
-										<a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}" class="btn btn-color btn-normal btn-pad">취소</a>
+										<a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
 									</c:if>
 								</div>
 								</form>

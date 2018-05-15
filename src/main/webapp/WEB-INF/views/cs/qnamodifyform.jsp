@@ -144,7 +144,7 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">Q&A > 글수정</h4>
-                                <form class="board-form" method="post" action="${pageContext.request.contextPath}/cs/qna/modify?qnaNo=${qnaVo.qnaNo}">
+                                <form class="board-form" method="post" action="${pageContext.request.contextPath}/cs/qna/modify?qnaNo=${qnaVo.qnaNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">
                                 <div>
                                 <label for="lname">제목 </label>
                                 </div>
@@ -160,7 +160,7 @@
 								<div class="bottom pull-right">
 									<c:if test="${authUser.userId==qnaVo.userId}">
 										<input type="submit" class="btn btn-color btn-normal btn-pad" value="수정">
-										<a href="${pageContext.request.contextPath}/cs/qna/view/${qnaVo.qnaNo}" class="btn btn-color btn-normal btn-pad">취소</a>
+										<a href="${pageContext.request.contextPath}/cs/qna/view/${qnaVo.qnaNo}?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
 									</c:if>
 								</div>
 								</form>

@@ -194,4 +194,12 @@
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </body>
+
+<script>
+var authUser='${sessionScope.authUser}';
+
+if (authUser="") {
+	alert("로그인이 필요한 서비스입니다.");
+}
+</script>
 </html>

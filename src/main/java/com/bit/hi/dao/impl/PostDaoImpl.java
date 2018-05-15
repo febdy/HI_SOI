@@ -12,6 +12,8 @@ import com.bit.hi.dao.PostDao;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.util.ArrayCriteria;
+import com.bit.hi.util.PageCriteria;
 
 @Repository
 public class PostDaoImpl implements PostDao {
@@ -53,9 +55,10 @@ public class PostDaoImpl implements PostDao {
 		System.out.println("dao: "+mapCri.toString());
 		return sqlSession.selectList(namespace+"selectPageForPost", mapCri);
 	}
+	
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public int selectTotalCount(String kwd) throws Exception {
+	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForPost", kwd);
 	}
 	
@@ -86,21 +89,18 @@ public class PostDaoImpl implements PostDao {
 	
 	//소이팩토리 정렬
 	@Override
-	public List<PostVo> selectListForArray(int startRnum, int endRnum, String soi, String view, String comment, String latest) throws Exception {
+	public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
-		mapCri.put("soi", soi);
-		mapCri.put("view", view);
-		mapCri.put("comment", comment);
-		mapCri.put("latest", latest);
+		mapCri.put("facArray", arrCri.getFacArray());
 		System.out.println("dao: "+mapCri.toString());
 		return sqlSession.selectList(namespace+"selectListForArray", mapCri);
 	}
 	
 	//소이팩토리 정렬에 사용될 총 포스트 수
 	@Override
-	public int selectTotalCountForArray() throws Exception {
+	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForArray");
 	}
 	

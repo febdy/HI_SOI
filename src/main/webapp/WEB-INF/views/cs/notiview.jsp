@@ -153,8 +153,8 @@
 								
 								<div class="bottom pull-right">
 									<c:if test="${authUser.userLevel=='administer'}">
-										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/notice">글목록</a>
-										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/notice/modifyform?notiNo=${requestScope.csVo.notiNo}">글수정</a>
+										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/notice?notiNo=${csVo.notiNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">글목록</a>
+										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/notice/modifyform?notiNo=${requestScope.csVo.notiNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">글수정</a>
 									</c:if>
 								</div>
 							</div>

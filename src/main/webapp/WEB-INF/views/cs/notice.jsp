@@ -150,7 +150,7 @@
 										<i class="fa fa-search"></i>
 									</button>
 								</span>
-								<input type="hidden" name="crtPage" value="${bMap.crtPage}">
+								<input type="hidden" name="page" value="${pagingMaker.cri.page}">
 							</form>
 						</div>
 					</div>
@@ -178,17 +178,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${bMap.boardList}" var="csVo">
+                                    <c:forEach items="${bMap}" var="csVo">
 										<tr>
 											<td>${csVo.rn}</td>
 											<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
-											<td><a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}">${csVo.notiTitle}</a></td>
+											<td><a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}?&page=${pCri.page}&numPerPage=${pCri.numPerPage}">${csVo.notiTitle}</a></td>
 											<td>${csVo.userLevel}</td>
 											<td>${csVo.notiHitCnt}</td>
 											<td>${csVo.notiDate}</td>
 												<c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
 													<td>
-														<a href="${pageContext.request.contextPath}/cs/notice/delete?notiNo=${csVo.notiNo}" id="deleteBtn" class="del"><i class="fa fa-minus-square-o fa-2x text-danger"></i></a>
+														<a href="${pageContext.request.contextPath}/cs/notice/delete?notiNo=${csVo.notiNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}" id="deleteBtn" class="del"><i class="fa fa-minus-square-o fa-2x text-danger"></i></a>
 													</td>
 												</c:if>
 										</tr>
@@ -198,16 +198,16 @@
                                 
                                 <div class="pagination-centered padding-bottom30">
 									<ul class="pagination">
-									<c:if test="${bMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.startPageBtnNo-1}">«</a></li>
+									<c:if test="${pagingMaker.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+										<li><a href="${pageContext.request.contextPath}/cs/notice?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}">«</a></li>
 									</c:if>
 						
-									<c:forEach begin="${bMap.startPageBtnNo}" end="${bMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${idx}" style="<c:out value="${bMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
+									<c:forEach begin="${pagingMaker.startPage}" end="${pagingMaker.endPage}" var="idx">
+										<li><a href="${pageContext.request.contextPath}/cs/notice?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 									</c:forEach>
 						
-									<c:if test="${bMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.endPageBtnNo+1}">»</a></li>
+									<c:if test="${pagingMaker.next}"> <!-- 이 값이 false라면 next 실행 x -->
+										<li><a href="${pageContext.request.contextPath}/cs/notice?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}">»</a></li>
 									</c:if>
 									</ul>
 								</div>

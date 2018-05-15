@@ -250,8 +250,8 @@ $("#nickname").keyup(function() {
 	var nick=$("#nickname").val();
 	console.log(nick);
 	
-	var check = /^.*.{8,15}$/;
-	/* var check = /[^a-zA-Z0-9가-힣].{8,15}$/; */
+	/* var check = /^.*.{6,15}$/; */
+	var check = /^[가-힣a-zA-Z0-9]{6,15}$/;
 	
 	if(check.test(nick)) {
 		$.ajax({
@@ -274,7 +274,7 @@ $("#nickname").keyup(function() {
 			}
 		});
 	} else {
-		$("#chkNickname").html("<font color=\"red\">8~15자 사용 </font>");
+		$("#chkNickname").html("<font color=\"red\">한글, 영어, 숫자 6~15자 사용 가능(특수문자 및 공백 사용불가) </font>");
 	}
 });
 

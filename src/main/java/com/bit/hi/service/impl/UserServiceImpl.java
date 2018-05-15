@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int join(UserVo userVo) throws Exception{
-		if(userDao.selectUserForId(userVo.getUserId())==null) { //기존에 등록된 id인지 체크
-			if(userDao.selectUserForNick(userVo.getUserNickname())==null) { //기존에 등록된 nick인지 체크
+		if(userDao.selectUserForId(userVo.getUserId())==null & Pattern.matches("^[a-zA-Z0-9]{4,15}$", userVo.getUserId())) { //기존에 등록된 id인지 체크
+			if(userDao.selectUserForNick(userVo.getUserNickname())==null & Pattern.matches("^[가-힣a-zA-Z0-9]{6,15}$", userVo.getUserNickname())) { //기존에 등록된 nick인지 체크
 				if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", userVo.getUserPwd())) {
 					if (Pattern.matches("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", userVo.getUserEmail())) {
 						if (Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", userVo.getUserTel())) { //참이면 수행

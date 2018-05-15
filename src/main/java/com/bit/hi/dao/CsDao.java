@@ -9,7 +9,7 @@ import com.bit.hi.util.PageCriteria;
 public interface CsDao {
 	public List<CsVo> selectList(int startRnum, int endRnum, String kwd) throws Exception;
 	
-	public int selectTotalCount(String kwd) throws Exception;
+	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
 	
 	public int insertNoticeWrite(CsVo csVo) throws Exception;
 	

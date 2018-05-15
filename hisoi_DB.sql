@@ -16,7 +16,7 @@ CREATE TABLE users (
     user_addr   VARCHAR2(200) not null,
     user_tel    VARCHAR2(20) not null,
     user_pwd    VARCHAR2(30) not null,
-    user_nickname   VARCHAR2(20) not null,
+    user_nickname   VARCHAR2(50) not null,
     user_level  VARCHAR2(30) not null,
     reg_date    DATE DEFAULT SYSDATE,
     PRIMARY KEY(user_id)
@@ -28,6 +28,9 @@ from users;
 update users
 set user_pwd=1
 where user_id='realso1';
+
+ALTER TABLE users
+MODIFY (user_nickname VARCHAR2(50));
 
 select user_id userId,
         user_name userName,

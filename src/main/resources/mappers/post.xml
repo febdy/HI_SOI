@@ -200,16 +200,16 @@
                 			and po.video_no=vi.video_no
                             order by 
                             ]]>
-                            	<if test="soi != null">
+                            	<if test="facArray.equals('soi')">
                             		post_soi_cnt
                             	</if>
-                            	<if test="view != null">
+                            	<if test="facArray.equals('view')">
                             		post_hit_cnt
                             	</if>
-                            	<if test="comment != null">
+                            	<if test="facArray.equals('comment')">
                             		post_cmt_cnt
                             	</if>
-                            	<if test="latest != null">
+                            	<if test="facArray.equals('latest')">
                             		post_date
                             	</if>
                             <![CDATA[

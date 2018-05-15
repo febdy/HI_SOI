@@ -1,11 +1,11 @@
 package com.bit.hi.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.util.ArrayCriteria;
+import com.bit.hi.util.PageCriteria;
 
 public interface PostService {
 	
@@ -15,7 +15,11 @@ public interface PostService {
 	
 	public int writePost(PostVo postVo) throws Exception;
 	
-	public Map<String, Object> getAllPostList(Integer crtPage, String kwd) throws Exception;
+	//소이팩토리 뿌려주기
+	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd) throws Exception;
+	
+	//소이팩토리 뿌려주기 위한 갯수 세기
+	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
 	
 	public PostVo getEachPost(int postNo) throws Exception;
 	
@@ -26,7 +30,10 @@ public interface PostService {
 	public int addScrapPost(int postNo, String userId) throws Exception;
 	
 	//소이팩토리 정렬
-	public Map<String, Object> getArray(Integer crtPage, String soi, String view, String comment, String latest) throws Exception;
+	public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception;
+	
+	//정렬을 위한 갯수 세기
+	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;
 	
 	public PostVo getEachPostForModify(int postNo) throws Exception;
 	

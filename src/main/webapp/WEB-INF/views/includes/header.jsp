@@ -67,7 +67,7 @@
                                     <a href="${pageContext.request.contextPath}/"><b>소개</b></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">
+                                    <a href="${pageContext.request.contextPath}/interview/livemode" class="sf-with-ul">
                                    	<b>면접진단</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>
@@ -84,7 +84,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">
+                                    <a href="${pageContext.request.contextPath}/mypage/history" class="sf-with-ul">
                                 	<b>마이페이지</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>
@@ -112,7 +112,7 @@
                                             </span> -->
                                             </a>
                                         </li>
-                                        <li><a href="#" class="sf-with-ul">
+                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/comment" class="sf-with-ul">
                                         	<span class="sf-sub-indicator pull-right">
                                             <i class="fa fa-angle-right"></i>
                                             </span>
@@ -128,7 +128,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">
+                                    <a href="${pageContext.request.contextPath}/cs/notice" class="sf-with-ul">
                                   	<b>고객센터</b>
                                     <span class="sf-sub-indicator">
                                     <i class="fa fa-angle-down "></i>

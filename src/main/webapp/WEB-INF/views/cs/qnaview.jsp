@@ -161,10 +161,10 @@
 								</div>
 								
 								<div class="bottom pull-right">
+									<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna?qnaNo=${qnaVo.qnaNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">글목록</a>
 									<c:if test="${authUser.userId==qnaVo.userId}">
-										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna">글목록</a>
-										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna/modifyform?qnaNo=${requestScope.qnaVo.qnaNo}">글수정</a>
-										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna/delete?qnaNo=${qnaVo.qnaNo}">글삭제</a>
+										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna/modifyform?qnaNo=${requestScope.qnaVo.qnaNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">글수정</a>
+										<a class="btn btn-color btn-normal btn-pad" href="${pageContext.request.contextPath}/cs/qna/delete?qnaNo=${qnaVo.qnaNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">글삭제</a>
 
 									</c:if>
 								</div>

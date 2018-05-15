@@ -158,7 +158,7 @@
 													<i class="fa fa-search"></i>
 												</button>
 											</span>
-											<input type="hidden" name="crtPage" value="${pagingMaker.cri.page}">
+											<input type="hidden" name="page" value="${pagingMaker.cri.page}">
 										</form>
 									</div>
 								</div>
@@ -223,7 +223,9 @@
 									
 								<div class="pull-right">
 									<div class="bottom">
+									<c:if test="${not empty sessionScope.authUser}">
 										<a href="${pageContext.request.contextPath}/cs/qna/write" id="new-book"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+									</c:if>
 									</div>
 								</div>
 							</div>

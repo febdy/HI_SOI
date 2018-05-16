@@ -1,9 +1,7 @@
 package com.bit.hi.controller;
 
-import java.io.PrintWriter;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -131,10 +131,10 @@
 								<span><b>Display:</b></span>
 	  							<select id="ex_select" onchange="location.href=this.value">
 	  								<option selected>게시글 보기</option>
-	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest">최신순</option> 
-	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi">인기(콩)순</option> 
-	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view">조회순</option>
-	  								<option value="${pageContext.request.contextPath}/post/array?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment">댓글순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest">최신순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi">인기(콩)순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view">조회순</option>
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment">댓글순</option> 
 	  							</select>
 							</div>
 						</div>
@@ -181,7 +181,7 @@
 														<!-- Swap image -->
 														<div class="flip">
 															<a
-																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}"
+																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}"
 																class="swap-image"> <img
 																src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"
 																title="iPhone 5s 64 GB" alt="iPhone 5s 64 GB"
@@ -190,7 +190,7 @@
 														</div>
 														<!-- /Swap image -->
 														<a
-															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}"
+															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}"
 															class="pav-colorbox btn btn-theme-default cboxElement"><em
 															class="fa fa-plus"></em><span>View Post</span></a>
 													</div>
@@ -198,7 +198,7 @@
 														<div class="left">
 															<h3 class="name">
 																<a
-																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}">${postVo.postTitle}</a>
+																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">${postVo.postTitle}</a>
 															</h3>
 															<div class="rating">
 																<img
@@ -245,19 +245,19 @@
 							<c:if test="${pagingMaker.prev}">
 								<!-- 이 값이 false라면 prev 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}">«</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">«</a></li>
 							</c:if>
 
 							<c:forEach begin="${pagingMaker.startPage}"
 								end="${pagingMaker.endPage}" var="idx">
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 							</c:forEach>
 
 							<c:if test="${pagingMaker.next}">
 								<!-- 이 값이 false라면 next 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}">»</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">»</a></li>
 							</c:if>
 
 						</ul>

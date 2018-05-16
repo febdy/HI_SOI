@@ -182,13 +182,13 @@
 										<tr>
 											<td>${csVo.rn}</td>
 											<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
-											<td><a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}?&page=${pCri.page}&numPerPage=${pCri.numPerPage}">${csVo.notiTitle}</a></td>
+											<td><a href="${pageContext.request.contextPath}/cs/notice/view/${csVo.notiNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}">${csVo.notiTitle}</a></td>
 											<td>${csVo.userLevel}</td>
 											<td>${csVo.notiHitCnt}</td>
 											<td>${csVo.notiDate}</td>
 												<c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
 													<td>
-														<a href="${pageContext.request.contextPath}/cs/notice/delete?notiNo=${csVo.notiNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}" id="deleteBtn" class="del"><i class="fa fa-minus-square-o fa-2x text-danger"></i></a>
+														<a href="${pageContext.request.contextPath}/cs/notice/delete?notiNo=${csVo.notiNo}&page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" id="deleteBtn" class="del"><i class="fa fa-minus-square-o fa-2x text-danger"></i></a>
 													</td>
 												</c:if>
 										</tr>

@@ -18,7 +18,7 @@ public interface PostDao {
 	public int insertWritePost(PostVo postVo) throws Exception;
 	
 	//소이팩토리 리스트 뿌려주기
-	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) throws Exception;
+	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd, ArrayCriteria arrCri) throws Exception;
 	
 	//소이팩토리 리스트 뿌려주기
 	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
@@ -34,10 +34,10 @@ public interface PostDao {
 	public int insertScrapPost(ScrapVo scrapVo) throws Exception;
 	
 	//소이팩토리 정렬
-	public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception;
+	/*public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception;
 	
 	//소이팩토리 정렬에 사용될 총 포스트 수
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;
+	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;*/
 	
 	public PostVo selectEachPostForModify(int postNo) throws Exception;
 	

@@ -32,25 +32,27 @@ public class PostController {
 	@RequestMapping(value="/soifactorylist")
 	public String soiFactoryList(PageCriteria pCri, ArrayCriteria arrCri,
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) throws Exception{
-		
+
 		pCri.setNumPerPage(12);
-		model.addAttribute("bindMap", postService.getAllPostList(pCri, kwd));
+		model.addAttribute("bindMap", postService.getAllPostList(pCri, kwd, arrCri));
 		
 		PagingMaker pagingMaker=new PagingMaker();
 		pagingMaker.setCri(pCri);
-		pagingMaker.setTotalData(postService.selectTotalCount(pCri, kwd)); //검색어 존재하면 kwd로 해서 sql에서 가져오기
+		pagingMaker.setTotalData(postService.selectTotalCount(pCri, kwd));
 		
 		model.addAttribute("pagingMaker", pagingMaker);
+		model.addAttribute("arrCri", arrCri);
 		
 		return "soifactory/fac-main";
 	}
 	
 	@RequestMapping(value="/soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri) throws Exception{
+	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
 		if (postService.getEachPost(postNo)!=null) {
 			PostVo postVo=postService.getEachPost(postNo);
 			model.addAttribute("postVo", postVo);
 			model.addAttribute("ctrl","\r\n");
+			System.out.println("----------------------arrCri 4:"+arrCri);
 			return "soifactory/soiread";
 		} else {
 			return "redirect:/post/soifactorylist";
@@ -83,16 +85,17 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soidelete")
-	public String soiDelete(@RequestParam("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, RedirectAttributes reAttr) throws Exception{
+	public String soiDelete(@RequestParam("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, RedirectAttributes reAttr) throws Exception{
 		System.out.println(postNo);
 		postService.deletePost(postNo);
 		
 		reAttr.addAttribute("page", pCri.getPage());
 		reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
+		reAttr.addAttribute("facArray", arrCri.getFacArray());
 		return "redirect:/post/soifactorylist";
 	}
 	
-	@RequestMapping(value="/array")
+	/*@RequestMapping(value="/array")
 	public String array(PageCriteria pCri, Model model, @ModelAttribute ArrayCriteria arrCri, String kwd) throws Exception{
 
 		pCri.setNumPerPage(12);
@@ -104,10 +107,10 @@ public class PostController {
 		
 		model.addAttribute("pagingMaker", pagingMaker);
 		return "soifactory/fac-main";
-	}
+	}*/
 	
 	@RequestMapping(value="/soimodifyform")
-	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, @ModelAttribute("pCri") PageCriteria pCri, Model model, HttpSession session) throws Exception{
+	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, Model model, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -123,7 +126,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soimodify")
-	public String soiModify(@ModelAttribute PostVo postVo, @ModelAttribute("pCri") PageCriteria pCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
+	public String soiModify(@ModelAttribute PostVo postVo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -133,6 +136,7 @@ public class PostController {
 			
 			reAttr.addAttribute("page", pCri.getPage());
 			reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
+			reAttr.addAttribute("facArray", arrCri.getFacArray());
 			url="redirect:/post/soiread/"+postNo;
 		} else {
 			url="redirect:/post/soifactorylist";

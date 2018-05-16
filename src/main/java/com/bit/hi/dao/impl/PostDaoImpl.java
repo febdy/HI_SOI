@@ -47,11 +47,12 @@ public class PostDaoImpl implements PostDao {
 	
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd) throws Exception {
+	public List<PostVo> selectAllPostList(int startRnum, int endRnum, String kwd, ArrayCriteria arrCri) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
 		mapCri.put("endRnum", endRnum);
 		mapCri.put("kwd", kwd);
+		mapCri.put("facArray", arrCri.getFacArray());
 		System.out.println("dao: "+mapCri.toString());
 		return sqlSession.selectList(namespace+"selectPageForPost", mapCri);
 	}
@@ -88,7 +89,7 @@ public class PostDaoImpl implements PostDao {
 	}
 	
 	//소이팩토리 정렬
-	@Override
+	/*@Override
 	public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception {
 		Map<String, Object> mapCri=new HashMap<String, Object>();
 		mapCri.put("startRnum", startRnum);
@@ -102,7 +103,7 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"selectTotalCountForArray");
-	}
+	}*/
 	
 	@Override
 	public PostVo selectEachPostForModify(int postNo) throws Exception {

@@ -135,7 +135,7 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">고객센터 > 글수정</h4>
-                                <form class="board-form" method="post" action="${pageContext.request.contextPath}/cs/notice/modify?notiNo=${csVo.notiNo}">
+                                <form class="board-form" method="post" action="${pageContext.request.contextPath}/cs/notice/modify?notiNo=${csVo.notiNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}">
                                 <div>
                                 <label for="lname">제목 </label>
                                 </div>

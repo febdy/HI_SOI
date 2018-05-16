@@ -9,7 +9,7 @@
 		</selectKey>
 		<![CDATA[
 			insert into video
-			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, '0', '교정선 받기', '0')
+			values (#{videoNo}, #{userId}, #{videoOriginName}, #{videoSaveName}, #{videoExName}, #{videoPath}, #{videoSize}, sysdate, #{videoThumnail}, '교정선 받기', '0')
 		]]>
 	</insert>
 

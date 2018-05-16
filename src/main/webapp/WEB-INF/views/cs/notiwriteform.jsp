@@ -147,6 +147,7 @@
                                     </div>
                                 </div>
 								</form>
+								<a href="${pageContext.request.contextPath}/cs/qna?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
 							</div>
                         </div>
                		</div>

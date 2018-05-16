@@ -120,7 +120,7 @@
                             <!-- 내용 부분 -->
                             <div class="col-md-offset-2 posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">소이팩토리 > 영상보기 > 수정하기</h4>
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/post/soimodify?postNo=${postVo.postNo}&writerId=${postVo.writerId}" method="post">
+                                <form class="form-horizontal" action="${pageContext.request.contextPath}/post/soimodify?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${pCri.page}&numPerPage=${pCri.numPerPage}&facArray=${arrCri.facArray}" method="post">
                        				<div class="well">
                        					<input type="text" class="form-control" name="postTitle" value="${postVo.postTitle}"><br>
                                 		<textarea class="form-control" rows="4" name="postContent">${postVo.postContent}</textarea>
@@ -144,7 +144,7 @@
                                 
 									<div class="row pull-right">
                                         <input type="submit" value="수정 완료" class="btn btn-color btn-normal btn-pad">
-                                        <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}" class="btn btn-color btn-normal btn-pad">취소</a>
+                                        <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pCri.page}&numPerPage=${pCri.numPerPage}&facArray=${arrCri.facArray}" class="btn btn-color btn-normal btn-pad">취소</a>
                                		</div>
 								</form>
 							</div>

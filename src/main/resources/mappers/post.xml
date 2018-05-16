@@ -11,7 +11,7 @@
 	</insert>
 	
 	<!-- 소이팩토리 메인 전체 영상 리스트 뿌려주기 -->
-	<select id="selectAllPostList" resultType="PostVo">
+	<!-- <select id="selectAllPostList" resultType="PostVo">
 		<![CDATA[
 			select post_no postNo,
 					writer_id writerId,
@@ -29,7 +29,7 @@
 			from post po, video vi
 			where po.video_no=vi.video_no
 		]]>
-	</select>
+	</select> -->
 	
 	<!-- 각 포스트 클릭시 정보 뿌리기 -->
 	<select id="selectEachPost" parameterType="int" resultType="PostVo">
@@ -143,7 +143,22 @@
                 				and post_title like '%'||#{kwd}||'%'
                 			</if>
                 			<![CDATA[
-                			order by post_no desc) o) t
+                			order by 
+                			]]>
+                            	<if test="facArray.equals('soi')">
+                            		post_soi_cnt
+                            	</if>
+                            	<if test="facArray.equals('view')">
+                            		post_hit_cnt
+                            	</if>
+                            	<if test="facArray.equals('comment')">
+                            		post_cmt_cnt
+                            	</if>
+                            	<if test="facArray.equals('latest')">
+                            		post_date
+                            	</if>
+                            <![CDATA[
+                            desc, post_no desc) o) t
 			where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
@@ -164,7 +179,7 @@
 	</select>
 	
 	<!-- 소이팩토리 정렬 -->
-	<select id="selectListForArray" parameterType="map" resultType="PostVo">
+	<!-- <select id="selectListForArray" parameterType="map" resultType="PostVo">
 		<![CDATA[
 			select rn,
        				post_no postNo,
@@ -217,15 +232,15 @@
             where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]>
-	</select>
+	</select> -->
 	
 	<!-- 정렬에 사용할 총 포스트 수 -->
-	<select id="selectTotalCountForArray" resultType="int">
+	<!-- <select id="selectTotalCountForArray" resultType="int">
 		<![CDATA[
 			select count(*)
 			from post
 		]]>
-	</select>
+	</select> -->
 	
 	<!-- 글수정창을 위한 값 뿌려주기 -->
 	<select id="selectEachPostForModify" parameterType="int" resultType="PostVo">

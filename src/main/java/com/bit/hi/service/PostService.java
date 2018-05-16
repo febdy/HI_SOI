@@ -16,7 +16,7 @@ public interface PostService {
 	public int writePost(PostVo postVo) throws Exception;
 	
 	//소이팩토리 뿌려주기
-	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd) throws Exception;
+	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd, ArrayCriteria arrCri) throws Exception;
 	
 	//소이팩토리 뿌려주기 위한 갯수 세기
 	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
@@ -30,10 +30,10 @@ public interface PostService {
 	public int addScrapPost(int postNo, String userId) throws Exception;
 	
 	//소이팩토리 정렬
-	public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception;
+	/*public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception;
 	
 	//정렬을 위한 갯수 세기
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;
+	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;*/
 	
 	public PostVo getEachPostForModify(int postNo) throws Exception;
 	

@@ -1,11 +1,6 @@
 package com.bit.hi.service.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Iterator;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +13,7 @@ import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.VideoService;
 import com.bit.hi.util.ExtractImage;
+import com.bit.hi.util.UploadCriteria;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -37,72 +33,34 @@ public class VideoServiceImpl implements VideoService {
 		MultipartFile mFile=file.getFile(uploadFile);
 
 		if (!mFile.isEmpty()) {
-			String saveDir = "C:\\javaStudy\\upload"; // 서버에 저장할 공간 만들기(저장 위치)
+			UploadCriteria upCri=new UploadCriteria();
+			upCri.upload(videoVo, mFile);
 			
-			// 1-파일정보 수집
-			// 원래 파일이름
-			String orgName = mFile.getOriginalFilename();
-			System.out.println(orgName);
-
-			// 확장자(본래이름에서 잘라내기)
-			String exName = mFile.getOriginalFilename().substring(mFile.getOriginalFilename().lastIndexOf("."));
-			System.out.println(exName);
-
-			// 고유한 저장 파일이름(서버에 저장될 이름으로, 유일해야함) - 32글자+확장자
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-			System.out.println(saveName);
-
-			// 파일 위치(path)
-			String videoPath = saveDir + "\\" + saveName;
-			System.out.println(videoPath);
-
-			// 파일 사이즈
-			long videoSize = mFile.getSize();
-			System.out.println(videoSize);
+			System.out.println(upCri.toString());
 			
-			//파일 재생시간
-			
-					
 			//썸네일 값 추출되면 videoVo에 담아서, insertupload로 서버에 저장
-			videoVo.setVideoOriginName(orgName);
-			videoVo.setVideoSaveName(saveName);
-			videoVo.setVideoExName(exName);
-			videoVo.setVideoPath(videoPath);
-			videoVo.setVideoSize(videoSize);
-
-			// 2-파일 카피
-			try {
-				byte[] fileData = mFile.getBytes();
-				OutputStream out = new FileOutputStream(saveDir + "/" + saveName); 
-				
-				BufferedOutputStream bout = new BufferedOutputStream(out);
-				
-				bout.write(fileData);
-
-				if (bout != null) {
-					bout.close();
-				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
+			System.out.println(upCri.toString());
 			System.out.println(videoVo.toString());
 			
 			//영상 저장
-			videoDao.insertUpload(videoVo);
 			
 			//썸네일 생성
-			String videoThumnail=ExtractImage.extractImage(saveDir, saveName);
+			String videoThumnail=ExtractImage.extractImage(videoVo.getSaveDir(), videoVo.getVideoSaveName());
 			System.out.println(videoThumnail);
+			videoVo.setVideoThumnail(videoThumnail);
+			
+			videoDao.insertUpload(videoVo);
+			
 			//변수에 썸네일 추가
-			videoDao.updateThumnail(saveName, videoThumnail);
+			//videoDao.updateThumnail(videoVo.getVideoSaveName(), videoThumnail);
 			
-			//받아온 비디오 정보 몽고db에 넣기
 			MongoVo mongoVo=new MongoVo();
-			mongoVo.setVideoOriginName(orgName);
-			mongoVo.setVideoPath(videoPath);
-			mongoVo.setVideoSize(videoSize);
+			mongoVo.setVideoOriginName(videoVo.getVideoOriginName());
+			mongoVo.setVideoPath(videoVo.getVideoPath());
+			mongoVo.setVideoSize(videoVo.getVideoSize());
 			
+			//MongoDB 저장
 			videoDao.mongoSave(mongoVo);
 			
 			System.out.println(videoVo.getVideoNo());

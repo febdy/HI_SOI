@@ -41,8 +41,8 @@ public class PostServiceImpl implements PostService {
 	
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd) throws Exception{
-		return postDao.selectAllPostList(pCri.getStartPage(), pCri.getEndPage(), kwd);
+	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd, ArrayCriteria arrCri) throws Exception{
+		return postDao.selectAllPostList(pCri.getStartPage(), pCri.getEndPage(), kwd, arrCri);
 	}
 	
 	//소이리스트 갯수 세기
@@ -76,7 +76,7 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	//소이팩토리 정렬
-	@Override
+	/*@Override
 	public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception{
 
 		return postDao.selectListForArray(pCri.getStartPage(), pCri.getEndPage(), arrCri);
@@ -84,9 +84,10 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	@Override
 	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception {
 		return postDao.selectTotalCountForArray(pCri, kwd);
-	}
+	}*/
 	
 	@Override
 	public PostVo getEachPostForModify(int postNo) throws Exception{

@@ -267,10 +267,10 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="widget">
-                                	<a href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
+                                	<a href="${pageContext.request.contextPath}/post/soifactorylist?page=${pCri.page}&numPerPage=${pCri.numPerPage}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
 									<c:if test="${authUser.userId==requestScope.postVo.writerId}">
-                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
-                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}&page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${pCri.page}&numPerPage=${pCri.numPerPage}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}&page=${pCri.page}&numPerPage=${pCri.numPerPage}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
                                     </c:if>
                                 </div>
                             </div>

@@ -18,6 +18,7 @@ import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.VideoService;
 import com.bit.hi.util.ExtractImage;
+import com.bit.hi.util.SocketConnection;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -106,6 +107,11 @@ public class VideoServiceImpl implements VideoService {
 			videoDao.mongoSave(mongoVo);
 			
 			System.out.println(videoVo.getVideoNo());
+			
+			ConnectToFlask(videoVo);
+			
+			System.out.println("sent video information to python");
+			
 			return videoVo.getVideoNo();
 		}
 		
@@ -116,4 +122,10 @@ public class VideoServiceImpl implements VideoService {
 	public VideoVo getCorrectedVideo(int videoNo) throws Exception{
 		return videoDao.selectCorrectedVideo(videoNo);
 	}
+	
+	private void ConnectToFlask(VideoVo videoVo) throws IOException {
+		SocketConnection fc = new SocketConnection("localhost", 9999);
+		fc.sendInfo(videoVo);
+	}
+	
 }

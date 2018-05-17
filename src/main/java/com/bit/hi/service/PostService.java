@@ -28,13 +28,7 @@ public interface PostService {
 	public int deletePost(int postNo) throws Exception;
 	
 	public int addScrapPost(int postNo, String userId) throws Exception;
-	
-	//소이팩토리 정렬
-	/*public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception;
-	
-	//정렬을 위한 갯수 세기
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;*/
-	
+
 	public PostVo getEachPostForModify(int postNo) throws Exception;
 	
 	public int updateEachPostForModify(PostVo postVo) throws Exception;

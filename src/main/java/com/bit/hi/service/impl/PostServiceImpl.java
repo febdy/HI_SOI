@@ -75,20 +75,6 @@ public class PostServiceImpl implements PostService {
 		return postDao.insertScrapPost(scrapVo);
 	}
 	
-	//소이팩토리 정렬
-	/*@Override
-	public List<PostVo> getArray(PageCriteria pCri, ArrayCriteria arrCri) throws Exception{
-
-		return postDao.selectListForArray(pCri.getStartPage(), pCri.getEndPage(), arrCri);
-
-		
-	}
-	
-	@Override
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception {
-		return postDao.selectTotalCountForArray(pCri, kwd);
-	}*/
-	
 	@Override
 	public PostVo getEachPostForModify(int postNo) throws Exception{
 		return postDao.selectEachPostForModify(postNo);

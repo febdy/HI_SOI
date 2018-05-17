@@ -83,4 +83,49 @@
             </footer>
             <!-- /Footer -->
             
-        
+            <!-- Scroll To Top --> 
+            <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
+        </div>
+        <!-- /Wrap -->
+            
+		<!-- The Scripts -->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-1.0.0.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.plugins.min.js"></script> 
+        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.parallax.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.wait.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/fappear.js"></script> 
+        <script src="${pageContext.request.contextPath}/resources/js/modernizr-2.6.2.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/superfish.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/tweetMachine.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/tytabs.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.gmap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jflickrfeed.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/imagesloaded.pkgd.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/waypoints.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/wow.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.fitvids.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script> 
+        <!-- <script src="${pageContext.request.contextPath}/resources/js/sparkline-chart.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/jquery.sparkline.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/gritter/js/jquery.gritter.js"></script>
+    	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/gritter-conf.js"></script> -->
+                
+<script>
+$("#btnClose").on("click", function(){
+	$("#userid").val("");
+	$("#userpw").val("");
+})
+</script>

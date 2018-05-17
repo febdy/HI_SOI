@@ -6,9 +6,7 @@ import com.bit.hi.mongo.vo.MongoVo;
 public interface VideoDao {
 	
 	public int insertUpload(VideoVo videoVo) throws Exception;
-	
-	public int updateThumnail(String saveName, String videoThumnail) throws Exception;
-	
+
 	public void mongoSave(MongoVo mongoVo) throws Exception;
 	
 	public VideoVo selectCorrectedVideo(int videoNo) throws Exception;

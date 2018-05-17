@@ -10,99 +10,6 @@
 		]]>
 	</insert>
 	
-	<!-- 소이팩토리 메인 전체 영상 리스트 뿌려주기 -->
-	<!-- <select id="selectAllPostList" resultType="PostVo">
-		<![CDATA[
-			select post_no postNo,
-					writer_id writerId,
-					video_no videoNo,
-					post_title postTitle,
-					post_content postContent,
-					post_date postDate,
-					post_soi_cnt postSoiCnt,
-					post_cmt_cnt postCmtCnt,
-					post_hit_cnt postHitCnt,
-					post_hide_face postHideFace,
-					post_sharable postSharable,
-					post_anal_result postAnalResult,
-					video_thumnail videoThumnail
-			from post po, video vi
-			where po.video_no=vi.video_no
-		]]>
-	</select> -->
-	
-	<!-- 각 포스트 클릭시 정보 뿌리기 -->
-	<select id="selectEachPost" parameterType="int" resultType="PostVo">
-		<![CDATA[
-			select post_no postNo,
-					po.writer_id writerId,
-					po.video_no videoNo,
-					post_title postTitle,
-					post_content postContent,
-					to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-					post_soi_cnt postSoiCnt,
-					post_cmt_cnt postCmtCnt,
-					post_hit_cnt postHitCnt,
-					post_hide_face postHideFace,
-					post_sharable postSharable,
-					post_anal_result postAnalResult,
-					video_origin_name videoOriginName,
-					video_save_name videoSaveName,
-					video_ex_name videoExName,
-					video_path videoPath,
-					video_size videoSize,
-					video_date videoDate,
-					video_thumnail videoThumnail,
-					video_correct_line videoCorrectLine
-			from post po, video vi
-			where po.video_no=vi.video_no
-			and po.post_no=#{postNo}
-		]]>
-	</select>
-	
-	<!-- 좋아요(콩) -->
-	<update id="updateLike" parameterType="int">
-		<![CDATA[
-			update post
-			set post_soi_cnt=post_soi_cnt+1
-			where post_no=#{postNo}
-		]]>
-	</update>
-	
-	<!-- 조회수 -->
-	<update id="postUpdateHit" parameterType="int">
-		<![CDATA[
-			update post
-			set post_hit_cnt=post_hit_cnt+1
-			where post_no=#{postNo}
-		]]>
-	</update>
-	
-	<!-- 댓글수 -->
-	<update id="updateCmtCnt" parameterType="CommentVo">
-		<![CDATA[
-			update post
-			set post_cmt_cnt=post_cmt_cnt+1
-			where post_no=#{postNo}
-		]]>
-	</update>
-	
-	<!-- 소이팩토리 글삭제 -->
-	<delete id="deletePost" parameterType="int">
-		<![CDATA[
-			delete from post
-			where post_no=#{postNo}
-		]]>
-	</delete>
-	
-	<!-- 소이팩토리 스크랩(별) 클릭시 -->
-	<insert id="insertScrapPost" parameterType="ScrapVo">
-		<![CDATA[
-			insert into scrap(post_no, user_id, scrap_date)
-			values (#{postNo}, #{userId}, sysdate)
-		]]>
-	</insert>
-	
 	<!-- 소이팩토리 페이징 -->
 	<select id="selectPageForPost" parameterType="map" resultType="PostVo">
 		<![CDATA[
@@ -178,69 +85,77 @@
 		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
 	</select>
 	
-	<!-- 소이팩토리 정렬 -->
-	<!-- <select id="selectListForArray" parameterType="map" resultType="PostVo">
+	<!-- 각 포스트 클릭시 정보 뿌리기 -->
+	<select id="selectEachPost" parameterType="int" resultType="PostVo">
 		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                            order by 
-                            ]]>
-                            	<if test="facArray.equals('soi')">
-                            		post_soi_cnt
-                            	</if>
-                            	<if test="facArray.equals('view')">
-                            		post_hit_cnt
-                            	</if>
-                            	<if test="facArray.equals('comment')">
-                            		post_cmt_cnt
-                            	</if>
-                            	<if test="facArray.equals('latest')">
-                            		post_date
-                            	</if>
-                            <![CDATA[
-                            desc, post_no desc) o) t
-            where rn > #{startRnum}
-			and rn <= #{endRnum}
+			select post_no postNo,
+					po.writer_id writerId,
+					po.video_no videoNo,
+					post_title postTitle,
+					post_content postContent,
+					to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
+					post_soi_cnt postSoiCnt,
+					post_cmt_cnt postCmtCnt,
+					post_hit_cnt postHitCnt,
+					post_hide_face postHideFace,
+					post_sharable postSharable,
+					post_anal_result postAnalResult,
+					video_origin_name videoOriginName,
+					video_save_name videoSaveName,
+					video_ex_name videoExName,
+					video_path videoPath,
+					video_size videoSize,
+					video_date videoDate,
+					video_thumnail videoThumnail,
+					video_correct_line videoCorrectLine
+			from post po, video vi
+			where po.video_no=vi.video_no
+			and po.post_no=#{postNo}
 		]]>
-	</select> -->
+	</select>
 	
-	<!-- 정렬에 사용할 총 포스트 수 -->
-	<!-- <select id="selectTotalCountForArray" resultType="int">
+	<!-- 좋아요(콩) -->
+	<update id="updateLike" parameterType="int">
 		<![CDATA[
-			select count(*)
-			from post
+			update post
+			set post_soi_cnt=post_soi_cnt+1
+			where post_no=#{postNo}
 		]]>
-	</select> -->
+	</update>
+	
+	<!-- 조회수 -->
+	<update id="postUpdateHit" parameterType="int">
+		<![CDATA[
+			update post
+			set post_hit_cnt=post_hit_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<!-- 댓글수 -->
+	<update id="updateCmtCnt" parameterType="CommentVo">
+		<![CDATA[
+			update post
+			set post_cmt_cnt=post_cmt_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<!-- 소이팩토리 글삭제 -->
+	<delete id="deletePost" parameterType="int">
+		<![CDATA[
+			delete from post
+			where post_no=#{postNo}
+		]]>
+	</delete>
+	
+	<!-- 소이팩토리 스크랩(별) 클릭시 -->
+	<insert id="insertScrapPost" parameterType="ScrapVo">
+		<![CDATA[
+			insert into scrap(post_no, user_id, scrap_date)
+			values (#{postNo}, #{userId}, sysdate)
+		]]>
+	</insert>
 	
 	<!-- 글수정창을 위한 값 뿌려주기 -->
 	<select id="selectEachPostForModify" parameterType="int" resultType="PostVo">

@@ -32,4 +32,9 @@ public class CommentServiceImpl implements CommentService {
 	public CommentVo apiGetComment(int cmtNo) throws Exception{
 		return commentDao.apiSelectComment(cmtNo);
 	}
+	
+	@Override
+	public int apiDeleteComment(int cmtNo) throws Exception{
+		return commentDao.apiDeleteComment(cmtNo);
+	}
 }

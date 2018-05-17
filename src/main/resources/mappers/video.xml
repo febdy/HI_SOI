@@ -77,14 +77,6 @@
 		]]>
 	</select>
 	
-	<update id="updateThumnail" parameterType="VideoVo">
-		<![CDATA[
-			update video
-			set video_thumnail=#{videoThumnail}
-			where video_save_name=#{videoSaveName}
-		]]>
-	</update>
-	
 	<select id="selectCorrectedVideo" parameterType="int" resultType="VideoVo">
 		<![CDATA[
 			select video_no videoNo,

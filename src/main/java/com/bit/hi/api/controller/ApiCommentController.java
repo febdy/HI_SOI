@@ -40,6 +40,7 @@ public class ApiCommentController {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		commentVo.setUserId(authUser.getUserId());
 		commentService.apiAddComment(commentVo);
+		System.out.println(commentVo);
 		return commentVo;
 	}
 	
@@ -51,5 +52,12 @@ public class ApiCommentController {
 		CommentVo cmtVo=commentService.apiGetComment(cmtNo);
 		System.out.println(cmtVo);
 		return cmtVo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/deleteComment")
+	public int apiDeleteCmt(@RequestParam("cmtNo") int cmtNo) throws Exception{
+		System.out.println("apiDelete 진입");
+		return commentService.apiDeleteComment(cmtNo);
 	}
 }

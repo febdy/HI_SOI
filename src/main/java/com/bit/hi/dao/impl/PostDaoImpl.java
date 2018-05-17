@@ -88,23 +88,6 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.insert(namespace+"insertScrapPost", scrapVo);
 	}
 	
-	//소이팩토리 정렬
-	/*@Override
-	public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception {
-		Map<String, Object> mapCri=new HashMap<String, Object>();
-		mapCri.put("startRnum", startRnum);
-		mapCri.put("endRnum", endRnum);
-		mapCri.put("facArray", arrCri.getFacArray());
-		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList(namespace+"selectListForArray", mapCri);
-	}
-	
-	//소이팩토리 정렬에 사용될 총 포스트 수
-	@Override
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception {
-		return sqlSession.selectOne(namespace+"selectTotalCountForArray");
-	}*/
-	
 	@Override
 	public PostVo selectEachPostForModify(int postNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachPostForModify", postNo);

@@ -33,27 +33,17 @@ public class VideoServiceImpl implements VideoService {
 		MultipartFile mFile=file.getFile(uploadFile);
 
 		if (!mFile.isEmpty()) {
+			//영상 정보 추출
 			UploadCriteria upCri=new UploadCriteria();
 			upCri.upload(videoVo, mFile);
-			
-			System.out.println(upCri.toString());
-			
-			//썸네일 값 추출되면 videoVo에 담아서, insertupload로 서버에 저장
-			
-			System.out.println(upCri.toString());
-			System.out.println(videoVo.toString());
-			
-			//영상 저장
-			
+
 			//썸네일 생성
 			String videoThumnail=ExtractImage.extractImage(videoVo.getSaveDir(), videoVo.getVideoSaveName());
 			System.out.println(videoThumnail);
 			videoVo.setVideoThumnail(videoThumnail);
 			
+			//영상, 썸네일 저장
 			videoDao.insertUpload(videoVo);
-			
-			//변수에 썸네일 추가
-			//videoDao.updateThumnail(videoVo.getVideoSaveName(), videoThumnail);
 			
 			MongoVo mongoVo=new MongoVo();
 			mongoVo.setVideoOriginName(videoVo.getVideoOriginName());

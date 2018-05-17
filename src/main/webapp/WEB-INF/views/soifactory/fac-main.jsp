@@ -1,86 +1,6 @@
-9<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
-<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!-->
-<html>
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<title>Home Shop | Gallaxy Responsive HTML5/CSS3 Template | FIFO
-	THEMES</title>
-<meta name="description"
-	content="Gallaxy Responsive HTML5/CSS3 Template from FIFOTHEMES.COM">
-<meta name="author" content="FIFOTHEMES.COM">
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,700,800,900'
-	rel='stylesheet' type='text/css'>
-<!-- Library CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/fonts/font-awesome/css/font-awesome.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animations.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/superfish.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/settings.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/extralayers.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
-	media="screen">
-<!-- Theme CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<!-- Skin -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/colors/green.css"
-	class="colors">
-<!-- Responsive CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/theme-responsive.css">
-<!-- Switcher CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/css/switcher.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/spectrum.css"
-	rel="stylesheet">
-<!-- Favicons -->
-<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/ico/soi.ico">
-<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
-<!--[if IE]>
-        <link rel="stylesheet" href="css/ie.css">
-        <![endif]-->
-</head>
-<body class="home">
-	<div class="page-mask">
-		<div class="page-loader">
-			<div class="spinner"></div>
-			Loading...
-		</div>
-	</div>
-	<div class="wrap">
 
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
@@ -130,11 +50,15 @@
 							<div class="display">
 								<span><b>Display:</b></span>
 	  							<select id="ex_select" onchange="location.href=this.value">
-	  								<option selected>게시글 보기</option>
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest">최신순</option> 
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi">인기(콩)순</option> 
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view">조회순</option>
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment">댓글순</option> 
+	  							<!-- 게시글 보기 부분 option 처리 해주어야함. -->
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest"
+	  									<c:out value="${arrCri.facArray == 'latest'? 'selected':''}"/>>최신순</option> 
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi"
+	  									<c:out value="${arrCri.facArray == 'soi'? 'selected':''}"/>>인기(콩)순 
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view"
+	  									<c:out value="${arrCri.facArray == 'view'? 'selected':''}"/>>조회순</option>
+	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment"
+	  									<c:out value="${arrCri.facArray == 'comment'? 'selected':''}"/>>댓글순</option> 
 	  							</select>
 							</div>
 						</div>
@@ -184,7 +108,7 @@
 																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}"
 																class="swap-image"> <img
 																src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"
-																title="iPhone 5s 64 GB" alt="iPhone 5s 64 GB"
+																title="${postVo.postTitle}"
 																class="front">
 															</a>
 														</div>
@@ -277,63 +201,6 @@
 		<!-- Footer -->
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		<!-- /Footer -->
-
-		
-		<!-- Scroll To Top -->
-		<a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
-	</div>
-	<!-- /Wrap -->
 	
-	<!-- The Scripts -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-migrate-1.0.0.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.plugins.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.parallax.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.wait.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/fappear.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/modernizr-2.6.2.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/superfish.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/tweetMachine.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/tytabs.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.gmap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jflickrfeed.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/imagesloaded.pkgd.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/waypoints.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/wow.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.fitvids.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
 </body>
 </html>

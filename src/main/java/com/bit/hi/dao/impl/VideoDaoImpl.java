@@ -26,14 +26,6 @@ public class VideoDaoImpl implements VideoDao {
 	}
 	
 	@Override
-	public int updateThumnail(String saveName, String videoThumnail) throws Exception {
-		VideoVo videoVo=new VideoVo();
-		videoVo.setVideoSaveName(saveName);
-		videoVo.setVideoThumnail(videoThumnail);
-		return sqlSession.update(namespace+"updateThumnail", videoVo);
-	}
-	
-	@Override
 	public void mongoSave(MongoVo mongoVo) throws Exception {
 		mongoTemplate.save(mongoVo, "video_info");
 	}

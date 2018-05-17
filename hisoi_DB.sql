@@ -8,6 +8,8 @@ drop table post;
 drop sequence seq_cmt_no;
 drop table comments;
 drop table scrap;
+drop table qna;
+drop sequence seq_qna_no;
 
 CREATE TABLE users (
     user_id VARCHAR2(20) not null,
@@ -32,6 +34,8 @@ where user_id='realso1';
 ALTER TABLE users
 MODIFY (user_nickname VARCHAR2(50));
 
+commit;
+
 select user_id userId,
         user_name userName,
         user_email userEmail,
@@ -55,6 +59,7 @@ where user_id='ZXZC';
 commit;
 
 -- 일단 video_time 메서드 찾기 전까지 video_time 삭제한 db 사용
+-- video 테이블의 값은 사용자가 삭제 하더라도, db 안에는 남아있도록 함.
 CREATE TABLE video (
     video_no NUMBER(30) not null,
     user_id VARCHAR2(20) not null,
@@ -89,7 +94,7 @@ select *
 from video;
 
 delete from video
-where user_id='realso0';
+where video_no=144;
 
 select *
 from video
@@ -114,7 +119,7 @@ START WITH 1;
 delete from video
 where user_id='realso0';
 
-select *
+select count(*)
 from notice;
 
 select *
@@ -209,6 +214,7 @@ and po.user_id='realso1';
 
 commit;
 
+--post 삭제시, 참조한 comments테이블의 값들도 삭제함.
 CREATE TABLE comments (
     cmt_no NUMBER(10),
     post_no NUMBER(10) not null,
@@ -221,6 +227,11 @@ CREATE TABLE comments (
     CONSTRAINT c_comments_userid_fk FOREIGN KEY (user_id) 
     REFERENCES users(user_id)
 );
+alter table "HISOI"."COMMENTS" drop constraint "C_COMMENTS_POSTNO_FK";
+alter table comments add constraint c_comments_postno_fk foreign key(post_no)
+references post(post_no) on delete cascade;
+
+commit;
 
 CREATE SEQUENCE seq_cmt_no
 INCREMENT BY 1
@@ -259,6 +270,7 @@ where user_id='realso0';
 select *
 from comments;
 
+--post 삭제시, 참조한 scrap테이블의 값들도 삭제함.
 CREATE TABLE scrap (
     post_no NUMBER(10) not null,
     user_id VARCHAR2(20) not null,
@@ -268,6 +280,10 @@ CREATE TABLE scrap (
     CONSTRAINT c_scrap_userid_fk FOREIGN KEY (user_id) 
     REFERENCES users(user_id)
 );
+
+alter table "HISOI"."SCRAP" drop constraint "C_SCRAP_POSTNO_FK";
+alter table scrap add constraint c_scrap_postno_fk foreign key(post_no)
+references post(post_no) on delete cascade;
 
 select sc.post_no,
         user_id,
@@ -305,7 +321,6 @@ where user_nickname='administer';
 
 select *
 from users;
-
 
 CREATE TABLE qna (
     qna_no NUMBER(30) not null,
@@ -369,3 +384,31 @@ insert into qna (qna_no, qna_title, qna_content, reg_date, user_id, qna_hit_cnt)
 
 commit;
 
+
+select r.rn rn,
+        		cmt_no cmtNo,
+        		r.post_no postNo,
+            	r.user_id userId,
+                cmt_content cmtContent,
+                to_char(cmt_date, 'YYYY-MM-DD HH:MI') cmtDate,
+                user_nickname userNickname
+			from (select rownum rn,
+                                cmt_no,
+                    			post_no,
+                    			user_id,
+                    			cmt_content,
+                    			cmt_date,
+                    			user_nickname
+        			from (select cmt_no,
+                    			post_no,
+                    			co.user_id,
+                    			cmt_content,
+                    			cmt_date,
+                    			user_nickname
+                			from comments co, users us
+                            where post_no=150
+                            and co.user_id=us.user_id
+                			order by cmt_date desc) o) r, post po
+			where po.post_no=r.post_no
+            and rn>=1
+			and rn<=5;

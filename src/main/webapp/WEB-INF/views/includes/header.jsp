@@ -1,7 +1,69 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<!DOCTYPE html>
+<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->  
+<html> 
+	<!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title> HI, SOI! | Coaching your interview </title>
+        <!-- 5초 뒤 다른 페이지로 보내기
+        <meta http-equiv="refresh" content="5;url=http://www.naver.com/"> -->
+        <!-- 검색엔진에게 문서의 내용을 요약해 주는 역할 -->
+        <meta name="description" content="interview 면접">
+        <meta name="author" content="interview">
+        <!-- Mobile Metas(모바일에서 웹과 동일한 디자인, 해상도의 css 적용을 위해 필수) -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Google Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,700,800,900' rel='stylesheet' type='text/css'>
+        <!-- Library CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animations.css" media="screen">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/superfish.css" media="screen">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/settings.css" media="screen">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/extralayers.css" media="screen">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css" media="screen">
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+        <!-- Skin -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/colors/green.css" class="colors">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/theme-responsive.css">
+        <!-- Switcher CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/switcher.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/spectrum.css" rel="stylesheet">
+        <!-- Favicons -->
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/ico/soi.ico">
+        <%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/ico/favicon.ico">
+        <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-114.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="${pageContext.request.contextPath}/resources/img/ico/apple-touch-icon-144.png"> --%>
+        
+        <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+        <!--[if IE]>
+        <link rel="stylesheet" href="css/ie.css">
+        <![endif]-->
+    </head>
+    <body class="home">
+        <div class="page-mask">
+            <div class="page-loader">
+                <div class="spinner"></div>
+                Loading...
+            </div>
+        </div>
+        <div class="wrap">
+        
             <!-- Header -->
             <header id="header">
                 <!-- Header Top Bar -->
@@ -175,7 +237,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <a href="${pageContext.request.contextPath}/" class="pull-left">(Lost Password?)</a>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" id="btnLogin" class="btn btn-color">Login</button>
                                 </div>
                             </form>
@@ -188,6 +250,5 @@
                 <!-- /Registration Modal -->
             </section>
             <!-- /Modal -->
-
         
         

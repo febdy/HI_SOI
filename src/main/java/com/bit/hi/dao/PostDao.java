@@ -33,12 +33,6 @@ public interface PostDao {
 	
 	public int insertScrapPost(ScrapVo scrapVo) throws Exception;
 	
-	//소이팩토리 정렬
-	/*public List<PostVo> selectListForArray(int startRnum, int endRnum, ArrayCriteria arrCri) throws Exception;
-	
-	//소이팩토리 정렬에 사용될 총 포스트 수
-	public int selectTotalCountForArray(PageCriteria pCri, String kwd) throws Exception;*/
-	
 	public PostVo selectEachPostForModify(int postNo) throws Exception;
 	
 	public int updateEachPostForModify(PostVo postVo) throws Exception;

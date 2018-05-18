@@ -44,11 +44,32 @@
                     			vi.video_thumnail
                 			from post po, users us, video vi
                 			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
-                			<if test="kwd!=null and kwd!=''">
-                				and post_title like '%'||#{kwd}||'%'
-                			</if>
+                			and po.video_no=vi.video_no 
+                			]]>
+		              		<if test="findType != null">
+								<if test="findType == 'S'.toString()">
+									and post_title like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'C'.toString()">
+									and post_content like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'W'.toString()">
+									and writer_id like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'SC'.toString()">
+									and (post_title like '%' || #{keyword} || '%' OR 
+									post_content like '%' || #{keyword} || '%')
+								</if>
+								<if test="findType == 'CW'.toString()">
+									and (content like '%' || #{keyword} || '%' OR 
+									writer_id like '%' || #{keyword} || '%')
+								</if>
+								<if test="findType == 'SCW'.toString()">
+									and (post_title like '%' || #{keyword} || '%' OR 
+									post_content like '%' || #{keyword} || '%' OR 
+									writer_id like '%' || #{keyword} || '%')
+								</if>
+							</if>
                 			<![CDATA[
                 			order by 
                 			]]>
@@ -73,16 +94,36 @@
 	<!-- if문을 써주어, kwd와 동일한지 -->
 	
 	<!-- 소이팩토릭 검색 -->
-	<select id="selectTotalCountForPost" parameterType="String" resultType="int">
+	<select id="selectTotalCountForPost" resultType="int">
 		<![CDATA[
-			select count(*)
+			select count(post_no)
 			from post
-		]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
-        	<if test="_parameter!=null and _parameter!=''">
-                where post_title like '%'||#{_parameter}||'%'
-            </if> <!-- int면 like다음에  '%'||${kwd}||'%' 와도 되지만, String 하나이므로, kwd를 _parameter로 바꿔준다. -->
-       <![CDATA[
-		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
+			where post_no>0 
+			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
+        	<if test="findType != null">
+				<if test="findType == 'S'.toString()">
+					and post_title like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'C'.toString()">
+					and post_content like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'W'.toString()">
+					and writer_id like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'SC'.toString()">
+					and (post_title like '%' || #{keyword} || '%' OR 
+					post_content like '%' || #{keyword} || '%')
+				</if>
+				<if test="findType == 'CW'.toString()">
+					and (content like '%' || #{keyword} || '%' OR 
+					writer_id like '%' || #{keyword} || '%')
+				</if>
+				<if test="findType == 'SCW'.toString()">
+					and (post_title like '%' || #{keyword} || '%' OR 
+					post_content like '%' || #{keyword} || '%' OR 
+					writer_id like '%' || #{keyword} || '%')
+				</if>
+			</if>
 	</select>
 	
 	<!-- 각 포스트 클릭시 정보 뿌리기 -->

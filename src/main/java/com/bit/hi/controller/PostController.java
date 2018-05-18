@@ -17,7 +17,7 @@ import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.PostService;
 import com.bit.hi.util.ArrayCriteria;
-import com.bit.hi.util.PageCriteria;
+import com.bit.hi.util.FindCriteria;
 import com.bit.hi.util.PagingMaker;
 
 @Controller
@@ -30,16 +30,14 @@ public class PostController {
 	private PostService postService;
 
 	@RequestMapping(value="/soifactorylist")
-	public String soiFactoryList(PageCriteria pCri, ArrayCriteria arrCri,
-			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) throws Exception{
+	public String soiFactoryList(@ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, Model model) throws Exception{
 
-		pCri.setNumPerPage(12);
-		model.addAttribute("bindMap", postService.getAllPostList(pCri, kwd, arrCri));
-		
+		model.addAttribute("bindMap", postService.getAllPostList(fCri, arrCri));
+
 		PagingMaker pagingMaker=new PagingMaker();
-		pagingMaker.setCri(pCri);
-		pagingMaker.setTotalData(postService.selectTotalCount(pCri, kwd));
-		
+		pagingMaker.setCri(fCri);
+		pagingMaker.setTotalData(postService.selectTotalCount(fCri));
+
 		model.addAttribute("pagingMaker", pagingMaker);
 		model.addAttribute("arrCri", arrCri);
 		
@@ -47,12 +45,11 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
+	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
 		if (postService.getEachPost(postNo)!=null) {
-			PostVo postVo=postService.getEachPost(postNo);
-			model.addAttribute("postVo", postVo);
+			model.addAttribute("postVo", postService.getEachPost(postNo));
 			model.addAttribute("ctrl","\r\n");
-			System.out.println("----------------------arrCri 4:"+arrCri);
+			
 			return "soifactory/soiread";
 		} else {
 			return "redirect:/post/soifactorylist";
@@ -85,32 +82,20 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soidelete")
-	public String soiDelete(@RequestParam("postNo") int postNo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, RedirectAttributes reAttr) throws Exception{
+	public String soiDelete(@RequestParam("postNo") int postNo, FindCriteria fCri, ArrayCriteria arrCri, RedirectAttributes reAttr) throws Exception{
 		System.out.println(postNo);
 		postService.deletePost(postNo);
 		
-		reAttr.addAttribute("page", pCri.getPage());
-		reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
+		reAttr.addAttribute("page", fCri.getPage());
+		reAttr.addAttribute("numPerPage", fCri.getNumPerPage());
+		reAttr.addAttribute("findType", fCri.getFindType());
+		reAttr.addAttribute("keyword", fCri.getKeyword());
 		reAttr.addAttribute("facArray", arrCri.getFacArray());
 		return "redirect:/post/soifactorylist";
 	}
 	
-	/*@RequestMapping(value="/array")
-	public String array(PageCriteria pCri, Model model, @ModelAttribute ArrayCriteria arrCri, String kwd) throws Exception{
-
-		pCri.setNumPerPage(12);
-		model.addAttribute("bindMap", postService.getArray(pCri, arrCri));
-		
-		PagingMaker pagingMaker=new PagingMaker();
-		pagingMaker.setCri(pCri);
-		pagingMaker.setTotalData(postService.selectTotalCountForArray(pCri, kwd));
-		
-		model.addAttribute("pagingMaker", pagingMaker);
-		return "soifactory/fac-main";
-	}*/
-	
 	@RequestMapping(value="/soimodifyform")
-	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, Model model, HttpSession session) throws Exception{
+	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, @ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, Model model, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -126,7 +111,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soimodify")
-	public String soiModify(@ModelAttribute PostVo postVo, @ModelAttribute("pCri") PageCriteria pCri, @ModelAttribute("arrCri") ArrayCriteria arrCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
+	public String soiModify(@ModelAttribute PostVo postVo, FindCriteria fCri, ArrayCriteria arrCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -134,8 +119,10 @@ public class PostController {
 			postService.updateEachPostForModify(postVo);
 			int postNo=postVo.getPostNo();
 			
-			reAttr.addAttribute("page", pCri.getPage());
-			reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
+			reAttr.addAttribute("page", fCri.getPage());
+			reAttr.addAttribute("numPerPage", fCri.getNumPerPage());
+			reAttr.addAttribute("findType", fCri.getFindType());
+			reAttr.addAttribute("keyword", fCri.getKeyword());
 			reAttr.addAttribute("facArray", arrCri.getFacArray());
 			url="redirect:/post/soiread/"+postNo;
 		} else {

@@ -12,7 +12,7 @@ import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.service.PostService;
 import com.bit.hi.util.ArrayCriteria;
-import com.bit.hi.util.PageCriteria;
+import com.bit.hi.util.FindCriteria;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -41,13 +41,14 @@ public class PostServiceImpl implements PostService {
 	
 	//소이팩토리 리스트 뿌려주기
 	@Override
-	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd, ArrayCriteria arrCri) throws Exception{
-		return postDao.selectAllPostList(pCri.getStartPage(), pCri.getEndPage(), kwd, arrCri);
+	public List<PostVo> getAllPostList(FindCriteria fCri, ArrayCriteria arrCri) throws Exception{
+		return postDao.selectAllPostList(fCri, arrCri);
 	}
 	
 	//소이리스트 갯수 세기
-	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception{
-		return postDao.selectTotalCount(pCri, kwd);
+	@Override
+	public int selectTotalCount(FindCriteria fCri) throws Exception{
+		return postDao.selectTotalCount(fCri);
 	}
 	
 	@Transactional

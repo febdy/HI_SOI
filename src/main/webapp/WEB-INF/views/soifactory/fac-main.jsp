@@ -47,45 +47,79 @@
 					<div class="row">
 						<!-- Post Order -->
 						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-							<div class="display">
+							<div class="display form-inline">
+								<div class="col-md-2 pull-left">
 								<span><b>Display:</b></span>
-	  							<select id="ex_select" onchange="location.href=this.value">
-	  							<!-- 게시글 보기 부분 option 처리 해주어야함. -->
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=latest"
-	  									<c:out value="${arrCri.facArray == 'latest'? 'selected':''}"/>>최신순</option> 
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=soi"
-	  									<c:out value="${arrCri.facArray == 'soi'? 'selected':''}"/>>인기(콩)순 
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=view"
-	  									<c:out value="${arrCri.facArray == 'view'? 'selected':''}"/>>조회순</option>
-	  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=comment"
-	  									<c:out value="${arrCri.facArray == 'comment'? 'selected':''}"/>>댓글순</option> 
-	  							</select>
+								</div>
+								<div class="selectbox col-md-1">
+		  							<select id="ex_select" onchange="location.href=this.value" style="height:30px; padding:1px;">
+		  							<!-- 게시글 보기 부분 option 처리 해주어야함. -->
+		  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=latest"
+		  									<c:out value="${arrCri.facArray == 'latest'? 'selected':''}"/>>최신순</option> 
+		  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=soi"
+		  									<c:out value="${arrCri.facArray == 'soi'? 'selected':''}"/>>인기(콩)순 
+		  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=view"
+		  									<c:out value="${arrCri.facArray == 'view'? 'selected':''}"/>>조회순</option>
+		  								<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=comment"
+		  									<c:out value="${arrCri.facArray == 'comment'? 'selected':''}"/>>댓글순</option> 
+		  							</select>
+	  							</div>
+								<div class="selectbox col-md-7 col-md-offset-2">
+					  				<select id="ex_select" onchange="location.href=this.value" style="height:30px; padding:1px; margin-left:10px"> 
+					  					<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=12&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}"
+					  						<c:out value="${fCri.numPerPage == 12? 'selected':''}"/>>12개씩</option> 
+					  					<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=24&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}"
+					  						<c:out value="${fCri.numPerPage == 24? 'selected':''}"/>>24개씩</option> 
+					  					<option value="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.cri.page}&numPerPage=36&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}"
+					  						<c:out value="${fCri.numPerPage == 36? 'selected':''}"/>>36개씩</option> 
+					  				</select>
+					  			</div>
 							</div>
 						</div>
 						<!-- /Post Order -->
 						<!-- Post Search -->
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
-							<div class="input-group">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right">
+
 								<form id="search_form" action="${pageContext.request.contextPath}/post/soifactorylist" method="get">
-									<div class="col-md-9">
-									<input type="hidden" name="page" value="${pagingMaker.cri.page}"> 
-									<input type="text" value="Search Posts" id="kwd" name="kwd" 
-										onfocus="if(this.value=='Search Posts')this.value='';"
-										onblur="if(this.value=='')this.value='Search Posts';"
-										class="search-input form-control product-search-height">
+									<div class="col-md-11">
+										<div class="col-md-4">
+										<input type="hidden" name="page" value="${pagingMaker.cri.page}">
+										<input type="hidden" name="numPerPage" value="${pagingMaker.cri.numPerPage}">
+										<input type="hidden" name="facArray" value="${arrCri.facArray}"> 
+										</div>
+										<div class="col-md-4">
+										<select id="selectFind" name="findType" style="height:30px; padding:1px;">
+										  <option value="N" 
+										  	<c:out value="${fCri.findType == null? 'selected':''}"/>>전체</option>
+										  <option value="S"
+										    <c:out value="${fCri.findType == 'S'? 'selected' : ''}"/>>제목</option>
+										  <option value="C"
+										    <c:out value="${fCri.findType == 'C'? 'selected' : ''}"/>>내용</option>
+										  <option value="W"
+										    <c:out value="${fCri.findType == 'W'? 'selected': ''}"/>>작성자</option>
+										  <option value="SC"
+										    <c:out value="${fCri.findType == 'SC'? 'selected' :''}"/>>제목+내용</option>
+										  <option value="CW"
+										    <c:out value="${fCri.findType =='CW'? 'selected':''}"/>>내용+작성자</option>
+										  <option value="SCW"
+										    <c:out value="${fCri.findType =='SCW'? 'selected':''}"/>>제목+내용+작성자</option>
+										</select>
+										</div>
+										<div class="col-md-4">
+										<input type="text" value="${fCri.keyword}" id="kwd" name="keyword">
+										</div>
 									</div>
-									<div class="col-md-1">
-									<span class="input-group-btn">
-									<button type="submit"
-										class="btn product-search-height">
-										<i class="fa fa-search"></i>
-									</button>
-									</span>
+									<div class="col-md-1 pull-right">
+										<span class="input-group-btn">
+										<button type="submit"
+											class="btn product-search-height">
+											<i class="fa fa-search"></i>
+										</button>
+										</span>
 									</div>
-									<div class="col-md-2"></div>
 								</form>
 							</div>
-						</div>
+
 						<!-- /Post Search -->
 					</div>
 					<div class="row">
@@ -105,7 +139,7 @@
 														<!-- Swap image -->
 														<div class="flip">
 															<a
-																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}"
+																href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}"
 																class="swap-image"> <img
 																src="${pageContext.request.contextPath}/upload/${postVo.videoThumnail}"
 																title="${postVo.postTitle}"
@@ -114,7 +148,7 @@
 														</div>
 														<!-- /Swap image -->
 														<a
-															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}"
+															href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}"
 															class="pav-colorbox btn btn-theme-default cboxElement"><em
 															class="fa fa-plus"></em><span>View Post</span></a>
 													</div>
@@ -122,7 +156,7 @@
 														<div class="left">
 															<h3 class="name">
 																<a
-																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">${postVo.postTitle}</a>
+																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}">${postVo.postTitle}</a>
 															</h3>
 															<div class="rating">
 																<img
@@ -164,32 +198,35 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="pagination-centered padding-bottom30">
+					<div class="pagination-centered padding-bottom30" style="padding:0px">
 						<ul class="pagination">
 							<c:if test="${pagingMaker.prev}">
 								<!-- 이 값이 false라면 prev 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">«</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}">«</a></li>
 							</c:if>
 
 							<c:forEach begin="${pagingMaker.startPage}"
 								end="${pagingMaker.endPage}" var="idx">
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 							</c:forEach>
 
 							<c:if test="${pagingMaker.next}">
 								<!-- 이 값이 false라면 next 실행 x -->
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}&facArray=${arrCri.facArray}">»</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}">»</a></li>
 							</c:if>
 
 						</ul>
 					</div>
 					<!-- Post Write -->
-					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 pull-right">
+					<div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 pull-right" style="height:30px; margin-bottom:100px;">
+						<div class="col-md-2 col-md-offset-6">
 						<a class="btn btn-color btn-normal btn-pad"
 							href="${pageContext.request.contextPath}/post/soiwriteform">영상올리기</a>
+						</div>
+						<div class="col-md-4"></div>
 					</div>
 					<!-- /Post Write -->
 				</div>
@@ -201,6 +238,5 @@
 		<!-- Footer -->
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		<!-- /Footer -->
-	
 </body>
 </html>

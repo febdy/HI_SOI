@@ -5,7 +5,7 @@ import java.util.List;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.util.ArrayCriteria;
-import com.bit.hi.util.PageCriteria;
+import com.bit.hi.util.FindCriteria;
 
 public interface PostService {
 	
@@ -16,10 +16,10 @@ public interface PostService {
 	public int writePost(PostVo postVo) throws Exception;
 	
 	//소이팩토리 뿌려주기
-	public List<PostVo> getAllPostList(PageCriteria pCri, String kwd, ArrayCriteria arrCri) throws Exception;
+	public List<PostVo> getAllPostList(FindCriteria fCri, ArrayCriteria arrCri) throws Exception;
 	
 	//소이팩토리 뿌려주기 위한 갯수 세기
-	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
+	public int selectTotalCount(FindCriteria fCri) throws Exception;
 	
 	public PostVo getEachPost(int postNo) throws Exception;
 	

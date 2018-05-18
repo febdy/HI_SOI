@@ -18,7 +18,6 @@ import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.VideoService;
 import com.bit.hi.util.ExtractImage;
-import com.bit.hi.util.SocketConnection;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -100,17 +99,14 @@ public class VideoServiceImpl implements VideoService {
 			
 			//받아온 비디오 정보 몽고db에 넣기
 			MongoVo mongoVo=new MongoVo();
-			mongoVo.setVideoOriginName(orgName);
+			mongoVo.setVideoNo(videoVo.getVideoNo());
+			mongoVo.setUserId(videoVo.getUserId());
+			mongoVo.setVideoSaveName(saveName);
 			mongoVo.setVideoPath(videoPath);
 			mongoVo.setVideoSize(videoSize);
 			
 			videoDao.mongoSave(mongoVo);
-			
-			System.out.println(videoVo.getVideoNo());
-			
-			ConnectToFlask(videoVo);
-			
-			System.out.println("sent video information to python");
+			System.out.println("saved videoNo:::::: " + videoVo.getVideoNo());
 			
 			return videoVo.getVideoNo();
 		}
@@ -121,11 +117,6 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public VideoVo getCorrectedVideo(int videoNo) throws Exception{
 		return videoDao.selectCorrectedVideo(videoNo);
-	}
-	
-	private void ConnectToFlask(VideoVo videoVo) throws IOException {
-		SocketConnection fc = new SocketConnection("localhost", 9999);
-		fc.sendInfo(videoVo);
 	}
 	
 }

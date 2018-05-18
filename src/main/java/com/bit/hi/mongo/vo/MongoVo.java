@@ -2,36 +2,59 @@ package com.bit.hi.mongo.vo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="video_info")
+@Document(collection = "video_info")
 public class MongoVo {
-	
-	private String videoOriginName;
+
+	private int videoNo;
+	private String userId;
+	private String videoSaveName;
 	private String videoPath;
 	private long videoSize;
-	
-	public String getVideoOriginName() {
-		return videoOriginName;
+
+	public int getVideoNo() {
+		return videoNo;
 	}
-	public void setVideoOriginName(String videoOriginName) {
-		this.videoOriginName = videoOriginName;
+
+	public void setVideoNo(int videoNo) {
+		this.videoNo = videoNo;
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getVideoSaveName() {
+		return videoSaveName;
+	}
+
+	public void setVideoSaveName(String videoSaveName) {
+		this.videoSaveName = videoSaveName;
+	}
+
 	public String getVideoPath() {
 		return videoPath;
 	}
+
 	public void setVideoPath(String videoPath) {
 		this.videoPath = videoPath;
 	}
+
 	public long getVideoSize() {
 		return videoSize;
 	}
+
 	public void setVideoSize(long videoSize) {
 		this.videoSize = videoSize;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "MongoVo [videoOriginName=" + videoOriginName + ", videoPath=" + videoPath + ", videoSize=" + videoSize
+		return "MongoVo [videoOriginName=" + videoSaveName + ", videoPath=" + videoPath + ", videoSize=" + videoSize
 				+ "]";
 	}
-	
+
 }

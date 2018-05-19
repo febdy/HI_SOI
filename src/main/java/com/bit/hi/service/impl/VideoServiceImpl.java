@@ -99,13 +99,15 @@ public class VideoServiceImpl implements VideoService {
 			
 			//받아온 비디오 정보 몽고db에 넣기
 			MongoVo mongoVo=new MongoVo();
-			mongoVo.setVideoOriginName(orgName);
+			mongoVo.setVideoNo(videoVo.getVideoNo());
+			mongoVo.setUserId(videoVo.getUserId());
+			mongoVo.setVideoSaveName(saveName);
 			mongoVo.setVideoPath(videoPath);
 			mongoVo.setVideoSize(videoSize);
 			
 			videoDao.mongoSave(mongoVo);
+			System.out.println("saved videoNo:::::: " + videoVo.getVideoNo());
 			
-			System.out.println(videoVo.getVideoNo());
 			return videoVo.getVideoNo();
 		}
 		
@@ -116,4 +118,5 @@ public class VideoServiceImpl implements VideoService {
 	public VideoVo getCorrectedVideo(int videoNo) throws Exception{
 		return videoDao.selectCorrectedVideo(videoNo);
 	}
+	
 }

@@ -257,7 +257,7 @@
 							<c:forEach begin="${bindMap.startPageBtnNo}"
 								end="${bindMap.endPageBtnNo}" var="idx">
 								<li><a
-									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${idx}">${idx}</a></li>
+									href="${pageContext.request.contextPath}/post/soifactorylist?crtPage=${idx}" style="<c:out value="${bindMap.crtPage == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
 							</c:forEach>
 
 							<c:if test="${bindMap.next}">

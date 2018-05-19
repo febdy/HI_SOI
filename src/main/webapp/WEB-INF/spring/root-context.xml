@@ -12,30 +12,23 @@
 	<!-- 웹 이외의 영역 -->
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- 그냥 datasource -->
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+	<!-- oracle datasource -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="hisoi" />
-		<property name="password" value="hisoi" />
-		<qualifier value="main-db" />
-	</bean> -->
-	
-	<!-- oracle datasource 커넥션풀 -->
-	<bean id="oracleDatasource" class="oracle.jdbc.pool.OracleDataSource">
-		<property name="URL" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="user" value="hisoi" />
 		<property name="password" value="hisoi" />
 		<qualifier value="main-db" />
 	</bean>
 
 	<!-- MyBatis SqlSessionFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="oracleDatasource" />
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/mappers/**/*.xml"/>
 	</bean>
 
-	<!-- MyBatis SqlSessionTemplate -->
+	<!-- MyBatis SqlSessionTemplate (생성자 주입방식) -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>

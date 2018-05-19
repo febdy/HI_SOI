@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="comment">
-	<select id="selectCommentList" parameterType="map" resultType="com.bit.hi.domain.vo.CommentVo">
+
+<mapper namespace="com.bit.hi.CommentMapper">
+
+	<select id="selectCommentList" parameterType="map" resultType="CommentVo">
 		<![CDATA[
 			select r.rn rn,
         		cmt_no cmtNo,
@@ -33,7 +35,7 @@
 		]]>
 	</select>
 	
-	<insert id="apiInsertComment" parameterType="com.bit.hi.domain.vo.CommentVo">
+	<insert id="apiInsertComment" parameterType="CommentVo">
 		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
 				select seq_cmt_no.nextval from dual
 		</selectKey>
@@ -43,7 +45,7 @@
 		]]>
 	</insert>
 	
-	<select id="apiSelectComment" parameterType="int" resultType="com.bit.hi.domain.vo.CommentVo">
+	<select id="apiSelectComment" parameterType="int" resultType="CommentVo">
 		<![CDATA[
 			select cmt_no cmtNo,
         			co.post_no postNo,

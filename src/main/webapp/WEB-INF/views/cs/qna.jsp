@@ -139,16 +139,15 @@
                             </div>
                             <!-- Sidebar End -->
                             
-                            
-                            <!-- 내용 부분 -->
-                            <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <div id="content" class="row form-horizontal">
+                   	<!-- 내용 부분 -->
+                    <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <div id="content" class="row form-horizontal">
                             <div class="col-md-2">
                                 <h4>Q&A</h4>
                                 </div>
-                                 <div class="col-md-10 widget">
+                                 <div class="pull-right col-md-10 widget">
 									<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-right">
-										<form id="search_form" action="${pageContext.request.contextPath}/cs/notice" method="get" class="input-group">
+										<form id="search_form" action="${pageContext.request.contextPath}/cs/qna" method="get" class="input-group">
 											<input type="text" value="Search Q&A" id="kwd" name="kwd" 
 												onfocus="if(this.value=='Search Q&A')this.value='';"
 												onblur="if(this.value=='')this.value='Search Q&A';"
@@ -159,12 +158,21 @@
 													<i class="fa fa-search"></i>
 												</button>
 											</span>
-											<input type="hidden" name="crtPage" value="${qamap.crtPage}">
+											<input type="hidden" name="crtPage" value="${pagingMaker.cri.page}">
 										</form>
 									</div>
 								</div>
 							</div>
-								<div><div><div>
+							<!-- /Qna Search -->
+							<div class="pull-right"> 
+		  						<select id="search_form" onchange="location.href=this.value"> 
+		  							<option selected>게시글 보기</option>
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=10">10개씩</option> 
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=15">15개씩</option> 
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=20">20개씩</option> 
+		  						</select>
+		  					</div>
+							
 									<table class="table table-striped table-bordered text-center">
 					                    <colgroup>
 											<col width="7%">
@@ -181,50 +189,57 @@
 												<th><p class="text-center">글쓴이</p></th>
 												<th><p class="text-center">조회수</p></th>
 												<th><p class="text-center">작성일</p></th>
-													<c:if test="${authUser.userLevel=='administer'}">
-														<th><p class="text-center">&nbsp;</p></th>
-													</c:if>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
-	                                     <c:forEach items="${qamap.qnaList}" var="qaVo">
+	                                     <c:forEach items="${bMap}" var="qnaVo">
 											<tr>
-												<td>${qaVo.qna_no}</td>
+												<td class="qna">${qnaVo.rn}</td>
 												<!-- /board/view/${list.no}로 PathVariable 값 넘길 때 넘기는 방법 약간 다르다는 것 기억 -->
-												<td><a href="${pageContext.request.contextPath}/cs/qna/view/${qaVo.qna_no}">${qaVo.qna_title}</a></td>
-												<td>${qaVo.user_id}</td>
-												<td>${qaVo.qna_hit_cnt}</td>
-												<td>${qaVo.qna_date}</td>
-													<c:if test="${authUser.userLevel=='administer'}"> <!-- userlevel이 관리자급이라면 삭제 버튼 보이게 -->
-														<td>
-															<a href="${pageContext.request.contextPath}/cs/qna/delete?qna_no=${qaVo.qna_no}" class="del">삭제</a>
-														</td>
-													</c:if>
+												<td id="qnaTitle" class="qna"><a href="${pageContext.request.contextPath}/cs/qna/view/${qnaVo.qnaNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}">${qnaVo.qnaTitle}</a></td>
+												<td class="qna">${qnaVo.userNickname}</td>
+												<td class="qna">${qnaVo.qnaHitCnt}</td>
+												<td class="qna">${qnaVo.regDate}</td>
 											</tr>
 										</c:forEach> 
 	                                    </tbody>
 	                                </table>
+	                                
+	                                <div class="pagination-centered padding-bottom30">
+										<ul class="pagination">
+											<c:if test="${pagingMaker.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
+												<li><a href="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.startPage-1}&numPerPage=${pagingMaker.cri.numPerPage}">«</a></li>
+											</c:if>
+						
+										<c:forEach begin="${pagingMaker.startPage}" end="${pagingMaker.endPage}" var="idx">
+											<li><a href="${pageContext.request.contextPath}/cs/qna?page=${idx}&numPerPage=${pagingMaker.cri.numPerPage}" style="<c:out value="${pagingMaker.cri.page == idx?'color :#FF0000':' '}"/>">${idx}</a></li>
+										</c:forEach>
+						
+										<c:if test="${pagingMaker.next&&pagingMaker.endPage > 0}"> <!-- 이 값이 false라면 next 실행 x -->
+											<li><a href="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.endPage+1}&numPerPage=${pagingMaker.cri.numPerPage}">»</a></li>
+										</c:if>
+										</ul>
 									</div>
+									
+								<div class="pull-right">
 									<div class="bottom">
-										<%-- <c:if test="${not empty authUser}"> --%>
-											<a href="${pageContext.request.contextPath }/cs/qna/writeform" id="new-book">글쓰기</a>
-										<%-- </c:if> --%>
+										<a href="${pageContext.request.contextPath}/cs/qna/write" id="new-book"><i class="fa fa-pencil-square-o fa-2x"></i></a>
 									</div>
 								</div>
-								
-								
 							</div>
-                        </div>
-               		</div>
-                </div>
+						</div><!-- 내용부분 끝 -->
+								
+								
+                	</div>
                 </div>
                 
-                </section>
+            </section>
             <!-- /Main Section -->
             
             <!-- Footer -->
             <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
             <!-- /Footer -->
+            
             
             <!-- Scroll To Top --> 
             <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>

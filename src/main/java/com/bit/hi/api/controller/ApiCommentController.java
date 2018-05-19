@@ -25,7 +25,7 @@ public class ApiCommentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/commentlist", method=RequestMethod.POST)
-	public List<CommentVo> apiCommentList(@RequestParam("page") int page, @RequestParam("no") int postNo) {
+	public List<CommentVo> apiCommentList(@RequestParam("page") int page, @RequestParam("no") int postNo) throws Exception{
 		System.out.println("apiCommentList 진입");
 		System.out.println(page + "/" + postNo);
 		List<CommentVo> commentList=commentService.getCommentList(page, postNo);
@@ -35,7 +35,7 @@ public class ApiCommentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/addcomment", method=RequestMethod.POST)
-	public CommentVo apiAddComment(HttpSession session, @RequestBody CommentVo commentVo) {
+	public CommentVo apiAddComment(HttpSession session, @RequestBody CommentVo commentVo) throws Exception{
 		System.out.println("apiAddComment 진입");
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		commentVo.setUserId(authUser.getUserId());
@@ -45,7 +45,7 @@ public class ApiCommentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/getComment")
-	public CommentVo apiGetComment(@RequestParam("cmtNo") int cmtNo) {
+	public CommentVo apiGetComment(@RequestParam("cmtNo") int cmtNo) throws Exception{
 		System.out.println("apiGetComment 진입");
 		System.out.println(cmtNo);
 		CommentVo cmtVo=commentService.apiGetComment(cmtNo);

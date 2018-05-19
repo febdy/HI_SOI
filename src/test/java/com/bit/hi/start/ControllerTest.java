@@ -18,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 //WAS 없이 Controller 연결 테스트 하기
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration //Spring MVC 테스트 하는데 있어서, 필요한 어노테이션(기존 테스트와 다른 점)
-@ContextConfiguration(locations= {"file:/src/main/webapp/WEB-INF/spring/**/*.xml"})
+@ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 public class ControllerTest {
 	private static final Logger logger=LoggerFactory.getLogger(ControllerTest.class);
 	

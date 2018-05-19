@@ -1,7 +1,11 @@
 package com.bit.hi.api.controller;
 
+
+
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +21,18 @@ import com.bit.hi.service.VideoService;
 @RequestMapping("/interview")
 public class ApiVideoController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ApiVideoController.class);
+	
 	@Autowired
 	private VideoService videoService;
 	
 	@ResponseBody
 	@RequestMapping("/api/upload")
-	public int interviewApiUpload(MultipartHttpServletRequest file, HttpSession session) {
-		System.out.println(file);
+	public int interviewApiUpload(MultipartHttpServletRequest file, HttpSession session) throws Exception{
+		System.out.println("하하");
+		logger.info("파일 업로드.....");
+		logger.info("uploadmode uploading file:" +file.toString());
+		System.out.println("하하");
 		
 		VideoVo videoVo=new VideoVo();
 		
@@ -36,7 +45,7 @@ public class ApiVideoController {
 	
 	@ResponseBody
 	@RequestMapping("/api/selectcorrectedvideo")
-	public VideoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) {
+	public VideoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) throws Exception{
 		VideoVo aa=videoService.getCorrectedVideo(videoNo);
 		System.out.println(aa);
 		return aa;

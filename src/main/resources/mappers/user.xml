@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="user">
 
+<mapper namespace="com.bit.hi.UserMapper">
 	<!-- <resultMap type="com.bit.hi.domain.vo.UserVo" id="resultMapList">
 		<result column="user_id" property="userId" />
 		<result column="user_name" property="userName" />
@@ -14,14 +14,14 @@
 		<result column="reg_date" property="regDate" />
 	</resultMap> -->
 	
-	<insert id="insertJoin" parameterType="com.bit.hi.domain.vo.UserVo">
+	<insert id="insertJoin" parameterType="UserVo">
 		<![CDATA[
 			insert into users
 			values (#{userId}, #{userName}, #{userEmail}, #{userAddr}, #{userTel}, #{userPwd}, #{userNickname}, 'member', sysdate) 
 		]]>
 	</insert>
 	
-	<select id="getListByIdPwd" parameterType="com.bit.hi.domain.vo.UserVo" resultType="com.bit.hi.domain.vo.UserVo">
+	<select id="getListByIdPwd" parameterType="UserVo" resultType="UserVo">
 		<![CDATA[
 			select user_id "userId",
 					user_name "userName",
@@ -38,7 +38,7 @@
 	</select>
 	
 	<!-- apiChk -->
-	<select id="selectUserForId" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
+	<select id="selectUserForId" parameterType="String" resultType="UserVo">
 		<![CDATA[
 			select user_id userId,
 					user_name userName,
@@ -55,7 +55,7 @@
 	</select>
 	
 	<!-- apiChk -->
-	<select id="selectUserForNick" parameterType="String" resultType="com.bit.hi.domain.vo.UserVo">
+	<select id="selectUserForNick" parameterType="String" resultType="UserVo">
 		<![CDATA[
 			select user_id userId,
 					user_name userName,

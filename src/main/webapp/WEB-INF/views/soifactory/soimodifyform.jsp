@@ -123,10 +123,10 @@
                                 <form class="form-horizontal" action="${pageContext.request.contextPath}/post/soimodify?postNo=${postVo.postNo}&writerId=${postVo.writerId}" method="post">
                        				<div class="well">
                        					<input type="text" class="form-control" name="postTitle" value="${postVo.postTitle}"><br>
-                                		<textarea class="form-control" rows="4" name="postContent">${postVo.postContent}"</textarea>
+                                		<textarea class="form-control" rows="4" name="postContent">${postVo.postContent}</textarea>
 										<div>
 											<input type="text" name="videoTitle" value="${postVo.videoOriginName}" id="selectArea" readonly="readonly">
-											<input type="hidden" name="videoNo" id="selectVideoNo">
+											<input type="hidden" name="videoNo" id="selectVideoNo" value="${postVo.videoNo}">
 											<button type="button" class="btn btn-default" id="attachModal">파일 첨부</button>
 										</div><br/>
 										<div class="row form-horizontal">
@@ -168,7 +168,7 @@
 						<div class="modal-header">
 							<h4 class="form-signin-heading modal-title">내 영상 보관함</h4>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body scrollBlind">
 							<table class="table">
 								<thead>
                                     <tr>
@@ -183,7 +183,7 @@
 								</tbody>
 							</table>
 							
-							<div class="pagination-centered padding-bottom30">
+							<%-- <div class="pagination-centered padding-bottom30">
 								<ul class="pagination">
 									<c:if test="${myVideoMap.prev}">
 										<!-- 이 값이 false라면 prev 실행 x -->
@@ -199,7 +199,7 @@
 										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.endPageBtnNo+1}">»</a></li>
 									</c:if>
 								</ul>
-							</div>
+							</div> --%>
 							
 						</div>
 						<div class="modal-footer">
@@ -261,18 +261,17 @@ function fetchList() {
 	$.ajax({//리스트 요청
 		url : "${pageContext.request.contextPath}/post/api/modallist",
 		type : "post",
-		data : {},//데이터를 줄 때 parameter
+		data : { },//데이터를 줄 때 parameter
 
 		dataType : "json", //데이터를 받을때 리턴타입 , json은 문자열임(객체, 맵처럼 쌍으로 묶어 받음.)
 		success : function(myVideoMap) {
 			console.log(myVideoMap);
 			
-			for (var i = 0; i < myVideoMap.myVideoList.length; i++) {
-				render(myVideoMap.myVideoList[i], "down");
+			for (var i = 0; i < myVideoMap.length; i++) {
+				render(myVideoMap[i], "down");
 			};
 			
 			return myVideoMap;
-			//paging(myVideoMap);
 	
 		},
 		error : function(XHR, status, error) {

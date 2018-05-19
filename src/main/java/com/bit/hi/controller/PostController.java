@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,19 +22,22 @@ import com.bit.hi.service.PostService;
 @RequestMapping("/post")
 public class PostController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+	
 	@Autowired
 	private PostService postService;
 
 	@RequestMapping(value="/soifactorylist")
 	public String soiFactoryList(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
-			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) {
+			@RequestParam(value="kwd", required=false, defaultValue="") String kwd, Model model) throws Exception{
 		Map<String, Object> bMap=postService.getAllPostList(crtPage, kwd);
+		logger.info("소이팩토리 영상 정보 : "+ bMap.values().toString());
 		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
 	}
 	
 	@RequestMapping(value="/soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable int postNo) {
+	public String soiRead(Model model, @PathVariable int postNo) throws Exception{
 		PostVo postVo=postService.getEachPost(postNo);
 		model.addAttribute("postVo", postVo);
 		model.addAttribute("ctrl","\r\n");
@@ -40,7 +45,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiwriteform")
-	public String soiWriteForm(HttpSession session) {
+	public String soiWriteForm(HttpSession session) throws Exception{
 		UserVo authUser= (UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -54,19 +59,18 @@ public class PostController {
 	
 	@RequestMapping(value="/soiwrite")
 	public String soiWrite(@ModelAttribute PostVo postVo, HttpSession session, @RequestParam(value="postHideFace", required=false, defaultValue="N") String postHideFace,
-			@RequestParam(value="postSharable", required=false, defaultValue="N") String postSharable
-	) {
-		System.out.println(postVo);
+			@RequestParam(value="postSharable", required=false, defaultValue="N") String postSharable) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		postVo.setWriterId(authUser.getUserId()); //유저 아이디
 		postVo.setPostHideFace(postHideFace);
 		postVo.setPostSharable(postSharable);
+		logger.info("소이팩토리 작성된 글 정보 : " + postVo);
 		postService.writePost(postVo); //ioi로 videoNo를 가져와서, 일단 post에 값 insert해볼 것임.
 		return "redirect:/post/soifactorylist";
 	}
 	
 	@RequestMapping(value="/soidelete")
-	public String soiDelete(@RequestParam("postNo") int postNo) {
+	public String soiDelete(@RequestParam("postNo") int postNo) throws Exception{
 		System.out.println(postNo);
 		postService.deletePost(postNo);
 		return "redirect:/post/soifactorylist";
@@ -77,14 +81,14 @@ public class PostController {
 			@RequestParam(value="soi", required=false) String soi,
 			@RequestParam(value="view", required=false) String view,
 			@RequestParam(value="comment", required=false) String comment,
-			@RequestParam(value="latest", required=false) String latest) {
+			@RequestParam(value="latest", required=false) String latest) throws Exception{
 		Map<String, Object> bMap=postService.getArray(crtPage,soi,view,comment,latest);
 		model.addAttribute("bindMap", bMap);
 		return "soifactory/fac-main";
 	}
 	
 	@RequestMapping(value="/soimodifyform")
-	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, Model model, HttpSession session) {
+	public String soiModifyForm(@RequestParam("postNo") int postNo, @RequestParam("writerId") String writerId, Model model, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
@@ -100,7 +104,7 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soimodify")
-	public String soiModify(@ModelAttribute PostVo postVo, HttpSession session) {
+	public String soiModify(@ModelAttribute PostVo postVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;

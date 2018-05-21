@@ -10,7 +10,7 @@
         		r.post_no postNo,
             	r.user_id userId,
                 cmt_content cmtContent,
-                cmt_date cmtDate,
+                to_char(cmt_date, 'YYYY-MM-DD HH:MI') cmtDate,
                 user_nickname userNickname
 			from (select rownum rn,
                                 cmt_no,
@@ -35,6 +35,7 @@
 		]]>
 	</select>
 	
+	<!-- 댓글 작성시 날짜 부분 수정 해주어야 함. -->
 	<insert id="apiInsertComment" parameterType="CommentVo">
 		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
 				select seq_cmt_no.nextval from dual
@@ -61,5 +62,20 @@
             and co.user_id=us.user_id
 		]]>
 	</select>
+	
+	<delete id="apiDeleteComment" parameterType="CommentVo">
+		<![CDATA[
+			delete from comments
+			where cmt_no = #{cmtNo}
+		]]>
+	</delete>
+	
+	<update id="apiUpdateComment" parameterType="CommentVo">
+		<![CDATA[
+			update comments
+			set cmt_content = #{cmtContent}
+			where cmt_no = #{cmtNo}
+		]]>
+	</update>
 
 </mapper>

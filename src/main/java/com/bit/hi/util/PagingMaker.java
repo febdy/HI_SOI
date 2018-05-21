@@ -6,7 +6,6 @@ public class PagingMaker {
 	private int endPage; //페이지 목록의 끝번호
 	private boolean prev; //이전 버튼을 나타내는 값
 	private boolean next; //다음 버튼을 나타내는  값
-	
 	private int displayPageNum=10; //페이지 목록에 나타낼 번호의 수
 	
 	private PageCriteria cri;

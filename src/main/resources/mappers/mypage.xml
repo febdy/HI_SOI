@@ -57,7 +57,7 @@
                 			from comments co, post po
 							where co.post_no=po.post_no
 							and co.user_id=#{userId}
-                			order by post_no desc) o) t
+                			order by cmt_date desc) o) t
 			where rn > #{startRnum}
 			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->

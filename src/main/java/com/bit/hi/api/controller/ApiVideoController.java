@@ -1,7 +1,5 @@
 package com.bit.hi.api.controller;
 
-
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.VideoService;
 
 @Controller
@@ -43,11 +42,19 @@ public class ApiVideoController {
 		return videoService.upload(file,videoVo);
 	}
 	
-	@ResponseBody
+	/* @ResponseBody
 	@RequestMapping("/api/selectcorrectedvideo")
 	public VideoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) throws Exception{
 		VideoVo aa=videoService.getCorrectedVideo(videoNo);
 		System.out.println(aa);
+		return aa;
+	} */
+	
+	@ResponseBody
+	@RequestMapping("/api/selectcorrectedvideo")
+	public MongoVo getCorrectedVideo(@RequestParam("videoNo") int videoNo) throws Exception{
+		MongoVo aa=videoService.getCorrectedVideo(videoNo);
+		System.out.println("--------------"+aa.toString()+"-------------");
 		return aa;
 	}
 	

@@ -2,86 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
-<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!-->
-<html>
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<title>Home Shop | Gallaxy Responsive HTML5/CSS3 Template | FIFO
-	THEMES</title>
-<meta name="description"
-	content="Gallaxy Responsive HTML5/CSS3 Template from FIFOTHEMES.COM">
-<meta name="author" content="FIFOTHEMES.COM">
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,700,800,900'
-	rel='stylesheet' type='text/css'>
-<!-- Library CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/fonts/font-awesome/css/font-awesome.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animations.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/superfish.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/settings.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/extralayers.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
-	media="screen">
-<!-- Theme CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<!-- Skin -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/colors/green.css"
-	class="colors">
-<!-- Responsive CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/theme-responsive.css">
-<!-- Switcher CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/css/switcher.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/spectrum.css"
-	rel="stylesheet">
-<!-- Favicons -->
-<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/ico/soi.ico">
-<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
-<!--[if IE]>
-        <link rel="stylesheet" href="css/ie.css">
-        <![endif]-->
-</head>
-<body class="home">
-	<div class="page-mask">
-		<div class="page-loader">
-			<div class="spinner"></div>
-			Loading...
-		</div>
-	</div>
-	<div class="wrap">
 
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
@@ -143,7 +63,7 @@
                                             </div>
                                             <div class="blog-entry-meta-comments">
                                                 <i class="fa fa-comments"></i>
-                                                <a id="postCmtCnt" class="blog-entry-meta-comments">${postVo.postHitCnt} comments</a>
+                                                <a id="postCmtCnt" class="blog-entry-meta-comments">${postVo.postCmtCnt} comments</a>
                                             </div>
                                         </div>
                                     </header>
@@ -163,7 +83,7 @@
                                 <!-- /Star -->  
                                  <!-- Comments Section -->
                                 <div class="comment-wrapper">
-                                    <h3 class="title">댓글</h3>
+                                    <h3 id="cmtCnt" class="title">댓글 ${postVo.postCmtCnt} 개</h3>
                                     <div class="clearfix"></div>
                                     <div class="comments-sec">
                                         <ol class="commentlist">
@@ -173,6 +93,9 @@
                                             </li>
                                         </ol>
                                     </div>
+                                    <div align="center">
+										<input id="btnNext" type="button" value="더보기">
+									</div>
                                     <div class="clearfix">
                                     </div>
                                 </div>
@@ -234,23 +157,16 @@
                                     </p>
                                 </div>
                                 <!-- Project Description End -->  
-                                <div class="widget">
-                                    <div class="">
-                                        <a id="btnLike" class="blog-entry-meta-tags"><strong><i class="fa fa-heart text-danger">좋아요</i></strong></a>
-                                    	<a id="btnScrap" class="btn-grey twitter"><strong><i class="fa fa-star text-warning">스크랩</i></strong></a>
+                                <div class="widget form-inline">
+                                    <div class="favourite">
+                                        <a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart text-danger"></i> 좋아요</strong></a>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="widget">
-                                    <div class="member-social dark">
-                                        <a class="facebook" href=""><i class="fa fa-facebook"></i></a>
-                                        <a class="twitter" href=""><i class="fa fa-twitter"></i></a>
-                                        <a class="dribbble" href=""><i class="fa fa-dribbble"></i></a>
-                                        <a class="gplus" href=""><i class="fa fa-google-plus"></i></a>
-                                        <a class="linkedin" href=""><i class="fa fa-linkedin"></i></a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                                    <div class="clearfix">
+                                    <div class="favourite">
+                                    	<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star text-warning"></i> 스크랩</strong></a>
+                                	</div>
+                                </div><br/>
+                                
                                 <!-- Project Details Start -->
                                 <div class="widget project_details">
                                     <h3 class="title">진단 결과</h3>
@@ -265,10 +181,10 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="widget">
-                                	<a href="${pageContext.request.contextPath}/post/soifactorylist" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
+                                	<a href="${pageContext.request.contextPath}/post/soifactorylist?page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
 									<c:if test="${authUser.userId==requestScope.postVo.writerId}">
-                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
-                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글수정</a>
+                                    	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
                                     </c:if>
                                 </div>
                             </div>
@@ -278,60 +194,38 @@
                         </div>
                     </div>
                 </div>
-                
-            </section>
-            <!-- /Main Section -->
+            </div>
+        </section>
+        <!-- /Main Section -->
             
-            <!-- Footer -->
-            <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
-            <!-- /Footer -->
-            
-            <!-- Scroll To Top --> 
-            <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
-        </div>
-        <!-- /Wrap -->
-        
-        <!-- The Scripts -->
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-1.0.0.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.plugins.min.js"></script> 
-        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.parallax.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.wait.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/fappear.js"></script> 
-        <script src="${pageContext.request.contextPath}/resources/js/modernizr-2.6.2.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/superfish.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/tweetMachine.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/tytabs.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.gmap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jflickrfeed.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/imagesloaded.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/waypoints.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/wow.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.fitvids.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+        <!-- Footer -->
+        <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+        <!-- /Footer -->
+
 
 </body>
 
 <script>
+	var authUser='${sessionScope.authUser}';
 	var page=1;
-	
+
 	$(document).ready(function() { //페이지의 내용이 로딩되기 이전에 데이터 요청, 화면 켜지자 마자 뿌려주기
 		fetchList();
+	});
+	
+	$("#btnNext").on("click", function() {
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+		} else {
+			page = page + 1; //page+=1;
+			console.log(page);
+		
+			fetchList();
+		}
 	});
 
 	function fetchList() {
 		var no= ${postVo.postNo};
-		
-		console.log(no);
 		
 		$.ajax({//리스트 요청
 			url : "${pageContext.request.contextPath}/comment/api/commentlist",
@@ -356,22 +250,32 @@
 	};
 
 	function render(CommentVo, updown) {
+		var userId='${authUser.userId}';
+		var cmtWriter=CommentVo.userId;
+		
 		var str = "";
 		str += "<li>";
 		str += "<div class='comment' id='g"+CommentVo.cmtNo+"'>";
-		str += "    <div class='avatar'>";
+ 		str += "    <div class='avatar'>";
 		str += "        <img alt='' src='${pageContext.request.contextPath}/resources/img/team/team-member-3.jpg'>";
 		str += "    </div>";
-		str += "    <div class='comment-des'>";
-		str += "        <div class='arrow-comment'>";
+ 		str += "    <div class='comment-des'>";
+  		str += "        <div class='arrow-comment'>";
 		str += "        </div>";
-		str += "        <div class='comment-by'>";
+		str += "        <div class='comment-by' style='margin-right: 400px;'>";
 		str += "            <strong>"+CommentVo.userId+"</strong>";
-		str += "            <span class='date'>"+CommentVo.cmtDate+"</span>";
+		str += "            <span class='date'>&nbsp;&nbsp;&nbsp;"+CommentVo.cmtDate+"</span>";
+		str += "            <span class='reply'><a href=''><i class='fa fa-reply'></i> Reply</a></span>";
+		if(userId==cmtWriter) {
+		str += "            <span id='"+CommentVo.cmtNo+"' class='delete reply'><a href='javascript:void(0)'><i class='fa fa-trash-o'></i></a></span>";
+		str += "            <span id='"+CommentVo.cmtNo+"' class='modify reply'><a href='javascript:void(0)'><i class='fa fa-pencil-square-o'></i></a></span>";
+		}
 		str += "        </div>";
-		str += "        <p>"+CommentVo.cmtContent+"</p>";
-		str += "    </div>";
-		str += "    <div class='clearfix'>";
+		str += "        <div id='g"+CommentVo.cmtNo+"modifyCmt'>";
+		str += "        	<p><pre id='g"+CommentVo.cmtNo+"abc' style='white-space: pre-wrap;'>"+CommentVo.cmtContent+"</pre></p>";
+		str += "        </div>";
+ 		str += "    </div>";
+ 		str += "    <div class='clearfix'>";
 		str += "    </div>";
 		str += "</div>";
 		str += "</li>";
@@ -385,43 +289,45 @@
 		}
 	};
 	
+	//댓글 버튼 클릭
 	$("#btnInsert").on("click", function(){
-		
 		var content = $("#cmtcontent").val();
+		content=content.replace('\r\n', '</br>');
 		var postNo = ${postVo.postNo};
-		console.log(content);
-		console.log(postNo);
 		
 		var commentVo = {
 				cmtContent : content,
 				postNo : postNo
 		}
 		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/comment/api/addcomment",
-			type : "post",
-			contentType : "application/json", 
-			data : JSON.stringify(commentVo), 
-
-			dataType : "json", 
-			success : function(commentVo){
-				//로그인 여부 서버단에서 조건 걸기 
-				console.log(commentVo);
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+		} else if (content=="") {
+			alert("글을 작성해주세요.");
+		} else {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/comment/api/addcomment",
+				type : "post",
+				contentType : "application/json", 
+				data : JSON.stringify(commentVo), 
+	
+				dataType : "json", 
+				success : function(commentVo){
+					//로그인 여부 서버단에서 조건 걸기 
+					
+					var cmtNo=commentVo.cmtNo;
+					
+					getComment(cmtNo);
+					
+					$("[name=cmtcontent]").val("");
+				},
 				
-				var cmtNo=commentVo.cmtNo;
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
 				
-				getComment(cmtNo);
-				
-				$("[name=cmtcontent]").val("");
-			},
-			
-			error : function(XHR, status, error) {
-				alert("로그인이 필요합니다.");
-		        window.location.replace("/hi");
-				//console.error(status + " : " + error);
-			}
-			
-		});
+			});
+		}
 	});
 	
 	//댓글 쓰기 및 댓글 수 증가
@@ -436,76 +342,213 @@
 			//받기
 			dataType : "json",
 			success : function(writeCmt){
-				console.log(writeCmt);
-				render(writeCmt,"up")
+				//댓글 쓰기
+				render(writeCmt, "up");
+				
+				//댓글 표시 숫자 증가
 				var stat=$("#postCmtCnt").text();
 				stat=stat.split(" ");
 				var num=parseInt(stat);
 				num++;
 				$("#postCmtCnt").text(num+" comments");
+				
+				//댓글 표시 숫자 증가
+				var stat=$("#cmtCnt").text();
+				stat=stat.split(" ")[1];
+				var num=parseInt(stat);
+				num++;
+				$("#cmtCnt").text("댓글 "+ num +" 개");
 			},
 			
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 
-			});
+		});
 		
 	};
 	
 	
 	//콩 수 증가
 	$("#btnLike").on("click", function(){
-		var postNo = ${postVo.postNo};
-		console.log(postNo);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/post/api/updateLike",
-			type : "post",
-			data : {
-				postNo : postNo
-			},
-
-			dataType : "json", 
-			success : function(soi){
-				console.log(soi);
-				var stat=$("#postSoiCnt").text();
-				stat=stat.split(" ");
-				var num=parseInt(stat);
-				num++;
-				$("#postSoiCnt").text(num+" soybeans");
-			},
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+			location.href='${pageContext.request.contextPath}/';
+		} else {
+			var postNo = ${postVo.postNo};
 			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-			
-		});
+			$.ajax({
+				url : "${pageContext.request.contextPath}/post/api/updateLike",
+				type : "post",
+				data : {
+					postNo : postNo
+				},
+	
+				dataType : "json", 
+				success : function(soi){
+					
+					//콩 수 증가
+					var stat=$("#postSoiCnt").text();
+					stat=stat.split(" ");
+					var num=parseInt(stat);
+					num++;
+					$("#postSoiCnt").text(num+" soybeans");
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
 	});
 	
 	//스크랩 기능
 	$("#btnScrap").on("click", function(){
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+			location.href='${pageContext.request.contextPath}/';
+		} else {
+			var postNo = ${postVo.postNo};
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/post/api/addScrapPost",
+				type : "post",
+				data : {
+					postNo : postNo
+				},
+	
+				dataType : "json", 
+				success : function(soi){
+					console.log(soi);
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
+	});
+	
+	
+
+	//댓글 삭제 버튼
+	$("li").on("click",".delete", function(){
+		var no = this.id;
 		var postNo = ${postVo.postNo};
+		console.log(no);
 		console.log(postNo);
 		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/post/api/addScrapPost",
-			type : "post",
-			data : {
+		var commentVo = {
+				cmtNo : no,
 				postNo : postNo
-			},
+		}
+		
+		$.ajax({
+			//보내기
+			url : "${pageContext.request.contextPath}/comment/api/deleteComment",
+			type : "post",
+			contentType : "application/json", 
+			data : JSON.stringify(commentVo), 
 
-			dataType : "json", 
-			success : function(soi){
-				console.log(soi);
+			dataType : "json",
+			success : function(count) {
+				if(count==1){
+					console.log(count+"개 제거 완료")
+					
+					$("#g" + no).remove();
+					
+					alert("댓글 삭제에 성공하였습니다.");
+					
+					var stat=$("#postCmtCnt").text();
+					stat=stat.split(" ");
+					var num=parseInt(stat);
+					num--;
+					$("#postCmtCnt").text(num+" comments");
+					
+					//댓글 표시 숫자 증가
+					var stat=$("#cmtCnt").text();
+					stat=stat.split(" ")[1];
+					var num=parseInt(stat);
+					num--;
+					$("#cmtCnt").text("댓글 "+ num +" 개");
+				}
 			},
-			
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-			
 		});
 	});
+	
+	//수정 클릭
+	$("li").on("click",".modify", function(){
+		var no = this.id;
+
+		var oldContent = $("#g"+no+"abc").text();
+
+		var str = "";
+		
+		str += "<textarea type='text' id='"+no+"reContent' maxlength='200' width='80' style='width:100%; height:60;'>";
+		str += "</textarea>";
+		str += "<div align=right>";
+		str += "<input id='"+no+"' class='save' type='button' value='저장' style='margin-right:10px'/>";
+		str += "<input id='"+no+"' class='cancel' type='button' value='취소'/>";
+		str += "</div>";
+		
+		$("#g"+no+"modifyCmt").html(str);
+		/* $("#g"+no+"modifyCmt").append(cancel); */
+		
+		$("#"+no+"reContent").val(oldContent);
+
+		var recon=$("#reContent").text();
+	});
+	
+	//수정하기 저장
+	$("li").on("click", ".save", function() {
+		var no = this.id 
+		
+		console.log(no);
+		var newcontent = $("#"+no+"reContent").val();
+		
+		var commentVo = {
+				cmtContent : newcontent,
+				cmtNo : no
+		}
+		
+		$.ajax({
+			//보내기
+			url : "${pageContext.request.contextPath}/comment/api/modifyComment",
+			type : "post",
+			contentType : "application/json", 
+			data : JSON.stringify(commentVo), 
+
+			dataType : "json",
+			success : function(count) {
+				if(count==1){
+					console.log(count+"개 수정 완료");
+					
+					var renewstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+newcontent+"</pre></p>";
+					$("#g"+no+"modifyCmt").html(renewstr);
+					
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	//수정하기 취소
+	$("li").on("click", ".cancel", function() {
+		var no = this.id;
+		var oldcontent = $("#"+no+"reContent").val();
+		console.log(no);
+		
+		var oldstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+oldcontent+"</pre></p>";
+		$("#g"+no+"modifyCmt").html(oldstr);
+	});
+	
 </script>
 
 </html>

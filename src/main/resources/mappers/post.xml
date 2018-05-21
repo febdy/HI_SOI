@@ -10,25 +10,120 @@
 		]]>
 	</insert>
 	
-	<!-- 소이팩토리 메인 전체 영상 리스트 뿌려주기 -->
-	<select id="selectAllPostList" resultType="PostVo">
+	<!-- 소이팩토리 페이징 -->
+	<select id="selectPageForPost" parameterType="map" resultType="PostVo">
 		<![CDATA[
-			select post_no postNo,
-					writer_id writerId,
-					video_no videoNo,
-					post_title postTitle,
-					post_content postContent,
-					post_date postDate,
-					post_soi_cnt postSoiCnt,
-					post_cmt_cnt postCmtCnt,
-					post_hit_cnt postHitCnt,
-					post_hide_face postHideFace,
-					post_sharable postSharable,
-					post_anal_result postAnalResult,
-					video_thumnail videoThumnail
-			from post po, video vi
-			where po.video_no=vi.video_no
-		]]>
+			select rn,
+       				post_no postNo,
+        			post_title postTitle,
+        			post_soi_cnt postSoiCnt,
+        			post_cmt_cnt postCmtCnt,
+        			post_hit_cnt postHitCnt,
+        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
+        			user_id userId,
+        			user_nickname userNickname,
+        			video_thumnail videoThumnail
+			from (select ROWNUM rn,
+                				post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			user_id,
+                    			user_nickname,
+                    			video_thumnail
+        			from (select post_no,
+                    			post_title,
+                    			post_soi_cnt,
+                    			post_cmt_cnt,
+                    			post_hit_cnt,
+                    			post_date,
+                    			us.user_id,
+                    			us.user_nickname,
+                    			vi.video_thumnail
+                			from post po, users us, video vi
+                			where po.writer_id=us.user_id
+                			and po.video_no=vi.video_no 
+                			]]>
+		              		<if test="findType != null">
+								<if test="findType == 'S'.toString()">
+									and post_title like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'C'.toString()">
+									and post_content like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'W'.toString()">
+									and writer_id like '%' || #{keyword} || '%'
+								</if>
+								<if test="findType == 'SC'.toString()">
+									and (post_title like '%' || #{keyword} || '%' OR 
+									post_content like '%' || #{keyword} || '%')
+								</if>
+								<if test="findType == 'CW'.toString()">
+									and (content like '%' || #{keyword} || '%' OR 
+									writer_id like '%' || #{keyword} || '%')
+								</if>
+								<if test="findType == 'SCW'.toString()">
+									and (post_title like '%' || #{keyword} || '%' OR 
+									post_content like '%' || #{keyword} || '%' OR 
+									writer_id like '%' || #{keyword} || '%')
+								</if>
+							</if>
+                			<![CDATA[
+                			order by 
+                			]]>
+                            	<if test="facArray.equals('soi')">
+                            		post_soi_cnt
+                            	</if>
+                            	<if test="facArray.equals('view')">
+                            		post_hit_cnt
+                            	</if>
+                            	<if test="facArray.equals('comment')">
+                            		post_cmt_cnt
+                            	</if>
+                            	<if test="facArray.equals('latest')">
+                            		post_date
+                            	</if>
+                            <![CDATA[
+                            desc, post_no desc) o) t
+			where rn > #{startRnum}
+			and rn <= #{endRnum}
+		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
+	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	<!-- if문을 써주어, kwd와 동일한지 -->
+	
+	<!-- 소이팩토릭 검색 -->
+	<select id="selectTotalCountForPost" resultType="int">
+		<![CDATA[
+			select count(post_no)
+			from post
+			where post_no>0 
+			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
+        	<if test="findType != null">
+				<if test="findType == 'S'.toString()">
+					and post_title like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'C'.toString()">
+					and post_content like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'W'.toString()">
+					and writer_id like '%' || #{keyword} || '%'
+				</if>
+				<if test="findType == 'SC'.toString()">
+					and (post_title like '%' || #{keyword} || '%' OR 
+					post_content like '%' || #{keyword} || '%')
+				</if>
+				<if test="findType == 'CW'.toString()">
+					and (content like '%' || #{keyword} || '%' OR 
+					writer_id like '%' || #{keyword} || '%')
+				</if>
+				<if test="findType == 'SCW'.toString()">
+					and (post_title like '%' || #{keyword} || '%' OR 
+					post_content like '%' || #{keyword} || '%' OR 
+					writer_id like '%' || #{keyword} || '%')
+				</if>
+			</if>
 	</select>
 	
 	<!-- 각 포스트 클릭시 정보 뿌리기 -->
@@ -78,11 +173,20 @@
 		]]>
 	</update>
 	
-	<!-- 댓글수 -->
-	<update id="updateCmtCnt" parameterType="CommentVo">
+	<!-- 댓글수 증가  -->
+	<update id="updateCmtCntForPlus" parameterType="CommentVo">
 		<![CDATA[
 			update post
 			set post_cmt_cnt=post_cmt_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<!-- 댓글수 감소  -->
+	<update id="updateCmtCntForMinus" parameterType="CommentVo">
+		<![CDATA[
+			update post
+			set post_cmt_cnt=post_cmt_cnt-1
 			where post_no=#{postNo}
 		]]>
 	</update>
@@ -102,130 +206,6 @@
 			values (#{postNo}, #{userId}, sysdate)
 		]]>
 	</insert>
-	
-	<!-- 소이팩토리 페이징 -->
-	<select id="selectPageForPost" parameterType="map" resultType="PostVo">
-		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                			]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
-                			<if test="kwd!=null and kwd!=''">
-                				and post_title like '%'||#{kwd}||'%'
-                			</if>
-                			<![CDATA[
-                			order by post_no desc) o) t
-			where rn > #{startRnum}
-			and rn <= #{endRnum}
-		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
-	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
-	<!-- if문을 써주어, kwd와 동일한지 -->
-	
-	<!-- 소이팩토릭 검색 -->
-	<select id="selectTotalCountForPost" parameterType="String" resultType="int">
-		<![CDATA[
-			select count(*)
-			from post
-		]]> <!-- jstl이 아니라는 것을 알려주기 위한 것 -->
-        	<if test="_parameter!=null and _parameter!=''">
-                where post_title like '%'||#{_parameter}||'%'
-            </if> <!-- int면 like다음에  '%'||${kwd}||'%' 와도 되지만, String 하나이므로, kwd를 _parameter로 바꿔준다. -->
-       <![CDATA[
-		]]> <!-- kwd가 있을때는 그것만 가지고 카운트를 할 수 있도록 해야함. -->
-	</select>
-	
-	<!-- 소이팩토리 정렬 -->
-	<select id="selectListForArray" parameterType="map" resultType="PostVo">
-		<![CDATA[
-			select rn,
-       				post_no postNo,
-        			post_title postTitle,
-        			post_soi_cnt postSoiCnt,
-        			post_cmt_cnt postCmtCnt,
-        			post_hit_cnt postHitCnt,
-        			to_char(post_date, 'YYYY-MM-DD HH:MI') postDate,
-        			user_id userId,
-        			user_nickname userNickname,
-        			video_thumnail videoThumnail
-			from (select ROWNUM rn,
-                				post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			user_id,
-                    			user_nickname,
-                    			video_thumnail
-        			from (select post_no,
-                    			post_title,
-                    			post_soi_cnt,
-                    			post_cmt_cnt,
-                    			post_hit_cnt,
-                    			post_date,
-                    			us.user_id,
-                    			us.user_nickname,
-                    			vi.video_thumnail
-                			from post po, users us, video vi
-                			where po.writer_id=us.user_id
-                			and po.video_no=vi.video_no
-                            order by 
-                            ]]>
-                            	<if test="soi != null">
-                            		post_soi_cnt
-                            	</if>
-                            	<if test="view != null">
-                            		post_hit_cnt
-                            	</if>
-                            	<if test="comment != null">
-                            		post_cmt_cnt
-                            	</if>
-                            	<if test="latest != null">
-                            		post_date
-                            	</if>
-                            <![CDATA[
-                            desc, post_no desc) o) t
-            where rn > #{startRnum}
-			and rn <= #{endRnum}
-		]]>
-	</select>
-	
-	<!-- 정렬에 사용할 총 포스트 수 -->
-	<select id="selectTotalCountForArray" resultType="int">
-		<![CDATA[
-			select count(*)
-			from post
-		]]>
-	</select>
 	
 	<!-- 글수정창을 위한 값 뿌려주기 -->
 	<select id="selectEachPostForModify" parameterType="int" resultType="PostVo">

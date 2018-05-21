@@ -11,5 +11,11 @@ public interface CommentDao {
 	
 	public CommentVo apiSelectComment(int cmtNo) throws Exception;
 	
-	public void updateCmtCnt(CommentVo commentVo) throws Exception;
+	public void updateCmtCntForPlus(CommentVo commentVo) throws Exception;
+	
+	public int apiDeleteComment(CommentVo commentVo) throws Exception;
+	
+	public void updateCmtCntForMinus(CommentVo commentVo) throws Exception;
+	
+	public int apiUpdateComment(CommentVo commentVo) throws Exception;
 }

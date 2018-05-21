@@ -32,7 +32,7 @@ public class CsDaoImpl implements CsDao {
 	}
 	
 	@Override
-	public int selectTotalCount(String kwd) throws Exception {
+	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception {
 		return sqlSession.selectOne(namespace+"totalCount", kwd);
 	}
 	

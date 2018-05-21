@@ -1,7 +1,5 @@
 package com.bit.hi.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
@@ -21,8 +20,6 @@ import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.CsService;
 import com.bit.hi.util.PageCriteria;
 import com.bit.hi.util.PagingMaker;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 @RequestMapping("/cs")
@@ -34,14 +31,18 @@ public class CsController {
 	private CsService csService;
 	
 	@RequestMapping(value="/notice")
-	public String noticelist(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, 
+	public String noticelist(PageCriteria pCri, 
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
 			Model model) throws Exception{ //메서드 이름과 mapping 값은 동일하지 않아도 된다.
 		//위에 required와 defaultValue, Integer는 crtPage값 없을 때를 위한 조치임.
-		System.out.println("list 진입");
-		Map<String, Object> bMap=csService.noticeGetList(crtPage, kwd);
-		System.out.println(bMap.toString());
-		model.addAttribute("bMap",bMap);
+		model.addAttribute("bMap", csService.noticeGetList(pCri, kwd));
+		
+		PagingMaker pagingMaker=new PagingMaker();
+		pagingMaker.setCri(pCri);
+		pagingMaker.setTotalData(csService.selectTotalCount(pCri, kwd));
+		
+		model.addAttribute("pagingMaker", pagingMaker);
+
 		return "cs/notice";
 	}
 	
@@ -74,7 +75,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/view/{notiNo}")
-	public String viewEachNotice(@PathVariable("notiNo") int notiNo, Model model) throws Exception{
+	public String viewEachNotice(@PathVariable("notiNo") int notiNo, @ModelAttribute("pCri") PageCriteria pCri, Model model) throws Exception{
 		System.out.println("각 공지글 보기 진입");
 		
 		CsVo viewNotice=csService.viewEachNotice(notiNo);
@@ -84,7 +85,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/modifyform")
-	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, Model model,HttpSession session) throws Exception{
+	public String modifyFormNotice(@RequestParam("notiNo") int notiNo, @ModelAttribute("pCri") PageCriteria pCri, Model model, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("modifyform 진입");
@@ -98,23 +99,27 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/modify")
-	public String modifyNotice(@ModelAttribute CsVo csVo, HttpSession session) throws Exception{
+	public String modifyNotice(@ModelAttribute CsVo csVo, @ModelAttribute("pCri") PageCriteria pCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(csVo);
 		if (authUser.getUserLevel().equals("administer")) {
 			System.out.println("modify 진입");
 			csService.modifyEachNotice(csVo);
+			
+			reAttr.addAttribute("page", pCri.getPage());
+			reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
 			return "redirect:/cs/notice";
 		} else {
-			System.out.println("Not administer");
 			return "redirect:/cs/notice";
 		}
 	}
 	
 	@RequestMapping("/notice/delete")
-	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo) throws Exception{
+	public String apiDeleteNotice(@RequestParam("notiNo") int notiNo, @ModelAttribute("pCri") PageCriteria pCri, RedirectAttributes reAttr) throws Exception{
 		csService.deleteNotice(notiNo);
 		
+		reAttr.addAttribute("page", pCri.getPage());
+		reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
 		return "redirect:/cs/notice";
 	}
 	
@@ -135,7 +140,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/write", method=RequestMethod.GET)
-	public String qnaWriteForm(Model mondel) throws Exception{
+	public String qnaWriteForm() throws Exception{
 		return "cs/qnawrite";
 	}
 	
@@ -151,17 +156,16 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/view/{qnaNo}")
-	public String qnaEachView(@PathVariable("qnaNo") int qnaNo, Model model) throws Exception{
+	public String qnaEachView(@PathVariable("qnaNo") int qnaNo, @ModelAttribute("pCri") PageCriteria pCri, Model model) throws Exception{
 		QnaVo viewQna = csService.viewEachQna(qnaNo);
 		
 		model.addAttribute("qnaVo", viewQna);
 		model.addAttribute("ctrl","\r\n");
 		return "cs/qnaview";
-		
 	}
 	
 	@RequestMapping(value="/qna/modifyform")
-	public String modifyFormQna(@RequestParam("qnaNo") int qnaNo, Model model, HttpSession session) throws Exception{
+	public String modifyFormQna(@RequestParam("qnaNo") int qnaNo, Model model, @ModelAttribute("pCri") PageCriteria pCri, HttpSession session) throws Exception{
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser.getUserId().equals(csService.viewQnaForModify(qnaNo).getUserId())) {
 			System.out.println("modifyform 진입");
@@ -174,22 +178,26 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/qna/modify")
-	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session) throws Exception{
+	public String modifyQna(@ModelAttribute QnaVo qnaVo, HttpSession session, @ModelAttribute("pCri") PageCriteria pCri, RedirectAttributes reAttr) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		System.out.println(qnaVo);
 		if (authUser.getUserId().equals(csService.viewQnaForModify(qnaVo.getQnaNo()).getUserId())) {
 			System.out.println("modify 진입");
 			csService.modifyEachQna(qnaVo);
+			
+			reAttr.addAttribute("page", pCri.getPage());
+			reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
 			return "redirect:/cs/qna";
 		} else {
-			System.out.println("Not administer");
 			return "redirect:/cs/qna";
 		}
 	}
 	
 	@RequestMapping(value="/qna/delete")
-	public String deleteQna(Model model, @RequestParam("qnaNo") int qnaNo) throws Exception{
+	public String deleteQna(Model model, @ModelAttribute("pCri") PageCriteria pCri, @RequestParam("qnaNo") int qnaNo, RedirectAttributes reAttr) throws Exception{
 		csService.deleteQna(qnaNo);
+		
+		reAttr.addAttribute("page", pCri.getPage());
+		reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
 		return "redirect:/cs/qna";
 	}
 	

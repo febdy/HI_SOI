@@ -1,7 +1,6 @@
 package com.bit.hi.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.bit.hi.domain.vo.CsVo;
 import com.bit.hi.domain.vo.QnaVo;
@@ -9,7 +8,9 @@ import com.bit.hi.util.PageCriteria;
 
 public interface CsService {
 
-	public Map<String, Object> noticeGetList(Integer crtPage, String kwd) throws Exception;
+	public List<CsVo> noticeGetList(PageCriteria pCri, String kwd) throws Exception;
+	
+	public int selectTotalCount(PageCriteria pCri, String kwd) throws Exception;
 	
 	public int addNoticeWrite(CsVo csVo) throws Exception;
 	

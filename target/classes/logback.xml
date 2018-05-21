@@ -27,8 +27,13 @@
     </logger>
  
     <!-- Query Loggers -->
+    <logger name="jdbc.sql" additivity="false">  
+        <level value="ERROR"/>  
+        <appender-ref ref="STDOUT"/>  
+    </logger>
+    
     <logger name="jdbc.sqlonly" additivity="false">  
-        <level value="INFO"/>  
+        <level value="DEBUG"/>  
         <appender-ref ref="STDOUT"/>  
     </logger>
      
@@ -36,6 +41,16 @@
         <level value="INFO"/>  
         <appender-ref ref="STDOUT"/>  
     </logger> 
+    
+    <logger name="jdbc.resultset" additivity="false">
+    	<level value="ERROR"/>
+    	<appender-ref ref="STDOUT"/>
+    </logger>
+    
+    <logger name="jdbc.audit" additivity="false">
+    	<level value="ERROR"/>
+    	<appender-ref ref="STDOUT"/>
+    </logger>
  
     <root level="info" additivity="false">
         <appender-ref ref="STDOUT" />

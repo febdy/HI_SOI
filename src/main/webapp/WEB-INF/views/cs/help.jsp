@@ -1,86 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
-<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!-->
-<html>
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<title>Home Shop | Gallaxy Responsive HTML5/CSS3 Template | FIFO
-	THEMES</title>
-<meta name="description"
-	content="Gallaxy Responsive HTML5/CSS3 Template from FIFOTHEMES.COM">
-<meta name="author" content="FIFOTHEMES.COM">
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Fonts -->
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:100,200,300,700,800,900'
-	rel='stylesheet' type='text/css'>
-<!-- Library CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/fonts/font-awesome/css/font-awesome.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/animations.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/superfish.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/settings.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/extralayers.css"
-	media="screen">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
-	media="screen">
-<!-- Theme CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<!-- Skin -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/colors/green.css"
-	class="colors">
-<!-- Responsive CSS -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/theme-responsive.css">
-<!-- Switcher CSS -->
-<link
-	href="${pageContext.request.contextPath}/resources/css/switcher.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/spectrum.css"
-	rel="stylesheet">
-<!-- Favicons -->
-<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/img/ico/soi.ico">
-<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
-<!--[if IE]>
-        <link rel="stylesheet" href="css/ie.css">
-        <![endif]-->
-</head>
-<body class="home">
-	<div class="page-mask">
-		<div class="page-loader">
-			<div class="spinner"></div>
-			Loading...
-		</div>
-	</div>
-	<div class="wrap">
 
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
@@ -137,54 +57,125 @@
                             <div class="col-md-2">
                                 <h4>도움말</h4>
                                 </div>
-                               </div>
-								
-								
-							</div>
+                               </div><br/>
+								<!-- FAQ -->
+                        <div class="row margin-bottom60">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="accordionMod panel-group">
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">업로드 모드에서 파일 업로드가 안되는데 어떻게 해야하나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">사이트 기록물을 모두 삭제 하려면 어떻게 해야하나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">캠이 없는데, 실시간 모드를 할 방법은 없나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">내가 작성한 댓글을 한번에 삭제할 방법은 없나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">회원 탈퇴는 어떻게 하나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">Q&A 비밀번호를 잊어버렸는데, 도와주세요.</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h4 class="accordion-toggle">진단 에러가 나는데, 시스템 문제인가요. 어떻게 해야하나요?</h4>
+                                        <section class="accordion-inner panel-body">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            </p>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-               		</div>
+                        <!-- /FAQ -->
+                        <!-- Star -->
+                        <div class="star">
+                            <div class="row text-center">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="star-divider margin-topminus30">
+                                        <div class="star-divider-icon">
+                                            <i class=" fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Star --> 
+                        <!-- contact box -->                                
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="contact-box widget">
+                                    <h3>More Questions?</h3>
+                                    <i class="fa fa-envelope"></i>
+                                    <p>Let us know your question via the contact form.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="contact-box widget">
+                                    <h3>Emergency Help</h3>
+                                    <i class="fa fa-phone"> </i>
+                                    <p>For emergency help <br> Call Us: <strong>(111) 222 3333</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="contact-box widget">
+                                    <h3>Business Hour</h3>
+                                    <i class="fa fa-clock-o"> </i>
+                                    <ul>
+                                        <li>Monday - Friday 9am to 5pm </li>
+                                        <li>Saturday - 9am to 2pm</li>
+                                        <li>Sunday - Closed</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /contact box -->
+                    </div>
                 </div>
-                
-                </section>
+                </div>
+                </div>
+                <!-- /Main Content -->
+            </section>
             <!-- /Main Section -->
             
             <!-- Footer -->
             <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
             <!-- /Footer -->
-            
-            
-            <!-- Scroll To Top --> 
-            <a href="#" class="scrollup"><i class="fa fa-angle-up"></i></a>
-        </div>
-        <!-- /Wrap -->
-        
-        <!-- The Scripts -->
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-1.0.0.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.plugins.min.js"></script> 
-        <script src="${pageContext.request.contextPath}/resources/js/revolution-slider/js/jquery.themepunch.revolution.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.parallax.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.wait.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/fappear.js"></script> 
-        <script src="${pageContext.request.contextPath}/resources/js/modernizr-2.6.2.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.prettyPhoto.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/superfish.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/tweetMachine.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/tytabs.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.gmap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jflickrfeed.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/imagesloaded.pkgd.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/waypoints.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/wow.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.fitvids.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
 
 </body>
 </html>

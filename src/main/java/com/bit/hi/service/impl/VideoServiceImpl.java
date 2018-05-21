@@ -46,9 +46,12 @@ public class VideoServiceImpl implements VideoService {
 			videoDao.insertUpload(videoVo);
 			
 			MongoVo mongoVo=new MongoVo();
+			mongoVo.setVideoNo(String.valueOf(videoVo.getVideoNo())); //문자형으로 바꿔서 저장(불러올 때 key값으로 사용하기 위해)
 			mongoVo.setVideoOriginName(videoVo.getVideoOriginName());
 			mongoVo.setVideoPath(videoVo.getVideoPath());
 			mongoVo.setVideoSize(videoVo.getVideoSize());
+			mongoVo.setVideoSaveName(videoVo.getVideoSaveName()); //임시 출력을 위해, saveName, thumnail 넣어줌.
+			mongoVo.setVideoThumnail(videoVo.getVideoThumnail());
 			
 			//MongoDB 저장
 			videoDao.mongoSave(mongoVo);
@@ -60,8 +63,13 @@ public class VideoServiceImpl implements VideoService {
 		return 0;
 	}
 	
-	@Override
+	/* @Override
 	public VideoVo getCorrectedVideo(int videoNo) throws Exception{
 		return videoDao.selectCorrectedVideo(videoNo);
+	} */
+	
+	@Override
+	public MongoVo getCorrectedVideo(int videoNo) throws Exception{
+		return videoDao.findMongoData("videoNo", String.valueOf(videoNo));
 	}
 }

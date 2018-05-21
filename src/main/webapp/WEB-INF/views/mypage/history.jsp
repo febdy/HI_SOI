@@ -118,6 +118,7 @@
 							                          </div>
 							                      </div>
 							                  </div>
+							                  
 							              </div>
 							              <!-- page end-->
 							          </section>          
@@ -134,5 +135,8 @@
             <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
             <!-- /Footer -->
             
+        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
+    	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script>
+    	
 </body>
 </html>

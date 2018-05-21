@@ -268,9 +268,12 @@
 		str += "            <span class='reply'><a href=''><i class='fa fa-reply'></i> Reply</a></span>";
 		if(userId==cmtWriter) {
 		str += "            <span id='"+CommentVo.cmtNo+"' class='delete reply'><a href='javascript:void(0)'><i class='fa fa-trash-o'></i></a></span>";
+		str += "            <span id='"+CommentVo.cmtNo+"' class='modify reply'><a href='javascript:void(0)'><i class='fa fa-pencil-square-o'></i></a></span>";
 		}
 		str += "        </div>";
-		str += "        <p><pre style='white-space: pre-wrap;'>"+CommentVo.cmtContent+"</pre></p>";
+		str += "        <div id='g"+CommentVo.cmtNo+"modifyCmt'>";
+		str += "        	<p><pre id='g"+CommentVo.cmtNo+"abc' style='white-space: pre-wrap;'>"+CommentVo.cmtContent+"</pre></p>";
+		str += "        </div>";
  		str += "    </div>";
  		str += "    <div class='clearfix'>";
 		str += "    </div>";
@@ -433,16 +436,22 @@
 	//댓글 삭제 버튼
 	$("li").on("click",".delete", function(){
 		var no = this.id;
+		var postNo = ${postVo.postNo};
 		console.log(no);
+		console.log(postNo);
+		
+		var commentVo = {
+				cmtNo : no,
+				postNo : postNo
+		}
 		
 		$.ajax({
 			//보내기
 			url : "${pageContext.request.contextPath}/comment/api/deleteComment",
 			type : "post",
-			//contentType : "application/json", //json타입으로, 바디에 넣어보냄.
-			data : {cmtNo : no},
+			contentType : "application/json", 
+			data : JSON.stringify(commentVo), 
 
-			//받기
 			dataType : "json",
 			success : function(count) {
 				if(count==1){
@@ -470,6 +479,74 @@
 				console.error(status + " : " + error);
 			}
 		});
+	});
+	
+	//수정 클릭
+	$("li").on("click",".modify", function(){
+		var no = this.id;
+
+		var oldContent = $("#g"+no+"abc").text();
+
+		var str = "";
+		
+		str += "<textarea type='text' id='"+no+"reContent' maxlength='200' width='80' style='width:100%; height:60;'>";
+		str += "</textarea>";
+		str += "<div align=right>";
+		str += "<input id='"+no+"' class='save' type='button' value='저장' style='margin-right:10px'/>";
+		str += "<input id='"+no+"' class='cancel' type='button' value='취소'/>";
+		str += "</div>";
+		
+		$("#g"+no+"modifyCmt").html(str);
+		/* $("#g"+no+"modifyCmt").append(cancel); */
+		
+		$("#"+no+"reContent").val(oldContent);
+
+		var recon=$("#reContent").text();
+	});
+	
+	//수정하기 저장
+	$("li").on("click", ".save", function() {
+		var no = this.id 
+		
+		console.log(no);
+		var newcontent = $("#"+no+"reContent").val();
+		
+		var commentVo = {
+				cmtContent : newcontent,
+				cmtNo : no
+		}
+		
+		$.ajax({
+			//보내기
+			url : "${pageContext.request.contextPath}/comment/api/modifyComment",
+			type : "post",
+			contentType : "application/json", 
+			data : JSON.stringify(commentVo), 
+
+			dataType : "json",
+			success : function(count) {
+				if(count==1){
+					console.log(count+"개 수정 완료");
+					
+					var renewstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+newcontent+"</pre></p>";
+					$("#g"+no+"modifyCmt").html(renewstr);
+					
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	//수정하기 취소
+	$("li").on("click", ".cancel", function() {
+		var no = this.id;
+		var oldcontent = $("#"+no+"reContent").val();
+		console.log(no);
+		
+		var oldstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+oldcontent+"</pre></p>";
+		$("#g"+no+"modifyCmt").html(oldstr);
 	});
 	
 </script>

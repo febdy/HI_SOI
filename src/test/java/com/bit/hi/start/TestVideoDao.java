@@ -35,9 +35,9 @@ public class TestVideoDao {
 		videoDao.insertUpload(videoVo);
 	}
 	
-	@Test
+	/*@Test
 	public void testSelectCorrectedVideo() throws Exception {
 		System.out.println(videoDao.selectCorrectedVideo(1));
 		
-	}
+	}*/
 }

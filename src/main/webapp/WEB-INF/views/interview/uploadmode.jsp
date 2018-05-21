@@ -160,14 +160,14 @@ $("#uploadBtn").on("click", function() {
 	
 });
 
-function readylist(videoVo) {
+function readylist(mongoVo) {
 	$("#listArea").text("");
 	
 	var str = "";
 	str += "<div id='videoCh' class='post-image'>";
-	str +=  	"<video id='myVideo' width='750' height='400' controls='controls' poster='${pageContext.request.contextPath}/upload/"+videoVo.videoThumnail+"' preload='none'>";
-	str += 			"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/mp4'>";
-	str +=  		"<source src='${pageContext.request.contextPath}/upload/"+videoVo.videoSaveName+"' type='video/ogg'>";
+	str +=  	"<video id='myVideo' width='750' height='400' controls='controls' poster='${pageContext.request.contextPath}/upload/"+mongoVo.videoThumnail+"' preload='none'>";
+	str += 			"<source src='${pageContext.request.contextPath}/upload/"+mongoVo.videoSaveName+"' type='video/mp4'>";
+	str +=  		"<source src='${pageContext.request.contextPath}/upload/"+mongoVo.videoSaveName+"' type='video/ogg'>";
 	str +=  	"</video>";
 	str += "</div>";
 	
@@ -184,8 +184,8 @@ function selectCorrectVideo(videoNo) {
 		},
 
 		dataType : "json",
-		success : function(videoVo) {
-			readylist(videoVo);
+		success : function(mongoVo) {
+			readylist(mongoVo);
 		},
 
 		error : function(XHR, status, error) {

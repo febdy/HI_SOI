@@ -17,7 +17,7 @@
                                 </section>
                                 <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-two">
                                     <h3 class="light">Twitter Stream</h3>
-                                    <ul id="tweets">
+                                    <ul>
                                     </ul>
                                 </section>
                                 <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-three">
@@ -115,13 +115,6 @@
         <script src="${pageContext.request.contextPath}/resources/js/spectrum.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/switcher.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script> 
-        <!-- <script src="${pageContext.request.contextPath}/resources/js/sparkline-chart.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery.sparkline.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/gritter/js/jquery.gritter.js"></script>
-    	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/gritter-conf.js"></script> -->
                 
 <script>
 $("#btnClose").on("click", function(){

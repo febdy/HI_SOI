@@ -173,11 +173,20 @@
 		]]>
 	</update>
 	
-	<!-- 댓글수 -->
-	<update id="updateCmtCnt" parameterType="CommentVo">
+	<!-- 댓글수 증가  -->
+	<update id="updateCmtCntForPlus" parameterType="CommentVo">
 		<![CDATA[
 			update post
 			set post_cmt_cnt=post_cmt_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<!-- 댓글수 감소  -->
+	<update id="updateCmtCntForMinus" parameterType="CommentVo">
+		<![CDATA[
+			update post
+			set post_cmt_cnt=post_cmt_cnt-1
 			where post_no=#{postNo}
 		]]>
 	</update>

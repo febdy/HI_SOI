@@ -88,11 +88,11 @@
 									</colgroup>
                                     <thead>
                                         <tr>
-                                            <th><p class="text-center">번호</p></th>
-											<th><p class="text-center">제목</p></th>
-											<th><p class="text-center">글쓴이</p></th>
-											<th><p class="text-center">조회수</p></th>
-											<th><p class="text-center">작성일</p></th>
+                                            <th><p class="text-center" style='text-align:center; margin:0px;'>번호</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>제목</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>글쓴이</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>조회수</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>작성일</p></th>
 												<c:if test="${authUser.userLevel=='administer'}">
 													<th><p class="text-center">&nbsp;</p></th>
 												</c:if>

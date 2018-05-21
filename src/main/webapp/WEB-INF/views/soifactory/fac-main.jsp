@@ -129,13 +129,14 @@
 									<div class="row product-items">
 										<!-- Product Items -->
 										<c:forEach items="${bindMap}" var="postVo">
-											<div
-												class="col-lg-3 col-md-3 col-sm-3 col-xs-12 product-cols first post-item wow fadeInUp">
+											<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 product-cols first post-item wow fadeInUp">
 												<div class="product-block">
-													<div class="image ">
-														<!-- <span class="product-label product-label-special">
-                                                        <span>NEW</span>
-                                                        </span> -->
+													<div class="image">
+														<c:if test="${postVo.postSoiCnt > 10}">
+															<span class="product-label product-label-special" style='border-top:46px solid #ff0000'>
+	                                                        	<span>HOT</span>
+	                                                        </span>
+                                                        </c:if>
 														<!-- Swap image -->
 														<div class="flip">
 															<a
@@ -154,7 +155,7 @@
 													</div>
 													<div class="product-meta">
 														<div class="left">
-															<h3 class="name">
+															<h3 class="name" style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'>
 																<a
 																	href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${pagingMaker.cri.page}&numPerPage=${pagingMaker.cri.numPerPage}&findType=${pagingMaker.cri.findType}&keyword=${pagingMaker.cri.keyword}&facArray=${arrCri.facArray}">${postVo.postTitle}</a>
 															</h3>

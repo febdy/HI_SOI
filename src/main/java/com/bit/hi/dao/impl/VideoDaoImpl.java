@@ -3,6 +3,8 @@ package com.bit.hi.dao.impl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.VideoDao;
@@ -31,7 +33,20 @@ public class VideoDaoImpl implements VideoDao {
 	}
 	
 	@Override
-	public VideoVo selectCorrectedVideo(int videoNo) throws Exception {
-		return sqlSession.selectOne(namespace+"selectCorrectedVideo", videoNo);
+	public MongoVo findMongoData(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		criteria.is(value);
+		
+		//쿼리 객체 작성
+		Query query=new Query(criteria);
+
+		MongoVo vo=mongoTemplate.findOne(query, MongoVo.class);
+		
+		return vo;
 	}
+	
+	//@Override
+	//public VideoVo selectCorrectedVideo(int videoNo) throws Exception {
+	//	return sqlSession.selectOne(namespace+"selectCorrectedVideo", videoNo);
+	//}
 }

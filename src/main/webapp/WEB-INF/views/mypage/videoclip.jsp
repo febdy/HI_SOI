@@ -60,25 +60,25 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th><p class="text-center">번호</p></th>
-                                            <th><p class="text-center">영상</p></th>
-											<th><p class="text-center">제목</p></th>
-											<th><p class="text-center">작성일</p></th>
-											<th><p class="text-center">삭제</p></th>
+                                            <th><p class="text-center" style='text-align:center; margin:0px;'>번호</p></th>
+                                            <th><p class="text-center" style='text-align:center; margin:0px;'>영상</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>제목</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>작성일</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>삭제</p></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                        <c:forEach items="${myVideoMap.myVideoList}" var="videoVo">
 										<tr>
-											<td>${videoVo.rn}</td>
+											<td style='text-align:center; vertical-align:middle;'>${videoVo.rn}</td>
 											<td>
                                                     <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">
                                                     <img width="70" height="70" title="" alt="" src="${pageContext.request.contextPath}/upload/${videoVo.videoThumnail}">
                                                     </a>
                                                 </td>
-											<td><a href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
-											<td>${videoVo.videoDate}</td>
-											<td><span id="deleteBtn" data-no="${videoVo.videoNo}"><a href='javascript:void(0)'><i class="fa fa-minus-square-o fa-2x text-danger"></i></a></span></td>
+											<td style='text-align:center; vertical-align:middle;'><a href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
+											<td style='text-align:center; vertical-align:middle;'>${videoVo.videoDate}</td>
+											<td style='text-align:center; vertical-align:middle;'><span id="deleteBtn" data-no="${videoVo.videoNo}"><a href='javascript:void(0)'><i class="fa fa-minus-square-o fa-2x text-danger"></i></a></span></td>
 										</tr>
 										</c:forEach>
                                     </tbody>

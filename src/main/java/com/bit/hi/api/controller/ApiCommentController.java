@@ -56,8 +56,17 @@ public class ApiCommentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/api/deleteComment")
-	public int apiDeleteCmt(@RequestParam("cmtNo") int cmtNo) throws Exception{
+	public int apiDeleteCmt(@RequestBody CommentVo commentVo) throws Exception{
 		System.out.println("apiDelete 진입");
-		return commentService.apiDeleteComment(cmtNo);
+		return commentService.apiDeleteComment(commentVo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/modifyComment")
+	public int apiModifyCmt(@RequestBody CommentVo commentVo) throws Exception{
+		System.out.println("apiModify 진입");
+		System.out.println(commentVo.toString());
+		
+		return commentService.apiModifyComment(commentVo);
 	}
 }

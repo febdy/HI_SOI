@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/settings.css" media="screen">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/revolution-slider/css/extralayers.css" media="screen">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css" media="screen">
+    	
         <!-- Theme CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
         <!-- Skin -->

@@ -9,5 +9,7 @@ public interface VideoDao {
 
 	public void mongoSave(MongoVo mongoVo) throws Exception;
 	
-	public VideoVo selectCorrectedVideo(int videoNo) throws Exception;
+	public MongoVo findMongoData(String key, String value) throws Exception;
+	
+	//public VideoVo selectCorrectedVideo(int videoNo) throws Exception;
 }

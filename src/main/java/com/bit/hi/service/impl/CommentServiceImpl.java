@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	@Override
 	public int apiAddComment(CommentVo commentVo) throws Exception{
-		commentDao.updateCmtCnt(commentVo);
+		commentDao.updateCmtCntForPlus(commentVo);
 		return commentDao.apiInsertComment(commentVo);
 	}
 	
@@ -34,7 +34,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public int apiDeleteComment(int cmtNo) throws Exception{
-		return commentDao.apiDeleteComment(cmtNo);
+	public int apiDeleteComment(CommentVo commentVo) throws Exception{
+		commentDao.updateCmtCntForMinus(commentVo);
+		return commentDao.apiDeleteComment(commentVo);
+	}
+	
+	@Override
+	public int apiModifyComment(CommentVo commentVo) throws Exception{
+		return commentDao.apiUpdateComment(commentVo);
 	}
 }

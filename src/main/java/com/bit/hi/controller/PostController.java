@@ -46,7 +46,7 @@ public class PostController {
 	
 	@RequestMapping(value="/soiread/{postNo}")
 	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
-		if (postService.getEachPost(postNo)!=null) {
+		if (postService.getEachPostForModify(postNo)!=null) {
 			model.addAttribute("postVo", postService.getEachPost(postNo));
 			model.addAttribute("ctrl","\r\n");
 			

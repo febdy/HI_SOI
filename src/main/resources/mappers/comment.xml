@@ -63,11 +63,19 @@
 		]]>
 	</select>
 	
-	<delete id="apiDeleteComment" parameterType="int">
+	<delete id="apiDeleteComment" parameterType="CommentVo">
 		<![CDATA[
 			delete from comments
 			where cmt_no = #{cmtNo}
 		]]>
 	</delete>
+	
+	<update id="apiUpdateComment" parameterType="CommentVo">
+		<![CDATA[
+			update comments
+			set cmt_content = #{cmtContent}
+			where cmt_no = #{cmtNo}
+		]]>
+	</update>
 
 </mapper>

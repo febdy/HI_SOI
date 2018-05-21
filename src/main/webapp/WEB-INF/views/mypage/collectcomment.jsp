@@ -57,20 +57,25 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h2>내가 작성한 댓글</h2>
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-striped table-bordered" style='table-layout:fixed;'>
+                                	<colgroup>
+										<col width="20%">
+										<col width="60%">
+										<col width="20%">
+									</colgroup>
                                     <thead>
                                         <tr>
-                                            <th><p class="text-center">작성일</p></th>
-											<th><p class="text-center">제목</p></th>
-											<th><p class="text-center">글쓴이</p></th>
+                                            <th><p style='text-align:center; margin:0px;'>작성일</p></th>
+											<th><p style='text-align:center; margin:0px;'>제목</p></th>
+											<th><p style='text-align:center; margin:0px;'>글쓴이</p></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${commentMap.commentList}" var="commentVo">
 										<tr>
-											<td>${commentVo.cmtDate}</td>
-											<td><a href="${pageContext.request.contextPath}/post/soiread/${commentVo.postNo}">${commentVo.postTitle}</a></td>
-											<td>${commentVo.writerId}</td>
+											<td style='text-align:center; vertical-align:middle;'>${commentVo.cmtDate}</td>
+											<td><p style='text-align:center; vertical-align:middle; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;'><a href="${pageContext.request.contextPath}/post/soiread/${commentVo.postNo}">${commentVo.postTitle}</a></p></td>
+											<td style='text-align:center; vertical-align:middle;'>${commentVo.writerId}</td>
 										</tr>
 									</c:forEach>
                                     </tbody>

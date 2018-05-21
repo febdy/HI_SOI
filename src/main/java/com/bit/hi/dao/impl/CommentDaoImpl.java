@@ -41,12 +41,22 @@ public class CommentDaoImpl implements CommentDao {
 	}
 	
 	@Override
-	public void updateCmtCnt(CommentVo commentVo) throws Exception {
-		sqlSession.update(namespace2+"updateCmtCnt", commentVo);
+	public void updateCmtCntForPlus(CommentVo commentVo) throws Exception {
+		sqlSession.update(namespace2+"updateCmtCntForPlus", commentVo);
 	}
 	
 	@Override
-	public int apiDeleteComment(int cmtNo) throws Exception {
-		return sqlSession.delete(namespace+"apiDeleteComment", cmtNo);
+	public int apiDeleteComment(CommentVo commentVo) throws Exception {
+		return sqlSession.delete(namespace+"apiDeleteComment", commentVo);
+	}
+	
+	@Override
+	public void updateCmtCntForMinus(CommentVo commentVo) throws Exception {
+		sqlSession.update(namespace2+"updateCmtCntForMinus", commentVo);
+	}
+	
+	@Override
+	public int apiUpdateComment(CommentVo commentVo) throws Exception {
+		return sqlSession.update(namespace+"apiUpdateComment", commentVo);
 	}
 }

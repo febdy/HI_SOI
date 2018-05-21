@@ -67,21 +67,21 @@
                                     <div class="post-img">
                                         <a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}"><img alt="" src="${pageContext.request.contextPath}/upload/${scrapVo.videoThumnail}"></a>
                                     </div>
-                                    <div class="post-content blog-post-content">
-                                        <h4><a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}" style="<c:out value="${bMap.crtPage == idx?'color :#000000':' '}"/>">${scrapVo.postTitle}</a></h4>
+                                    <div class="post-content blog-post-content" style='padding:10px;'>
+                                        <h4 style='white-space:nowrap; overflow:hidden; text-overflow:ellipsis;'><a href="${pageContext.request.contextPath}/post/soiread/${scrapVo.postNo}" style='color:#000000; vertical-align:middle;'>${scrapVo.postTitle}</a></h4>
                                     </div>
                                     <div class="meta post-meta">
                                         <div class="post-date post-meta-content">
                                             <i title="${scrapVo.postDate}" class="fa fa-clock-o"></i>
                                         </div>
                                         <div class="post-comment post-meta-content">
-                                            <a title="Comments"><i class="fa fa-comment-o"></i>${scrapVo.postCmtCnt}</a>
+                                            <a title="Comments" style='color:#000000'><i class="fa fa-comment-o"></i>${scrapVo.postCmtCnt}</a>
                                         </div>
                                         <div class="post-like  post-meta-content">
-                                            <a title="Likes"><i class="fa fa-heart"></i>${scrapVo.postSoiCnt}</a>
+                                            <a title="Likes" style='color:#000000'><i class="fa fa-heart"></i>${scrapVo.postSoiCnt}</a>
                                         </div>
                                         <div class="post-link post-meta-content">
-                                            <a title="Hits"><i class="fa fa-user fa-2x"></i>${scrapVo.postHitCnt}</a>
+                                            <a title="Hits" style='color:#000000'><i class="fa fa-user fa-2x"></i>${scrapVo.postHitCnt}</a>
                                         </div>
                                     </div>
                                 </div>

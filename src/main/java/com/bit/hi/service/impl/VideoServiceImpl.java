@@ -47,6 +47,7 @@ public class VideoServiceImpl implements VideoService {
 			
 			MongoVo mongoVo=new MongoVo();
 			mongoVo.setVideoNo(String.valueOf(videoVo.getVideoNo())); //문자형으로 바꿔서 저장(불러올 때 key값으로 사용하기 위해)
+  		mongoVo.setUserId(videoVo.getUserId());
 			mongoVo.setVideoOriginName(videoVo.getVideoOriginName());
 			mongoVo.setVideoPath(videoVo.getVideoPath());
 			mongoVo.setVideoSize(videoVo.getVideoSize());
@@ -55,8 +56,8 @@ public class VideoServiceImpl implements VideoService {
 			
 			//MongoDB 저장
 			videoDao.mongoSave(mongoVo);
+			System.out.println("saved videoNo:::::: " + videoVo.getVideoNo());
 			
-			System.out.println(videoVo.getVideoNo());
 			return videoVo.getVideoNo();
 		}
 		
@@ -72,4 +73,5 @@ public class VideoServiceImpl implements VideoService {
 	public MongoVo getCorrectedVideo(int videoNo) throws Exception{
 		return videoDao.findMongoData("videoNo", String.valueOf(videoNo));
 	}
+	
 }

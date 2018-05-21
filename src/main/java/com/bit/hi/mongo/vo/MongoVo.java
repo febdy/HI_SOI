@@ -2,10 +2,11 @@ package com.bit.hi.mongo.vo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="video_info")
+@Document(collection = "video_info")
 public class MongoVo {
-	
+
 	private String videoNo;
+  private String userId;
 	private String videoOriginName;
 	private String videoPath;
 	private long videoSize;
@@ -27,22 +28,36 @@ public class MongoVo {
 	public String getVideoOriginName() {
 		return videoOriginName;
 	}
-	public void setVideoOriginName(String videoOriginName) {
+
+  public void setVideoOringinName(String videoOriginName) {
 		this.videoOriginName = videoOriginName;
 	}
+  
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public String getVideoPath() {
 		return videoPath;
 	}
+
 	public void setVideoPath(String videoPath) {
 		this.videoPath = videoPath;
 	}
+
 	public long getVideoSize() {
 		return videoSize;
 	}
+
 	public void setVideoSize(long videoSize) {
 		this.videoSize = videoSize;
 	}
-	public String getVideoSaveName() {
+  
+  public String getVideoSaveName() {
 		return videoSaveName;
 	}
 	public void setVideoSaveName(String videoSaveName) {
@@ -91,6 +106,5 @@ public class MongoVo {
 				+ ", math=" + math + ", korean=" + korean + ", english=" + english + ", science=" + science + ", avg="
 				+ avg + "]";
 	}
-
-	
+  
 }

@@ -3,34 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-		<!-- Header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-		<!-- /Header -->
+	<!-- Header -->
+	<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+	<!-- /Header -->
 
-		<!-- Main Section -->
-            <section id="main">
-                <!-- Title, Breadcrumb -->
-                <div class="breadcrumb-wrapper">
-                    <div class="pattern-overlay">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-                                    <h2 class="title">마이페이지</h2>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-                                    <div class="breadcrumbs pull-right">
-                                        <ul>
-                                            <li>You are Now on:</li>
-                                            <li><a href="index.html">마이페이지</a></li>
-                                            <li><a href="#">진단 히스토리</a></li>
-                                            <li>Products Single Page</li>
-                                        </ul>
-                                    </div>
-                                </div>
+	<!-- Main Section -->
+    <section id="main">
+        <!-- Title, Breadcrumb -->
+        <div class="breadcrumb-wrapper">
+            <div class="pattern-overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <h2 class="title">마이페이지</h2>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
+                            <div class="breadcrumbs pull-right">
+                                <ul>
+                                    <li>You are Now on:</li>
+                                    <li><a href="index.html">마이페이지</a></li>
+                                    <li><a href="#">진단 히스토리</a></li>
+                                    <li>Products Single Page</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- /Title, Breadcrumb -->
                 
                 <!-- Main Content -->
@@ -121,6 +120,10 @@
     <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
     <!-- /Footer -->
     	
+    <!-- Page level plugin JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
 </body>
 <!-- Page level plugin JavaScript-->
 <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>

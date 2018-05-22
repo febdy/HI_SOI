@@ -53,14 +53,14 @@
                             </div>
                             <!-- Sidebar End -->
                             
-                            
-                            <!-- 내용 부분 -->
+
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                <h2>진단 히스토리</h2>
+                                <h2>영상 진단결과</h2>
                                 <!--main content start-->
 							      <section id="main-content">
 							          <section class="wrapper">
+							          <b>${videoVo.videoOriginName}</b>
 							          <h3><i class="fa fa-angle-right"></i> Chartjs Charts</h3>
 							              <!-- page start-->
 							              <div class="tab-pane" id="chartjs">
@@ -122,8 +122,8 @@
 							              <!-- page end-->
 							          </section>          
 							      </section><!-- /MAIN CONTENT -->
-                                
-                            </div>   
+							</div>
+							<!-- /내용 부분 -->
                         </div>
                     </div>
                 </div>

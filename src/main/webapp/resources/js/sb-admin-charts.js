@@ -44,6 +44,7 @@ var myLineChart = new Chart(ctx2, {
       display: false
     }
   }
+
 });*/
 // -- Pie Chart Example
 var ctx3 = document.getElementById("myPieChart");

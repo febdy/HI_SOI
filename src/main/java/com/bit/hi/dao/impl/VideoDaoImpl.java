@@ -3,6 +3,8 @@ package com.bit.hi.dao.impl;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.VideoDao;
@@ -25,21 +27,28 @@ public class VideoDaoImpl implements VideoDao {
 		return sqlSession.insert(namespace+"insertUpload", videoVo);
 	}
 	
-	@Override
-	public int updateThumnail(String saveName, String videoThumnail) throws Exception {
-		VideoVo videoVo=new VideoVo();
-		videoVo.setVideoSaveName(saveName);
-		videoVo.setVideoThumnail(videoThumnail);
-		return sqlSession.update(namespace+"updateThumnail", videoVo);
-	}
-	
+	//mongoDB에 영상에 대한 정보 저장(임시) - 실제로는 플라스크에 값을 넣을 것임.
 	@Override
 	public void mongoSave(MongoVo mongoVo) throws Exception {
 		mongoTemplate.save(mongoVo, "video_info");
 	}
 	
+	//videoNo로 구별해서 mongoDB에서 진단 영상 가져오기
 	@Override
-	public VideoVo selectCorrectedVideo(int videoNo) throws Exception {
-		return sqlSession.selectOne(namespace+"selectCorrectedVideo", videoNo);
+	public MongoVo findMongoData(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		
+		//쿼리 객체 작성
+		Query query=new Query();
+		query.addCriteria(criteria.is(value));
+
+		MongoVo vo=mongoTemplate.findOne(query, MongoVo.class);
+		
+		return vo;
 	}
+	
+	//@Override
+	//public VideoVo selectCorrectedVideo(int videoNo) throws Exception {
+	//	return sqlSession.selectOne(namespace+"selectCorrectedVideo", videoNo);
+	//}
 }

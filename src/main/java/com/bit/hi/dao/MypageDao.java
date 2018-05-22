@@ -7,6 +7,7 @@ import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 
 public interface MypageDao {
 	//영상관리 페이징
@@ -44,4 +45,16 @@ public interface MypageDao {
 	
 	//영상관리 세부내용
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception;
+	
+	//history - 최근 10개 그래프 면접 영상 정보 가져오기(Test용)
+	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
+	public List<VideoVo> selectVideoForRecentlyTen(String userId) throws Exception;
+	
+	//history - mongoDB 에서 가져오기
+	
+	//최근 면접진단 10개
+	public List<MongoVo> findRecentlyTenData(String key, String value) throws Exception;
+	
+	//상위 면접점수 6개
+	public List<MongoVo> findTopSixData(String key, String value) throws Exception;
 }

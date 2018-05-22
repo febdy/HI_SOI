@@ -13,13 +13,15 @@ public class VideoVo {
 	private String videoThumnail;
 	private String videoCorrectLine;
 	private String videoDelete;
+	private String saveDir;
+	private double avg = 45.7; //임시 몽고에 값 넣어주기 위해 만듬.
 	
 	public VideoVo() {
 	}
 
 	public VideoVo(int rn, int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
 			String videoPath, long videoSize, String videoDate, String videoThumnail, String videoCorrectLine,
-			String videoDelete) {
+			String videoDelete, String saveDir) {
 		this.rn = rn;
 		this.videoNo = videoNo;
 		this.userId = userId;
@@ -32,6 +34,7 @@ public class VideoVo {
 		this.videoThumnail = videoThumnail;
 		this.videoCorrectLine = videoCorrectLine;
 		this.videoDelete = videoDelete;
+		this.saveDir = saveDir;
 	}
 
 	public int getRn() {
@@ -129,13 +132,27 @@ public class VideoVo {
 	public void setVideoDelete(String videoDelete) {
 		this.videoDelete = videoDelete;
 	}
+	
+	public String getSaveDir() {
+		return saveDir;
+	}
+	
+	public void setSaveDir(String saveDir) {
+		this.saveDir = saveDir;
+	}
+	
+	//임시 avg 여기서 넣어줌.
+	public Double getAvg() {
+		return avg;
+	}
 
 	@Override
 	public String toString() {
 		return "VideoVo [rn=" + rn + ", videoNo=" + videoNo + ", userId=" + userId + ", videoOriginName="
 				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
 				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoThumnail="
-				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", videoDelete=" + videoDelete + "]";
+				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", videoDelete=" + videoDelete
+				+ ", saveDir=" + saveDir + "]";
 	}
-	
+
 }

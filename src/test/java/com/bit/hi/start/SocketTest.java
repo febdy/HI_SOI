@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 import com.bit.hi.domain.vo.VideoVo;
 
@@ -34,7 +33,7 @@ public class SocketTest {
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 		VideoVo videoVo = new VideoVo(1, 1, "user", "videoName", "videoSaveName", "videoExName",
-				"videoPath", 1, "videoDate", "videoThumnail", "videoCorrectLine", "videoDelete");
+				"videoPath", 1, "videoDate", "videoThumnail", "videoCorrectLine", "videoDelete", "");
 
 		byte[] data = videoVo.toString().getBytes();
 		sender.write(data);

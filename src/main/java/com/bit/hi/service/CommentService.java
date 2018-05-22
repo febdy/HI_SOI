@@ -10,4 +10,8 @@ public interface CommentService {
 	public int apiAddComment(CommentVo commentVo) throws Exception;
 	
 	public CommentVo apiGetComment(int cmtNo) throws Exception;
+	
+	public int apiDeleteComment(CommentVo commentVo) throws Exception;
+	
+	public int apiModifyComment(CommentVo commentVo) throws Exception;
 }

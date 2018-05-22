@@ -1,5 +1,7 @@
 package com.bit.hi.api.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,16 @@ public class ApiMypageController {
 
 	@Autowired
 	private MypageService mypageService;
+	
+	//historyChart 뿌려주기
+	@ResponseBody
+	@RequestMapping("/api/historychart")
+	public Map<String, Object> historychart(HttpSession session) throws Exception{
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		System.out.println(authUser.toString());
+		
+		return mypageService.getMongoForChart(authUser.getUserId());
+	}
 	
 	@ResponseBody
 	@RequestMapping("/api/nickchkformodify")

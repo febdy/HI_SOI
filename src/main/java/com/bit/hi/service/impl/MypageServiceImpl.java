@@ -3,6 +3,7 @@ package com.bit.hi.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.MypageService;
 
 @Service
@@ -255,10 +257,15 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int modifyComplete(UserVo userVo, HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		if(userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) {
-			//길이 뿐만 아니라, 특수문자, 영어 대소문자 포함여부 조건 걸어주어야 함.
-			if ((userVo.getUserPwd().length()>7) && (userVo.getUserPwd().length()<21)) {
-				return mypageDao.updateInfo(userVo);
+		if((userDao.selectUserForNick(userVo.getUserNickname())==null || authUser.getUserNickname().equals(userVo.getUserNickname())) & Pattern.matches("^[가-힣a-zA-Z0-9]{6,15}$", userVo.getUserNickname())) { //기존에 등록된 nick인지 체크, 내가 사용하고 있던 nick은 가능
+			if (Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", userVo.getUserPwd())) {
+				if (Pattern.matches("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", userVo.getUserEmail())) {
+					if (Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", userVo.getUserTel())) { //참이면 수행
+						if (userVo.getUserAddr() != "") {
+							return mypageDao.updateInfo(userVo);
+						} else return 0;
+					} else return 0;
+				} else return 0;
 			} else return 0;
 		} else return 0;
 	}
@@ -273,5 +280,29 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public VideoVo getEachVideoAnalyze(int videoNo) throws Exception{
 		return mypageDao.selectEachVideoAnalyze(videoNo);
+	}
+	
+	//histroy - 3개 차트 한꺼번에 3개 list를 map으로 받기(성공)
+	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
+	@Override
+	public Map<String, Object> getVideoForChart(String userId) throws Exception {
+		Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		List<VideoVo> list1 = mypageDao.selectVideoForRecentlyTen(userId);
+		chartMap.put("list1", list1);
+		return chartMap;
+	}
+	
+	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
+	@Override
+	public Map<String, Object> getMongoForChart(String userId) throws Exception {
+		Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		List<MongoVo> list1 = mypageDao.findRecentlyTenData("userId", userId); //최근 10개
+		List<MongoVo> list2 = mypageDao.findTopSixData("userId", userId); //상위 6개
+		
+		chartMap.put("list1", list1);
+		chartMap.put("list2", list2);
+		return chartMap;
 	}
 }

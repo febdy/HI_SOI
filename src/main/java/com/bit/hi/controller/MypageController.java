@@ -24,7 +24,8 @@ public class MypageController {
 	private MypageService mypageService;
 	
 	@RequestMapping("/history")
-	public String history() throws Exception{
+	public String history(HttpSession session, Model model) throws Exception{
+		
 		return "mypage/history";
 	}
 	
@@ -111,5 +112,4 @@ public class MypageController {
 		}
 
 	}
-	
 }

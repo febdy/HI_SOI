@@ -47,12 +47,14 @@ public class VideoServiceImpl implements VideoService {
 			
 			MongoVo mongoVo=new MongoVo();
 			mongoVo.setVideoNo(String.valueOf(videoVo.getVideoNo())); //문자형으로 바꿔서 저장(불러올 때 key값으로 사용하기 위해)
-  		mongoVo.setUserId(videoVo.getUserId());
+			mongoVo.setUserId(videoVo.getUserId());
 			mongoVo.setVideoOriginName(videoVo.getVideoOriginName());
 			mongoVo.setVideoPath(videoVo.getVideoPath());
 			mongoVo.setVideoSize(videoVo.getVideoSize());
 			mongoVo.setVideoSaveName(videoVo.getVideoSaveName()); //임시 출력을 위해, saveName, thumnail 넣어줌.
 			mongoVo.setVideoThumnail(videoVo.getVideoThumnail());
+			mongoVo.setAvg(videoVo.getAvg()); //임시로 점수 넣어줌
+			//여기서 videoDate도 넣어줘서 테스트 해보려 했으나, date는 oracle에 들어갈 때, system으로 생성됨.
 			
 			//MongoDB 저장
 			videoDao.mongoSave(mongoVo);

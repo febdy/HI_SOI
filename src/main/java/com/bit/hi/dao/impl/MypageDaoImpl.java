@@ -6,6 +6,14 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LimitOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.MypageDao;
@@ -14,6 +22,7 @@ import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 
 @Repository
 public class MypageDaoImpl implements MypageDao {
@@ -22,6 +31,9 @@ public class MypageDaoImpl implements MypageDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	//영상관리 페이징
 	@Override
@@ -113,5 +125,75 @@ public class MypageDaoImpl implements MypageDao {
 	@Override
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachVideoAnalyze", videoNo);
+	}
+	
+	//history - 최근 10개 그래프 면접 영상 정보 가져오기
+	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
+	@Override
+	public List<VideoVo> selectVideoForRecentlyTen(String userId) throws Exception {
+		return sqlSession.selectList(namespace+"selectVideoForRecentlyTen", userId);
+	}
+	
+	//history - 최근 10개, 상위 6개, 나의 상위 면접 실패 원인 mongoDB로 부터 가져오기
+	
+	//여기서 key는 userId
+	//최근 면접진단 10개
+	@Override
+	public List<MongoVo> findRecentlyTenData(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		criteria.is(value);
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		//정렬
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "videoNo"); //임시로 videoNo로 정렬함, 실제로는 videoDate로 정렬해야함.
+		
+		//지정한 수 만큼 가져오기
+		LimitOperation limit = Aggregation.limit(10);
+		
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> tenList = result.getMappedResults();
+		
+		for (MongoVo mongoVo:tenList) {
+			System.out.println(mongoVo.toString());
+		}
+		
+		return tenList;
+	}
+	
+	//상위 면접점수 6개
+	@Override
+	public List<MongoVo> findTopSixData(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		criteria.is(value);
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		//정렬
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "avg"); //면접 점수로 정렬해야함.
+		
+		//지정한 수 만큼 가져오기
+		LimitOperation limit = Aggregation.limit(6); //상위 6개
+		
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> sixList = result.getMappedResults();
+		
+		for (MongoVo mongoVo:sixList) {
+			System.out.println(mongoVo.toString());
+		}
+		
+		return sixList;
 	}
 }

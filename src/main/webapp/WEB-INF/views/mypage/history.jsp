@@ -56,87 +56,229 @@
                             
                             
                             <!-- 내용 부분 -->
-                            <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                <h2>진단 히스토리</h2>
-                                <!--main content start-->
-							      <section id="main-content">
-							          <section class="wrapper">
-							          <h3><i class="fa fa-angle-right"></i> Chartjs Charts</h3>
-							              <!-- page start-->
-							              <div class="tab-pane" id="chartjs">
-							                  <div class="row mt">
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Doughnut</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="doughnut" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Line</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="line" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                  </div>
-							                  <div class="row mt">
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Radar</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="radar" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Polar Area</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="polarArea" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                  </div>
-							                  <div class="row mt">
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Bar</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="bar" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                      <div class="col-lg-6">
-							                          <div class="content-panel">
-														  <h4><i class="fa fa-angle-right"></i> Pie</h4>
-							                              <div class="panel-body text-center">
-							                                  <canvas id="pie" height="300" width="400"></canvas>
-							                              </div>
-							                          </div>
-							                      </div>
-							                  </div>
-							                  
-							              </div>
-							              <!-- page end-->
-							          </section>          
-							      </section><!-- /MAIN CONTENT -->
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /Main Section -->
-            
-            <!-- Footer -->
-            <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
-            <!-- /Footer -->
-            
-        <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
-    	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script>
+                    <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <h2>진단 히스토리</h2>
+                        <!--main content start-->
+						<div class="content-wrapper">
+						    <div class="container-fluid">
+						      	<!-- Breadcrumbs-->
+						      	<ol class="breadcrumb">
+							        <li class="breadcrumb-item">
+							          	<a href="#">진단 히스토리</a>
+							        </li>
+							        <li class="breadcrumb-item active">면접 진단 현황</li>
+						      	</ol>
+						      	<!-- Area Chart Example-->
+						      	<div class="card mb-3">
+							        <div class="card-header">
+							          	<i class="fa fa-area-chart"></i> 최근 10개 면접 점수</div>
+							          	<br/>
+							        <div class="card-body">
+							          	<canvas id="myAreaChart" width="100%" height="30"></canvas>
+							        </div>
+							        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							      	</div>
+						      	<br/><br/><br/><br/>
+						      	<div class="row">
+							        <div class="col-lg-8">
+							          <!-- Example Bar Chart Card-->
+							          <div class="card mb-3">
+							          	<div class="card-header">
+							              <i class="fa fa-bar-chart"></i> 상위 6개 면접 점수</div>
+							              <br/>
+							            <div class="card-body">
+							              <canvas id="myBarChart" width="100" height="50"></canvas>
+							            </div>
+							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							          </div>
+							        </div>
+							        <div class="col-lg-4">
+							          <!-- Example Pie Chart Card-->
+							          	<div class="card mb-3">
+							            <div class="card-header">
+							            	<i class="fa fa-pie-chart"></i> 상위 면접 실패 원인</div>
+							            	<br/>
+							            <div class="card-body">
+							              	<canvas id="myPieChart" width="100%" height="100"></canvas>
+							            </div>
+							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							          	</div>
+						        	</div>
+						    	</div>
+						    </div>
+						    <!-- /.container-fluid-->
+                        
+                     	</div>
+                	</div>
+                	<!-- /내용 부분 -->
+            	</div>
+        	</div>
+		</div>
+	</section>
+    <!-- /Main Section -->
+           
+    <!-- Footer -->
+    <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+    <!-- /Footer -->
     	
 </body>
+<!-- Page level plugin JavaScript-->
+<script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
+<!-- Custom scripts for this page-->
+<script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
+<script>
+//lineChart 변수
+var lineLabels = []; //라벨 배열변수(x축)
+var lineChartData = []; //면접점수 데이터 배열변수(y축)
+
+var myLineChart = {
+    labels: lineLabels,
+    datasets: [{
+      label: "면접 점수",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 5,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 20,
+      pointBorderWidth: 2,
+      data: lineChartData,
+    }],
+};
+
+function createLineChart() {
+	var ctx1 = document.getElementById("myAreaChart");
+    new Chart(ctx1, {
+    	type: 'line',
+    	data: myLineChart,
+        options: {
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'date'
+                },
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  maxTicksLimit: 7
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  maxTicksLimit: 10
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, .125)",
+                }
+              }],
+            },
+            legend: {
+              display: false
+            }
+        }
+    });
+}
+
+//barChart 변수
+var barLabels = []; //라벨 배열변수(x축)
+var barChartData = []; //면접점수 데이터 배열변수(y축)
+
+var myBarChart = {
+	    labels: barLabels,
+	    datasets: [{
+	      label: "Revenue",
+	      backgroundColor: "rgba(2,117,216,1)",
+	      borderColor: "rgba(2,117,216,1)",
+	      data: barChartData,
+	    }],
+	  };
+	  
+function createBarChart() {
+	var ctx2 = document.getElementById("myBarChart");
+    new Chart(ctx2, {
+    	  type: 'bar',
+    	  data: myBarChart,
+    	  options: {
+    	    scales: {
+    	      xAxes: [{
+    	        time: {
+    	          unit: 'month'
+    	        },
+    	        gridLines: {
+    	          display: false
+    	        },
+    	        ticks: {
+    	          maxTicksLimit: 6
+    	        }
+    	      }],
+    	      yAxes: [{
+    	        ticks: {
+    	          min: 0,
+    	          max: 100,
+    	          maxTicksLimit: 5
+    	        },
+    	        gridLines: {
+    	          display: true
+    	        }
+    	      }],
+    	    },
+    	    legend: {
+    	      display: false
+    	    }
+    	}
+    });
+}
+
+
+function historyTotalChart() {
+	try {
+	    $.ajax({
+	        type : "post",
+	        url : "${pageContext.request.contextPath}/mypage/api/historychart",
+	        dataType : "json",
+	        
+	        success : function(result) {
+	 			//lineChart
+	            $.each(result.list1.reverse(), function(inx, obj) {
+	            	lineLabels.push(obj.videoNo); //일단 videoDate가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	lineChartData.push(obj.avg);
+	            });
+	            console.log(lineLabels);
+	            console.log(lineChartData);
+	            
+	            createLineChart();
+	 
+				//barChart
+	            $.each(result.list2.reverse(), function(inx, obj) {
+	            	barLabels.push(obj.videoNo); //일단 면접점수가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	barChartData.push(obj.avg);
+	            });
+	            console.log(barLabels);
+	            console.log(barChartData);
+	            
+	            createBarChart();
+	        },
+	        error : function(XMLHttpRequest, textStatus, errorThrown) {
+	            alert('There is an error : method(group)에 에러가 있습니다.');
+	        }
+	    });
+	 
+	} catch (e) {
+	    alert(e);
+	}
+	
+}
+
+$(document).ready(function() {
+	historyTotalChart();
+});
+
+
+</script>
 </html>

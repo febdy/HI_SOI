@@ -59,24 +59,24 @@
                                 </div>
                                 <!-- Post Search -->
                                 <div class="col-md-10 widget">
-						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-right">
-							<form id="search_form" action="${pageContext.request.contextPath}/cs/notice" method="get" class="input-group">
-								<input type="text" value="Search Posts" id="kwd" name="kwd" 
-									onfocus="if(this.value=='Search Posts')this.value='';"
-									onblur="if(this.value=='')this.value='Search Posts';"
-									class="search-input form-control product-search-height">
-								<span class="input-group-btn">
-									<button type="submit"
-										class="subscribe-btn btn product-search-height">
-										<i class="fa fa-search"></i>
-									</button>
-								</span>
-								<input type="hidden" name="page" value="${pagingMaker.cri.page}">
-							</form>
-						</div>
-					</div>
-				</div>
-						<!-- /Post Search -->
+									<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 pull-right">
+										<form id="search_form" action="${pageContext.request.contextPath}/cs/notice" method="get" class="input-group">
+											<input type="text" value="Search Posts" id="kwd" name="kwd" 
+												onfocus="if(this.value=='Search Posts')this.value='';"
+												onblur="if(this.value=='')this.value='Search Posts';"
+												class="search-input form-control product-search-height">
+											<span class="input-group-btn">
+												<button type="submit"
+													class="subscribe-btn btn product-search-height">
+													<i class="fa fa-search"></i>
+												</button>
+											</span>
+											<input type="hidden" name="page" value="${pagingMaker.cri.page}">
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- /Post Search -->
                                 <table class="table table-striped table-bordered text-center">
                                 	<colgroup>
 										<col width="7%">

@@ -17,6 +17,7 @@ import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.MypageService;
 
 @Service
@@ -279,5 +280,29 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public VideoVo getEachVideoAnalyze(int videoNo) throws Exception{
 		return mypageDao.selectEachVideoAnalyze(videoNo);
+	}
+	
+	//histroy - 3개 차트 한꺼번에 3개 list를 map으로 받기(성공)
+	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
+	@Override
+	public Map<String, Object> getVideoForChart(String userId) throws Exception {
+		Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		List<VideoVo> list1 = mypageDao.selectVideoForRecentlyTen(userId);
+		chartMap.put("list1", list1);
+		return chartMap;
+	}
+	
+	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
+	@Override
+	public Map<String, Object> getMongoForChart(String userId) throws Exception {
+		Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		List<MongoVo> list1 = mypageDao.findRecentlyTenData("userId", userId); //최근 10개
+		List<MongoVo> list2 = mypageDao.findTopSixData("userId", userId); //상위 6개
+		
+		chartMap.put("list1", list1);
+		chartMap.put("list2", list2);
+		return chartMap;
 	}
 }

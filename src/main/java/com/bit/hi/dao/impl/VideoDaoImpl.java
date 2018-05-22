@@ -27,18 +27,20 @@ public class VideoDaoImpl implements VideoDao {
 		return sqlSession.insert(namespace+"insertUpload", videoVo);
 	}
 	
+	//mongoDB에 영상에 대한 정보 저장(임시) - 실제로는 플라스크에 값을 넣을 것임.
 	@Override
 	public void mongoSave(MongoVo mongoVo) throws Exception {
 		mongoTemplate.save(mongoVo, "video_info");
 	}
 	
+	//videoNo로 구별해서 mongoDB에서 진단 영상 가져오기
 	@Override
 	public MongoVo findMongoData(String key, String value) throws Exception {
 		Criteria criteria=new Criteria(key);
-		criteria.is(value);
 		
 		//쿼리 객체 작성
-		Query query=new Query(criteria);
+		Query query=new Query();
+		query.addCriteria(criteria.is(value));
 
 		MongoVo vo=mongoTemplate.findOne(query, MongoVo.class);
 		

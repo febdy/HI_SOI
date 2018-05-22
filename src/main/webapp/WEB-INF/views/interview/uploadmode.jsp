@@ -108,10 +108,32 @@
 
 </body>
 
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> 
 <script>
 var authUser='${sessionScope.authUser}';
 
+var socket, corr_status;
+
+$(document).ready(function(){
+	socket = io.connect('http://127.0.0.1:5000');
+	
+	socket.on('connect', function(){
+		socket.send('User has connected!');
+	});
+	
+
+	socket.on('message', function(result){
+		console.log('Received message from server:::' + result);
+		corr_status = result;
+		
+		if(corr_status == 1){
+			alert("파일을 업로드 하였습니다.");
+		} else if (corr_status == 0)
+			alert("분석하는 도중 문제가 생겼습니다.");
+	});
+});
+	
 $("#uploadBtn").on("click", function() {
 	//var video=document.getElementByID("listArea");
 	//while (video.val()!=null) {
@@ -157,7 +179,6 @@ $("#uploadBtn").on("click", function() {
 			});
 		}
 	}
-	
 });
 
 function readylist(mongoVo) {

@@ -29,33 +29,32 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- /Title, Breadcrumb -->
-        
-        <!-- Main Content -->
-        <div class="content margin-top60 margin-bottom60">
-            <div class="container">
-                <div class="row">
-                    <div class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                        <!-- Left nav Widget Start -->
-                        <div class="widget category">
-                            <h3 class="title">My page</h3>
-                            <ul class="category-list slide">
-                                <li><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
-                                <li><a href="${pageContext.request.contextPath}/mypage/videoclip">영상 관리</a></li>
-                                <li><a href="${pageContext.request.contextPath}/mypage/collect/comment">내가 작성한 댓글</a></li>
-                                <li><a href="${pageContext.request.contextPath}/mypage/collect/video">내가 올린 영상</a></li>
-                                <li><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩 영상</a></li>
-                                <li><a href="${pageContext.request.contextPath}/mypage/beforemodify">회원 정보 수정</a></li>
-                            </ul>
-                        </div>
-                        <!-- Left nav Widget End -->
-                    </div>
-                    <!-- Sidebar End -->
-                    
-                    
-                    <!-- 내용 부분 -->
+
+                <!-- /Title, Breadcrumb -->
+                
+                <!-- Main Content -->
+                <div class="content margin-top60 margin-bottom60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <!-- Left nav Widget Start -->
+                                <div class="widget category">
+                                    <h3 class="title">My page</h3>
+                                    <ul class="category-list slide">
+                                        <li><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/videoclip">영상 관리</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/comment">내가 작성한 댓글</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/video">내가 올린 영상</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩 영상</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/beforemodify">회원 정보 수정</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Left nav Widget End -->
+                            </div>
+                            <!-- Sidebar End -->
+                            
+                            
+                            <!-- 내용 부분 -->
                     <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         <h2>진단 히스토리</h2>
                         <!--main content start-->
@@ -120,13 +119,169 @@
     <!-- Footer -->
     <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
     <!-- /Footer -->
-           
-    <%-- <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
-   	<script src="${pageContext.request.contextPath}/resources/js/chartjs-conf.js"></script> --%>
     	
     <!-- Page level plugin JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
     <!-- Custom scripts for this page-->
     <script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
 </body>
+<!-- Page level plugin JavaScript-->
+<script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
+<!-- Custom scripts for this page-->
+<script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
+<script>
+//lineChart 변수
+var lineLabels = []; //라벨 배열변수(x축)
+var lineChartData = []; //면접점수 데이터 배열변수(y축)
+
+var myLineChart = {
+    labels: lineLabels,
+    datasets: [{
+      label: "면접 점수",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 5,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 20,
+      pointBorderWidth: 2,
+      data: lineChartData,
+    }],
+};
+
+function createLineChart() {
+	var ctx1 = document.getElementById("myAreaChart");
+    new Chart(ctx1, {
+    	type: 'line',
+    	data: myLineChart,
+        options: {
+            scales: {
+              xAxes: [{
+                time: {
+                  unit: 'date'
+                },
+                gridLines: {
+                  display: false
+                },
+                ticks: {
+                  maxTicksLimit: 7
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  maxTicksLimit: 10
+                },
+                gridLines: {
+                  color: "rgba(0, 0, 0, .125)",
+                }
+              }],
+            },
+            legend: {
+              display: false
+            }
+        }
+    });
+}
+
+//barChart 변수
+var barLabels = []; //라벨 배열변수(x축)
+var barChartData = []; //면접점수 데이터 배열변수(y축)
+
+var myBarChart = {
+	    labels: barLabels,
+	    datasets: [{
+	      label: "Revenue",
+	      backgroundColor: "rgba(2,117,216,1)",
+	      borderColor: "rgba(2,117,216,1)",
+	      data: barChartData,
+	    }],
+	  };
+	  
+function createBarChart() {
+	var ctx2 = document.getElementById("myBarChart");
+    new Chart(ctx2, {
+    	  type: 'bar',
+    	  data: myBarChart,
+    	  options: {
+    	    scales: {
+    	      xAxes: [{
+    	        time: {
+    	          unit: 'month'
+    	        },
+    	        gridLines: {
+    	          display: false
+    	        },
+    	        ticks: {
+    	          maxTicksLimit: 6
+    	        }
+    	      }],
+    	      yAxes: [{
+    	        ticks: {
+    	          min: 0,
+    	          max: 100,
+    	          maxTicksLimit: 5
+    	        },
+    	        gridLines: {
+    	          display: true
+    	        }
+    	      }],
+    	    },
+    	    legend: {
+    	      display: false
+    	    }
+    	}
+    });
+}
+
+
+function historyTotalChart() {
+	try {
+	    $.ajax({
+	        type : "post",
+	        url : "${pageContext.request.contextPath}/mypage/api/historychart",
+	        dataType : "json",
+	        
+	        success : function(result) {
+	 			//lineChart
+	            $.each(result.list1.reverse(), function(inx, obj) {
+	            	lineLabels.push(obj.videoNo); //일단 videoDate가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	lineChartData.push(obj.avg);
+	            });
+	            console.log(lineLabels);
+	            console.log(lineChartData);
+	            
+	            createLineChart();
+	 
+				//barChart
+	            $.each(result.list2.reverse(), function(inx, obj) {
+	            	barLabels.push(obj.videoNo); //일단 면접점수가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	barChartData.push(obj.avg);
+	            });
+	            console.log(barLabels);
+	            console.log(barChartData);
+	            
+	            createBarChart();
+	        },
+	        error : function(XMLHttpRequest, textStatus, errorThrown) {
+	            alert('There is an error : method(group)에 에러가 있습니다.');
+	        }
+	    });
+	 
+	} catch (e) {
+	    alert(e);
+	}
+	
+}
+
+$(document).ready(function() {
+	historyTotalChart();
+});
+
+
+</script>
 </html>

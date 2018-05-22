@@ -16,7 +16,7 @@
 			socket-timeout="1500"
 		/>
 	</mongo:mongo-client>
-	<mongo:db-factory dbname="season" mongo-ref="mongo" />
+	<mongo:db-factory dbname="hi_soi" mongo-ref="mongo" />
 	
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> <!-- sqlSession과 같은 역할 -->
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />

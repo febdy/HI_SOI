@@ -149,6 +149,7 @@
 			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
+	
 	<!-- 스크랩 페이징 -->
 	<select id="selectTotalCountForScrap" parameterType="String" resultType="int">
 		<![CDATA[
@@ -223,5 +224,30 @@
 			where video_no=#{videoNo}
 		]]>
 	</select>
+	
+	<!-- mongoDB에서 받아오기 전에 TEST용, 임시 최근 10개 면접추출 -->
+	<select id="selectVideoForRecentlyTen" parameterType="int" resultType="VideoVo">
+		<![CDATA[
+			select r.rn rn,
+            video_no videoNo,
+            user_id userId,
+            video_origin_name videoOriginName,
+            to_char(video_date, 'YYYY-MM-DD') videoDate
+			from (select rownum rn,
+                                video_no,
+                                user_id,
+                                video_origin_name,
+                                video_date
+        			from (select video_no,
+                                user_id,
+                                video_origin_name,
+                                video_date
+                        from video
+                        where user_id=#{user_id}
+                        order by video_date desc) o) r
+			where rn<=10
+		]]>
+	</select>
+	
 	
 </mapper>

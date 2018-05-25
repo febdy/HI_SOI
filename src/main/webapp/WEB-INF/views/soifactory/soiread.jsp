@@ -538,7 +538,7 @@
 	//좋아요(콩) 기능
 	$("#btnLike").on("click", function() {
 		if (userId == "") {
-			console.log("로그인이 필요한 서비스입니다.");
+			alert("로그인이 필요한 서비스입니다.");
 		} else if (likeChk == true && userId != "") {
 			userLike(userId, postNo, false);
 			likeChk = false;

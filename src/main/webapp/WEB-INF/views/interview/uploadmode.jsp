@@ -128,20 +128,20 @@
 
 </body>
 
-<!-- <script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> -->
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.lineProgressbar.js"></script>
 <script>
-/* var socket, corr_status;
+
+var socket, corr_status;
 
 $(document).ready(function(){
-	socket = io.connect('http://127.0.0.1:5000');
+	socket = io.connect('127.0.0.1:5000');
 	
 	socket.on('connect', function(){
 		socket.send('User has connected!');
 	});
 	
-
 	socket.on('message', function(result){
 		console.log('Received message from server:::' + result);
 		corr_status = result;
@@ -151,12 +151,11 @@ $(document).ready(function(){
 		} else if (corr_status == 0)
 			alert("분석하는 도중 문제가 생겼습니다.");
 	});
-}); */
+}); 
 	
 var authUser='${sessionScope.authUser}';
-
 //무한로딩으로 바꾸기(Indeterminate)
-function progressBarSim(al) {
+ function progressBarSim(al) {
 	var bar = document.getElementById('progressBar');
 	var status = document.getElementById('status');
 	  bar.style.display="block";
@@ -164,7 +163,7 @@ function progressBarSim(al) {
 	  status.innerHTML = al+"%";
 	  bar.value = al;
 	  al++;
-		var sim = setTimeout("progressBarSim("+al+")", 10);
+		var sim = setTimeout("progressBarSim("+al+")", 30);
 		if(al == 100){
 		  status.innerHTML = "100%";
 		  bar.value = 100;
@@ -172,9 +171,9 @@ function progressBarSim(al) {
 		  bar.style.display="none";
 		  status.style.display="none";
 	}
-}
-var amountLoaded = 0;
+} 
 
+var amountLoaded = 0;
 $("#uploadBtn").on("click", function() {
 	//var video=document.getElementByID("listArea");
 	//while (video.val()!=null) {
@@ -192,7 +191,9 @@ $("#uploadBtn").on("click", function() {
 				$("#file").val("");
 		} else {
 			var formData=new FormData($("#fileUpload")[0]);
-			progressBarSim(amountLoaded); //임시
+			
+			/* progressBarSim(amountLoaded); //임시 */ 
+			
 			$.ajax({
 				type : "post",
 				url : "${pageContext.request.contextPath}/interview/api/upload",
@@ -201,6 +202,8 @@ $("#uploadBtn").on("click", function() {
 				contentType : false,
 				success : function(videoNo) {
 					if (videoNo!=0) {
+						
+						socket.emit("video_data", videoNo)
 						
 						/* alert("파일을 업로드 하였습니다."); */
 						
@@ -225,7 +228,6 @@ $("#uploadBtn").on("click", function() {
 		}
 	}
 });
-
 function readylist(mongoVo) {
 	$("#listArea").text("");
 	
@@ -237,10 +239,8 @@ function readylist(mongoVo) {
 	str +=  	"</video>";
 	str += "</div>";
 	
-
 	$("#listArea").append(str);
 };
-
 function selectCorrectVideo(videoNo) {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/interview/api/selectcorrectedvideo",
@@ -248,19 +248,14 @@ function selectCorrectVideo(videoNo) {
 		data : {
 			videoNo : videoNo
 		},
-
 		dataType : "json",
 		success : function(mongoVo) {
 			readylist(mongoVo);
 		},
-
 		error : function(XHR, status, error) {
 			console.error(status + " : " + error);
 		}
-
 	});
 };
-
-
 </script>
 </html>

@@ -70,11 +70,11 @@
                                 </article>
                                 <!-- Star -->
                                 <div class="star">
-                                    <div class="row">
+                              		<div class="row">
                                         <div class="col-md-12">
                                             <div class="star-divider">
                                                 <div class="star-divider-icon">
-                                                    <i class=" fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,24 +99,7 @@
                                     <div class="clearfix">
                                     </div>
                                 </div>
-                                <!-- /Comments Section -->
-                                <!-- paging -->
-                                <%-- <div class="pagination-centered padding-bottom30">
-									<ul class="pagination">
-									<c:if test="${bMap.prev}"> <!-- 이 값이 false라면 prev 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.startPageBtnNo-1}">«</a></li>
-									</c:if>
-						
-									<c:forEach begin="${bMap.startPageBtnNo}" end="${bMap.endPageBtnNo}" var="idx">
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${idx}">${idx}</a></li>
-									</c:forEach>
-						
-									<c:if test="${bMap.next}"> <!-- 이 값이 false라면 next 실행 x -->
-										<li><a href="${pageContext.request.contextPath}/cs/notice?crtPage=${bMap.endPageBtnNo+1}">»</a></li>
-									</c:if>
-									</ul>
-								</div> --%>
-								<!-- /paging -->
+                                
                                 <!-- Star-->
                                 <div class="star">
                                     <div class="row">
@@ -159,11 +142,26 @@
                                 <!-- Project Description End -->  
                                 <div class="widget form-inline">
                                     <div class="favourite">
-                                        <a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart text-danger"></i> 좋아요</strong></a>
+                                    <c:choose>
+                                    	<c:when test="${likeChk==true}">
+                                        	<a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart likeOn"></i> 좋아요</strong></a>
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    	    <a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart off"></i> 좋아요</strong></a>
+                                    	</c:otherwise>
+                                    </c:choose>
                                     </div>
                                     <div class="clearfix">
                                     <div class="favourite">
-                                    	<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star text-warning"></i> 스크랩</strong></a>
+                                    <c:choose>
+                                    	<c:when test="${scrapChk==true}">
+                                    		<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star on"></i> 스크랩</strong></a>
+                                		</c:when>
+                                		<c:otherwise>
+                                			<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star off"></i> 스크랩</strong></a>
+                                		</c:otherwise>
+                                		
+                                	</c:choose>
                                 	</div>
                                 </div><br/>
                                 
@@ -368,70 +366,6 @@
 		
 	};
 	
-	
-	//콩 수 증가
-	$("#btnLike").on("click", function(){
-		if (authUser=="") {
-			alert("로그인이 필요한 서비스 입니다.");
-			location.href='${pageContext.request.contextPath}/';
-		} else {
-			var postNo = ${postVo.postNo};
-			
-			$.ajax({
-				url : "${pageContext.request.contextPath}/post/api/updateLike",
-				type : "post",
-				data : {
-					postNo : postNo
-				},
-	
-				dataType : "json", 
-				success : function(soi){
-					
-					//콩 수 증가
-					var stat=$("#postSoiCnt").text();
-					stat=stat.split(" ");
-					var num=parseInt(stat);
-					num++;
-					$("#postSoiCnt").text(num+" soybeans");
-				},
-				
-				error : function(XHR, status, error) {
-					console.error(status + " : " + error);
-				}
-				
-			});
-		}
-	});
-	
-	//스크랩 기능
-	$("#btnScrap").on("click", function(){
-		if (authUser=="") {
-			alert("로그인이 필요한 서비스 입니다.");
-			location.href='${pageContext.request.contextPath}/';
-		} else {
-			var postNo = ${postVo.postNo};
-			
-			$.ajax({
-				url : "${pageContext.request.contextPath}/post/api/addScrapPost",
-				type : "post",
-				data : {
-					postNo : postNo
-				},
-	
-				dataType : "json", 
-				success : function(soi){
-					console.log(soi);
-				},
-				
-				error : function(XHR, status, error) {
-					console.error(status + " : " + error);
-				}
-				
-			});
-		}
-	});
-	
-	
 
 	//댓글 삭제 버튼
 	$("li").on("click",".delete", function(){
@@ -467,7 +401,7 @@
 					num--;
 					$("#postCmtCnt").text(num+" comments");
 					
-					//댓글 표시 숫자 증가
+					//댓글 표시 숫자 감소
 					var stat=$("#cmtCnt").text();
 					stat=stat.split(" ")[1];
 					var num=parseInt(stat);
@@ -548,6 +482,170 @@
 		var oldstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+oldcontent+"</pre></p>";
 		$("#g"+no+"modifyCmt").html(oldstr);
 	});
+	
+	var scrapChk=<c:out value="${scrapChk}"/>;
+	var postNo="<c:out value='${postVo.postNo}'/>";
+	var userId="<c:out value='${authUser.userId}'/>";
+	
+	//스크랩 기능
+	$("#btnScrap").on("click", function() {
+		if(userId == "") {
+			alert("로그인이 필요한 서비스 입니다.");
+		} else if (scrapChk==true && userId != "") {
+			userScrap(userId, postNo, false);
+			scrapChk=false;
+		} else if (scrapChk==false && userId != "") {
+			userScrap(userId, postNo, true);
+			scrapChk=true;
+		}
+	});
+	
+	function userScrap(userId, postNo, scrapX) {
+		scrapVo= {
+				userId : userId,
+				postNo : postNo,
+				scrapX : scrapX
+		}
+		$.ajax({
+			//보내기
+			url : "${pageContext.request.contextPath}/post/api/userscrap",
+			type : "post",
+			contentType : "application/json", 
+			data : JSON.stringify(scrapVo), 
+
+			dataType : "json",
+			success : function(scrapChk) {
+				if(scrapX==true) {
+					$("#btnScrap i").removeClass("off");
+					$("#btnScrap i").addClass("on");
+					
+				} else {
+					$("#btnScrap i").removeClass("on");
+					$("#btnScrap i").addClass("off");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	};
+	
+	var likeChk=<c:out value="${likeChk}"/>;
+	console.log(likeChk);
+	console.log(postNo);
+	console.log(userId);
+	
+	//좋아요(콩) 기능
+	$("#btnLike").on("click", function() {
+		if (userId == "") {
+			console.log("로그인이 필요한 서비스입니다.");
+		} else if (likeChk == true && userId != "") {
+			userLike(userId, postNo, false);
+			likeChk = false;
+		} else if (likeChk == false && userId != "") {
+			userLike(userId, postNo, true);
+			likeChk = true;
+		}
+	});
+	
+	function userLike(userId, postNo, likeX) {
+		likeVo= {
+				userId : userId,
+				postNo : postNo,
+				likeX : likeX
+		}
+		$.ajax({
+			//보내기
+			url : "${pageContext.request.contextPath}/post/api/userlike",
+			type : "post",
+			contentType : "application/json", 
+			data : JSON.stringify(likeVo), 
+
+			dataType : "json",
+			success : function(determine) {
+				if(likeX==true && determine==true) {
+					$("#btnLike i").removeClass("off");
+					$("#btnLike i").addClass("likeOn");
+					
+					var stat=$("#postSoiCnt").text();
+					stat=stat.split(" ");
+					var num=parseInt(stat);
+					num++;
+					$("#postSoiCnt").text(num+" soybeans");
+				} else {
+					$("#btnLike i").removeClass("likeOn");
+					$("#btnLike i").addClass("off");
+					
+					var stat=$("#postSoiCnt").text();
+					stat=stat.split(" ");
+					var num=parseInt(stat);
+					num--;
+					$("#postSoiCnt").text(num+" soybeans");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	};
+	
+	//콩 수 증가
+	/*function likeCntUp() {
+		var postNo = ${postVo.postNo};
+			
+		$.ajax({
+			url : "${pageContext.request.contextPath}/post/api/updateLike",
+			type : "post",
+			data : {
+				postNo : postNo
+			},
+
+			dataType : "json", 
+			success : function(soi){
+				
+				//콩 수 증가
+				var stat=$("#postSoiCnt").text();
+				stat=stat.split(" ");
+				var num=parseInt(stat);
+				num++;
+				$("#postSoiCnt").text(num+" soybeans");
+			},
+			
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+			
+		});
+
+	};*/
+	
+	//스크랩 기능
+	/* $("#btnScrap").on("click", function(){
+		if (authUser=="") {
+			alert("로그인이 필요한 서비스 입니다.");
+			location.href='${pageContext.request.contextPath}/';
+		} else {
+			var postNo = ${postVo.postNo};
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/post/api/addScrapPost",
+				type : "post",
+				data : {
+					postNo : postNo
+				},
+	
+				dataType : "json", 
+				success : function(soi){
+					console.log(soi);
+				},
+				
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+				
+			});
+		}
+	}); */
 	
 </script>
 

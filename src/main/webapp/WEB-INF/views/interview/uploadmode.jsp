@@ -2,10 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.lineProgressbar.css">
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<!-- /Header -->
+											<style>
+    #progressbar {
+        width:500px;
+        height:30px;
+        position:relative;
+    }
+     
+    .progresslabel {
+        position:absolute;
+        width:100%;
+        text-align:center; 
+        line-height:30px;
+        color:white;
+        text-shadow: 1px 1px 1px black;
+    }
+</style>
 
 		<!-- Main Section -->
             <section id="main">
@@ -67,10 +83,14 @@
 										</div>
 										
 										<div class="pull-left">
-										<input type="button" class="btn-xs btn-default glyphicon glyphicon-ok text-primary" id="uploadBtn" value="진단하기">
+										<input type="button" class="btn-xs btn-default glyphicon glyphicon-ok text-primary" id="uploadBtn" value="진단하기"/>
 										</div>
 									</form>
 									<br/><br/><br/><br/>
+									<div id="progress" align="center">
+									<progress id="progressBar" value="0" max="100" style="width:300px; display:none"></progress>
+									<span id="status" style="display:none;"></span>
+									</div>
 									
 									<div id="listArea">
 										
@@ -108,12 +128,11 @@
 
 </body>
 
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> 
+<!-- <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.lineProgressbar.js"></script>
 <script>
-var authUser='${sessionScope.authUser}';
-
-var socket, corr_status;
+/* var socket, corr_status;
 
 $(document).ready(function(){
 	socket = io.connect('http://127.0.0.1:5000');
@@ -132,8 +151,30 @@ $(document).ready(function(){
 		} else if (corr_status == 0)
 			alert("분석하는 도중 문제가 생겼습니다.");
 	});
-});
+}); */
 	
+var authUser='${sessionScope.authUser}';
+
+//무한로딩으로 바꾸기(Indeterminate)
+function progressBarSim(al) {
+	var bar = document.getElementById('progressBar');
+	var status = document.getElementById('status');
+	  bar.style.display="block";
+	  status.style.display="block";
+	  status.innerHTML = al+"%";
+	  bar.value = al;
+	  al++;
+		var sim = setTimeout("progressBarSim("+al+")", 10);
+		if(al == 100){
+		  status.innerHTML = "100%";
+		  bar.value = 100;
+		  clearTimeout(sim);
+		  bar.style.display="none";
+		  status.style.display="none";
+	}
+}
+var amountLoaded = 0;
+
 $("#uploadBtn").on("click", function() {
 	//var video=document.getElementByID("listArea");
 	//while (video.val()!=null) {
@@ -151,7 +192,7 @@ $("#uploadBtn").on("click", function() {
 				$("#file").val("");
 		} else {
 			var formData=new FormData($("#fileUpload")[0]);
-			
+			progressBarSim(amountLoaded); //임시
 			$.ajax({
 				type : "post",
 				url : "${pageContext.request.contextPath}/interview/api/upload",
@@ -160,9 +201,13 @@ $("#uploadBtn").on("click", function() {
 				contentType : false,
 				success : function(videoNo) {
 					if (videoNo!=0) {
-						alert("파일을 업로드 하였습니다.");
+						
+						/* alert("파일을 업로드 하였습니다."); */
 						
 						selectCorrectVideo(videoNo);
+						
+						/* document.getElementById('progressBar').style.display="none";
+						document.getElementById('status').style.display="none"; */
 						
 						$("#file").val("");
 					} else {
@@ -215,6 +260,7 @@ function selectCorrectVideo(videoNo) {
 
 	});
 };
+
 
 </script>
 </html>

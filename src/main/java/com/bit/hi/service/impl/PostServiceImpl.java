@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.hi.dao.PostDao;
+import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
@@ -58,23 +59,23 @@ public class PostServiceImpl implements PostService {
 		return postDao.selectEachPost(postNo);
 	}
 	
-	@Override
+	/*@Override
 	public int updateLike(int postNo) throws Exception{
 		return postDao.updateLike(postNo);
-	}
+	}*/
 	
 	@Override
 	public int deletePost(int postNo) throws Exception{
 		return postDao.deletePost(postNo);
 	}
 	
-	@Override
+	/*@Override
 	public int addScrapPost(int postNo, String userId) throws Exception{
 		ScrapVo scrapVo=new ScrapVo();
 		scrapVo.setPostNo(postNo);
 		scrapVo.setUserId(userId);
 		return postDao.insertScrapPost(scrapVo);
-	}
+	}*/
 	
 	@Override
 	public PostVo getEachPostForModify(int postNo) throws Exception{
@@ -84,5 +85,41 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int updateEachPostForModify(PostVo postVo) throws Exception{
 		return postDao.updateEachPostForModify(postVo);
+	}
+	
+	@Override
+	public List<ScrapVo> getUserScrapList(String userId) throws Exception {
+		return postDao.selectUserScrapList(userId);
+	}
+	
+	@Override
+	public int switchUserScrap(ScrapVo scrapVo) throws Exception {
+		int a;
+		if(scrapVo.isScrapX()) {
+			a=postDao.insertUserScrap(scrapVo);
+		} else {
+			a=postDao.deleteUserScrap(scrapVo);
+		}
+		return a;
+	}
+	
+	@Override
+	public List<LikeVo> getUserLikeList(String userId) throws Exception {
+		return postDao.selectUserLikeList(userId);
+	}
+	
+	@Override
+	public boolean switchUserLike(LikeVo likeVo) throws Exception {
+		boolean determine;
+		if(likeVo.isLikeX()) {
+			postDao.insertUserLike(likeVo);
+			postDao.updateLikeCntForPlus(likeVo);
+			determine=true;
+		} else {
+			postDao.deleteUserLike(likeVo);
+			postDao.updateLikeCntForMinus(likeVo);
+			determine=false;
+		}
+		return determine;
 	}
 }

@@ -29,33 +29,34 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- /Title, Breadcrumb -->
+            </div>
+		</div>
+		<!-- /Title, Breadcrumb -->
                 
-                <!-- Main Content -->
-                <div class="content margin-top60 margin-bottom60">
-                    <div class="container">
-                        <div class="row">
-                            <div class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <!-- Left nav Widget Start -->
-                                <div class="widget category">
-                                    <h3 class="title">My page</h3>
-                                    <ul class="category-list slide">
-                                        <li><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/videoclip">영상 관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/comment">내가 작성한 댓글</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/video">내가 올린 영상</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩 영상</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/beforemodify">회원 정보 수정</a></li>
-                                    </ul>
-                                </div>
-                                <!-- Left nav Widget End -->
-                            </div>
-                            <!-- Sidebar End -->
-                            
-                            
-                            <!-- 내용 부분 -->
-                    <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
+              <!-- Main Content -->
+              <div class="content margin-top60 margin-bottom60">
+                  <div class="container">
+                      <div class="row">
+                          <div class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                              <!-- Left nav Widget Start -->
+                              <div class="widget category">
+                                  <h3 class="title">My page</h3>
+                                  <ul class="category-list slide">
+                                      <li><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/mypage/videoclip">영상 관리</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/mypage/collect/comment">내가 작성한 댓글</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/mypage/collect/video">내가 올린 영상</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/mypage/collect/scrap">스크랩 영상</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/mypage/beforemodify">회원 정보 수정</a></li>
+                                  </ul>
+                              </div>
+                              <!-- Left nav Widget End -->
+                          </div>
+                          <!-- Sidebar End -->
+                          
+                          
+                          <!-- 내용 부분 -->
+                    	<div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                         <h2>진단 히스토리</h2>
                         <!--main content start-->
 						<div class="content-wrapper">
@@ -109,9 +110,9 @@
                         
                      	</div>
                 	</div>
-                	<!-- /내용 부분 -->
-            	</div>
-        	</div>
+              		<!-- /내용 부분 -->
+				</div>
+			</div>
 		</div>
 	</section>
     <!-- /Main Section -->
@@ -125,10 +126,7 @@
     <!-- Custom scripts for this page-->
     <script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
 </body>
-<!-- Page level plugin JavaScript-->
-<script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
-<!-- Custom scripts for this page-->
-<script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
+
 <script>
 //lineChart 변수
 var lineLabels = []; //라벨 배열변수(x축)
@@ -195,7 +193,7 @@ var barChartData = []; //면접점수 데이터 배열변수(y축)
 var myBarChart = {
 	    labels: barLabels,
 	    datasets: [{
-	      label: "Revenue",
+	      label: "면접점수",
 	      backgroundColor: "rgba(2,117,216,1)",
 	      borderColor: "rgba(2,117,216,1)",
 	      data: barChartData,
@@ -259,8 +257,8 @@ function historyTotalChart() {
 	 
 				//barChart
 	            $.each(result.list2.reverse(), function(inx, obj) {
-	            	barLabels.push(obj.videoNo); //일단 면접점수가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
-	            	barChartData.push(obj.avg);
+	            	barLabels.push(obj.videoNo); //일단  x축에 사용할 videoDate가 현재 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	barChartData.push(obj.avg); //임의로 VideoVo 에서 값을 넣어줌.
 	            });
 	            console.log(barLabels);
 	            console.log(barChartData);

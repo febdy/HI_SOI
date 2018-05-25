@@ -2,7 +2,9 @@ package com.bit.hi.service;
 
 import java.util.List;
 
+import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.util.ArrayCriteria;
 import com.bit.hi.util.FindCriteria;
@@ -23,13 +25,21 @@ public interface PostService {
 	
 	public PostVo getEachPost(int postNo) throws Exception;
 	
-	public int updateLike(int postNo) throws Exception;
+	//public int updateLike(int postNo) throws Exception;
 	
 	public int deletePost(int postNo) throws Exception;
 	
-	public int addScrapPost(int postNo, String userId) throws Exception;
+	//public int addScrapPost(int postNo, String userId) throws Exception;
 
 	public PostVo getEachPostForModify(int postNo) throws Exception;
 	
 	public int updateEachPostForModify(PostVo postVo) throws Exception;
+	
+	public List<ScrapVo> getUserScrapList(String userId) throws Exception;
+	
+	public int switchUserScrap(ScrapVo scrapVo) throws Exception;
+	
+	public List<LikeVo> getUserLikeList(String userId) throws Exception;
+	
+	public boolean switchUserLike(LikeVo likeVo) throws Exception;
 }

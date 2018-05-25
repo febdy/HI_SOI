@@ -1,3 +1,8 @@
+.on {color:#ffa100 !important}
+.off {color:#c2c2c2 !important}
+
+.likeOn {color:#ff0803 !important}
+
 body {
     color: #424e5a;
     font-family: "Open Sans",Helvetica,Arial,sans-serif;
@@ -2307,7 +2312,7 @@ textarea:focus {
     position: relative;
     display: block;
     margin-bottom: 20px;
-    width: 100%;
+    width: 10%;
     background: #fafafa;
     height: 40px;
     border-radius: 3px;

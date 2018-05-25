@@ -155,15 +155,6 @@
 		]]>
 	</select>
 	
-	<!-- 좋아요(콩) -->
-	<update id="updateLike" parameterType="int">
-		<![CDATA[
-			update post
-			set post_soi_cnt=post_soi_cnt+1
-			where post_no=#{postNo}
-		]]>
-	</update>
-	
 	<!-- 조회수 -->
 	<update id="postUpdateHit" parameterType="int">
 		<![CDATA[
@@ -198,14 +189,6 @@
 			where post_no=#{postNo}
 		]]>
 	</delete>
-	
-	<!-- 소이팩토리 스크랩(별) 클릭시 -->
-	<insert id="insertScrapPost" parameterType="ScrapVo">
-		<![CDATA[
-			insert into scrap(post_no, user_id, scrap_date)
-			values (#{postNo}, #{userId}, sysdate)
-		]]>
-	</insert>
 	
 	<!-- 글수정창을 위한 값 뿌려주기 -->
 	<select id="selectEachPostForModify" parameterType="int" resultType="PostVo">
@@ -246,6 +229,69 @@
 				post_sharable=#{postSharable}
 			where post_no=#{postNo}
 			and writer_id=#{writerId}
+		]]>
+	</update>
+	
+	<select id="selectUserScrapList" parameterType="String" resultType="ScrapVo">
+		<![CDATA[
+			select post_no postNo
+			from scrap
+			where user_id=#{userId}
+		]]>
+	</select>
+	
+	<!-- 스크랩 클릭 -->
+	<delete id="deleteUserScrap" parameterType="ScrapVo">
+		<![CDATA[
+			delete from scrap
+			where user_id=#{userId} and post_no=#{postNo}
+		]]>
+	</delete>
+	
+	<insert id="insertUserScrap" parameterType="ScrapVo">
+		<![CDATA[
+			insert into scrap(post_no, user_id, scrap_date)
+			values (#{postNo}, #{userId}, sysdate)
+		]]>
+	</insert>
+	
+	<select id="selectUserLikeList" parameterType="String" resultType="LikeVo">
+		<![CDATA[
+			select post_no postNo
+			from likes
+			where user_id = #{userId}
+		]]>
+	</select>
+	
+	<insert id="insertUserLike" parameterType="LikeVo">
+		<![CDATA[
+			insert into likes(post_no, user_id, like_date)
+			values (#{postNo}, #{userId}, sysdate)
+		]]>
+	</insert>
+	
+	<delete id="deleteUserLike" parameterType="LikeVo">
+		<![CDATA[
+			delete from likes
+			where user_id=#{userId} and post_no=#{postNo}
+		]]>
+	</delete>
+	
+	<!-- 좋아요 수 증가 -->
+	<update id="updateLikeCntForPlus" parameterType="int">
+		<![CDATA[
+			update post
+			set post_soi_cnt=post_soi_cnt+1
+			where post_no=#{postNo}
+		]]>
+	</update>
+	
+	<!-- 좋아요 수 감소 -->
+	<update id="updateLikeCntForMinus" parameterType="int">
+		<![CDATA[
+			update post
+			set post_soi_cnt=post_soi_cnt-1
+			where post_no=#{postNo}
 		]]>
 	</update>
 </mapper>

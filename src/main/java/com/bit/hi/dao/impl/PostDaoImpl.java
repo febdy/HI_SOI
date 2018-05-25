@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.PostDao;
+import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
@@ -69,10 +70,10 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.selectOne(namespace+"selectEachPost", postNo);
 	}
 	
-	@Override
+	/*@Override
 	public int updateLike(int postNo) throws Exception {
 		return sqlSession.update(namespace+"updateLike", postNo);
-	}
+	}*/
 	
 	@Override
 	public void postUpdateHit(int postNo) throws Exception {
@@ -84,10 +85,10 @@ public class PostDaoImpl implements PostDao {
 		return sqlSession.delete(namespace+"deletePost", postNo);
 	}
 	
-	@Override
+	/*@Override
 	public int insertScrapPost(ScrapVo scrapVo) throws Exception {
 		return sqlSession.insert(namespace+"insertScrapPost", scrapVo);
-	}
+	}*/
 	
 	@Override
 	public PostVo selectEachPostForModify(int postNo) throws Exception {
@@ -97,5 +98,45 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public int updateEachPostForModify(PostVo postVo) throws Exception {
 		return sqlSession.update(namespace+"updateEachPostForModify", postVo);
+	}
+	
+	@Override
+	public List<ScrapVo> selectUserScrapList(String userId) throws Exception {
+		return sqlSession.selectList(namespace+"selectUserScrapList", userId);
+	}
+	
+	@Override
+	public int deleteUserScrap(ScrapVo scrapVo) throws Exception {
+		return sqlSession.delete(namespace+"deleteUserScrap", scrapVo);
+	}
+	
+	@Override
+	public int insertUserScrap(ScrapVo scrapVo) throws Exception {
+		return sqlSession.insert(namespace+"insertUserScrap", scrapVo);
+	}
+	
+	@Override
+	public List<LikeVo> selectUserLikeList(String userId) throws Exception {
+		return sqlSession.selectList(namespace+"selectUserLikeList", userId);
+	}
+	
+	@Override
+	public int deleteUserLike(LikeVo likeVo) throws Exception {
+		return sqlSession.delete(namespace+"deleteUserLike", likeVo);
+	}
+	
+	@Override
+	public int insertUserLike(LikeVo likeVo) throws Exception {
+		return sqlSession.insert(namespace+"insertUserLike", likeVo);
+	}
+
+	@Override
+	public int updateLikeCntForPlus(LikeVo likeVo) throws Exception {
+		return sqlSession.update(namespace+"updateLikeCntForPlus", likeVo);
+	}
+	
+	@Override
+	public int updateLikeCntForMinus(LikeVo likeVo) throws Exception {
+		return sqlSession.update(namespace+"updateLikeCntForMinus", likeVo);
 	}
 }

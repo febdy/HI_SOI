@@ -9,10 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.hi.domain.vo.LikeVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
 import com.bit.hi.service.PostService;
@@ -47,20 +50,37 @@ public class ApiPostController {
 		return videoVo;
 	}
 	
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value="/api/updateLike")
 	public int apiUpdateLike(@RequestParam("postNo") int postNo) throws Exception{
 		System.out.println("apiUpdateLike 진입");
 		return postService.updateLike(postNo);
-	}
+	}*/
 	
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value="/api/addScrapPost")
 	public int apiAddScrapPost(@RequestParam("postNo") int postNo, HttpSession session) throws Exception{
 		System.out.println("apiAddScrap 진입");
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		String userId=authUser.getUserId();
 		return postService.addScrapPost(postNo, userId);
+	}*/
+	
+	//스크랩 기능
+	@ResponseBody
+	@RequestMapping(value="/api/userscrap")
+	public int apiUserScrap(@RequestBody ScrapVo scrapVo) throws Exception {
+		System.out.println(scrapVo.toString());
+		
+		return postService.switchUserScrap(scrapVo);
 	}
 	
+	//좋아요 기능
+	@ResponseBody
+	@RequestMapping(value="/api/userlike")
+	public boolean apiUserLike(@RequestBody LikeVo likeVo) throws Exception {
+		System.out.println(likeVo.toString());
+		
+		return postService.switchUserLike(likeVo);
+	}
 }

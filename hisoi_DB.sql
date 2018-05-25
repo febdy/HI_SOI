@@ -10,6 +10,7 @@ drop table comments;
 drop table scrap;
 drop table qna;
 drop sequence seq_qna_no;
+drop table likes;
 
 CREATE TABLE users (
     user_id VARCHAR2(20) not null,
@@ -412,3 +413,14 @@ select r.rn rn,
 			where po.post_no=r.post_no
             and rn>=1
 			and rn<=5;
+			
+CREATE TABLE likes (
+    post_no NUMBER(10) not null,
+    user_id VARCHAR2(20) not null,
+    like_date    DATE DEFAULT SYSDATE,
+    CONSTRAINT c_likes_postno_fk FOREIGN KEY (post_no) 
+    REFERENCES post(post_no) on delete cascade,
+    CONSTRAINT c_likes_userid_fk FOREIGN KEY (user_id) 
+    REFERENCES users(user_id)
+);
+

@@ -11,12 +11,13 @@ public class ScrapVo {
 	private String writerId;
 	private String postDate;
 	private String videoThumnail;
+	private boolean scrapX;
 	
 	public ScrapVo() {
 	}
 
 	public ScrapVo(int postNo, String userId, String scrapDate, String postTitle, int postSoiCnt, int postCmtCnt,
-			int postHitCnt, String writerId, String postDate, String videoThumnail) {
+			int postHitCnt, String writerId, String postDate, String videoThumnail, boolean scrapX) {
 		this.postNo = postNo;
 		this.userId = userId;
 		this.scrapDate = scrapDate;
@@ -27,6 +28,7 @@ public class ScrapVo {
 		this.writerId = writerId;
 		this.postDate = postDate;
 		this.videoThumnail = videoThumnail;
+		this.scrapX = scrapX;
 	}
 
 	public int getPostNo() {
@@ -109,11 +111,20 @@ public class ScrapVo {
 		this.videoThumnail = videoThumnail;
 	}
 
+	public boolean isScrapX() {
+		return scrapX;
+	}
+
+	public void setScrapX(boolean scrapX) {
+		this.scrapX = scrapX;
+	}
+
 	@Override
 	public String toString() {
 		return "ScrapVo [postNo=" + postNo + ", userId=" + userId + ", scrapDate=" + scrapDate + ", postTitle="
 				+ postTitle + ", postSoiCnt=" + postSoiCnt + ", postCmtCnt=" + postCmtCnt + ", postHitCnt=" + postHitCnt
-				+ ", writerId=" + writerId + ", postDate=" + postDate + ", videoThumnail=" + videoThumnail + "]";
+				+ ", writerId=" + writerId + ", postDate=" + postDate + ", videoThumnail=" + videoThumnail + ", scrapX="
+				+ scrapX + "]";
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package com.bit.hi.dao;
 
 import java.util.List;
 
+import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
@@ -25,15 +26,33 @@ public interface PostDao {
 	
 	public PostVo selectEachPost(int postNo) throws Exception;
 	
-	public int updateLike(int postNo) throws Exception;
+	//public int updateLike(int postNo) throws Exception;
 	
 	public void postUpdateHit(int postNo) throws Exception;
 	
 	public int deletePost(int postNo) throws Exception;
 	
-	public int insertScrapPost(ScrapVo scrapVo) throws Exception;
+	//public int insertScrapPost(ScrapVo scrapVo) throws Exception;
 	
 	public PostVo selectEachPostForModify(int postNo) throws Exception;
 	
 	public int updateEachPostForModify(PostVo postVo) throws Exception;
+	
+	//스크랩
+	public List<ScrapVo> selectUserScrapList(String userId) throws Exception;
+	
+	public int deleteUserScrap(ScrapVo scrapVo) throws Exception;
+	
+	public int insertUserScrap(ScrapVo scrapVo) throws Exception;
+	
+	//좋아요
+	public List<LikeVo> selectUserLikeList(String userId) throws Exception;
+	
+	public int deleteUserLike(LikeVo likeVo) throws Exception;
+	
+	public int insertUserLike(LikeVo likeVo) throws Exception;
+	
+	public int updateLikeCntForPlus(LikeVo likeVo) throws Exception;
+	
+	public int updateLikeCntForMinus(LikeVo likeVo) throws Exception;
 }

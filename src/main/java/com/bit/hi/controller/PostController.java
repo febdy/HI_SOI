@@ -1,5 +1,7 @@
 package com.bit.hi.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
+import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.service.PostService;
 import com.bit.hi.util.ArrayCriteria;
@@ -45,8 +49,32 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soiread/{postNo}")
-	public String soiRead(Model model, @PathVariable("postNo") int postNo, @ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
+	public String soiRead(HttpSession session, Model model, @PathVariable("postNo") int postNo, @ModelAttribute("fCri") FindCriteria fCri, @ModelAttribute("arrCri") ArrayCriteria arrCri) throws Exception{
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		
+		boolean scrapChk = false;
+		boolean likeChk = false;
+		
 		if (postService.getEachPostForModify(postNo)!=null) {
+			if(authUser != null) {
+				List<ScrapVo> scrapVo = postService.getUserScrapList(authUser.getUserId());
+				List<LikeVo> likeVo = postService.getUserLikeList(authUser.getUserId());
+				for (int i=0; i<scrapVo.size(); i++) {
+					if (scrapVo.get(i).getPostNo() == postNo) {
+						scrapChk = true;
+						break;
+					}
+				}
+				
+				for (int i=0; i<likeVo.size(); i++) {
+					if (likeVo.get(i).getPostNo() == postNo) {
+						likeChk = true;
+						break;
+					}
+				}
+			}
+			model.addAttribute("scrapChk", scrapChk);
+			model.addAttribute("likeChk", likeChk);
 			model.addAttribute("postVo", postService.getEachPost(postNo));
 			model.addAttribute("ctrl","\r\n");
 			

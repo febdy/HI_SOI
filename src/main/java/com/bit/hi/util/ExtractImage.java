@@ -21,7 +21,7 @@ public class ExtractImage {
 	    String command = "C:\\Program Files\\ffmpeg-3.4.2-win64-static\\bin\\ffmpeg.exe -i "
 	            + "\"" + videoFilePath + "\" -ss 00:00:10 -vcodec png -vframes 1 -s hd720 " 
 	            +"\""+ imageFilePath + "\"";
-
+	    
 	    try{
 	       run.exec("cmd.exe chcp 65001"); //java에서 다른 프로그램을 실행하여, 결과 받아오는 작업
 	       run.exec(command);

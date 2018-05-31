@@ -177,7 +177,7 @@ public class MypageDaoImpl implements MypageDao {
 		MatchOperation match = Aggregation.match(criteria);
 		
 		//정렬
-		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "avg"); //면접 점수로 정렬해야함.
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "total_grade"); //면접 점수로 정렬해야함.
 		
 		//지정한 수 만큼 가져오기
 		LimitOperation limit = Aggregation.limit(6); //상위 6개
@@ -195,5 +195,29 @@ public class MypageDaoImpl implements MypageDao {
 		}
 		
 		return sixList;
+	}
+	
+	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
+	@Override
+	public List<MongoVo> findCntForTotalTime(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		criteria.is(value);
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> list = result.getMappedResults();
+		
+		for (MongoVo mongoVo:list) {
+			System.out.println(mongoVo.toString());
+		}
+		
+		return list;
 	}
 }

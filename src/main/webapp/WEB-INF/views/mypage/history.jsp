@@ -77,7 +77,7 @@
 							          	<canvas id="myAreaChart" width="100%" height="30"></canvas>
 							        </div>
 							        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-							      	</div>
+							    </div>
 						      	<br/><br/><br/><br/>
 						      	<div class="row">
 							        <div class="col-lg-8">
@@ -247,18 +247,18 @@ function historyTotalChart() {
 	        success : function(result) {
 	 			//lineChart
 	            $.each(result.list1.reverse(), function(inx, obj) {
-	            	lineLabels.push(obj.videoNo); //일단 videoDate가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
-	            	lineChartData.push(obj.avg);
+	            	lineLabels.push(obj.realDate); //일단 videoDate가 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	lineChartData.push(obj.total_grade);
 	            });
 	            console.log(lineLabels);
 	            console.log(lineChartData);
 	            
 	            createLineChart();
-	 
+	 			
 				//barChart
 	            $.each(result.list2.reverse(), function(inx, obj) {
-	            	barLabels.push(obj.videoNo); //일단  x축에 사용할 videoDate가 현재 mongoDB에 없으므로, videoNo값을 받아 오겠음.
-	            	barChartData.push(obj.avg); //임의로 VideoVo 에서 값을 넣어줌.
+	            	barLabels.push(obj.realDate); //일단  x축에 사용할 videoDate가 현재 mongoDB에 없으므로, videoNo값을 받아 오겠음.
+	            	barChartData.push(obj.total_grade); //임의로 VideoVo 에서 값을 넣어줌.
 	            });
 	            console.log(barLabels);
 	            console.log(barChartData);

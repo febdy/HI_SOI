@@ -14,7 +14,7 @@ public class VideoVo {
 	private String videoCorrectLine;
 	private String videoDelete;
 	private String saveDir;
-	private double avg = 69.9; //임시 몽고에 값 넣어주기 위해 만듬.
+	private double avg = 34.6; //임시 몽고에 값 넣어주기 위해 만듬.
 	
 	public VideoVo() {
 	}

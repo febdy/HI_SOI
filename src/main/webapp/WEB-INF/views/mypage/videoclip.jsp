@@ -58,6 +58,13 @@
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h2>영상관리</h2>
                                 <table class="table table-striped table-bordered">
+                                	<colgroup>
+										<col width="6%">
+										<col width="10%">
+										<col width="63%">
+										<col width="15%">
+										<col width="6%">
+									</colgroup>
                                     <thead>
                                         <tr>
                                             <th><p class="text-center" style='text-align:center; margin:0px;'>번호</p></th>

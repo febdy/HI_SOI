@@ -74,7 +74,7 @@
                                     <c:forEach items="${commentMap.commentList}" var="commentVo">
 										<tr>
 											<td style='text-align:center; vertical-align:middle;'>${commentVo.cmtDate}</td>
-											<td><p style='text-align:center; vertical-align:middle; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;'><a href="${pageContext.request.contextPath}/post/soiread/${commentVo.postNo}">${commentVo.postTitle}</a></p></td>
+											<td><p style='text-align:center; vertical-align:middle; margin:0px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden;'><a href="${pageContext.request.contextPath}/post/soiread/${commentVo.postNo}">${commentVo.postTitle}</a></p></td>
 											<td style='text-align:center; vertical-align:middle;'>${commentVo.writerId}</td>
 										</tr>
 									</c:forEach>

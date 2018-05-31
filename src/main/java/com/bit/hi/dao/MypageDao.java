@@ -57,4 +57,7 @@ public interface MypageDao {
 	
 	//상위 면접점수 6개
 	public List<MongoVo> findTopSixData(String key, String value) throws Exception;
+	
+	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
+	public List<MongoVo> findCntForTotalTime(String key, String videoNo) throws Exception;
 }

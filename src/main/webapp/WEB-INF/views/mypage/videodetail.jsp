@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- MetisMenu CSS -->
+<%--<!-- MetisMenu CSS -->
    <link href="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 <!-- Morris Charts CSS -->
    <link href="${pageContext.request.contextPath}/resources/vendor/morrisjs/morris.css" rel="stylesheet">
 <!-- Custom CSS -->
-   <link href="${pageContext.request.contextPath}/resources/js/dist/css/sb-admin-2.css" rel="stylesheet">
+   <link href="${pageContext.request.contextPath}/resources/js/dist/css/sb-admin-2.css" rel="stylesheet">--%>
     
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
@@ -88,14 +88,14 @@
                                         <p>
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis qui facere laborum consectetur omnis, sed a unde, reprehenderit velit animi obcaecati asperiores, eum inventore consequatur molestias perferendis culpa assumenda ex. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt temporibus itaque dolor illo consectetur minus saepe quaerat ipsam sapiente. Eum voluptatum ratione commodi officiis ipsum accusamus impedit, pariatur itaque tenetur.
                                         </p>
-                                    </div> -->
+                                    </div>
                                     <footer class="post-footer">
                                         <a id="spreadBtn" class="btn btn-color">분석 결과 보기</a>
-                                    </footer>
+                                    </footer> -->
                                 </article>
                                 <!-- /Blog Post 1 -->
                                 
-                                <div id="hiddenContent" style="display: none;">
+                                <div id="hiddenContent">
 	                                <!-- Star -->
 	                                <div class="star">
 	                                    <div class="row">
@@ -119,79 +119,33 @@
 								                      <div class="panel panel-default">
 									                      <div class="col-lg-12">
 									                          <div class="panel-heading">
-									                            	영상 시간별 움직임 변화
+									                          	  <i class="fa fa-area-chart"></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 변화
 									                          </div>
-									                          <!-- /.panel-heading -->
-									                          <div class="panel-body">
-									                              <div class="flot-chart">
-									                                  <div class="flot-chart-content" id="flot-line-chart"></div>
-									                              </div>
-									                          </div>
+									                          
+														      <canvas id="bar-chart" width="600" height="350"></canvas>
+
+															<br/><br/><br/>
 									                        <!-- /.panel-body -->
+									                        
 									                        <div class="table-responsive">
-						                                        <table class="table table-bordered table-hover table-striped">
-						                                            <thead>
-						                                                <tr>
-						                                                    <th>#</th>
-						                                                    <th>Date</th>
-						                                                    <th>Time</th>
-						                                                    <th>Amount</th>
-						                                                </tr>
-						                                            </thead>
-						                                            <tbody>
-						                                                <tr>
-						                                                    <td>3326</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>3:29 PM</td>
-						                                                    <td>$321.33</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3325</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>3:20 PM</td>
-						                                                    <td>$234.34</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3324</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>3:03 PM</td>
-						                                                    <td>$724.17</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3323</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>3:00 PM</td>
-						                                                    <td>$23.71</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3322</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>2:49 PM</td>
-						                                                    <td>$8345.23</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3321</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>2:23 PM</td>
-						                                                    <td>$245.12</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3320</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>2:15 PM</td>
-						                                                    <td>$5663.54</td>
-						                                                </tr>
-						                                                <tr>
-						                                                    <td>3319</td>
-						                                                    <td>10/21/2013</td>
-						                                                    <td>2:13 PM</td>
-						                                                    <td>$943.45</td>
-						                                                </tr>
-						                                            </tbody>
-						                                        </table>
-						                                    </div>
-						                                    <!-- /.table-responsive -->
-									                      </div>
+																<table class="admin-cat table table-bordered table-hover table-striped">
+																    <thead>
+																        <tr id="tt">
+																            <th>Time</th>
+																            <th>머리</th>
+																            <th>눈</th>
+																            <th>어깨</th>
+																            <th>무릎</th>
+																            <th>손</th>
+																        </tr>
+																    </thead>
+																    <tbody id="listArea">
+																    
+																    
+																    </tbody>
+																</table>
+						                         			</div>
+														</div>
 									                       
 									                    <!-- /.panel -->
 								                      </div>
@@ -217,7 +171,7 @@
         	<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
             <!-- /Footer -->
             
-    <!-- Metis Menu Plugin JavaScript -->
+    <%-- <!-- Metis Menu Plugin JavaScript -->
     <script src="${pageContext.request.contextPath}/resources/vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Chart -->
     <script src="${pageContext.request.contextPath}/resources/js/chart-master/Chart.js"></script>
@@ -228,76 +182,170 @@
     <script src="${pageContext.request.contextPath}/resources/vendor/flot/jquery.flot.time.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
     <!-- style -->
-    <script src="${pageContext.request.contextPath}/resources/js/dist/js/sb-admin-2.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/dist/js/sb-admin-2.js"></script> --%>
     
-<%--     <script src="${pageContext.request.contextPath}/resources/vendor/raphael/raphael.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/vendor/morrisjs/morris.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/vendor/morrisjs/data/morris-data.js"></script> --%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<!-- <script src="${pageContext.request.contextPath}/resources/js/chart/Chart.StackedBar.js"></script> -->
+    
+
 </body>
 <script>
 $(document).ready(function(){
-    $("#spreadBtn").click(function(){
-        if($("#hiddenContent").is(":visible")){
-        	$("#spreadBtn").text("분석 결과 보기");
-            $("#hiddenContent").css("display", "none");
-        }else{
-        	$("#spreadBtn").text("분석 결과 접기");
-            $("#hiddenContent").css("display", "block");
-        }
-    });
-});
-
-//Flot Line Chart
-$(document).ready(function() {
-
-    var offset = 0;
-    plot();
-
-    function plot() {
-        var sin = [],
-            cos = [];
-        for (var i = 0; i < 12; i += 0.2) {
-            sin.push([i, Math.sin(i + offset)]);
-            cos.push([i, Math.cos(i + offset)]);
-        }
-
-        var options = {
-            series: {
-                lines: {
-                    show: true
-                },
-                points: {
-                    show: true
-                }
-            },
-            grid: {
-                hoverable: true //IMPORTANT! this is needed for tooltip to work
-            },
-            yaxis: {
-                min: -1.2,
-                max: 1.2
-            },
-            tooltip: true,
-            tooltipOpts: {
-                content: "'%s' of %x.1 is %y.4",
-                shifts: {
-                    x: -60,
-                    y: 25
-                }
-            }
-        };
-
-        var plotObj = $.plot($("#flot-line-chart"), [{
-                data: sin,
-                label: "sin(x)"
-            }, {
-                data: cos,
-                label: "cos(x)"
-            }],
-            options);
-    }
     
-});
+    videoDetailChart();
+
+}); 
+
+//Return with commas in between
+var numberWithCommas = function(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+var barLabels = []; //라벨 배열변수(x축)
+var barChartFaceData = []; //면접점수 데이터 배열변수(y축)
+
+var dataPack1 = [1, 1, 2, 0, 3, 1, 2, 4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 1, 3, 0, 0, 1];
+var dataPack2 = [0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
+/*var dataPack3 = [17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 5, 5, 5];*/
+
+
+var stackedBarChart = {
+    labels: barLabels,
+    datasets: [
+   	{
+	    label: '머리',
+	    data: barChartFaceData,
+	  					backgroundColor: "#D32F2F",
+	  					hoverBackgroundColor: "#EF5350",
+	  					hoverBorderWidth: 0
+    },
+    {
+        label: '눈',
+        data: dataPack1,
+						backgroundColor: "#512DA8",
+						hoverBackgroundColor: "#7E57C2",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '어깨',
+        data: dataPack2,
+						backgroundColor: "#FFA000",
+						hoverBackgroundColor: "#FFCA28",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '무릎',
+        data: dataPack2,
+						backgroundColor: "#02a91e",
+						hoverBackgroundColor: "#75c274",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '손',
+        data: dataPack2,
+						backgroundColor: "#027cc4",
+						hoverBackgroundColor: "#5696bc",
+						hoverBorderWidth: 0
+    },
+    ]
+}
+//Chart.defaults.global.elements.rectangle.backgroundColor = '#FF0000';
+function createStackedBarChart() {
+var bar_ctx = document.getElementById('bar-chart');
+new Chart(bar_ctx, {
+  type: 'bar',
+  data: stackedBarChart,
+  options: {
+   		animation: {
+      	duration: 10,
+      },
+      tooltips: {
+					mode: 'label',
+        callbacks: {
+        label: function(tooltipItem, data) { 
+        	return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+        }
+        }
+       },
+      scales: {
+        xAxes: [{ 
+        	stacked: true, 
+          gridLines: { display: false },
+          }],
+        yAxes: [{ 
+        	stacked: true, 
+          ticks: {
+      			callback: function(value) {if (value % 1 === 0) return numberWithCommas(value); },
+   				}, 
+          }],
+      }, // scales
+      legend: {display: true}
+  } // options
+ });
+}
+
+ 
+var videoNo = "${videoVo.videoNo}";
+
+function videoDetailChart() {	
+		try {
+		    $.ajax({
+		        type : "post",
+		        url : "${pageContext.request.contextPath}/mypage/api/detailchart",
+		        data : {videoNo : videoNo},
+		        dataType : "json",
+		        
+		        success : function(result) {
+		 			//stackedbarchart
+		 			//x축(시간 범위)
+		            $.each(result.list2, function(inx, obj) {
+		            	barLabels.push(obj);
+		            });
+		 			
+		 			//머리
+		            $.each(result.list1, function(inx, obj) {
+		            	barChartFaceData.push(obj);
+		            });
+		            //console.log(lineLabels);
+		            //console.log(lineChartData);
+		            
+		            createStackedBarChart();
+		            
+		            for (var i=0; i<barLabels.length; i++) {
+						render(barLabels[i],barChartFaceData[i],"down");
+		            }
+		        },
+		        error : function(XMLHttpRequest, textStatus, errorThrown) {
+		            alert('There is an error : method(group)에 에러가 있습니다.');
+		        }
+		    });
+		 
+		} catch (e) {
+		    alert(e);
+		}
+}
+
+function render(a, b, updown) {
+	var str = "";
+
+	str += "    		<tr>";
+	str += "                <td>"+a+"</td>"
+	str += "                <td>"+b+"</td>"
+	str += "                <td>1</td>"
+	str += "                <td>2</td>"
+	str += "                <td>3</td>"
+	str += "                <td>4</td>"
+	str += "            </tr>";
+
+	if (updown == "up") {
+		$("#tt").after(str);
+	} else if (updown == "down") {
+		$("#listArea").append(str);
+	} else {
+		console.log("update 오류");
+	}
+};
 
 </script>
 </html>

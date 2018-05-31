@@ -23,11 +23,19 @@ public class ApiMypageController {
 	//historyChart 뿌려주기
 	@ResponseBody
 	@RequestMapping("/api/historychart")
-	public Map<String, Object> historychart(HttpSession session) throws Exception{
+	public Map<String, Object> historyChart(HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(authUser.toString());
 		
 		return mypageService.getMongoForChart(authUser.getUserId());
+	}
+	
+	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
+	@ResponseBody
+	@RequestMapping("/api/detailchart")
+	public Map<String, Object> detailChart(@RequestParam("videoNo") int videoNo) throws Exception {
+		System.out.println("-----------------------"+videoNo);
+		return mypageService.getMongoForDetailChart(videoNo);
 	}
 	
 	@ResponseBody

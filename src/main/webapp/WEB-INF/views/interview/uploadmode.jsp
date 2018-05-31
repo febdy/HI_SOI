@@ -3,25 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.lineProgressbar.css">
+
 		<!-- Header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<!-- /Header -->
-											<style>
-    #progressbar {
-        width:500px;
-        height:30px;
-        position:relative;
-    }
-     
-    .progresslabel {
-        position:absolute;
-        width:100%;
-        text-align:center; 
-        line-height:30px;
-        color:white;
-        text-shadow: 1px 1px 1px black;
-    }
-</style>
 
 		<!-- Main Section -->
             <section id="main">
@@ -75,7 +60,7 @@
                             	<a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
                                 <br/><br/><br/>
                                 	<!-- 진단하기 -->
-                                	<form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
+                                	<form id="fileUpload" method="post" enctype="multipart/form-data">
 										
 										<div class="form-group">
 										<label>&nbsp;</label>
@@ -92,9 +77,36 @@
 									<span id="status" style="display:none;"></span>
 									</div>
 									
-									<div id="listArea">
+									<div id="videoArea">
 										
 									</div>
+									<%-- <div class="panel-heading">
+			                          	  <i class="fa fa-area-chart"></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 변화
+			                          </div>
+			                          
+								      <canvas id="bar-chart" width="600" height="350"></canvas>
+
+									<br/><br/><br/>
+			                        <!-- /.panel-body -->
+			                        
+			                        <div class="table-responsive">
+										<table class="admin-cat table table-bordered table-hover table-striped">
+										    <thead>
+										        <tr id="tt">
+										            <th>Time</th>
+										            <th>머리</th>
+										            <th>눈</th>
+										            <th>어깨</th>
+										            <th>무릎</th>
+										            <th>손</th>
+										        </tr>
+										    </thead>
+										    <tbody id="listArea">
+										    
+										    
+										    </tbody>
+										</table>
+                         			</div> --%>
                                 	
 									<%-- <form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
 										
@@ -128,11 +140,16 @@
 
 </body>
 
-<!-- <script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script> -->
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.lineProgressbar.js"></script>
+
+<!-- chart -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 <script>
-/* var socket, corr_status;
+var socket, corr_status;
 
 $(document).ready(function(){
 	socket = io.connect('http://127.0.0.1:5000');
@@ -141,17 +158,19 @@ $(document).ready(function(){
 		socket.send('User has connected!');
 	});
 	
-
 	socket.on('message', function(result){
 		console.log('Received message from server:::' + result);
-		corr_status = result;
+		videoNo = result;
 		
-		if(corr_status == 1){
+		if(videoNo != 0){
 			alert("파일을 업로드 하였습니다.");
-		} else if (corr_status == 0)
+			selectCorrectVideo(videoNo);
+			$("#file").val("");
+		} else if (videoNo == 0)
 			alert("분석하는 도중 문제가 생겼습니다.");
 	});
-}); */
+	
+});
 	
 var authUser='${sessionScope.authUser}';
 
@@ -202,14 +221,12 @@ $("#uploadBtn").on("click", function() {
 				success : function(videoNo) {
 					if (videoNo!=0) {
 						
-						/* alert("파일을 업로드 하였습니다."); */
-						
-						selectCorrectVideo(videoNo);
-						
+						//alert("파일을 업로드 하였습니다.");
+						socket.emit("video_data", videoNo);
+
 						/* document.getElementById('progressBar').style.display="none";
 						document.getElementById('status').style.display="none"; */
-						
-						$("#file").val("");
+
 					} else {
 						alert("파일 업로드에 실패하였습니다.");
 					}
@@ -227,7 +244,7 @@ $("#uploadBtn").on("click", function() {
 });
 
 function readylist(mongoVo) {
-	$("#listArea").text("");
+	$("#videoArea").text("");
 	
 	var str = "";
 	str += "<div id='videoCh' class='post-image'>";
@@ -238,7 +255,7 @@ function readylist(mongoVo) {
 	str += "</div>";
 	
 
-	$("#listArea").append(str);
+	$("#videoArea").append(str);
 };
 
 function selectCorrectVideo(videoNo) {
@@ -252,6 +269,8 @@ function selectCorrectVideo(videoNo) {
 		dataType : "json",
 		success : function(mongoVo) {
 			readylist(mongoVo);
+			
+			videoDetailChart();
 		},
 
 		error : function(XHR, status, error) {
@@ -259,6 +278,193 @@ function selectCorrectVideo(videoNo) {
 		}
 
 	});
+};
+
+
+/////////////////////////////분석 결과
+
+//Return with commas in between
+var numberWithCommas = function(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+var barLabels = []; //라벨 배열변수(x축)
+var barChartFaceData = []; //면접점수 데이터 배열변수(y축)
+
+var dataPack1 = [1, 1, 2, 0, 3, 1, 2, 4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 1, 3, 0, 0, 1];
+var dataPack2 = [0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
+/*var dataPack3 = [17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 5, 5, 5];*/
+
+
+var stackedBarChart = {
+    labels: barLabels,
+    datasets: [
+   	{
+	    label: '머리',
+	    data: barChartFaceData,
+	  					backgroundColor: "#D32F2F",
+	  					hoverBackgroundColor: "#EF5350",
+	  					hoverBorderWidth: 0
+    },
+    {
+        label: '눈',
+        data: dataPack1,
+						backgroundColor: "#512DA8",
+						hoverBackgroundColor: "#7E57C2",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '어깨',
+        data: dataPack2,
+						backgroundColor: "#FFA000",
+						hoverBackgroundColor: "#FFCA28",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '무릎',
+        data: dataPack2,
+						backgroundColor: "#02a91e",
+						hoverBackgroundColor: "#75c274",
+						hoverBorderWidth: 0
+    },
+    {
+        label: '손',
+        data: dataPack2,
+						backgroundColor: "#027cc4",
+						hoverBackgroundColor: "#5696bc",
+						hoverBorderWidth: 0
+    },
+    ]
+}
+//Chart.defaults.global.elements.rectangle.backgroundColor = '#FF0000';
+function createStackedBarChart() {
+var bar_ctx = document.getElementById('bar-chart');
+new Chart(bar_ctx, {
+  type: 'bar',
+  data: stackedBarChart,
+  options: {
+   		animation: {
+      	duration: 10,
+      },
+      tooltips: {
+					mode: 'label',
+        callbacks: {
+        label: function(tooltipItem, data) { 
+        	return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+        }
+        }
+       },
+      scales: {
+        xAxes: [{ 
+        	stacked: true, 
+          gridLines: { display: false },
+          }],
+        yAxes: [{ 
+        	stacked: true, 
+          ticks: {
+      			callback: function(value) {if (value % 1 === 0) return numberWithCommas(value); },
+   				}, 
+          }],
+      }, // scales
+      legend: {display: true}
+  } // options
+ });
+}
+
+ 
+var videoNo = "${videoVo.videoNo}";
+
+function videoDetailChart() {	
+		try {
+		    $.ajax({
+		        type : "post",
+		        url : "${pageContext.request.contextPath}/mypage/api/detailchart",
+		        data : {videoNo : videoNo},
+		        dataType : "json",
+		        
+		        success : function(result) {
+		 			//stackedbarchart
+		 			//x축
+		            $.each(result.list2, function(inx, obj) {
+		            	barLabels.push(obj);
+		            });
+		 			
+		 			//머리
+		            $.each(result.list1, function(inx, obj) {
+		            	barChartFaceData.push(obj);
+		            });
+		            //console.log(lineLabels);
+		            //console.log(lineChartData);
+		            
+		            //붙이기
+		            attachArea();
+		            
+		            //누적 차트 생성
+		            createStackedBarChart();
+		            
+		            //테이블에 값 입력
+		            for (var i=0; i<barLabels.length; i++) {
+						render(barLabels[i],barChartFaceData[i],"down");
+		            }
+		        },
+		        error : function(XMLHttpRequest, textStatus, errorThrown) {
+		            alert('There is an error : method(group)에 에러가 있습니다.');
+		        }
+		    });
+		 
+		} catch (e) {
+		    alert(e);
+		}
+}
+
+function attachArea() {
+	var str = "";
+	
+	str += "<br/><br/><br/>";
+	str += "<div class='panel-heading'>";
+	str += "	<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 변화";
+	str += "</div>";
+	str += "<canvas id='bar-chart' width='600' height='350'></canvas>";
+	str += "<br/><br/><br/>";
+	str += "<div class='table-responsive'>";
+	str += "<table class='admin-cat table table-bordered table-hover table-striped'>";
+	str += "	<thead>";
+	str += "    	<tr id='tt'>";
+	str += "        	<th>Time</th>";
+	str += "            <th>머리</th>";
+	str += "            <th>눈</th>";
+	str += "            <th>어깨</th>";
+	str += "            <th>무릎</th>";
+	str += "            <th>손</th>";
+	str += "        </tr>";
+	str += "	</thead>";
+	str += "	<tbody id='listArea'>";
+	str += "	</tbody>";
+	str += "</table>";
+	str += "</div>";
+	
+	$("#videoCh").append(str);	
+}
+
+function render(a, b, updown) {
+	var str = "";
+
+	str += "    		<tr>";
+	str += "                <td>"+a+"</td>"
+	str += "                <td>"+b+"</td>"
+	str += "                <td>1</td>"
+	str += "                <td>2</td>"
+	str += "                <td>3</td>"
+	str += "                <td>4</td>"
+	str += "            </tr>";
+
+	if (updown == "up") {
+		$("#tt").after(str);
+	} else if (updown == "down") {
+		$("#listArea").append(str);
+	} else {
+		console.log("update 오류");
+	}
 };
 
 

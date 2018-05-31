@@ -1,5 +1,10 @@
 package com.bit.hi.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -293,6 +298,7 @@ public class MypageServiceImpl implements MypageService {
 		return chartMap;
 	}
 	
+	//history 부분
 	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
 	@Override
 	public Map<String, Object> getMongoForChart(String userId) throws Exception {
@@ -300,7 +306,61 @@ public class MypageServiceImpl implements MypageService {
 		
 		List<MongoVo> list1 = mypageDao.findRecentlyTenData("userId", userId); //최근 10개
 		List<MongoVo> list2 = mypageDao.findTopSixData("userId", userId); //상위 6개
+
+		DateFormat outputFormat= new SimpleDateFormat("yyyyMMdd HH:mm");
 		
+		for (int i=0; i<list1.size(); i++) {
+			//date형 값을 가져와서, 문자형으로 형변환 및 format해 줌.
+			
+			Date list1Date= list1.get(i).getDate();
+			Calendar date = Calendar.getInstance();
+			date.setTime(list1Date);
+			date.add(Calendar.HOUR, 9);
+			
+			String list1Format=outputFormat.format(date.getTime());
+			list1.get(i).setRealDate(list1Format);
+			
+			//String a=outputFormat.format(list1.get(i).getDate());
+			
+			//list1.get(i).setRealDate(a);
+			//System.out.println(list1.get(i).getRealDate());
+		}
+		//--------------중대한 문제 : mongo의 날짜는 9시간 차이가 남.
+		
+		//문자열(String)을 Date로 바꾸는 작업 (parse)
+		//Data형을 원하는 형식으로 바꾸기 (.format)
+		chartMap.put("list1", list1);
+		chartMap.put("list2", list2);
+		return chartMap;
+	}
+	
+	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
+	@Override
+	public Map<String, Object> getMongoForDetailChart(int videoNo) throws Exception {
+		Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		List<MongoVo> list = mypageDao.findCntForTotalTime("videoNo", String.valueOf(videoNo));
+		
+		//얼굴 움직임(5초)
+		List<Integer> list1 = list.get(0).getFace_move_cnt_per_5sec();
+		
+		//시간
+		List<String> list2 = new ArrayList<String>();
+		
+		for (int i=0; i<list1.size(); i++) {
+			list2.add(i, i*5+"초~"+(i+1)*5+"초");
+		}
+		
+		//List<Integer> list1 = list.get(0).getMoveCnt();
+		//List<String> list2 = list.get(0).getTotalTime();
+		System.out.println(list1);
+		System.out.println(list2);
+		//List<String> list1 = new ArrayList<String>();
+		//for(int i=0; i<24; i++) {
+		//	list1=list.get(index)
+		//}
+		
+		//System.out.println("------------------"+list1);
 		chartMap.put("list1", list1);
 		chartMap.put("list2", list2);
 		return chartMap;

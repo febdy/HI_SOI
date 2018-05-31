@@ -41,4 +41,7 @@ public interface MypageService {
 	
 	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
 	public Map<String, Object> getMongoForChart(String userId) throws Exception;
+	
+	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
+	public Map<String, Object> getMongoForDetailChart(int videoNo) throws Exception;
  }

@@ -54,7 +54,23 @@ public class VideoServiceImpl implements VideoService {
 			mongoVo.setVideoSaveName(videoVo.getVideoSaveName()); //임시 출력을 위해, saveName, thumnail 넣어줌.
 			mongoVo.setVideoThumnail(videoVo.getVideoThumnail());
 			mongoVo.setAvg(videoVo.getAvg()); //임시로 점수 넣어줌
-			//여기서 videoDate도 넣어줘서 테스트 해보려 했으나, date는 oracle에 들어갈 때, system으로 생성됨.
+
+			//MongoVo에 날짜 데이터 넣기, 히스토리에 점수화할 내용 필요
+			
+			//videodetail 그래프 그리기 위한 샘플 데이터
+			//5초 단위로 끊은 데이터를 받게된다고 생각하고, 최대 2분(24개 단위)로 나누어서, 1개 구간 당 받게 되는 움직임 수(cnt) 를 그래프로 그리게 될 것임.
+			/*List<Integer> aa=new ArrayList<Integer>();
+			List<String> bb=new ArrayList<String>();
+			for (int i=1; i<=24; i++) {
+				aa.add(i);
+			}
+			mongoVo.setMoveCnt(aa);
+			
+			//시간 단위
+			for (int i=1; i<=24; i++) {
+				bb.add((i-1)*5+"초~"+i*5+"초");
+			}
+			mongoVo.setTotalTime(bb);*/
 			
 			//MongoDB 저장
 			videoDao.mongoSave(mongoVo);
@@ -62,7 +78,6 @@ public class VideoServiceImpl implements VideoService {
 			
 			return videoVo.getVideoNo();
 		}
-		
 		return 0;
 	}
 	

@@ -313,22 +313,27 @@ public class MypageServiceImpl implements MypageService {
 			//date형 값을 가져와서, 문자형으로 형변환 및 format해 줌.
 			
 			Date list1Date= list1.get(i).getDate();
-			Calendar date = Calendar.getInstance();
-			date.setTime(list1Date);
-			date.add(Calendar.HOUR, 9);
+			Calendar date1 = Calendar.getInstance();
+			date1.setTime(list1Date);
+			date1.add(Calendar.HOUR, 9);
 			
-			String list1Format=outputFormat.format(date.getTime());
+			String list1Format=outputFormat.format(date1.getTime());
 			list1.get(i).setRealDate(list1Format);
+		}
+		
+		for (int i=0; i<list2.size(); i++) {
+			Date list2Date= list2.get(i).getDate();
+			Calendar date2 = Calendar.getInstance();
+			date2.setTime(list2Date);
+			date2.add(Calendar.HOUR, 9);
 			
-			//String a=outputFormat.format(list1.get(i).getDate());
-			
-			//list1.get(i).setRealDate(a);
-			//System.out.println(list1.get(i).getRealDate());
+			String list2Format=outputFormat.format(date2.getTime());
+			list2.get(i).setRealDate(list2Format);
 		}
 		//--------------중대한 문제 : mongo의 날짜는 9시간 차이가 남.
 		
 		//문자열(String)을 Date로 바꾸는 작업 (parse)
-		//Data형을 원하는 형식으로 바꾸기 (.format)
+		//Data형을 원하는 문자 형식으로 바꾸기 (.format)
 		chartMap.put("list1", list1);
 		chartMap.put("list2", list2);
 		return chartMap;
@@ -344,12 +349,37 @@ public class MypageServiceImpl implements MypageService {
 		//얼굴 움직임(5초)
 		List<Integer> list1 = list.get(0).getFace_move_cnt_per_5sec();
 		
-		//시간
+		System.out.println(list1.get(0));
+		System.out.println(list1.get(1));
+
+		//for (int i=0; i<list1.get(0).get)
+		
+		//재생시간 구간화
+		double rangeCnt = Math.ceil((double)list.get(0).getTotal_video_time()/5);
+		System.out.println(rangeCnt);
+		
 		List<String> list2 = new ArrayList<String>();
 		
-		for (int i=0; i<list1.size(); i++) {
+		//배열 사이즈 지정
+		
+		
+		for (int i=0; i<rangeCnt; i++) {
 			list2.add(i, i*5+"초~"+(i+1)*5+"초");
+			/*if (list1Array.get(i) == null) {
+				System.out.println(list1);
+				list1Array.
+			}*/
 		}
+		//null 값에 대하여, 0으로 값을 입력해주어야 함.
+		/*String[] list1Array = new String[list2.size()];
+
+		for (int i=0; i<rangeCnt; i++) {
+			//list1Array[i] = list1.get(i); 
+			//if(list1Array[i] == null) {
+			//	list1Array[i]=0;
+			}
+		}*/
+		
 		
 		//List<Integer> list1 = list.get(0).getMoveCnt();
 		//List<String> list2 = list.get(0).getTotalTime();

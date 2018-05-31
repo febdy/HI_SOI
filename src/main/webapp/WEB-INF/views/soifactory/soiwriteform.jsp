@@ -74,11 +74,6 @@
                 </section>
             <!-- /Main Section -->
             
-            <!-- Footer -->
-            <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
-            <!-- /Footer -->
-            
-            
         <!-- Modal -->
         <section id="modals">
 			<div class="modal fade marginTop-60 marginBottom-60" id="modalPop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

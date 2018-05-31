@@ -177,7 +177,7 @@ public class MypageDaoImpl implements MypageDao {
 		MatchOperation match = Aggregation.match(criteria);
 		
 		//정렬
-		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "avg"); //면접 점수로 정렬해야함.
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "total_grade"); //면접 점수로 정렬해야함.
 		
 		//지정한 수 만큼 가져오기
 		LimitOperation limit = Aggregation.limit(6); //상위 6개

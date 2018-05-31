@@ -298,7 +298,7 @@ function videoDetailChart() {
 		        
 		        success : function(result) {
 		 			//stackedbarchart
-		 			//x축
+		 			//x축(시간 범위)
 		            $.each(result.list2, function(inx, obj) {
 		            	barLabels.push(obj);
 		            });

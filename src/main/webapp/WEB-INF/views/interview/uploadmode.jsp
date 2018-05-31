@@ -145,7 +145,7 @@ $(document).ready(function(){
 	socket.on('message', function(result){
 		console.log('Received message from server:::' + result);
 		corr_status = result;
-		
+				
 		if(corr_status == 1){
 			alert("파일을 업로드 하였습니다.");
 		} else if (corr_status == 0)
@@ -228,6 +228,7 @@ $("#uploadBtn").on("click", function() {
 		}
 	}
 });
+
 function readylist(mongoVo) {
 	$("#listArea").text("");
 	
@@ -241,6 +242,7 @@ function readylist(mongoVo) {
 	
 	$("#listArea").append(str);
 };
+
 function selectCorrectVideo(videoNo) {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/interview/api/selectcorrectedvideo",

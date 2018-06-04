@@ -141,7 +141,7 @@ $("tr").on("click", "#deleteBtn", function() {
 				},
 				error : function(XHR, status, error) {
 					console.error(status + " : " + error);
-				}		
+				}
 		});
 	
 	};

@@ -78,9 +78,9 @@
 							<div class="pull-right"> 
 		  						<select id="search_form" onchange="location.href=this.value"> 
 		  							<option selected>게시글 보기</option>
-		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=10">10개씩</option> 
-		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=15">15개씩</option> 
-		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=20">20개씩</option> 
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=12">12개씩</option> 
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=24">24개씩</option> 
+		  							<option value="${pageContext.request.contextPath}/cs/qna?page=${pagingMaker.cri.page}&numPerPage=36">36개씩</option> 
 		  						</select>
 		  					</div>
 							

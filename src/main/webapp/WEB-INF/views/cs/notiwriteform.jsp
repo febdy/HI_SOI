@@ -62,12 +62,10 @@
                                 </div>
 								
 								<div class="row pull-right">
-                                    <div class="col-md-3">
-                                        <input type="submit" value="글쓰기" class="btn btn-color btn-normal btn-pad">
-                                    </div>
+	                                <input type="submit" value="글쓰기" class="btn btn-color btn-normal btn-pad">
+	                                <a href="${pageContext.request.contextPath}/cs/notice?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
                                 </div>
 								</form>
-								<a href="${pageContext.request.contextPath}/cs/qna?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
 							</div>
                         </div>
                		</div>

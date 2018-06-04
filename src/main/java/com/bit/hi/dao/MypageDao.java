@@ -43,6 +43,9 @@ public interface MypageDao {
 	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
 	public int updateVideo(int videoNo) throws Exception;
 	
+	//몽고에서도 삭제(1이면 사용자가 삭제한 영상)
+	public void updateMongoVideo(String key, String value) throws Exception;
+	
 	//영상관리 세부내용
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception;
 	

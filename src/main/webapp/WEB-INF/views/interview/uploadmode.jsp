@@ -254,7 +254,6 @@ function readylist(mongoVo) {
 	str +=  	"</video>";
 	str += "</div>";
 	
-
 	$("#videoArea").append(str);
 };
 
@@ -290,11 +289,11 @@ var numberWithCommas = function(x) {
 
 var barLabels = []; //라벨 배열변수(x축)
 var barChartFaceData = []; //면접점수 데이터 배열변수(y축)
+var barChartEyeData = []; //눈 배열
 
 var dataPack1 = [1, 1, 2, 0, 3, 1, 2, 4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 1, 3, 0, 0, 1];
 var dataPack2 = [0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
 /*var dataPack3 = [17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 5, 5, 5];*/
-
 
 var stackedBarChart = {
     labels: barLabels,
@@ -308,7 +307,7 @@ var stackedBarChart = {
     },
     {
         label: '눈',
-        data: dataPack1,
+        data: barChartEyeData,
 						backgroundColor: "#512DA8",
 						hoverBackgroundColor: "#7E57C2",
 						hoverBorderWidth: 0
@@ -383,9 +382,9 @@ function videoDetailChart() {
 		        dataType : "json",
 		        
 		        success : function(result) {
-		 			//stackedbarchart
-		 			//x축
-		            $.each(result.list2, function(inx, obj) {
+		        	//stackedbarchart
+		 			//x축(시간 범위)
+		            $.each(result.xBarList, function(inx, obj) {
 		            	barLabels.push(obj);
 		            });
 		 			
@@ -393,8 +392,11 @@ function videoDetailChart() {
 		            $.each(result.list1, function(inx, obj) {
 		            	barChartFaceData.push(obj);
 		            });
-		            //console.log(lineLabels);
-		            //console.log(lineChartData);
+		 			
+		 			//눈 깜빡임
+		 			$.each(result.list2, function(inx, obj) {
+		 				barChartEyeData.push(obj);
+		 			});
 		            
 		            //붙이기
 		            attachArea();
@@ -402,9 +404,66 @@ function videoDetailChart() {
 		            //누적 차트 생성
 		            createStackedBarChart();
 		            
-		            //테이블에 값 입력
+		          	//시간별 움직임 횟수 테이블
 		            for (var i=0; i<barLabels.length; i++) {
-						render(barLabels[i],barChartFaceData[i],"down");
+						timeTable(barLabels[i], barChartFaceData[i], barChartEyeData[i], "down");
+		            }
+		            
+		            //움직임 총 합계
+		            summer(result.analyzeSum);
+		            
+		            //directionArea();
+		            
+		            //얼굴 움직임 방향
+		          	var faceDirection = [];
+		            var faceList= [];
+		            $.each(result.faceDirection, function(inx, obj) {
+		            	faceDirection.push(obj);
+		            })
+		            $.each(result.faceList, function(inx, obj) {
+		            	faceList.push(obj);
+		            });
+		            for (var i=0; i<faceDirection.length; i++) {
+		            	faceMoveTable(faceDirection[i], faceList[i]);
+		            }
+		            
+		            //어깨 움직임 방향
+		            var shoulderDirection = [];
+		            var shoulderList= [];
+		            $.each(result.shoulderDirection, function(inx, obj) {
+		            	shoulderDirection.push(obj);
+		            })
+		            $.each(result.shoulderList, function(inx, obj) {
+		            	shoulderList.push(obj);
+		            });
+		            for (var i=0; i<shoulderDirection.length; i++) {
+		            	shoulderMoveTable(shoulderDirection[i], shoulderList[i]);
+		            }
+		            
+		            //무릎 움직임 방향
+		            var kneeDirection = [];
+		            var kneeList= [];
+		            $.each(result.kneeDirection, function(inx, obj) {
+		            	kneeDirection.push(obj);
+		            })
+		            $.each(result.kneeList, function(inx, obj) {
+		            	kneeList.push(obj);
+		            });
+		            for (var i=0; i<kneeDirection.length; i++) {
+		            	kneeMoveTable(kneeDirection[i], kneeList[i]);
+		            }
+		            
+		            //손 움직임 방향
+		            var wristDirection = [];
+		            var wristList= [];
+		            $.each(result.wristDirection, function(inx, obj) {
+		            	wristDirection.push(obj);
+		            })
+		            $.each(result.wristList, function(inx, obj) {
+		            	wristList.push(obj);
+		            });
+		            for (var i=0; i<wristDirection.length; i++) {
+		            	wristMoveTable(wristDirection[i], wristList[i]);
 		            }
 		        },
 		        error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -421,11 +480,15 @@ function attachArea() {
 	var str = "";
 	
 	str += "<br/><br/><br/>";
+	str += "<div class='analyzeTable'>";
 	str += "<div class='panel-heading'>";
 	str += "	<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 변화";
 	str += "</div>";
 	str += "<canvas id='bar-chart' width='600' height='350'></canvas>";
 	str += "<br/><br/><br/>";
+	str += "<div class='panel-heading'>";
+	str += "<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 횟수표";
+	str += "</div>";
 	str += "<div class='table-responsive'>";
 	str += "<table class='admin-cat table table-bordered table-hover table-striped'>";
 	str += "	<thead>";
@@ -442,20 +505,79 @@ function attachArea() {
 	str += "	</tbody>";
 	str += "</table>";
 	str += "</div>";
+	str += "</div>";
+	str += "<br/><br/><br/>";
+	str += "<div class='panel-heading'>";
+	str += "	<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;부위별 움직임 방향";
+	str += "</div>";
+	str += "<br/>";
+	str += "<div class='col-lg-3'>";
+	str += "	머리";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='faceArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3'>";
+	str += "	어깨";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='shoulderArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3'>";
+	str += "	무릎";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='kneeArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3 wristArea'>";
+	str += "	손";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='wristArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
 	
 	$("#videoCh").append(str);	
 }
 
-function render(a, b, updown) {
+//시간대별 움직임표
+function timeTable(label, face, eye, updown) {
 	var str = "";
 
 	str += "    		<tr>";
-	str += "                <td>"+a+"</td>"
-	str += "                <td>"+b+"</td>"
-	str += "                <td>1</td>"
-	str += "                <td>2</td>"
-	str += "                <td>3</td>"
-	str += "                <td>4</td>"
+	str += "                <td>"+label+"</td>";
+	str += "                <td>"+face+"</td>";
+	str += "                <td>"+eye+"</td>";
+	str += "                <td>2</td>";
+	str += "                <td>3</td>";
+	str += "                <td>4</td>";
 	str += "            </tr>";
 
 	if (updown == "up") {
@@ -466,6 +588,134 @@ function render(a, b, updown) {
 		console.log("update 오류");
 	}
 };
+
+//표 합계
+function summer(analyzeSum) {
+	var str = "";
+	
+	str += "    		<tr>";
+	str += "                <td>"+analyzeSum[0]+"</td>";
+	str += "                <td>"+analyzeSum[1]+"</td>";
+	str += "                <td>"+analyzeSum[2]+"</td>";
+	str += "                <td>"+analyzeSum[3]+"</td>";
+	str += "                <td>"+analyzeSum[4]+"</td>";
+	str += "                <td>"+analyzeSum[5]+"</td>";
+	str += "            </tr>";
+	
+	$("#listArea").append(str);
+}
+
+/* function directionArea() {
+	var str = "";
+	
+	str += "<br/><br/><br/>";
+	str += "<div class='panel-heading'>";
+	str += "	<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;부위별 움직임 방향";
+	str += "</div>";
+	str += "<br/>";
+	str += "<div class='col-lg-3'>";
+	str += "	얼굴";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='faceArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3'>";
+	str += "	어깨";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='shoulderArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3'>";
+	str += "	무릎";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='kneeArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	str += "<div class='col-lg-3 wristArea'>";
+	str += "	손";
+	str += "	<table class='table table-bordered table-hover table-striped'>";
+	str += "		<thead>";
+	str += "	        <tr id='tt'>";
+	str += "	            <th>방향</th>";
+	str += "	            <th>움직임 횟수</th>";
+	str += "	        </tr>";
+	str += "	    </thead>";
+	str += "	    <tbody id='wristArea'>";
+	str += "		</tbody>";
+	str += "	</table>";
+	str += "</div>";
+	
+	$("#analyzeTable").append(str);	
+} */
+
+//얼굴 움직임 방향
+function faceMoveTable(Direction, List) {
+	var str = "";
+	
+	str += "    		<tr>";
+	str += "                <td>"+Direction+"</td>";
+	str += "                <td>"+List+"</td>";
+	str += "            </tr>";
+	
+	$("#faceArea").append(str);
+}
+
+//어깨 움직임 방향
+function shoulderMoveTable(Direction, List) {
+	var str = "";
+	
+	str += "    		<tr>";
+	str += "                <td>"+Direction+"</td>";
+	str += "                <td>"+List+"</td>";
+	str += "            </tr>";
+	
+	$("#shoulderArea").append(str);
+}
+
+//무릎 움직임 방향
+function kneeMoveTable(Direction, List) {
+	var str = "";
+	
+	str += "    		<tr>";
+	str += "                <td>"+Direction+"</td>";
+	str += "                <td>"+List+"</td>";
+	str += "            </tr>";
+	
+	$("#kneeArea").append(str);
+}
+
+//무릎 움직임 방향
+function wristMoveTable(Direction, List) {
+	var str = "";
+	
+	str += "    		<tr>";
+	str += "                <td>"+Direction+"</td>";
+	str += "                <td>"+List+"</td>";
+	str += "            </tr>";
+	
+	$("#wristArea").append(str);
+}
 
 
 </script>

@@ -35,9 +35,11 @@ public class CsController {
 			@RequestParam(value="kwd", required=false, defaultValue="") String kwd,
 			Model model) throws Exception{ //메서드 이름과 mapping 값은 동일하지 않아도 된다.
 		//위에 required와 defaultValue, Integer는 crtPage값 없을 때를 위한 조치임.
+		pCri.setNumPerPage(10);
 		model.addAttribute("bMap", csService.noticeGetList(pCri, kwd));
 		
 		PagingMaker pagingMaker=new PagingMaker();
+		
 		pagingMaker.setCri(pCri);
 		pagingMaker.setTotalData(csService.selectTotalCount(pCri, kwd));
 		
@@ -59,7 +61,7 @@ public class CsController {
 	}
 	
 	@RequestMapping(value="/notice/write")
-	public String addNoticeWrite(@ModelAttribute CsVo csVo, HttpSession session, Model model) throws Exception{
+	public String addNoticeWrite(@ModelAttribute CsVo csVo, @ModelAttribute("pCri") PageCriteria pCri, HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		if (authUser.getUserLevel().equals("administer")) {

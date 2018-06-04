@@ -14,6 +14,8 @@ import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.MypageDao;
@@ -121,6 +123,20 @@ public class MypageDaoImpl implements MypageDao {
 		return sqlSession.update(namespace+"updateVideo", videoNo);
 	}
 	
+	//영상관리 삭제시 mongoDB에서도 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
+	@Override
+	public void updateMongoVideo(String key, String value) throws Exception {
+		Criteria criteria = new Criteria(key);
+		criteria.is(value);
+		
+		Query query = new Query(criteria);
+		
+		Update update = new Update();
+		update.set("videoDelete", 1);
+		
+		mongoTemplate.updateMulti(query, update, MongoVo.class);
+	}
+	
 	//영상관리 세부내용
 	@Override
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception {
@@ -134,10 +150,10 @@ public class MypageDaoImpl implements MypageDao {
 		return sqlSession.selectList(namespace+"selectVideoForRecentlyTen", userId);
 	}
 	
-	//history - 최근 10개, 상위 6개, 나의 상위 면접 실패 원인 mongoDB로 부터 가져오기
+	//history - 최근 8개, 상위 5개, 나의 상위 면접 실패 원인 mongoDB로 부터 가져오기
 	
 	//여기서 key는 userId
-	//최근 면접진단 10개
+	//최근 면접진단 8개
 	@Override
 	public List<MongoVo> findRecentlyTenData(String key, String value) throws Exception {
 		Criteria criteria=new Criteria(key);
@@ -150,7 +166,7 @@ public class MypageDaoImpl implements MypageDao {
 		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "videoNo"); //임시로 videoNo로 정렬함, 실제로는 videoDate로 정렬해야함.
 		
 		//지정한 수 만큼 가져오기
-		LimitOperation limit = Aggregation.limit(10);
+		LimitOperation limit = Aggregation.limit(8);
 		
 		//aggregation 하기
 		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
@@ -167,7 +183,7 @@ public class MypageDaoImpl implements MypageDao {
 		return tenList;
 	}
 	
-	//상위 면접점수 6개
+	//상위 면접점수 5개
 	@Override
 	public List<MongoVo> findTopSixData(String key, String value) throws Exception {
 		Criteria criteria=new Criteria(key);
@@ -180,7 +196,7 @@ public class MypageDaoImpl implements MypageDao {
 		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "total_grade"); //면접 점수로 정렬해야함.
 		
 		//지정한 수 만큼 가져오기
-		LimitOperation limit = Aggregation.limit(6); //상위 6개
+		LimitOperation limit = Aggregation.limit(5); //상위 6개
 		
 		//aggregation 하기
 		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);

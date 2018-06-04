@@ -53,6 +53,7 @@ public class VideoServiceImpl implements VideoService {
 			mongoVo.setVideoSize(videoVo.getVideoSize());
 			mongoVo.setVideoSaveName(videoVo.getVideoSaveName()); //임시 출력을 위해, saveName, thumnail 넣어줌.
 			mongoVo.setVideoThumnail(videoVo.getVideoThumnail());
+			mongoVo.setVideoDelete(0);
 			//mongoVo.setAvg(videoVo.getAvg()); //임시로 점수 넣어줌
 
 			//MongoVo에 날짜 데이터 넣기, 히스토리에 점수화할 내용 필요

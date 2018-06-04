@@ -76,7 +76,7 @@
 							        <div class="card-body">
 							          	<canvas id="myAreaChart" width="100%" height="30"></canvas>
 							        </div>
-							        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							        
 							    </div>
 						      	<br/><br/><br/><br/>
 						      	<div class="row">
@@ -89,7 +89,7 @@
 							            <div class="card-body">
 							              <canvas id="myBarChart" width="100" height="50"></canvas>
 							            </div>
-							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							            
 							          </div>
 							        </div>
 							        <div class="col-lg-4">
@@ -101,7 +101,7 @@
 							            <div class="card-body">
 							              	<canvas id="myPieChart" width="100%" height="100"></canvas>
 							            </div>
-							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							            
 							          	</div>
 						        	</div>
 						    	</div>
@@ -209,7 +209,7 @@ function createBarChart() {
     	    scales: {
     	      xAxes: [{
     	        time: {
-    	          unit: 'month'
+    	          unit: 'time'
     	        },
     	        gridLines: {
     	          display: false
@@ -235,6 +235,18 @@ function createBarChart() {
     	}
     });
 }
+
+var ctx3 = document.getElementById("myPieChart");
+var myPieChart = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+    labels: ["얼굴", "눈", "어깨", "손", "발"],
+    datasets: [{
+      data: [12.21, 15.58, 11.25, 8.32, 9.34],
+      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#f520db'],
+    }],
+  },
+});
 
 
 function historyTotalChart() {

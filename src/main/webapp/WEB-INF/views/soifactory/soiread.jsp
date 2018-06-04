@@ -152,17 +152,19 @@
                                     </c:choose>
                                     </div>
                                     <div class="clearfix">
-                                    <div class="favourite">
-                                    <c:choose>
-                                    	<c:when test="${scrapChk==true}">
-                                    		<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star on"></i> 스크랩</strong></a>
-                                		</c:when>
-                                		<c:otherwise>
-                                			<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star off"></i> 스크랩</strong></a>
-                                		</c:otherwise>
-                                		
-                                	</c:choose>
-                                	</div>
+                                    <c:if test="${postVo.postSharable == 'Y'}">
+	                                    <div class="favourite">
+		                                    <c:choose>
+		                                    	<c:when test="${scrapChk==true}">
+		                                    		<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star on"></i> 스크랩</strong></a>
+		                                		</c:when>
+		                                		<c:otherwise>
+		                                			<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star off"></i> 스크랩</strong></a>
+		                                		</c:otherwise>
+		                                		
+		                                	</c:choose>
+	                                	</div>
+                                	</c:if>
                                 </div><br/>
                                 
                                 <!-- Project Details Start -->

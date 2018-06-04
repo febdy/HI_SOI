@@ -40,9 +40,10 @@
                             <!-- 내용 부분 -->
                             <div class="col-md-offset-2 posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">소이팩토리 > 영상보기 > 수정하기</h4>
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/post/soimodify?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" method="post">
+                                <form id="form" class="form-horizontal">
                        				<div class="well">
                        					<input type="text" class="form-control" name="postTitle" value="${postVo.postTitle}"><br>
+                       					<input type="hidden" name="postNo" value="${postVo.postNo}">
                                 		<textarea class="form-control" rows="4" name="postContent">${postVo.postContent}</textarea>
 										<div>
 											<input type="text" name="videoTitle" value="${postVo.videoOriginName}" id="selectArea" readonly="readonly">
@@ -51,22 +52,21 @@
 										</div><br/>
 										<div class="row form-horizontal">
 										<div class="col-md-3">
-										<input type="checkbox" name="postHideFace" value="Y" checked> 얼굴 가리기 사용
+										<input type="checkbox" name="postHideFace" value="Y" <c:out value="${postVo.postHideFace == 'Y'? 'checked':''}"/>> 얼굴 가리기 사용
 										</div>
 										<div class="col-md-3">
-										<input type="checkbox" name="postSharable" value="Y" checked> 진단 결과 스크랩 허용 
+										<input type="checkbox" name="postSharable" value="Y" <c:out value="${postVo.postSharable == 'Y'? 'checked':''}"/>> 진단 결과 스크랩 허용 
 										</div>
 										<div class="col-md-6">
 										</div>
 										<!-- <input type="checkbox" name="postScrap" value=""> 모의 면접 영상 스크랩 허용<br /> -->
 										</div>
 									</div>
-                                
-									<div class="row pull-right">
-                                        <input type="submit" value="수정 완료" class="btn btn-color btn-normal btn-pad">
-                                        <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn btn-color btn-normal btn-pad">취소</a>
-                               		</div>
 								</form>
+								<div class="row pull-right">
+                                    <button id="postModify" type="submit" class="btn btn-color btn-normal btn-pad">수정완료</button>
+                                    <a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn btn-color btn-normal btn-pad">취소</a>
+                           		</div>
 							</div>
                         </div>
                		</div>
@@ -136,7 +136,21 @@
 <script>
 
 $(document).ready(function() {
+	var frm = $("#form");
 	
+	$("#postModify").on("click", function(){
+		var title = $("[name='postTitle']").val();
+		var content = $("[name='postContent']").val();
+		var video = $("[name='videoTitle']").val();
+		
+		if (title =="" || content=="" || video=="") {
+			alert("입력란을 모두 작성해주세요");
+		} else {
+			frm.attr("method", "post");
+			frm.attr("action", "${pageContext.request.contextPath}/post/soimodify?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}");
+			frm.submit();
+		}
+	});
 });
 
 $("#attachModal").on("click", function() {

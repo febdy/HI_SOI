@@ -54,18 +54,17 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget"> Q&A > 글쓰기</h4>
-                                <form id="asd" method="post" action="${pageContext.request.contextPath}/cs/qna/write">
+                                <form id="form">
                        			<div class="well">
                        			<input type="text" class="form-control" name="qnaTitle" placeholder="제목"><br>
                                 <textarea class="form-control" rows="4" name="qnaContent" placeholder="내용"></textarea>
 
                                 </div>
-								
+								</form>
 								<div class="row pull-right">
-                                    <input type="submit" value="글쓰기" class="btn btn-color btn-normal btn-pad">
+                                    <button id="qnaWrite" type="submit" class="btn btn-color btn-normal btn-pad">글쓰기</button>
                                     <a href="${pageContext.request.contextPath}/cs/qna" class="btn btn-color btn-normal btn-pad">취소</a>
                                 </div>
-								</form>
 							</div>
                         </div>
                		</div>
@@ -80,4 +79,22 @@
  
 
 </body>
+<script>
+$(document).ready(function() {
+	var frm = $("#form");
+	
+	$("#qnaWrite").on("click", function(){
+		var title = $("[name='qnaTitle']").val();
+		var content = $("[name='qnaContent']").val();
+		
+		if (title =="" || content=="") {
+			alert("입력란을 모두 작성해주세요");
+		} else {
+			frm.attr("method", "post");
+			frm.attr("action", "${pageContext.request.contextPath}/cs/qna/write");
+			frm.submit();
+		}
+	});
+});
+</script>
 </html>

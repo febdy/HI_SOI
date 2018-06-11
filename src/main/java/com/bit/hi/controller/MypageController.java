@@ -31,9 +31,9 @@ public class MypageController {
 	
 	//내가 진단받은 영상관리
 	@RequestMapping("/videoclip")
-	public String videoClip(@RequestParam(value="crtPage", required=false, defaultValue="1") Integer crtPage, HttpSession session, Model model) throws Exception{
+	public String videoClip(HttpSession session, Model model) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		Map<String, Object> myVideoMap=mypageService.clipGetList(authUser.getUserId(), crtPage);
+		Map<String, Object> myVideoMap=mypageService.clipGetList(authUser.getUserId());
 		System.out.println(myVideoMap);
 		model.addAttribute("myVideoMap", myVideoMap);
 		return "mypage/videoclip";

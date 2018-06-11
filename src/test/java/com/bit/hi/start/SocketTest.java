@@ -1,4 +1,4 @@
-package com.bit.hi.start;
+/*package com.bit.hi.start;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,4 +48,4 @@ public class SocketTest {
 	public static void main(String[] args) {
 		SocketTest fc = new SocketTest("localhost", 9999);
 	}
-}
+}*/

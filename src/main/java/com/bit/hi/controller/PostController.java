@@ -54,7 +54,7 @@ public class PostController {
 		
 		boolean scrapChk = false;
 		boolean likeChk = false;
-		
+
 		if (postService.getEachPostForModify(postNo)!=null) {
 			if(authUser != null) {
 				List<ScrapVo> scrapVo = postService.getUserScrapList(authUser.getUserId());
@@ -71,8 +71,9 @@ public class PostController {
 						likeChk = true;
 						break;
 					}
-				}
+				}			
 			}
+			
 			model.addAttribute("scrapChk", scrapChk);
 			model.addAttribute("likeChk", likeChk);
 			model.addAttribute("postVo", postService.getEachPost(postNo));
@@ -139,11 +140,16 @@ public class PostController {
 	}
 	
 	@RequestMapping(value="/soimodify")
-	public String soiModify(@ModelAttribute PostVo postVo, FindCriteria fCri, ArrayCriteria arrCri, HttpSession session, RedirectAttributes reAttr) throws Exception{
+	public String soiModify(@ModelAttribute PostVo postVo, FindCriteria fCri, ArrayCriteria arrCri, HttpSession session, RedirectAttributes reAttr, @RequestParam(value="postHideFace", required=false, defaultValue="N") String postHideFace,
+			@RequestParam(value="postSharable", required=false, defaultValue="N") String postSharable) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		
 		String url;
 		if (authUser.getUserId().equals(postVo.getWriterId())) {
+			postVo.setWriterId(authUser.getUserId()); //유저 아이디
+			postVo.setPostHideFace(postHideFace);
+			postVo.setPostSharable(postSharable);
+			
 			postService.updateEachPostForModify(postVo);
 			int postNo=postVo.getPostNo();
 			

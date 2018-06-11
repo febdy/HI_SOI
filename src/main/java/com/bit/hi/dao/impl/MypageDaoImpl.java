@@ -1,5 +1,6 @@
 package com.bit.hi.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.MypageDao;
@@ -37,21 +40,45 @@ public class MypageDaoImpl implements MypageDao {
 	
 	//영상관리 페이징
 	@Override
-	public List<VideoVo> selectMyVideoList(String userId, int startRnum, int endRnum) throws Exception {
-		Map<String, Object> mapCri=new HashMap<String, Object>();
-		mapCri.put("userId", userId);
-		mapCri.put("startRnum", startRnum);
-		mapCri.put("endRnum", endRnum);
-		System.out.println("dao: "+mapCri.toString());
-		return sqlSession.selectList(namespace+"selectPageForMyVideoList", mapCri);
+	public List<VideoVo> selectMyVideoList(String userId) throws Exception {
+		
+		return sqlSession.selectList(namespace+"selectPageForMyVideoList", userId);
 	}
 	
-	//영상관리 페이징
-	@Override
-	public int selectTotalCountForMyVideo(String userId) throws Exception {
-		return sqlSession.selectOne(namespace+"selectTotalCountForMyVideo", userId);
-	}
-	
+	//영상관리 mongoDB의 점수값 추가
+	public List<Integer> selectVideoScore(String value1, int value2) throws Exception {
+		Criteria criteria = new Criteria().andOperator(Criteria.where("userId").is(value1), Criteria.where("videoDelete").is(value2));
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		/*SkipOperation skip = Aggregation.skip((long)(crtPage * listCnt));
+		
+		LimitOperation limit = Aggregation.limit(listCnt);*/
+		
+		//정렬
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "videoNo"); //임시로 videoNo로 정렬함, 실제로는 videoDate로 정렬해야함.
+				
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match, sort);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> videoClipList = result.getMappedResults();
+		
+		List<Integer> scoreList = new ArrayList<Integer>();
+		
+		for (int i=0; i<videoClipList.size(); i++) {
+			scoreList.add(videoClipList.get(i).getTotal_grade());
+		}
+		System.out.println(scoreList);
+		//List<VideoVo> list1 = new ArrayList<VideoVo>();
+		//list1.get(0).
+
+		return scoreList;
+	};
+
 	//내 댓글
 	@Override
 	public List<CommentVo> selectCollectCommentList(String userId, int startRnum, int endRnum) throws Exception {
@@ -121,27 +148,91 @@ public class MypageDaoImpl implements MypageDao {
 		return sqlSession.update(namespace+"updateVideo", videoNo);
 	}
 	
+	//영상관리 삭제시 mongoDB에서도 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
+	@Override
+	public void updateMongoVideo(String key, String value) throws Exception {
+		Criteria criteria = new Criteria(key);
+		criteria.is(value);
+		
+		Query query = new Query(criteria);
+		
+		Update update = new Update();
+		update.set("videoDelete", 1);
+		
+		mongoTemplate.updateMulti(query, update, MongoVo.class);
+	}
+	
 	//영상관리 세부내용
 	@Override
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception {
 		return sqlSession.selectOne(namespace+"selectEachVideoAnalyze", videoNo);
 	}
 	
-	//history - 최근 10개 그래프 면접 영상 정보 가져오기
-	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
-	@Override
-	public List<VideoVo> selectVideoForRecentlyTen(String userId) throws Exception {
-		return sqlSession.selectList(namespace+"selectVideoForRecentlyTen", userId);
-	}
-	
-	//history - 최근 10개, 상위 6개, 나의 상위 면접 실패 원인 mongoDB로 부터 가져오기
+	//history - 최근 8개, 상위 5개, 나의 상위 면접 실패 원인 mongoDB로 부터 가져오기
 	
 	//여기서 key는 userId
-	//최근 면접진단 10개
+	//최근 면접진단 8개
 	@Override
-	public List<MongoVo> findRecentlyTenData(String key, String value) throws Exception {
-		Criteria criteria=new Criteria(key);
-		criteria.is(value);
+	public List<MongoVo> findRecentlyEightData(String value1, int value2) throws Exception {
+		Criteria criteria=new Criteria().andOperator(Criteria.where("userId").is(value1), Criteria.where("videoDelete").is(value2));
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		//정렬
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "videoNo"); //임시로 videoNo로 정렬함, 실제로는 videoDate로 정렬해야함.
+		
+		//지정한 수 만큼 가져오기
+		LimitOperation limit = Aggregation.limit(8);
+		
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> eightList = result.getMappedResults();
+		
+		for (MongoVo mongoVo:eightList) {
+			System.out.println(mongoVo.toString());
+		}
+		
+		return eightList;
+	}
+	
+	//상위 면접점수 5개
+	@Override
+	public List<MongoVo> findTopFiveData(String value1, int value2) throws Exception {
+		Criteria criteria=new Criteria().andOperator(Criteria.where("userId").is(value1), Criteria.where("videoDelete").is(value2));
+		
+		//검색
+		MatchOperation match = Aggregation.match(criteria);
+		
+		//정렬
+		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "total_grade"); //면접 점수로 정렬해야함.
+		
+		//지정한 수 만큼 가져오기
+		LimitOperation limit = Aggregation.limit(5); //상위 6개
+		
+		//aggregation 하기
+		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
+		
+		//mongoDB로부터 조건에 맞게 가져오기
+		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
+		
+		List<MongoVo> fiveList = result.getMappedResults();
+		
+		for (MongoVo mongoVo:fiveList) {
+			System.out.println(mongoVo.toString());
+		}
+		
+		return fiveList;
+	}
+	
+	//최근 10개 영상에 대한 실패원인 분석
+	@Override
+	public List<MongoVo> failCauseAnalysis(String value1, int value2) throws Exception {
+		Criteria criteria=new Criteria().andOperator(Criteria.where("userId").is(value1), Criteria.where("videoDelete").is(value2));
 		
 		//검색
 		MatchOperation match = Aggregation.match(criteria);
@@ -165,36 +256,6 @@ public class MypageDaoImpl implements MypageDao {
 		}
 		
 		return tenList;
-	}
-	
-	//상위 면접점수 6개
-	@Override
-	public List<MongoVo> findTopSixData(String key, String value) throws Exception {
-		Criteria criteria=new Criteria(key);
-		criteria.is(value);
-		
-		//검색
-		MatchOperation match = Aggregation.match(criteria);
-		
-		//정렬
-		SortOperation sort = Aggregation.sort(Sort.Direction.DESC, "total_grade"); //면접 점수로 정렬해야함.
-		
-		//지정한 수 만큼 가져오기
-		LimitOperation limit = Aggregation.limit(6); //상위 6개
-		
-		//aggregation 하기
-		Aggregation aggregation = Aggregation.newAggregation(match, sort, limit);
-		
-		//mongoDB로부터 조건에 맞게 가져오기
-		AggregationResults<MongoVo> result = mongoTemplate.aggregate(aggregation, "video_info", MongoVo.class);
-		
-		List<MongoVo> sixList = result.getMappedResults();
-		
-		for (MongoVo mongoVo:sixList) {
-			System.out.println(mongoVo.toString());
-		}
-		
-		return sixList;
 	}
 	
 	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프

@@ -10,7 +10,7 @@ import com.bit.hi.domain.vo.VideoVo;
 public interface MypageService {
 	
 	//내가 업로드 한 리스트(영상관리)
-	public Map<String, Object> clipGetList(String userId, Integer crtPage) throws Exception;
+	public Map<String, Object> clipGetList(String userId) throws Exception;
 	
 	//마이페이지(댓글)
 	public Map<String, Object> getCollectCommentList(String userId, Integer crtPage) throws Exception;
@@ -34,10 +34,6 @@ public interface MypageService {
 	
 	//영상관리 세부내용
 	public VideoVo getEachVideoAnalyze(int videoNo) throws Exception;
-	
-	//histroy - 3개 차트 한꺼번에 3개 list를 map으로 받기
-	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
-	public Map<String, Object> getVideoForChart(String userId) throws Exception;
 	
 	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
 	public Map<String, Object> getMongoForChart(String userId) throws Exception;

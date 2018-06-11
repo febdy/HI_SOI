@@ -71,12 +71,12 @@
 						      	<!-- Area Chart Example-->
 						      	<div class="card mb-3">
 							        <div class="card-header">
-							          	<i class="fa fa-area-chart"></i> 최근 10개 면접 점수</div>
+							          	<i class="fa fa-area-chart"></i> 최근 8개 면접 점수</div>
 							          	<br/>
 							        <div class="card-body">
 							          	<canvas id="myAreaChart" width="100%" height="30"></canvas>
 							        </div>
-							        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							        
 							    </div>
 						      	<br/><br/><br/><br/>
 						      	<div class="row">
@@ -84,12 +84,12 @@
 							          <!-- Example Bar Chart Card-->
 							          <div class="card mb-3">
 							          	<div class="card-header">
-							              <i class="fa fa-bar-chart"></i> 상위 6개 면접 점수</div>
+							              <i class="fa fa-bar-chart"></i> 상위 5개 면접 점수</div>
 							              <br/>
 							            <div class="card-body">
 							              <canvas id="myBarChart" width="100" height="50"></canvas>
 							            </div>
-							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							            
 							          </div>
 							        </div>
 							        <div class="col-lg-4">
@@ -101,10 +101,13 @@
 							            <div class="card-body">
 							              	<canvas id="myPieChart" width="100%" height="100"></canvas>
 							            </div>
-							            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+							            
 							          	</div>
 						        	</div>
 						    	</div>
+						    	<div>
+						        	<canvas id="donut" width="400" height="400"></canvas>
+						        </div>
 						    </div>
 						    <!-- /.container-fluid-->
                         
@@ -194,8 +197,16 @@ var myBarChart = {
 	    labels: barLabels,
 	    datasets: [{
 	      label: "면접점수",
-	      backgroundColor: "rgba(2,117,216,1)",
-	      borderColor: "rgba(2,117,216,1)",
+	      backgroundColor: ['rgba(255, 99, 132, 0.4)',
+	          'rgba(54, 162, 235, 0.4)',
+	          'rgba(255, 206, 86, 0.4)',
+	          'rgba(75, 192, 192, 0.4)',
+	          'rgba(153, 102, 255, 0.4)'],
+	      borderColor: ['rgba(255,99,132,1)',
+	        'rgba(54, 162, 235, 1)',
+	        'rgba(255, 206, 86, 1)',
+	        'rgba(75, 192, 192, 1)',
+	        'rgba(153, 102, 255, 1)'],
 	      data: barChartData,
 	    }],
 	  };
@@ -209,7 +220,7 @@ function createBarChart() {
     	    scales: {
     	      xAxes: [{
     	        time: {
-    	          unit: 'month'
+    	          unit: 'time'
     	        },
     	        gridLines: {
     	          display: false
@@ -236,6 +247,65 @@ function createBarChart() {
     });
 }
 
+
+
+var doughnutChartData = [];
+var doughnutLabels = [];
+
+var myDoughnutChart = {
+	    labels: ["얼굴", "눈", "어깨", "무릎", "손"],
+	    datasets: [{
+	      data: doughnutChartData,
+	      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#f520db'],
+	    }],
+	  };
+
+function createDoughnutChart() {
+	var ctx3 = document.getElementById("myPieChart");
+	new Chart(ctx3, {
+	  type: 'doughnut',
+	  data: myDoughnutChart,
+	  options: pieOptions
+	});
+};
+
+var pieOptions = {
+	  events: false,
+	  animation: {
+	    duration: 500,
+	    easing: "easeOutQuart",
+	    onComplete: function () {
+	      var ctx = this.chart.ctx;
+	      ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+	      ctx.textAlign = 'center';
+	      ctx.textBaseline = 'bottom';
+	
+	      this.data.datasets.forEach(function (dataset) {
+	
+	        for (var i = 0; i < dataset.data.length; i++) {
+	          var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
+	              total = dataset._meta[Object.keys(dataset._meta)[0]].total,
+	              mid_radius = model.innerRadius + (model.outerRadius - model.innerRadius)/2,
+	              start_angle = model.startAngle,
+	              end_angle = model.endAngle,
+	              mid_angle = start_angle + (end_angle - start_angle)/2;
+	
+	          var x = mid_radius * Math.cos(mid_angle);
+	          var y = mid_radius * Math.sin(mid_angle);
+	
+	          ctx.fillStyle = '#fff';
+	          if (i == 3){ // Darker text color for lighter background
+	            ctx.fillStyle = '#444';
+	          }
+	          var percent = String((dataset.data[i]/total*100).toFixed(2)) + "%";
+	          //ctx.fillText(dataset.data[i], model.x + x, model.y + y);
+	          // Display percent in another line, line break doesn't work for fillText
+	          ctx.fillText(percent, model.x + x, model.y + y + 15);
+	        }
+	      });               
+	    }
+	  }
+};
 
 function historyTotalChart() {
 	try {
@@ -264,6 +334,15 @@ function historyTotalChart() {
 	            console.log(barChartData);
 	            
 	            createBarChart();
+	            
+	            //doughnutChart
+	            $.each(result.list2.reverse(), function(inx, obj) {
+	            	doughnutChartData.push(obj.scoreAvgRate);
+	            });
+	            //DoughnutChartData=result.causeList;
+
+	            console.log(doughnutChartData);
+	            createDoughnutChart();
 	        },
 	        error : function(XMLHttpRequest, textStatus, errorThrown) {
 	            alert('There is an error : method(group)에 에러가 있습니다.');
@@ -280,6 +359,46 @@ $(document).ready(function() {
 	historyTotalChart();
 });
 
+
+
+/* var donutEl = document.getElementById("donut").getContext("2d");
+var donut = new Chart(donutEl).Donut(
+	// Datas
+	[
+		{
+			value: 300,
+			color:"#F7464A",
+			highlight: "#FF5A5E",
+			label: "Red"
+		},
+		{
+			value: 50,
+			color: "#46BFBD",
+			highlight: "#5AD3D1",
+			label: "Green"
+		},
+		{
+			value: 100,
+			color: "#FDB45C",
+			highlight: "#FFC870",
+			label: "Yellow"
+		}
+	],
+	// Options
+	{
+		segmentShowStroke : true,
+		segmentStrokeColor : "#fff",
+		segmentStrokeWidth : 2,
+		percentageInnerCutout : 50,
+		animationSteps : 100,
+		animationEasing : "easeOutBounce",
+		animateRotate : true,
+		animateScale : false,
+		responsive: true,
+		maintainAspectRatio: true,
+		showScale: true,
+		animateScale: true
+	}); */
 
 </script>
 </html>

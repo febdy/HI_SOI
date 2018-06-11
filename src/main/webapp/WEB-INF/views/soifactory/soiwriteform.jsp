@@ -39,7 +39,7 @@
                             <!-- 내용 부분 -->
                             <div class="col-md-offset-2 posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">소이팩토리 > 영상 올리기</h4>
-                                <form class="form-horizontal" action="${pageContext.request.contextPath}/post/soiwrite" method="post">
+                                <form id="form" class="form-horizontal">
                        				<div class="well">
                        					<input type="text" class="form-control" name="postTitle" placeholder="제목"><br>
                                 		<textarea class="form-control" rows="4" name="postContent" placeholder="남기는 말"></textarea>
@@ -60,12 +60,11 @@
 										<!-- <input type="checkbox" name="postScrap" value=""> 모의 면접 영상 스크랩 허용<br /> -->
 										</div>
 									</div>
-                                
-									<div class="row pull-right">
-                                        <input type="submit" value="영상올리기 완료" class="btn btn-color btn-normal btn-pad">
-                                        <a href="${pageContext.request.contextPath}/post/soifactorylist" class="btn btn-color btn-normal btn-pad">취소</a>
-                               		</div>
 								</form>
+								<div class="row pull-right">
+                                    <button id="postWrite" type="submit" class="btn btn-color btn-normal btn-pad">영상 올리기</button>
+                                    <a href="${pageContext.request.contextPath}/post/soifactorylist" class="btn btn-color btn-normal btn-pad">취소</a>
+                           		</div>
 							</div>
                         </div>
                		</div>
@@ -135,7 +134,21 @@
 <script>
 
 $(document).ready(function() {
+	var frm = $("#form");
 	
+	$("#postWrite").on("click", function(){
+		var title = $("[name='postTitle']").val();
+		var content = $("[name='postContent']").val();
+		var video = $("[name='videoTitle']").val();
+		
+		if (title =="" || content=="" || video=="") {
+			alert("입력란을 모두 작성해주세요");
+		} else {
+			frm.attr("method", "post");
+			frm.attr("action", "${pageContext.request.contextPath}/post/soiwrite");
+			frm.submit();
+		}
+	});
 });
 
 $("#attachModal").on("click", function() {

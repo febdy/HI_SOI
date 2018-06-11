@@ -47,7 +47,7 @@ var myLineChart = new Chart(ctx2, {
 
 });*/
 // -- Pie Chart Example
-var ctx3 = document.getElementById("myPieChart");
+/*var ctx3 = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx3, {
   type: 'pie',
   data: {
@@ -57,4 +57,4 @@ var myPieChart = new Chart(ctx3, {
       backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
     }],
   },
-});
+});*/

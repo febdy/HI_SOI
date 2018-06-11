@@ -11,10 +11,10 @@ import com.bit.hi.mongo.vo.MongoVo;
 
 public interface MypageDao {
 	//영상관리 페이징
-	public List<VideoVo> selectMyVideoList(String userId, int startRnum, int endRnum) throws Exception;
+	public List<VideoVo> selectMyVideoList(String userId) throws Exception;
 	
-	//영상관리 페이징
-	public int selectTotalCountForMyVideo(String userId) throws Exception;
+	//영상관리 mongoDB의 점수값 추가
+	public List<Integer> selectVideoScore(String value1, int value2) throws Exception;
 	
 	//내 댓글
 	public List<CommentVo> selectCollectCommentList(String userId, int startRnum, int endRnum) throws Exception;
@@ -43,20 +43,22 @@ public interface MypageDao {
 	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
 	public int updateVideo(int videoNo) throws Exception;
 	
+	//몽고에서도 삭제(1이면 사용자가 삭제한 영상)
+	public void updateMongoVideo(String key, String value) throws Exception;
+	
 	//영상관리 세부내용
 	public VideoVo selectEachVideoAnalyze(int videoNo) throws Exception;
 	
-	//history - 최근 10개 그래프 면접 영상 정보 가져오기(Test용)
-	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
-	public List<VideoVo> selectVideoForRecentlyTen(String userId) throws Exception;
-	
 	//history - mongoDB 에서 가져오기
 	
-	//최근 면접진단 10개
-	public List<MongoVo> findRecentlyTenData(String key, String value) throws Exception;
+	//최근 면접진단 8개
+	public List<MongoVo> findRecentlyEightData(String value1, int value2) throws Exception;
 	
-	//상위 면접점수 6개
-	public List<MongoVo> findTopSixData(String key, String value) throws Exception;
+	//상위 면접점수 5개
+	public List<MongoVo> findTopFiveData(String value1, int value2) throws Exception;
+	
+	//최근 10개 영상에 대한 실패원인 분석
+	public List<MongoVo> failCauseAnalysis(String value1, int value2) throws Exception;
 	
 	//영상관리 세부사항 영상시간에 따른 움직임 변화 그래프
 	public List<MongoVo> findCntForTotalTime(String key, String videoNo) throws Exception;

@@ -11,6 +11,7 @@ import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.PostService;
 import com.bit.hi.util.ArrayCriteria;
 import com.bit.hi.util.FindCriteria;
@@ -34,7 +35,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int writePost(PostVo postVo) throws Exception{
 		/*for(int i=1;i<100;i++) {
-			postVo.setPostTitle(i+" 번째 영상입니다.");
+			postVo.setPostTitle(i+" 번째 시험 영상입니다.");
 			postDao.insertWritePost(postVo);
 		}*/
 		return postDao.insertWritePost(postVo);
@@ -121,5 +122,23 @@ public class PostServiceImpl implements PostService {
 			determine=false;
 		}
 		return determine;
+	}
+	
+	//horizontalChartInfo 가져오기
+	@Override
+	public MongoVo selectSoiChartInfo(int videoNo) throws Exception {
+		//Map<String, Object> chartMap=new HashMap<String, Object>();
+		
+		MongoVo list = postDao.selectSoiChartInfo("videoNo", String.valueOf(videoNo));
+		System.out.println(list);
+		/*List<Object> analyzeSum = new ArrayList<Object>();
+		
+		analyzeSum.add(1, list.getFace_move_cnt());
+		analyzeSum.add(2, list.getBlink_cnt());
+		analyzeSum.add(3, list.getShoulder_move_cnt());
+		analyzeSum.add(4, list.getKnee_move_cnt());
+		analyzeSum.add(5, list.getWrist_move_cnt());*/
+		
+		return list;
 	}
 }

@@ -6,6 +6,7 @@ import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.util.ArrayCriteria;
 import com.bit.hi.util.FindCriteria;
 
@@ -42,4 +43,7 @@ public interface PostService {
 	public List<LikeVo> getUserLikeList(String userId) throws Exception;
 	
 	public boolean switchUserLike(LikeVo likeVo) throws Exception;
+	
+	//horizontalChartInfo 가져오기
+	public MongoVo selectSoiChartInfo(int videoNo) throws Exception;
 }

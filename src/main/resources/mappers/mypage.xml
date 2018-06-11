@@ -24,18 +24,9 @@
                 			where user_id=#{userId}
                 			and video_delete=0
                 			order by video_no desc) o) t
-			where rn > #{startRnum}
-			and rn <= #{endRnum}
 		]]> <!-- 세미콜론 지우는 것 꼭 확인 -->
 	</select> <!-- 페이징을 다 한뒤, 검색기능을 쿼리문에 추가해준다. -->
-	<!-- 영상관리 페이징 -->
-	<select id="selectTotalCountForMyVideo" parameterType="String" resultType="int">
-		<![CDATA[
-			select count(*)
-			from video
-			where user_id=#{userId}
-		]]>
-	</select>
+	
 	
 	<!-- 내 댓글 페이징 -->
 	<select id="selectCollectCommentList" parameterType="map" resultType="CommentVo">

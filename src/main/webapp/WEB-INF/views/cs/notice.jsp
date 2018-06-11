@@ -134,11 +134,11 @@
 								</div>
 								
 								<div class="pull-right">
-								<c:if test="${authUser.userLevel=='administer'}">
-									<div class="bottom">
-										<a href="${pageContext.request.contextPath}/cs/notice/writeform" id="new-book"><i class="fa fa-pencil-square-o fa-2x"></i></a>
-									</div>
-								</c:if>
+									<c:if test="${authUser.userLevel=='administer'}">
+										<div class="bottom">
+											<a href="${pageContext.request.contextPath}/cs/notice/writeform" id="new-book"><i class="fa fa-pencil-square-o fa-2x"></i></a>
+										</div>
+									</c:if>
 								</div>
 								
 								

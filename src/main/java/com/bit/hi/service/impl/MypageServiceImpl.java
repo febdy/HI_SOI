@@ -36,51 +36,20 @@ public class MypageServiceImpl implements MypageService {
 	
 	//내가 업로드 한 리스트(영상관리)
 	@Override
-	public Map<String, Object> clipGetList(String userId, Integer crtPage) throws Exception{
+	public Map<String, Object> clipGetList(String userId) throws Exception{
 		// 페이지 뿌려주기 관련 작업
-		int listCnt = 8; // 1페이지 당 표시할 게시글 수
-		// int crtPage=1; //현재 페이지(1보다 큰 값이여야 함), 기준이 1페이지
-		int startRnum = (crtPage - 1) * listCnt; // 0, 10, 20 순으로 올라갈 것임, 이 식은 구해야함.
-		int endRnum = startRnum + listCnt; // 10, 20, 30 순으로 올라감
+		
 
-		crtPage = (crtPage < 0) ? crtPage = 1 : crtPage; // crtPage가 0보다 작을 때, 처리해주기.
-
-		System.out.println("startRnum: " + startRnum);
-		System.out.println("endRnum: " + endRnum);
-
-		List<VideoVo> myVideoList = mypageDao.selectMyVideoList(userId, startRnum, endRnum);
-		// 페이지 하단 숫자버튼 관련 작업
-		// 전체 글 갯수
-		int totalCount = mypageDao.selectTotalCountForMyVideo(userId);
-		System.out.println("totalCount :" + totalCount);
-
-		// 페이지당 버튼 갯수
-		int pageBtnCount = 5;
-		int endPageBtnNo = (int) (Math.ceil(crtPage / (double) pageBtnCount) * pageBtnCount); // endPageBtnNo부터 구하는게 더
-																										// 편함.
-		// ceil은 올림 메소드
-		int startPageBtnNo = endPageBtnNo - (pageBtnCount - 1);
-
-		// prev,next는 보여줄 것인지 말 것인지를 결정하는 변수
-		boolean next = false;
-		if (endPageBtnNo * listCnt < totalCount) { // 전체 글 개수보다 작으면 다음버튼이 보이게 하기
-			next = true;
-		} else {
-			endPageBtnNo = (int) (Math.ceil(totalCount / (double) listCnt)); // 마지막 페이지 계산
+		List<VideoVo> myVideoList = mypageDao.selectMyVideoList(userId);
+		List<Integer> list1=mypageDao.selectVideoScore(userId, 0);
+		for (int i=0; i<myVideoList.size(); i++) {
+			myVideoList.get(i).setTotal_grade(list1.get(i));
 		}
-
-		boolean prev = false;
-		if (startPageBtnNo != 1) {// startPageBtnNo가 1이 아니면 무조건 보여야 함.
-			prev = true;
-		}
+		
 
 		Map<String, Object> myVideoMap = new HashMap<String, Object>();
 		myVideoMap.put("myVideoList", myVideoList);
-		myVideoMap.put("prev", prev);
-		myVideoMap.put("startPageBtnNo", startPageBtnNo);
-		myVideoMap.put("endPageBtnNo", endPageBtnNo);
-		myVideoMap.put("next", next);
-		myVideoMap.put("crtPage", crtPage);
+		
 
 		return myVideoMap;
 	}
@@ -278,6 +247,7 @@ public class MypageServiceImpl implements MypageService {
 	//영상관리 삭제(videoDelete 값이 1이면 사용자가 삭제한 영상임)
 	@Override
 	public int updateVideo(int videoNo) throws Exception{
+		mypageDao.updateMongoVideo("videoNo", String.valueOf(videoNo));
 		return mypageDao.updateVideo(videoNo);
 	}
 	
@@ -287,27 +257,17 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectEachVideoAnalyze(videoNo);
 	}
 	
-	//histroy - 3개 차트 한꺼번에 3개 list를 map으로 받기(성공)
-	//삭제해도 됨.(oracle에서 값 빼와서 차트 그려본 것임 test)
-	@Override
-	public Map<String, Object> getVideoForChart(String userId) throws Exception {
-		Map<String, Object> chartMap=new HashMap<String, Object>();
-		
-		List<VideoVo> list1 = mypageDao.selectVideoForRecentlyTen(userId);
-		chartMap.put("list1", list1);
-		return chartMap;
-	}
-	
 	//history 부분
 	//mongoDB에서 데이터를 뽑기위해, spring에서 query문 작성해서, list형으로 find해 온 다음에, map으로 담아야 함.
 	@Override
 	public Map<String, Object> getMongoForChart(String userId) throws Exception {
 		Map<String, Object> chartMap=new HashMap<String, Object>();
 		
-		List<MongoVo> list1 = mypageDao.findRecentlyTenData("userId", userId); //최근 10개
-		List<MongoVo> list2 = mypageDao.findTopSixData("userId", userId); //상위 6개
+		List<MongoVo> list1 = mypageDao.findRecentlyEightData(userId, 0); //최근 8개
+		List<MongoVo> list2 = mypageDao.findTopFiveData(userId, 0); //상위 5개
+		List<MongoVo> list3 = mypageDao.failCauseAnalysis(userId, 0); //최근 10개(면접 실패 원인 분석)
 
-		DateFormat outputFormat= new SimpleDateFormat("yyyyMMdd HH:mm");
+		DateFormat outputFormat= new SimpleDateFormat("yy/MM/dd HH:mm");
 		
 		for (int i=0; i<list1.size(); i++) {
 			//date형 값을 가져와서, 문자형으로 형변환 및 format해 줌.
@@ -315,7 +275,7 @@ public class MypageServiceImpl implements MypageService {
 			Date list1Date= list1.get(i).getDate();
 			Calendar date1 = Calendar.getInstance();
 			date1.setTime(list1Date);
-			date1.add(Calendar.HOUR, 9);
+			date1.add(Calendar.HOUR, -9);
 			
 			String list1Format=outputFormat.format(date1.getTime());
 			list1.get(i).setRealDate(list1Format);
@@ -325,15 +285,64 @@ public class MypageServiceImpl implements MypageService {
 			Date list2Date= list2.get(i).getDate();
 			Calendar date2 = Calendar.getInstance();
 			date2.setTime(list2Date);
-			date2.add(Calendar.HOUR, 9);
+			date2.add(Calendar.HOUR, -9);
 			
 			String list2Format=outputFormat.format(date2.getTime());
 			list2.get(i).setRealDate(list2Format);
 		}
-		//--------------중대한 문제 : mongo의 날짜는 9시간 차이가 남.
 		
-		//문자열(String)을 Date로 바꾸는 작업 (parse)
-		//Data형을 원하는 문자 형식으로 바꾸기 (.format)
+		int totalFaceCnt = 0;
+		int totalEyeCnt = 0;
+		int totalShoulderCnt = 0;
+		int totalKneeCnt = 0;
+		int totalWristCnt = 0;
+		
+		for (int i=0; i<list3.size(); i++) {
+			totalFaceCnt += list3.get(i).getFace_move_cnt();
+			totalEyeCnt += list3.get(i).getBlink_cnt();
+			totalShoulderCnt += list3.get(i).getShoulder_move_cnt();
+			totalKneeCnt += list3.get(i).getKnee_move_cnt();
+			totalWristCnt += list3.get(i).getWrist_move_cnt();
+		}
+		
+		double avgFace = (double)totalFaceCnt/list3.size();
+		double avgEye = (double)totalEyeCnt/list3.size();
+		double avgShoulder = (double)totalShoulderCnt/list3.size();
+		double avgKnee = (double)totalKneeCnt/list3.size();
+		double avgWrist = (double)totalWristCnt/list3.size();
+		
+		//전체 움직임 평균합
+		double avgSum = avgFace + avgEye + avgShoulder + avgKnee + avgWrist;
+		
+		//움직임 백분율화
+		double rateFace = Double.parseDouble(String.format("%.2f",avgFace/avgSum *100));
+		double rateEye = Double.parseDouble(String.format("%.2f",avgEye/avgSum *100));
+		double rateShoulder = Double.parseDouble(String.format("%.2f",avgShoulder/avgSum *100));
+		double rateKnee = Double.parseDouble(String.format("%.2f",avgKnee/avgSum *100));
+		double rateWrist = Double.parseDouble(String.format("%.2f",avgWrist/avgSum *100));
+
+		/*List<Double> causeList = new ArrayList<Double>();
+		causeList.add(rateFace);
+		causeList.add(rateEye);
+		causeList.add(rateShoulder);
+		causeList.add(rateKnee);
+		causeList.add(rateWrist);*/
+		//List<String> causeLabel = new ArrayList<String>(Arrays.asList("얼굴", "눈", "어깨", "무릎", "손"));
+		double[] causeList = {rateFace, rateEye, rateShoulder, rateKnee, rateWrist};
+		
+		//List<MongoVo> rateList = new ArrayList<MongoVo>();
+		
+		for (int i=0; i<5; i++) {
+			list2.get(i).setScoreAvgRate(causeList[i]);
+			//System.out.println(rateList);
+		}
+		/*for (int i=0; i<5; i++) {
+			list3.get(0).setScoreAvgRate(causeList[i]);
+		}*/
+
+		
+		//chartMap.put("rateList", rateList);
+		//chartMap.put("list3", list3);
 		chartMap.put("list1", list1);
 		chartMap.put("list2", list2);
 		return chartMap;
@@ -349,50 +358,96 @@ public class MypageServiceImpl implements MypageService {
 		//얼굴 움직임(5초)
 		List<Integer> list1 = list.get(0).getFace_move_cnt_per_5sec();
 		
-		System.out.println(list1.get(0));
-		System.out.println(list1.get(1));
-
-		//for (int i=0; i<list1.get(0).get)
+		//눈 깜빡임(5초)
+		List<Integer> list2 = list.get(0).getEye_blink_cnt_per_5sec();
+		
+		//어깨 움직임(5초)
+		List<Integer> list3 = list.get(0).getS_move_cnt_per_5sec();
+		
+		//무릎 움직임(5초)
+		List<Integer> list4 = list.get(0).getK_move_cnt_per_5sec();
+		
+		//손 움직임(5초)
+		List<Integer> list5 = list.get(0).getW_move_cnt_per_5sec();
 		
 		//재생시간 구간화
 		double rangeCnt = Math.ceil((double)list.get(0).getTotal_video_time()/5);
 		System.out.println(rangeCnt);
 		
-		List<String> list2 = new ArrayList<String>();
+		//x축 레이블 list 생성
+		List<String> xBarList = new ArrayList<String>();
 		
-		//배열 사이즈 지정
-		
-		
+		//null 값 0으로 바꾸기
 		for (int i=0; i<rangeCnt; i++) {
-			list2.add(i, i*5+"초~"+(i+1)*5+"초");
-			/*if (list1Array.get(i) == null) {
-				System.out.println(list1);
-				list1Array.
-			}*/
-		}
-		//null 값에 대하여, 0으로 값을 입력해주어야 함.
-		/*String[] list1Array = new String[list2.size()];
-
-		for (int i=0; i<rangeCnt; i++) {
-			//list1Array[i] = list1.get(i); 
-			//if(list1Array[i] == null) {
-			//	list1Array[i]=0;
+			xBarList.add(i, i*5+"초~"+(i+1)*5+"초");
+			if (list1.size() < xBarList.size()) {
+				list1.add(i, 0);
 			}
-		}*/
+			if (list2.size() < xBarList.size()) {
+				list2.add(i, 0);
+			}
+			if (list3.size() < xBarList.size()) {
+				list3.add(i, 0);
+			}
+			if (list4.size() < xBarList.size()) {
+				list4.add(i, 0);
+			}
+			if (list5.size() < xBarList.size()) {
+				list5.add(i, 0);
+			}
+		}
 		
+		//합계 리스트
+		List<Object> analyzeSum = new ArrayList<Object>();
 		
-		//List<Integer> list1 = list.get(0).getMoveCnt();
-		//List<String> list2 = list.get(0).getTotalTime();
-		System.out.println(list1);
-		System.out.println(list2);
-		//List<String> list1 = new ArrayList<String>();
-		//for(int i=0; i<24; i++) {
-		//	list1=list.get(index)
-		//}
+		analyzeSum.add(0, "합계");
+		analyzeSum.add(1, list.get(0).getFace_move_cnt());
+		analyzeSum.add(2, list.get(0).getBlink_cnt());
+		analyzeSum.add(3, list.get(0).getShoulder_move_cnt());
+		analyzeSum.add(4, list.get(0).getKnee_move_cnt());
+		analyzeSum.add(5, list.get(0).getWrist_move_cnt());
 		
-		//System.out.println("------------------"+list1);
-		chartMap.put("list1", list1);
+		//얼굴 방향
+		List<Integer> faceList = list.get(0).getMove_direction();
+		List<String> faceDirection = new ArrayList<String>();
+		faceDirection.add("상");
+		faceDirection.add("하");
+		faceDirection.add("좌");
+		faceDirection.add("우");
+		
+		//어깨 방향
+		List<Integer> shoulderList = list.get(0).getS_move_direction();
+		List<String> shoulderDirection = new ArrayList<String>();
+		shoulderDirection.add("좌");
+		shoulderDirection.add("우");
+		
+		//무릎 방향
+		List<Integer> kneeList = list.get(0).getK_move_direction();
+		List<String> kneeDirection = new ArrayList<String>();
+		kneeDirection.add("좌");
+		kneeDirection.add("우");
+		
+		//손 방향
+		List<Integer> wristList = list.get(0).getW_move_direction();
+		List<String> wristDirection = new ArrayList<String>();
+		wristDirection.add("좌");
+		wristDirection.add("우");
+		
+		chartMap.put("wristDirection", wristDirection);
+		chartMap.put("wristList", wristList);
+		chartMap.put("kneeDirection", kneeDirection);
+		chartMap.put("kneeList", kneeList);
+		chartMap.put("shoulderDirection", shoulderDirection);
+		chartMap.put("shoulderList", shoulderList);
+		chartMap.put("faceDirection", faceDirection);
+		chartMap.put("faceList", faceList);
+		chartMap.put("analyzeSum", analyzeSum);
+		chartMap.put("list5", list5);
+		chartMap.put("list4", list4);
+		chartMap.put("list3", list3);
 		chartMap.put("list2", list2);
+		chartMap.put("list1", list1);
+		chartMap.put("xBarList", xBarList);
 		return chartMap;
 	}
 }

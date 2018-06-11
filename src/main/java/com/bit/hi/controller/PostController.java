@@ -54,7 +54,7 @@ public class PostController {
 		
 		boolean scrapChk = false;
 		boolean likeChk = false;
-		
+
 		if (postService.getEachPostForModify(postNo)!=null) {
 			if(authUser != null) {
 				List<ScrapVo> scrapVo = postService.getUserScrapList(authUser.getUserId());
@@ -71,8 +71,9 @@ public class PostController {
 						likeChk = true;
 						break;
 					}
-				}
+				}			
 			}
+			
 			model.addAttribute("scrapChk", scrapChk);
 			model.addAttribute("likeChk", likeChk);
 			model.addAttribute("postVo", postService.getEachPost(postNo));

@@ -18,6 +18,7 @@ import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.UserVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.service.PostService;
 
 @Controller
@@ -82,5 +83,12 @@ public class ApiPostController {
 		System.out.println(likeVo.toString());
 		
 		return postService.switchUserLike(likeVo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/api/soichart")
+	public MongoVo apiSoiChart(@RequestParam("videoNo") int videoNo) throws Exception {
+		
+		return postService.selectSoiChartInfo(videoNo);
 	}
 }

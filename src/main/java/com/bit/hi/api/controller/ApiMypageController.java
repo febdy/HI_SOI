@@ -26,7 +26,6 @@ public class ApiMypageController {
 	public Map<String, Object> historyChart(HttpSession session) throws Exception{
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
 		System.out.println(authUser.toString());
-		
 		return mypageService.getMongoForChart(authUser.getUserId());
 	}
 	

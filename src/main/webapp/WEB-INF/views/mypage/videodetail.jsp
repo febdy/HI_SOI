@@ -251,11 +251,9 @@ var numberWithCommas = function(x) {
 var barLabels = []; //라벨 배열변수(x축)
 var barChartFaceData = []; //얼굴 배열
 var barChartEyeData = []; //눈 배열
-
-var dataPack1 = [1, 1, 2, 0, 3, 1, 2, 4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 2, 2, 1, 3, 0, 0, 1];
-var dataPack2 = [0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0];
-/*var dataPack3 = [17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 17, 11, 22, 18, 12, 7, 5, 5, 5, 5];*/
-
+var barChartShoulderData = []; //어깨 배열
+var barChartKneeData = []; //무릎 배열
+var barChartWristData = []; //손 배열
 
 var stackedBarChart = {
     labels: barLabels,
@@ -276,21 +274,21 @@ var stackedBarChart = {
     },
     {
         label: '어깨',
-        data: dataPack2,
+        data: barChartShoulderData,
 						backgroundColor: "#FFA000",
 						hoverBackgroundColor: "#FFCA28",
 						hoverBorderWidth: 0
     },
     {
         label: '무릎',
-        data: dataPack2,
+        data: barChartKneeData,
 						backgroundColor: "#02a91e",
 						hoverBackgroundColor: "#75c274",
 						hoverBorderWidth: 0
     },
     {
         label: '손',
-        data: dataPack2,
+        data: barChartWristData,
 						backgroundColor: "#027cc4",
 						hoverBackgroundColor: "#5696bc",
 						hoverBorderWidth: 0
@@ -359,13 +357,26 @@ function videoDetailChart() {
 		 			$.each(result.list2, function(inx, obj) {
 		 				barChartEyeData.push(obj);
 		 			});
+		 			
+		 			//어깨
+		 			$.each(result.list3, function(inx, obj) {
+		 				barChartShoulderData.push(obj);
+		 			});
+		 			//무릎
+		 			$.each(result.list4, function(inx, obj) {
+		 				barChartKneeData.push(obj);
+		 			});
+		 			//손
+		 			$.each(result.list5, function(inx, obj) {
+		 				barChartWristData.push(obj);
+		 			});
 		            
 		            
 		            createStackedBarChart();
 		            
 		            //시간별 움직임 횟수 테이블
 		            for (var i=0; i<barLabels.length; i++) {
-						timeTable(barLabels[i], barChartFaceData[i], barChartEyeData[i], "down");
+						timeTable(barLabels[i], barChartFaceData[i], barChartEyeData[i], barChartShoulderData[i], barChartKneeData[i], barChartWristData[i], "down");
 		            }
 		            
 		            //움직임 총 합계
@@ -437,16 +448,16 @@ function videoDetailChart() {
 }
 
 //시간대별 움직임표
-function timeTable(label, face, eye, updown) {
+function timeTable(label, face, eye, shoulder, knee, wrist, updown) {
 	var str = "";
 
 	str += "    		<tr>";
 	str += "                <td>"+label+"</td>";
 	str += "                <td>"+face+"</td>";
 	str += "                <td>"+eye+"</td>";
-	str += "                <td>2</td>";
-	str += "                <td>3</td>";
-	str += "                <td>4</td>";
+	str += "                <td>"+shoulder+"</td>";
+	str += "                <td>"+knee+"</td>";
+	str += "                <td>"+wrist+"</td>";
 	str += "            </tr>";
 
 	if (updown == "up") {

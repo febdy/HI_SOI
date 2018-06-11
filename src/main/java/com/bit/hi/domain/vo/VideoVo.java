@@ -14,14 +14,13 @@ public class VideoVo {
 	private String videoCorrectLine;
 	private String videoDelete;
 	private String saveDir;
-	private double avg = 34.6; //임시 몽고에 값 넣어주기 위해 만듬.
+	private int total_grade;
 	
-	public VideoVo() {
-	}
-
+	public VideoVo() {};
+	
 	public VideoVo(int rn, int videoNo, String userId, String videoOriginName, String videoSaveName, String videoExName,
 			String videoPath, long videoSize, String videoDate, String videoThumnail, String videoCorrectLine,
-			String videoDelete, String saveDir) {
+			String videoDelete, String saveDir, int total_grade) {
 		this.rn = rn;
 		this.videoNo = videoNo;
 		this.userId = userId;
@@ -35,6 +34,7 @@ public class VideoVo {
 		this.videoCorrectLine = videoCorrectLine;
 		this.videoDelete = videoDelete;
 		this.saveDir = saveDir;
+		this.total_grade = total_grade;
 	}
 
 	public int getRn() {
@@ -132,18 +132,21 @@ public class VideoVo {
 	public void setVideoDelete(String videoDelete) {
 		this.videoDelete = videoDelete;
 	}
-	
+
 	public String getSaveDir() {
 		return saveDir;
 	}
-	
+
 	public void setSaveDir(String saveDir) {
 		this.saveDir = saveDir;
 	}
-	
-	//임시 avg 여기서 넣어줌.
-	public Double getAvg() {
-		return avg;
+
+	public int getTotal_grade() {
+		return total_grade;
+	}
+
+	public void setTotal_grade(int total_grade) {
+		this.total_grade = total_grade;
 	}
 
 	@Override
@@ -152,7 +155,11 @@ public class VideoVo {
 				+ videoOriginName + ", videoSaveName=" + videoSaveName + ", videoExName=" + videoExName + ", videoPath="
 				+ videoPath + ", videoSize=" + videoSize + ", videoDate=" + videoDate + ", videoThumnail="
 				+ videoThumnail + ", videoCorrectLine=" + videoCorrectLine + ", videoDelete=" + videoDelete
-				+ ", saveDir=" + saveDir + "]";
+				+ ", saveDir=" + saveDir + ", total_grade=" + total_grade + "]";
 	}
+	
+	
+	
+	
 
 }

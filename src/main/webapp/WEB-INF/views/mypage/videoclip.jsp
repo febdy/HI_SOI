@@ -61,7 +61,8 @@
                                 	<colgroup>
 										<col width="6%">
 										<col width="10%">
-										<col width="63%">
+										<col width="55%">
+										<col width="8%">
 										<col width="15%">
 										<col width="6%">
 									</colgroup>
@@ -70,6 +71,7 @@
                                             <th><p class="text-center" style='text-align:center; margin:0px;'>번호</p></th>
                                             <th><p class="text-center" style='text-align:center; margin:0px;'>영상</p></th>
 											<th><p class="text-center" style='text-align:center; margin:0px;'>제목</p></th>
+											<th><p class="text-center" style='text-align:center; margin:0px;'>점수</p></th>											
 											<th><p class="text-center" style='text-align:center; margin:0px;'>작성일</p></th>
 											<th><p class="text-center" style='text-align:center; margin:0px;'>삭제</p></th>
                                         </tr>
@@ -79,11 +81,12 @@
 										<tr>
 											<td style='text-align:center; vertical-align:middle;'>${videoVo.rn}</td>
 											<td>
-                                                    <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">
-                                                    <img width="70" height="70" title="" alt="" src="${pageContext.request.contextPath}/upload/${videoVo.videoThumnail}">
-                                                    </a>
-                                                </td>
+                                                <a class="product-image" href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">
+                                                <img width="70" height="70" title="" alt="" src="${pageContext.request.contextPath}/upload/${videoVo.videoThumnail}">
+                                                </a>
+                                            </td>
 											<td style='text-align:center; vertical-align:middle;'><a href="${pageContext.request.contextPath}/mypage/videoclip/detail?videoNo=${videoVo.videoNo}">${videoVo.videoOriginName}</a></td>
+											<td style='text-align:center; vertical-align:middle;'>${videoVo.total_grade}</td>
 											<td style='text-align:center; vertical-align:middle;'>${videoVo.videoDate}</td>
 											<td style='text-align:center; vertical-align:middle;'><span id="deleteBtn" data-no="${videoVo.videoNo}"><a href='javascript:void(0)'><i class="fa fa-minus-square-o fa-2x text-danger"></i></a></span></td>
 										</tr>
@@ -91,7 +94,7 @@
                                     </tbody>
                                 </table>
                                 
-                                <div class="pagination-centered padding-bottom30">
+                                <%-- <div class="pagination-centered padding-bottom30">
 								<ul class="pagination">
 									<c:if test="${myVideoMap.prev}">
 										<!-- 이 값이 false라면 prev 실행 x -->
@@ -107,7 +110,7 @@
 										<li><a href="${pageContext.request.contextPath}/mypage/videoclip?crtPage=${myVideoMap.endPageBtnNo+1}">»</a></li>
 									</c:if>
 								</ul>
-								</div>
+								</div> --%>
                             </div>
                         </div>
                     </div>

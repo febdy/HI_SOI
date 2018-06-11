@@ -93,7 +93,7 @@
                                             </li>
                                         </ol>
                                     </div>
-                                    <div align="center">
+                                   	<div align="center">
 										<input id="btnNext" type="button" value="더보기">
 									</div>
                                     <div class="clearfix">
@@ -133,53 +133,57 @@
                             <!-- /왼쪽 라인 -->
                              <!-- Project Summary -->
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 sidebar">
+                            <div class="well">
                                 <div class="widget">
                                     <h3 class="title">남기는 말</h3>
                                     <p>
 									${fn:replace(postVo.postContent , ctrl, "</br>" )}
                                     </p>
                                 </div>
+                                </div>
+                                
+                                <!-- Project Details Start -->
+                                <div class="well">
+                                <div class="widget project_details">
+                                    <h3 class="title">진단 결과</h3>
+                                    <div class="details-content">
+                                    	<%-- <span><strong>자세</strong><em><a>부산스러움</a></em></span>
+                                        <span><strong>음성</strong><em><a>목소리 떨림</a><a>호흡 불안정</a><a>훌륭한 답변</a></em></span>
+                                        <span><strong>점수</strong><em>
+												<img src="${pageContext.request.contextPath}/resources/img/shop/stars-5.png" alt="Based on 1 reviews.">
+										</em>
+										</span> --%>
+										<canvas id="bar-chart-horizontal" width="800" height="800"></canvas>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                </div>
                                 <!-- Project Description End -->  
                                 <div class="widget form-inline">
-                                    <div class="favourite">
-                                    <c:choose>
-                                    	<c:when test="${likeChk==true}">
-                                        	<a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart likeOn"></i> 좋아요</strong></a>
-                                    	</c:when>
-                                    	<c:otherwise>
-                                    	    <a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart off"></i> 좋아요</strong></a>
-                                    	</c:otherwise>
-                                    </c:choose>
+                                    <div class="favourite col-md-4" style='padding:0px;'>
+	                                    <c:choose>
+	                                    	<c:when test="${likeChk==true}">
+	                                        	<a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart likeOn"></i> 좋아요</strong></a>
+	                                    	</c:when>
+	                                    	<c:otherwise>
+	                                    	    <a id="btnLike" class="btn btn-default"><strong><i class="fa fa-heart off"></i> 좋아요</strong></a>
+	                                    	</c:otherwise>
+	                                    </c:choose>
                                     </div>
-                                    <div class="clearfix">
                                     <c:if test="${postVo.postSharable == 'Y'}">
-	                                    <div class="favourite">
+	                                    <div class="favourite col-md-4" style='padding:0px;'>
 		                                    <c:choose>
 		                                    	<c:when test="${scrapChk==true}">
 		                                    		<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star on"></i> 스크랩</strong></a>
 		                                		</c:when>
 		                                		<c:otherwise>
 		                                			<a id="btnScrap" class="btn btn-default"><strong><i class="fa fa-star off"></i> 스크랩</strong></a>
-		                                		</c:otherwise>
-		                                		
+		                                		</c:otherwise>	
 		                                	</c:choose>
 	                                	</div>
                                 	</c:if>
-                                </div><br/>
-                                
-                                <!-- Project Details Start -->
-                                <div class="widget project_details">
-                                    <h3 class="title">진단 결과</h3>
-                                    <div class="details-content">
-                                    	<span><strong>자세</strong><em><a>부산스러움</a></em></span>
-                                        <span><strong>음성</strong><em><a>목소리 떨림</a><a>호흡 불안정</a><a>훌륭한 답변</a></em></span>
-                                        <span><strong>점수</strong><em>
-												<img src="${pageContext.request.contextPath}/resources/img/shop/stars-5.png" alt="Based on 1 reviews.">
-										</em>
-										</span>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                                	</div>
+                                <br/><br/><br/>
                                 <div class="widget">
                                 	<a href="${pageContext.request.contextPath}/post/soifactorylist?page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글목록</a>
 									<c:if test="${authUser.userId==requestScope.postVo.writerId}">
@@ -187,7 +191,7 @@
                                     	<a href="${pageContext.request.contextPath}/post/soidelete?postNo=${postVo.postNo}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}" class="btn-normal btn-color"><i class="fa fa-hand-right icon-large"></i>글삭제</a>
                                     </c:if>
                                 </div>
-                            </div>
+                            
                             <!-- /Project Summary -->
                             
                             
@@ -202,6 +206,10 @@
         <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
         <!-- /Footer -->
 
+	<!-- Page level plugin JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="${pageContext.request.contextPath}/resources/js/sb-admin-charts.js"></script>
 
 </body>
 
@@ -210,7 +218,10 @@
 	var page=1;
 
 	$(document).ready(function() { //페이지의 내용이 로딩되기 이전에 데이터 요청, 화면 켜지자 마자 뿌려주기
+		
 		fetchList();
+	
+		postChart();
 	});
 	
 	$("#btnNext").on("click", function() {
@@ -478,10 +489,12 @@
 	//수정하기 취소
 	$("li").on("click", ".cancel", function() {
 		var no = this.id;
-		var oldcontent = $("#"+no+"reContent").val();
+		var oldContent = $("#g"+no+"abc").text();
+		
+		console.log(oldContent);
 		console.log(no);
 		
-		var oldstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+oldcontent+"</pre></p>";
+		var oldstr = "<p><pre id='g"+no+"abc' style='white-space: pre-wrap;'>"+oldContent+"</pre></p>";
 		$("#g"+no+"modifyCmt").html(oldstr);
 	});
 	
@@ -591,64 +604,89 @@
 		});
 	};
 	
-	//콩 수 증가
-	/*function likeCntUp() {
-		var postNo = ${postVo.postNo};
-			
-		$.ajax({
-			url : "${pageContext.request.contextPath}/post/api/updateLike",
-			type : "post",
-			data : {
-				postNo : postNo
-			},
+/////////////////////// 분석 결과 영역
+/* var horizontalbarLabels = []; //각 부위(x축)
+var horizontalChartData = []; //움직인 횟수(y축)
 
-			dataType : "json", 
-			success : function(soi){
-				
-				//콩 수 증가
-				var stat=$("#postSoiCnt").text();
-				stat=stat.split(" ");
-				var num=parseInt(stat);
-				num++;
-				$("#postSoiCnt").text(num+" soybeans");
-			},
-			
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-			
-		});
 
-	};*/
+var horizontalBarChart = {
+      labels: ["머리", "눈", "어깨", "무릎", "손"],
+      datasets: [
+        {
+          label: "횟수",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: horizontalChartData
+        }
+      ]
+    };
+	  
+function createHorizontalBarChart() {
+	var ctx = document.getElementById("bar-chart-horizontal");
+	new Chart(ctx, {
+	    type: 'horizontalBar',
+	    data: horizontalBarChart,
+	    options: {
+	      legend: { display: false },
+	      title: {
+	        display: true,
+	        text: '부위별 움직임 빈도'
+	      }
+	    }
+	});
+} */
+
+
+
+function postChart() {
+	var videoNo = '${postVo.videoNo}';
 	
-	//스크랩 기능
-	/* $("#btnScrap").on("click", function(){
-		if (authUser=="") {
-			alert("로그인이 필요한 서비스 입니다.");
-			location.href='${pageContext.request.contextPath}/';
-		} else {
-			var postNo = ${postVo.postNo};
-			
-			$.ajax({
-				url : "${pageContext.request.contextPath}/post/api/addScrapPost",
-				type : "post",
-				data : {
-					postNo : postNo
-				},
-	
-				dataType : "json", 
-				success : function(soi){
-					console.log(soi);
-				},
-				
-				error : function(XHR, status, error) {
-					console.error(status + " : " + error);
-				}
-				
-			});
-		}
-	}); */
-	
+	try {
+	    $.ajax({
+	        type : "post",
+	        url : "${pageContext.request.contextPath}/post/api/soichart",
+	        data : {
+				videoNo : videoNo
+			}, 
+	        dataType : "json",
+	        success : function(result) {
+	        	var face = result.face_move_cnt;
+	        	var eye = result.blink_cnt;
+	        	var shoulder = result.shoulder_move_cnt;
+	        	var knee = result.knee_move_cnt;
+	        	var wrist = result.wrist_move_cnt;
+
+	        	
+	        	new Chart(document.getElementById("bar-chart-horizontal"), {
+	        	    type: 'horizontalBar',
+	        	    data: {
+	        	      labels: ["머리", "눈", "어깨", "무릎", "손"],
+	        	      datasets: [
+	        	        {
+	        	          label: "횟수",
+	        	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	        	          data: [face, eye, shoulder, knee, wrist]
+	        	        }
+	        	      ]
+	        	    },
+	        	    options: {
+	        	      legend: { display: false },
+	        	      title: {
+	        	        display: true,
+	        	        text: '부위별 움직임 빈도'
+	        	      }
+	        	    }
+	        	});
+	        },
+	        error : function(XMLHttpRequest, textStatus, errorThrown) {
+	            alert('There is an error : method(group)에 에러가 있습니다.');
+	        }
+	    });
+	 
+	} catch (e) {
+	    alert(e);
+	}
+}
+
 </script>
 
 </html>

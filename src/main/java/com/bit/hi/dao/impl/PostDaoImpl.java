@@ -6,6 +6,12 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bit.hi.dao.PostDao;
@@ -13,6 +19,7 @@ import com.bit.hi.domain.vo.LikeVo;
 import com.bit.hi.domain.vo.PostVo;
 import com.bit.hi.domain.vo.ScrapVo;
 import com.bit.hi.domain.vo.VideoVo;
+import com.bit.hi.mongo.vo.MongoVo;
 import com.bit.hi.util.ArrayCriteria;
 import com.bit.hi.util.FindCriteria;
 
@@ -25,6 +32,9 @@ public class PostDaoImpl implements PostDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	@Override
 	public List<VideoVo> selectMyVideoList(String userId) throws Exception {
@@ -138,5 +148,19 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public int updateLikeCntForMinus(LikeVo likeVo) throws Exception {
 		return sqlSession.update(namespace+"updateLikeCntForMinus", likeVo);
+	}
+	
+	//videoNo에 해당하는 모든 정보 가져오기
+	@Override
+	public MongoVo selectSoiChartInfo(String key, String value) throws Exception {
+		Criteria criteria=new Criteria(key);
+		
+		//쿼리 객체 작성
+		Query query=new Query();
+		query.addCriteria(criteria.is(value));
+
+		MongoVo vo=mongoTemplate.findOne(query, MongoVo.class);
+		
+		return vo;
 	}
 }

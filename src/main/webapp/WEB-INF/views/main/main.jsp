@@ -344,7 +344,7 @@
                                         <p>
                                             Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
                                         </p>
-                                        <a href="http://www.saramin.co.kr/zf_user/recruit" target="_blank">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                                        <a href="http://www.saramin.co.kr/zf_user/recruit" target="_blank" title="진행중인 채용 현황">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>
                                     <div class="border-bottom margin-top30">
                                     </div>
@@ -367,7 +367,7 @@
                                         <p>
                                             Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
                                         </p>
-                                        <a href="http://jasoseol.com/blog" target="_blank">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                                        <a href="http://jasoseol.com/blog" target="_blank" title="자기소개서 첨삭">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>
                                     <div class="border-bottom margin-top30">
                                     </div>
@@ -390,7 +390,7 @@
                                         <p>
                                             Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
                                         </p>
-                                        <a href="http://www.saramin.co.kr/zf_user/public-recruit/job-fair" target="_blank">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+                                        <a href="http://www.saramin.co.kr/zf_user/public-recruit/job-fair" target="_blank" title="주요 기업 채용설명회 일정">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>
                                     <div class="border-bottom margin-top30">
                                     </div>

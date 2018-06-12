@@ -76,51 +76,13 @@
 									<progress id="progressBar" value="0" max="100" style="width:300px; display:none"></progress>
 									<span id="status" style="display:none;"></span>
 									</div>
+									<div id="loadingArea">
 									
+									</div>
 									<div id="videoArea">
 										
 									</div>
-									<%-- <div class="panel-heading">
-			                          	  <i class="fa fa-area-chart"></i>&nbsp;&nbsp;&nbsp;영상 시간별 움직임 변화
-			                          </div>
-			                          
-								      <canvas id="bar-chart" width="600" height="350"></canvas>
-
-									<br/><br/><br/>
-			                        <!-- /.panel-body -->
-			                        
-			                        <div class="table-responsive">
-										<table class="admin-cat table table-bordered table-hover table-striped">
-										    <thead>
-										        <tr id="tt">
-										            <th>Time</th>
-										            <th>머리</th>
-										            <th>눈</th>
-										            <th>어깨</th>
-										            <th>무릎</th>
-										            <th>손</th>
-										        </tr>
-										    </thead>
-										    <tbody id="listArea">
-										    
-										    
-										    </tbody>
-										</table>
-                         			</div> --%>
-                                	
-									<%-- <form id="fileUpload" action="${pageContext.request.contextPath}/interview/upload" method="post" enctype="multipart/form-data">
-										
-										<div class="form-group">
-										<label>&nbsp;</label>
-										<input type="file" name="file" id="file">
-										</div>
-										
-										<div class="pull-left">
-										<input type="button" class="btn-xs btn-default" id="uploadBtn">
-										<span class="glyphicon glyphicon-ok text-primary"> 진단하기</span>
-										</div>
-										
-									</form> --%>
+									
 								</div>
 							</div> 
 
@@ -133,6 +95,7 @@
                 
             </section>
             <!-- /Main Section -->
+            
             
             <!-- Footer -->
             <c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
@@ -211,7 +174,8 @@ $("#uploadBtn").on("click", function() {
 				$("#file").val("");
 		} else {
 			var formData=new FormData($("#fileUpload")[0]);
-			progressBarSim(amountLoaded); //임시
+			loading();
+			//progressBarSim(amountLoaded); //임시
 			$.ajax({
 				type : "post",
 				url : "${pageContext.request.contextPath}/interview/api/upload",
@@ -243,6 +207,27 @@ $("#uploadBtn").on("click", function() {
 	}
 });
 
+function loading() {
+	var str = "";
+	
+	str += "<div id='loadingBar' style='position:absolute; top:0; left:0; width:100%; height:100%; text-align:center; margin:0 auto; z-index:100000;'>";
+	str += "<table width='100%' height='100%' border='0' bgcolor='#000000'>";
+	str += "<tr>";
+	str += "<td align='center'>";
+	str += "  <div style='text-align:center;'><IMG SRC='https://thumbs.gfycat.com/TinyOffbeatHusky-size_restricted.gif' style='max-width: 100px; height: auto;'>";
+	str += "</div>";
+	str += "  <div style='margin-top:20px; color:#FFF; text-align:center; font-weight:bold;'>L o a d i n g . . .";
+	str += "</div>";
+	str += "</td>";
+	str += "</tr>";
+	str += "</table>";
+	str += "</div>";
+
+	str += "<div id='divLoadBody' style='display:none;'>";
+	
+	$("#loadingArea").append(str);
+} //지울 부분
+
 function readylist(mongoVo) {
 	$("#videoArea").text("");
 	
@@ -270,6 +255,11 @@ function selectCorrectVideo(videoNo) {
 			readylist(mongoVo);
 			
 			videoDetailChart();
+			
+			var loadingBar = document.getElementById("loadingBar"); //지울 부분
+			var divLoadBody = document.getElementById("divLoadBody");
+			loadingBar.style.display = "none";
+			divLoadBody.style.display = ""; 
 		},
 
 		error : function(XHR, status, error) {
@@ -574,6 +564,7 @@ function attachArea() {
 	str += "		</tbody>";
 	str += "	</table>";
 	str += "</div>";
+	str += "</div>"; //지울 부분
 	
 	$("#videoCh").append(str);	
 }
@@ -615,70 +606,6 @@ function summer(analyzeSum) {
 	
 	$("#listArea").append(str);
 }
-
-/* function directionArea() {
-	var str = "";
-	
-	str += "<br/><br/><br/>";
-	str += "<div class='panel-heading'>";
-	str += "	<i class='fa fa-area-chart'></i>&nbsp;&nbsp;&nbsp;부위별 움직임 방향";
-	str += "</div>";
-	str += "<br/>";
-	str += "<div class='col-lg-3'>";
-	str += "	얼굴";
-	str += "	<table class='table table-bordered table-hover table-striped'>";
-	str += "		<thead>";
-	str += "	        <tr id='tt'>";
-	str += "	            <th>방향</th>";
-	str += "	            <th>움직임 횟수</th>";
-	str += "	        </tr>";
-	str += "	    </thead>";
-	str += "	    <tbody id='faceArea'>";
-	str += "		</tbody>";
-	str += "	</table>";
-	str += "</div>";
-	str += "<div class='col-lg-3'>";
-	str += "	어깨";
-	str += "	<table class='table table-bordered table-hover table-striped'>";
-	str += "		<thead>";
-	str += "	        <tr id='tt'>";
-	str += "	            <th>방향</th>";
-	str += "	            <th>움직임 횟수</th>";
-	str += "	        </tr>";
-	str += "	    </thead>";
-	str += "	    <tbody id='shoulderArea'>";
-	str += "		</tbody>";
-	str += "	</table>";
-	str += "</div>";
-	str += "<div class='col-lg-3'>";
-	str += "	무릎";
-	str += "	<table class='table table-bordered table-hover table-striped'>";
-	str += "		<thead>";
-	str += "	        <tr id='tt'>";
-	str += "	            <th>방향</th>";
-	str += "	            <th>움직임 횟수</th>";
-	str += "	        </tr>";
-	str += "	    </thead>";
-	str += "	    <tbody id='kneeArea'>";
-	str += "		</tbody>";
-	str += "	</table>";
-	str += "</div>";
-	str += "<div class='col-lg-3 wristArea'>";
-	str += "	손";
-	str += "	<table class='table table-bordered table-hover table-striped'>";
-	str += "		<thead>";
-	str += "	        <tr id='tt'>";
-	str += "	            <th>방향</th>";
-	str += "	            <th>움직임 횟수</th>";
-	str += "	        </tr>";
-	str += "	    </thead>";
-	str += "	    <tbody id='wristArea'>";
-	str += "		</tbody>";
-	str += "	</table>";
-	str += "</div>";
-	
-	$("#analyzeTable").append(str);	
-} */
 
 //얼굴 움직임 방향
 function faceMoveTable(Direction, List) {

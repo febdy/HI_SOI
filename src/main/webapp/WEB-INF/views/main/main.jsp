@@ -229,7 +229,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="testimonial item">
                                                             <p>
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam necessitatibus magni nulla tempore ad deserunt vero dolor? Minus aspernatur adipisci quam nam, animi eveniet quos ab, necessitatibus iusto, molestias eligendi!
+                                                                	한사람이 면접을 보기 위해, 면접관 앞에 앉아 있고, 이 사람은 지금 세상 누구보다 떨고 있습니다. 이 사람에게 Hi, Soi 의 면접 자세 교정 프로그램이 필요할까요? 스펙과 자기소개서도 중요하지만, 이 사람에게는 Hi, Soi와 함께 면접을 되돌아볼 시간이 필요해 보입니다.
                                                             </p>
                                                             <div class="testimonials-arrow"></div>
                                                             <div class="author">
@@ -237,7 +237,7 @@
                                                                     <img alt="" src="${pageContext.request.contextPath}/resources/img/testimonial/team-member-1.jpg">
                                                                 </div>
                                                                 <div class="testimonial-author-info">
-                                                                    <a href="#"><span class="color">HISOI LAB</span></a>
+                                                                    <span class="color">HISOI LAB</span></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -342,7 +342,7 @@
                                     <div class="content-box-info">
                                         <h3>진행중인 채용 현황</h3>
                                         <p>
-                                            Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
+                                            	진행중인 채용이 있습니다.<br/> 자세한 내용을 확인하세요.
                                         </p>
                                         <a href="http://www.saramin.co.kr/zf_user/recruit" target="_blank" title="진행중인 채용 현황">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>
@@ -365,7 +365,7 @@
                                     <div class="content-box-info">
                                         <h3>자기소개서 첨삭</h3>
                                         <p>
-                                            Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
+                                            	자기소개서 작성이 어렵다면?<br/> 손쉽게 자기소개서를 첨삭해보세요.
                                         </p>
                                         <a href="http://jasoseol.com/blog" target="_blank" title="자기소개서 첨삭">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>
@@ -388,7 +388,7 @@
                                     <div class="content-box-info">
                                         <h3>주요 기업 채용설명회 일정</h3>
                                         <p>
-                                            Lorem Ipsum is simply dummy text of Lorem the printing and typesettings industry.
+                                            	채용설명회가 개최될 예정 입니다.<br/> 자세한 내용을 확인하세요.
                                         </p>
                                         <a href="http://www.saramin.co.kr/zf_user/public-recruit/job-fair" target="_blank" title="주요 기업 채용설명회 일정">바로가기 <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
                                     </div>

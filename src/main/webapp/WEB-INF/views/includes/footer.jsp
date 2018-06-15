@@ -12,7 +12,7 @@
                                 <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-one">
                                     <h3 class="light">About</h3>
                                     <p> 
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. 
+                                        Hi, Soi는 면접에 어려움을 겪는 사람들을 위해 만들어진 모의 면접 도구 입니다. 빠르게 바뀌어가는 면접 유형들에 따라, 지금도 여전히 변화하고 있습니다.
                                     </p>
                                 </section>
                                 <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-two">
@@ -26,8 +26,7 @@
                                         <li>
                                             <i class="fa fa-map-marker"></i>
                                             <p> 
-                                                <strong class="contact-pad">Address:</strong> House: 325, Road: 2,<br> Mirpur DOHS <br>
-                                                Dhaka, Bangladesh 
+                                                <strong class="contact-pad">Address:</strong>서울 서초구 서초대로74길 33, 비트빌 3층
                                             </p>
                                         </li>
                                         <li>
@@ -43,17 +42,8 @@
                                 <section class="col-lg-3 col-md-3 col-xs-12 col-sm-3 footer-four">
                                     <h3 class="light">Subscribe</h3>
                                     <p>
-                                        Subscribe to our email newsletter to receive our news, updates and awesome free files.
+                                        	뉴스, 업데이트 및 무료 면접 팁을 받으려면 이메일 뉴스 레터를 구독하십시오.
                                     </p>
-                                    <form method="get" action="#">
-                                        <div class="input-group">
-                                            <input type="text" value="mail@example.com" onfocus="if(this.value=='mail@example.com')this.value='';" onblur="if(this.value=='')this.value='mail@example.com';" class="subscribe form-control">
-                                            <span class="input-group-btn">
-                                            <button class="btn subscribe-btn" type="button">Join</button>
-                                            </span>
-                                        </div>
-                                        <!-- /input-group -->
-                                    </form>
                                 </section>
                             </div>
                         </div>
@@ -66,7 +56,7 @@
                                 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">
                                     <p class="credits">&copy; Copyright 2018 by <a href="#">HISOILAB</a>. All Rights Reserved. </p>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">
+                                <!-- <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6 ">
                                     <ul class="social social-icons-footer-bottom">
                                         <li class="facebook"><a href="#" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
                                         <li class="twitter"><a href="#" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
@@ -74,7 +64,7 @@
                                         <li class="linkedin"><a href="#" data-toggle="tooltip" title="LinkedIn"><i class="fa fa-linkedin"></i></a></li>
                                         <li class="rss"><a href="#" data-toggle="tooltip" title="Rss"><i class="fa fa-rss"></i></a></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

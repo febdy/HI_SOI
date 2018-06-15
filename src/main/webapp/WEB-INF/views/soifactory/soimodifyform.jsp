@@ -20,9 +20,9 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">소이팩토리</a></li>
-                                            <li>영상 보기</li>
-                                            <li>영상 수정하기</li>
+                                            <li><a href="${pageContext.request.contextPath}/post/soifactorylist">소이팩토리</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/post/soiread/${postVo.postNo}?page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}">영상 보기</a></li>
+                                        	<li><a href="${pageContext.request.contextPath}/post/soimodifyform?postNo=${postVo.postNo}&writerId=${postVo.writerId}&page=${fCri.page}&numPerPage=${fCri.numPerPage}&findType=${fCri.findType}&keyword=${fCri.keyword}&facArray=${arrCri.facArray}">글 수정하기</a></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -22,9 +22,8 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">면접진단</a></li>
-                                            <li><a href="#">업로드 모드</a></li>
-                                            <li>Products Single Page</li>
+                                            <li><a href="${pageContext.request.contextPath}/interview/livemode">면접진단</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/interview/uploadmode">업로드 모드</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -55,9 +54,9 @@
                             <!-- 내용 부분 -->
                             <div class="container">
                         		<h2 class="section-title">업로드 면접 진행</h2>
-                        		<p>Bootstrap includes a responsive, mobile first fluid grid system that appropriately scales up to 12 columns as the device or viewport size increases. Grid systems are used for creating page layouts through a series of rows and columns that house your content. To learn more see <a target="_blank" href="http://getbootstrap.com/css/#grid">http://getbootstrap.com/css/#grid</a></p>
+                        		<p>모의 면접 프로그램은 과열된 취업경쟁 상황 속에서 차별화된 나만의 성공전략을 제공합니다. 면접은 최종 관문으로 나의 가치를 제대로 표현하는 일이 무엇보다 중요합니다. 모의 면접 프로그램은 '나'를 객관적으로 분석할 수 있도록 도우며, '나'의 역량을 보여주는 커뮤니케이션 능력으로 당신을 초대합니다.</p>
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            	<a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부한다." data-original-title="침착하게"> 업로드모드 사용법</a>
+                            	<a id="example_bottom" class="btn btn-success pull-right" data-rel="popover" data-content="면접 영상을 첨부하시고, 진단 받기를 클릭하시면, 모의 면접 영상 교정이 시작됩니다. mp4 파일을 업로드 해주세요." data-original-title="업로드 모드"> 업로드모드 사용법</a>
                                 <br/><br/><br/>
                                 	<!-- 진단하기 -->
                                 	<form id="fileUpload" method="post" enctype="multipart/form-data">
@@ -138,7 +137,7 @@ $(document).ready(function(){
 var authUser='${sessionScope.authUser}';
 
 //무한로딩으로 바꾸기(Indeterminate)
-function progressBarSim(al) {
+/* function progressBarSim(al) {
 	var bar = document.getElementById('progressBar');
 	var status = document.getElementById('status');
 	  bar.style.display="block";
@@ -155,7 +154,7 @@ function progressBarSim(al) {
 		  status.style.display="none";
 	}
 }
-var amountLoaded = 0;
+var amountLoaded = 0; */
 
 $("#uploadBtn").on("click", function() {
 	//var video=document.getElementByID("listArea");
@@ -252,14 +251,14 @@ function selectCorrectVideo(videoNo) {
 
 		dataType : "json",
 		success : function(mongoVo) {
-			readylist(mongoVo);
-			
-			videoDetailChart();
-			
 			var loadingBar = document.getElementById("loadingBar"); //지울 부분
 			var divLoadBody = document.getElementById("divLoadBody");
 			loadingBar.style.display = "none";
 			divLoadBody.style.display = ""; 
+			
+			readylist(mongoVo);
+			
+			videoDetailChart();
 		},
 
 		error : function(XHR, status, error) {

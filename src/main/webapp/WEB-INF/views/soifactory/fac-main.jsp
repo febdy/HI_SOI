@@ -20,9 +20,8 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="#">SoiFactory</a></li>
-                                            <li>Products Single Page</li>
+                                            <li><a href="${pageContext.request.contextPath}/">홈</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/post/soifactorylist">소이팩토리</a></li>
                                         </ul>
                                     </div>
                                 </div>

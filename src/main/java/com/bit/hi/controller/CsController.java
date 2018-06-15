@@ -68,8 +68,9 @@ public class CsController {
 			System.out.println("등록 클릭");
 			csVo.setUserId(authUser.getUserId());
 			csService.addNoticeWrite(csVo);
-			model.addAttribute("ctrl","\r\n");
-			return "cs/notiview";
+			//model.addAttribute("ctrl","\r\n");
+			System.out.println(csVo.getNotiNo()+"------------------------------");
+			return "redirect:/cs/notice/view/"+csVo.getNotiNo();
 		} else {
 			System.out.println("Not administer");
 			return "redirect:/cs/notice";
@@ -202,7 +203,6 @@ public class CsController {
 		reAttr.addAttribute("numPerPage", pCri.getNumPerPage());
 		return "redirect:/cs/qna";
 	}
-	
 	
 	@RequestMapping(value="/help")
 	public String help() throws Exception{

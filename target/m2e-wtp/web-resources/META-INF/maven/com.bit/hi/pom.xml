@@ -164,9 +164,13 @@
 		</dependency>
 
 		<!-- Servlet -->
-		<!-- WAS 없이 Controller 테스트를 위한 servlet 설정 변경 <dependency> <groupId>javax.servlet</groupId> 
-			<artifactId>servlet-api</artifactId> <version>2.5</version> <scope>provided</scope> 
-			</dependency> -->
+		<!-- WAS 없이 Controller 테스트를 위한 servlet 설정 변경 
+		<dependency> 
+			<groupId>javax.servlet</groupId> 
+			<artifactId>servlet-api</artifactId> 
+			<version>2.5</version> 
+			<scope>provided</scope> 
+		</dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

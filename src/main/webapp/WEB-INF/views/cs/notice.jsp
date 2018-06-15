@@ -20,9 +20,8 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">고객센터</a></li>
-                                            <li><a href="#">공지사항</a></li>
-                                            <li>Products Single Page</li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">고객센터</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">공지사항</a></li>
                                         </ul>
                                     </div>
                                 </div>

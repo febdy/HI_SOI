@@ -276,7 +276,7 @@ public class MypageServiceImpl implements MypageService {
 			Calendar date1 = Calendar.getInstance();
 			date1.setTime(list1Date);
 			date1.add(Calendar.HOUR, -9);
-			
+			System.out.println("list1 date 리스트");
 			String list1Format=outputFormat.format(date1.getTime());
 			list1.get(i).setRealDate(list1Format);
 		}
@@ -286,7 +286,6 @@ public class MypageServiceImpl implements MypageService {
 			Calendar date2 = Calendar.getInstance();
 			date2.setTime(list2Date);
 			date2.add(Calendar.HOUR, -9);
-			
 			String list2Format=outputFormat.format(date2.getTime());
 			list2.get(i).setRealDate(list2Format);
 		}
@@ -321,30 +320,14 @@ public class MypageServiceImpl implements MypageService {
 		double rateKnee = Double.parseDouble(String.format("%.2f",avgKnee/avgSum *100));
 		double rateWrist = Double.parseDouble(String.format("%.2f",avgWrist/avgSum *100));
 
-		/*List<Double> causeList = new ArrayList<Double>();
-		causeList.add(rateFace);
-		causeList.add(rateEye);
-		causeList.add(rateShoulder);
-		causeList.add(rateKnee);
-		causeList.add(rateWrist);*/
-		//List<String> causeLabel = new ArrayList<String>(Arrays.asList("얼굴", "눈", "어깨", "무릎", "손"));
 		double[] causeList = {rateFace, rateEye, rateShoulder, rateKnee, rateWrist};
-		
-		//List<MongoVo> rateList = new ArrayList<MongoVo>();
-		
-		for (int i=0; i<5; i++) {
-			list2.get(i).setScoreAvgRate(causeList[i]);
-			//System.out.println(rateList);
-		}
-		/*for (int i=0; i<5; i++) {
-			list3.get(0).setScoreAvgRate(causeList[i]);
-		}*/
 
-		
+		System.out.println("avgRate-5");
 		//chartMap.put("rateList", rateList);
 		//chartMap.put("list3", list3);
 		chartMap.put("list1", list1);
 		chartMap.put("list2", list2);
+		chartMap.put("causeList", causeList);
 		return chartMap;
 	}
 	

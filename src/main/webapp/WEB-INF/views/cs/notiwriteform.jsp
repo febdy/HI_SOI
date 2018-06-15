@@ -20,9 +20,9 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">고객센터</a></li>
-                                            <li><a href="#">공지사항</a></li>
-                                            <li>공지 글쓰기</li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">고객센터</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">공지사항</a></li>
+                                            <li>글쓰기</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -54,18 +54,17 @@
                             <!-- 내용 부분 -->
                             <div class="posts-block col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                 <h4 class="widget">고객센터 > 글쓰기</h4>
-                                <form id="asd" method="post" action="${pageContext.request.contextPath}/cs/notice/write">
+                                <form id="form">
                        			<div class="well">
                        			<input type="text" class="form-control" name="notiTitle" placeholder="제목"><br>
                                 <textarea class="form-control" rows="4" name="notiContent" placeholder="내용"></textarea>
 
                                 </div>
-								
-								<div class="row pull-right">
-	                                <input type="submit" value="글쓰기" class="btn btn-color btn-normal btn-pad">
-	                                <a href="${pageContext.request.contextPath}/cs/notice?page=${pCri.page}&numPerPage=${pCri.numPerPage}" class="btn btn-color btn-normal btn-pad">취소</a>
-                                </div>
 								</form>
+								<div class="row pull-right">
+	                                <button id="notiWrite" type="submit" class="btn btn-color btn-normal btn-pad">글쓰기</button>
+	                                <a href="${pageContext.request.contextPath}/cs/notice" class="btn btn-color btn-normal btn-pad">취소</a>
+                                </div>
 							</div>
                         </div>
                		</div>
@@ -80,4 +79,22 @@
 
 
 </body>
+<script>
+$(document).ready(function() {
+	var frm = $("#form");
+	
+	$("#notiWrite").on("click", function(){
+		var title = $("[name='notiTitle']").val();
+		var content = $("[name='notiContent']").val();
+		
+		if (title =="" || content=="") {
+			alert("입력란을 모두 작성해주세요");
+		} else {
+			frm.attr("method", "post");
+			frm.attr("action", "${pageContext.request.contextPath}/cs/notice/write");
+			frm.submit();
+		}
+	});
+});
+</script>
 </html>

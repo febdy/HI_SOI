@@ -21,9 +21,9 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">고객센터</a></li>
-                                            <li><a href="#">Q&A</a></li>
-                                            <li></li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">고객센터</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/qna">Q&A</a></li>
+                                            <li>글보기</li>
                                         </ul>
                                     </div>
                                 </div>

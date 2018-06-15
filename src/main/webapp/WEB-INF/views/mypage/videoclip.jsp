@@ -20,9 +20,8 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">마이페이지</a></li>
-                                            <li><a href="#">영상관리</a></li>
-                                            <li>Products Single Page</li>
+                                            <li><a href="${pageContext.request.contextPath}/mypage/history">마이페이지</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/mypage/videoclip">영상관리</a></li>
                                         </ul>
                                     </div>
                                 </div>

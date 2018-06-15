@@ -21,9 +21,9 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">고객센터</a></li>
-                                            <li><a href="#">공지사항</a></li>
-                                            <li>공지 글쓰기</li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">고객센터</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/cs/notice">공지사항</a></li>
+                                        	<li>글 수정하기</li>
                                         </ul>
                                     </div>
                                 </div>

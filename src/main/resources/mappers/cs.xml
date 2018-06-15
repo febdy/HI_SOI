@@ -56,9 +56,12 @@
 	
 	<!-- 공지 글쓰기 -->
 	<insert id="insertNoticeWrite" parameterType="CsVo">
+		<selectKey keyProperty="notiNo" resultType="int" order="BEFORE">
+				select seq_notice_no.nextval from dual
+		</selectKey>
 		<![CDATA[
 			insert into notice
-			values (seq_notice_no.nextval, #{notiTitle}, #{notiContent}, sysdate, 0, #{userId})
+			values (#{notiNo}, #{notiTitle}, #{notiContent}, sysdate, 0, #{userId})
 		]]>
 	</insert>
 	

@@ -20,9 +20,9 @@
                                     <div class="breadcrumbs pull-right">
                                         <ul>
                                             <li>You are Now on:</li>
-                                            <li><a href="index.html">마이페이지</a></li>
-                                            <li><a href="#">회원정보수정</a></li>
-                                            <li>Products Single Page</li>
+                                            <li><a href="${pageContext.request.contextPath}/mypage/history">마이페이지</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/mypage/beforemodify">회원정보수정</a></li>
+                                            <li>회원 정보</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6">
                                             <div class="title-box">
-                                                <h3>회원 정보 수정</h3>
+                                                <h3>회원 정보</h3>
                                             </div>
                                             <form action="${pageContext.request.contextPath}/mypage/modifyComplete" class="modify-form" method="post">
                                                 <label for="fname"> <span class="required">* 표시는 반드시 작성해주세요.</span></label>

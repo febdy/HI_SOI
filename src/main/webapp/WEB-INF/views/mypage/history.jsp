@@ -21,8 +21,8 @@
                             <div class="breadcrumbs pull-right">
                                 <ul>
                                     <li>You are Now on:</li>
-                                    <li><a href="index.html">마이페이지</a></li>
-                                    <li><a href="#">진단 히스토리</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/mypage/history">마이페이지</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/mypage/history">진단 히스토리</a></li>
                                     <li>Products Single Page</li>
                                 </ul>
                             </div>
@@ -336,10 +336,11 @@ function historyTotalChart() {
 	            createBarChart();
 	            
 	            //doughnutChart
-	            $.each(result.list2.reverse(), function(inx, obj) {
-	            	doughnutChartData.push(obj.scoreAvgRate);
+	            $.each(result.causeList, function(inx, obj) {
+
+	            	doughnutChartData.push(obj);
+
 	            });
-	            //DoughnutChartData=result.causeList;
 
 	            console.log(doughnutChartData);
 	            createDoughnutChart();
